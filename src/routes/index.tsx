@@ -185,21 +185,8 @@ function Hero() {
               className="w-full h-full max-w-[520px]"
               preserveAspectRatio="xMidYMid meet"
             >
-              <polygon
-                points="250,60 460,520 40,520"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="0.6"
-                className="text-ink/15 dash-flow"
-              />
-              <polygon
-                points="250,520 60,180 440,180"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="0.5"
-                className="text-ink/10 dash-flow"
-                style={{ animationDelay: "3s" }}
-              />
+              {/* (estrela de 6 pontas removida) */}
+
 
               <g stroke="currentColor" strokeWidth="0.5" className="text-ink/20" fill="none">
                 <line x1="250" y1="60" x2="120" y2="220" />
