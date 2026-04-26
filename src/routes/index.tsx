@@ -373,7 +373,7 @@ const TECH_VIEWS = [
   },
 ] as const;
 
-function Technology() {
+function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
   const [active, setActive] = useState(0);
   const view = TECH_VIEWS[active];
 
