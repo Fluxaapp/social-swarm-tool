@@ -284,55 +284,74 @@ function About() {
 function Technology() {
   return (
     <section className="bg-ink text-paper relative overflow-hidden">
-      <div className="mx-auto max-w-[1440px] px-6 md:px-10 py-24 md:py-36">
+      {/* Ambient slow-moving glow */}
+      <div className="ambient-glow" aria-hidden />
+
+      {/* Drifting light dots */}
+      <span className="light-dot" style={{ top: "18%", left: "12%", animationDelay: "0s" }} aria-hidden />
+      <span className="light-dot" style={{ top: "62%", left: "8%", animationDelay: "3s" }} aria-hidden />
+      <span className="light-dot" style={{ top: "30%", right: "10%", animationDelay: "5s" }} aria-hidden />
+      <span className="light-dot" style={{ top: "78%", right: "16%", animationDelay: "1.5s" }} aria-hidden />
+
+      <div className="mx-auto max-w-[1440px] px-6 md:px-10 py-24 md:py-36 relative">
         {/* pill */}
-        <div className="flex justify-center">
+        <div className="flex justify-center sr">
           <span className="inline-flex items-center gap-2 bg-paper text-ink rounded-full px-5 py-2 text-[12px] font-medium">
             <span className="h-1.5 w-1.5 rounded-full bg-ink" />
             Smart Brand Feature
           </span>
         </div>
 
-        <h2 className="mt-10 text-center font-medium leading-[0.95] tracking-[-0.035em] text-[clamp(2.5rem,6.5vw,6rem)]">
+        <h2 className="mt-10 text-center font-medium leading-[0.95] tracking-[-0.035em] text-[clamp(2.5rem,6.5vw,6rem)] sr sr-d1">
           Technology in Every Layer
         </h2>
-        <p className="mt-6 max-w-xl mx-auto text-center text-paper/60 text-[15px] leading-relaxed">
+        <p className="mt-6 max-w-xl mx-auto text-center text-paper/60 text-[15px] leading-relaxed sr sr-d2">
           Smart structure, maximum performance. Cinco componentes principais
           trabalhando em integração contínua dentro de cada marca.
         </p>
 
         {/* Diagram */}
-        <div className="mt-20 md:mt-28 relative">
+        <div className="mt-20 md:mt-28 relative sr sr-d3">
           <div className="relative max-w-5xl mx-auto aspect-[16/10]">
-            {/* product image */}
+            {/* product image — gentle float */}
             <img
               src={deviceFront}
               alt="Glass Maind device diagram"
               width={1280}
               height={1024}
               loading="lazy"
-              className="absolute inset-0 m-auto h-[78%] w-auto object-contain"
+              className="absolute inset-0 m-auto h-[78%] w-auto object-contain float-slower"
             />
 
-            {/* connector lines */}
+            {/* connector lines (animated dash) */}
             <svg
               viewBox="0 0 1000 600"
               className="absolute inset-0 w-full h-full pointer-events-none"
               aria-hidden
             >
-              <g stroke="rgba(255,255,255,0.3)" strokeWidth="1" fill="none">
-                <line x1="180" y1="200" x2="380" y2="280" />
-                <line x1="820" y1="180" x2="620" y2="260" />
-                <line x1="160" y1="430" x2="360" y2="380" />
-                <line x1="840" y1="430" x2="640" y2="380" />
-                <line x1="500" y1="80" x2="500" y2="220" />
+              <g stroke="rgba(255,255,255,0.32)" strokeWidth="1" fill="none">
+                <line x1="180" y1="200" x2="380" y2="280" className="dash-flow" />
+                <line x1="820" y1="180" x2="620" y2="260" className="dash-flow" style={{ animationDelay: "2s" }} />
+                <line x1="160" y1="430" x2="360" y2="380" className="dash-flow" style={{ animationDelay: "4s" }} />
+                <line x1="840" y1="430" x2="640" y2="380" className="dash-flow" style={{ animationDelay: "1s" }} />
+                <line x1="500" y1="80" x2="500" y2="220" className="dash-flow" style={{ animationDelay: "3s" }} />
               </g>
-              <g fill="rgba(255,255,255,0.7)">
-                <circle cx="380" cy="280" r="3" />
-                <circle cx="620" cy="260" r="3" />
-                <circle cx="360" cy="380" r="3" />
-                <circle cx="640" cy="380" r="3" />
-                <circle cx="500" cy="220" r="3" />
+              <g fill="rgba(255,255,255,0.85)">
+                <circle cx="380" cy="280" r="3">
+                  <animate attributeName="opacity" values="0.4;1;0.4" dur="3s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="620" cy="260" r="3">
+                  <animate attributeName="opacity" values="0.4;1;0.4" dur="3.5s" begin="0.5s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="360" cy="380" r="3">
+                  <animate attributeName="opacity" values="0.4;1;0.4" dur="4s" begin="1s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="640" cy="380" r="3">
+                  <animate attributeName="opacity" values="0.4;1;0.4" dur="3.2s" begin="1.5s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="500" cy="220" r="3">
+                  <animate attributeName="opacity" values="0.4;1;0.4" dur="3.8s" begin="2s" repeatCount="indefinite" />
+                </circle>
               </g>
             </svg>
 
@@ -342,10 +361,10 @@ function Technology() {
               { c: "top-0 left-1/2 -translate-x-1/2 text-center items-center", n: "03", t: "Conteúdo" },
               { c: "bottom-[10%] left-0", n: "04", t: "Gestão" },
               { c: "bottom-[10%] right-0 text-right items-end", n: "05", t: "Performance" },
-            ].map((lbl) => (
+            ].map((lbl, i) => (
               <div
                 key={lbl.n}
-                className={`absolute ${lbl.c} flex flex-col gap-1 max-w-[160px]`}
+                className={`absolute ${lbl.c} flex flex-col gap-1 max-w-[160px] sr sr-d${Math.min(i + 1, 5)}`}
               >
                 <div className="text-[9px] uppercase tracking-[0.3em] text-paper/40">
                   {lbl.n}
@@ -357,14 +376,14 @@ function Technology() {
         </div>
 
         {/* Bottom thumbnails */}
-        <div className="mt-16 flex justify-center gap-3">
+        <div className="mt-16 flex justify-center gap-3 sr sr-d4">
           {[0, 1, 2].map((i) => (
             <div
               key={i}
-              className={`h-14 w-14 rounded-xl flex items-center justify-center transition-all ${
+              className={`h-14 w-14 rounded-xl flex items-center justify-center transition-all duration-500 ${
                 i === 1
                   ? "bg-paper"
-                  : "bg-paper/5 border border-paper/10 hover:bg-paper/10"
+                  : "bg-paper/5 border border-paper/10 hover:bg-paper/10 hover:scale-105"
               }`}
             >
               <div className={`h-3 w-3 ${i === 1 ? "border-2 border-ink" : "border border-paper/40"} rotate-45`} />
@@ -375,6 +394,7 @@ function Technology() {
     </section>
   );
 }
+
 
 /* =================== SERVICES =================== */
 function Services() {
