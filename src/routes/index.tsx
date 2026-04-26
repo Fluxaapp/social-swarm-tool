@@ -155,68 +155,42 @@ function Hero() {
           </div>
         </div>
 
-        {/* RIGHT — abstract eclipse / light portal */}
+        {/* RIGHT — abstract eclipse / light portal (no card, just the circle) */}
         <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 lg:pl-6">
-          {/* Outer soft glow */}
-          <div
-            aria-hidden
-            className="absolute -inset-10 rounded-[2.5rem] bg-gradient-to-br from-ink/10 via-transparent to-ink/5 depth-blur"
-          />
-
           <div
             data-parallax="-0.05"
-            className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-ink light-sweep"
+            className="relative aspect-square w-full max-w-[520px] mx-auto"
           >
-            {/* Deep cinematic backdrop */}
+            {/* Outer soft halo — sits on the light background */}
             <div
               aria-hidden
-              className="absolute inset-0"
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 aspect-square w-[120%] rounded-full eclipse-pulse"
               style={{
                 background:
-                  "radial-gradient(120% 80% at 50% 110%, oklch(0.18 0 0) 0%, oklch(0.08 0 0) 45%, oklch(0.04 0 0) 100%)",
+                  "radial-gradient(circle, rgba(15,15,15,0.10) 0%, rgba(15,15,15,0.04) 35%, transparent 60%)",
+                filter: "blur(28px)",
               }}
             />
 
-            {/* Subtle vertical streaks */}
+            {/* Bright corona around rim */}
             <div
               aria-hidden
-              className="absolute inset-0 opacity-[0.35]"
-              style={{
-                backgroundImage:
-                  "repeating-linear-gradient(90deg, transparent 0, transparent 38px, rgba(255,255,255,0.04) 38px, rgba(255,255,255,0.04) 39px)",
-              }}
-            />
-
-            {/* Eclipse / portal — outermost halo */}
-            <div
-              aria-hidden
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 aspect-square w-[140%] rounded-full eclipse-pulse"
-              style={{
-                background:
-                  "radial-gradient(circle, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.04) 30%, transparent 55%)",
-                filter: "blur(20px)",
-              }}
-            />
-
-            {/* Mid halo */}
-            <div
-              aria-hidden
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 aspect-square w-[78%] rounded-full eclipse-pulse"
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 aspect-square w-[88%] rounded-full eclipse-pulse"
               style={{
                 animationDelay: "1.2s",
                 background:
-                  "radial-gradient(circle, rgba(255,255,255,0.55) 0%, rgba(220,235,255,0.20) 22%, rgba(255,255,255,0.05) 45%, transparent 65%)",
-                filter: "blur(8px)",
+                  "radial-gradient(circle, transparent 48%, rgba(255,255,255,0.95) 51%, rgba(255,255,255,0.35) 56%, transparent 68%)",
+                filter: "blur(10px)",
               }}
             />
 
             {/* Sharp ring — the eclipse rim */}
             <div
               aria-hidden
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 aspect-square w-[58%] rounded-full"
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 aspect-square w-[78%] rounded-full"
               style={{
                 background:
-                  "radial-gradient(circle, transparent 60%, rgba(255,255,255,0.85) 62%, rgba(255,255,255,0.35) 64%, transparent 70%)",
+                  "radial-gradient(circle, transparent 60%, rgba(255,255,255,1) 62%, rgba(255,255,255,0.4) 64%, transparent 70%)",
                 filter: "blur(0.6px)",
               }}
             />
@@ -224,63 +198,48 @@ function Hero() {
             {/* Dark core (eclipse occlusion) */}
             <div
               aria-hidden
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 aspect-square w-[56%] rounded-full breathe"
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 aspect-square w-[76%] rounded-full breathe"
               style={{
                 background:
-                  "radial-gradient(circle at 35% 35%, oklch(0.16 0 0) 0%, oklch(0.06 0 0) 55%, oklch(0.03 0 0) 100%)",
+                  "radial-gradient(circle at 35% 35%, oklch(0.18 0 0) 0%, oklch(0.06 0 0) 55%, oklch(0.02 0 0) 100%)",
                 boxShadow:
-                  "inset 0 0 80px rgba(0,0,0,0.7), 0 0 60px rgba(0,0,0,0.6)",
+                  "inset 0 0 100px rgba(0,0,0,0.85), 0 0 80px rgba(0,0,0,0.35)",
               }}
             />
 
             {/* Inner highlight crescent */}
             <div
               aria-hidden
-              className="absolute left-1/2 top-1/2 -translate-x-[58%] -translate-y-[58%] aspect-square w-[52%] rounded-full"
+              className="absolute left-1/2 top-1/2 -translate-x-[58%] -translate-y-[58%] aspect-square w-[68%] rounded-full pointer-events-none"
               style={{
                 background:
-                  "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.18) 0%, transparent 45%)",
+                  "radial-gradient(circle at 28% 28%, rgba(255,255,255,0.22) 0%, transparent 45%)",
                 mixBlendMode: "screen",
               }}
             />
 
-            {/* Fine particles */}
+            {/* Fine particles drifting around the orb */}
             {[
-              { t: "18%", l: "22%", d: "0s" },
-              { t: "30%", l: "78%", d: "2s" },
-              { t: "62%", l: "14%", d: "4s" },
-              { t: "74%", l: "82%", d: "1s" },
-              { t: "86%", l: "44%", d: "3s" },
-              { t: "12%", l: "60%", d: "5s" },
-              { t: "48%", l: "8%", d: "2.5s" },
-              { t: "52%", l: "92%", d: "3.8s" },
+              { t: "8%", l: "20%", d: "0s" },
+              { t: "18%", l: "82%", d: "2s" },
+              { t: "70%", l: "6%", d: "4s" },
+              { t: "82%", l: "78%", d: "1s" },
+              { t: "92%", l: "44%", d: "3s" },
+              { t: "4%", l: "58%", d: "5s" },
             ].map((p, i) => (
               <span
                 key={i}
                 aria-hidden
                 className="light-dot"
-                style={{ top: p.t, left: p.l, animationDelay: p.d }}
+                style={{
+                  top: p.t,
+                  left: p.l,
+                  animationDelay: p.d,
+                  background: "rgba(15,15,15,0.55)",
+                  boxShadow: "0 0 10px 1px rgba(15,15,15,0.25)",
+                }}
               />
             ))}
-
-            {/* Top hairline + label */}
-            <div className="absolute top-5 left-5 right-5 flex items-center justify-between text-[10px] uppercase tracking-[0.3em] text-paper/50">
-              <span>Eclipse · 001</span>
-              <span className="h-px flex-1 mx-4 bg-paper/15" />
-              <span>∞</span>
-            </div>
-
-            {/* Bottom coords */}
-            <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between text-[10px] uppercase tracking-[0.28em] text-paper/45">
-              <div className="flex flex-col gap-1">
-                <span className="text-paper/30">Lat</span>
-                <span className="text-paper/70">42.0871° N</span>
-              </div>
-              <div className="flex flex-col items-end gap-1">
-                <span className="text-paper/30">Vol</span>
-                <span className="text-paper/70">A · 24</span>
-              </div>
-            </div>
           </div>
 
           {/* floating chip */}
