@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight, Search, Plus, Star } from "lucide-react";
 
 import deviceFront from "@/assets/device-front.jpg";
+import heroBuildings from "@/assets/hero-buildings.jpg";
 import deviceRow from "@/assets/device-row.jpg";
 import portraitSecond from "@/assets/portrait-second.jpg";
 import { useParallax, useScrollReveal } from "@/hooks/use-scroll-reveal";
@@ -104,7 +105,6 @@ function Hero() {
             <span className="block reveal reveal-d2">NOVA</span>
             <span className="block reveal reveal-d3">EXPERIÊNCIA</span>
             <span className="block reveal reveal-d4">DIGITAL</span>
-            <span className="block reveal reveal-d5">DE MARCA</span>
           </h1>
 
           <p className="mt-8 max-w-[480px] text-[15px] leading-relaxed text-dim reveal reveal-d4">
@@ -155,122 +155,37 @@ function Hero() {
           </div>
         </div>
 
-        {/* RIGHT — stylized black hole */}
+        {/* RIGHT — blurred buildings, monochrome editorial */}
         <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 lg:pl-6">
           <div
             data-parallax="-0.05"
-            className="relative aspect-square w-full max-w-[540px] mx-auto"
+            className="relative aspect-[4/5] w-full max-w-[540px] mx-auto overflow-hidden rounded-[2px]"
           >
-            {/* Gravitational lensing — subtle warp around the singularity */}
+            <img
+              src={heroBuildings}
+              alt="Prédios modernos desfocados em preto e branco"
+              width={1024}
+              height={1024}
+              className="absolute inset-0 h-full w-full object-cover grayscale contrast-105"
+              style={{ filter: "grayscale(1) blur(1px) contrast(1.05)" }}
+            />
+            {/* white wash to keep the bright contrast of the hero */}
             <div
               aria-hidden
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 aspect-square w-[135%] rounded-full"
+              className="absolute inset-0"
               style={{
                 background:
-                  "radial-gradient(circle, transparent 38%, rgba(15,15,15,0.06) 44%, rgba(15,15,15,0.10) 50%, transparent 62%)",
-                filter: "blur(22px)",
+                  "linear-gradient(180deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.20) 35%, rgba(255,255,255,0.15) 65%, rgba(255,255,255,0.55) 100%)",
               }}
             />
-
-            {/* Outer diffuse glow — soft cool light */}
             <div
               aria-hidden
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 aspect-square w-[112%] rounded-full eclipse-pulse"
+              className="absolute inset-0"
               style={{
                 background:
-                  "radial-gradient(circle, rgba(220,232,255,0.25) 0%, rgba(200,215,240,0.10) 28%, transparent 58%)",
-                filter: "blur(34px)",
+                  "radial-gradient(ellipse at 50% 60%, transparent 40%, rgba(255,255,255,0.45) 100%)",
               }}
             />
-
-            {/* Outer accretion ring — rotating */}
-            <div
-              aria-hidden
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 aspect-square w-[92%] rounded-full bh-spin-slow"
-              style={{
-                background:
-                  "conic-gradient(from 0deg, rgba(255,255,255,0) 0deg, rgba(255,255,255,0.55) 60deg, rgba(220,232,255,0.85) 110deg, rgba(255,255,255,0.35) 170deg, rgba(255,255,255,0) 230deg, rgba(230,238,255,0.45) 300deg, rgba(255,255,255,0) 360deg)",
-                WebkitMaskImage:
-                  "radial-gradient(circle, transparent 47%, #000 50%, #000 55%, transparent 62%)",
-                maskImage:
-                  "radial-gradient(circle, transparent 47%, #000 50%, #000 55%, transparent 62%)",
-                filter: "blur(6px)",
-              }}
-            />
-
-            {/* Inner accretion ring — counter-rotating, brighter */}
-            <div
-              aria-hidden
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 aspect-square w-[82%] rounded-full bh-spin-rev"
-              style={{
-                background:
-                  "conic-gradient(from 90deg, rgba(255,255,255,0) 0deg, rgba(255,255,255,0.95) 80deg, rgba(235,242,255,0.6) 140deg, rgba(255,255,255,0) 200deg, rgba(255,255,255,0.7) 280deg, rgba(255,255,255,0) 360deg)",
-                WebkitMaskImage:
-                  "radial-gradient(circle, transparent 46%, #000 49%, #000 53%, transparent 58%)",
-                maskImage:
-                  "radial-gradient(circle, transparent 46%, #000 49%, #000 53%, transparent 58%)",
-                filter: "blur(2px)",
-              }}
-            />
-
-            {/* Sharp photon ring — the bright rim */}
-            <div
-              aria-hidden
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 aspect-square w-[76%] rounded-full eclipse-pulse"
-              style={{
-                background:
-                  "radial-gradient(circle, transparent 60%, rgba(255,255,255,1) 62%, rgba(255,255,255,0.5) 64%, transparent 70%)",
-                filter: "blur(0.5px)",
-              }}
-            />
-
-            {/* Event horizon — pure dark singularity */}
-            <div
-              aria-hidden
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 aspect-square w-[74%] rounded-full"
-              style={{
-                background:
-                  "radial-gradient(circle at 50% 50%, #000 0%, #000 70%, oklch(0.04 0 0) 100%)",
-                boxShadow:
-                  "inset 0 0 60px rgba(0,0,0,1), inset 0 0 120px rgba(0,0,0,0.9), 0 0 40px rgba(0,0,0,0.4)",
-              }}
-            />
-
-            {/* Faint inner rim glow bleeding into the void */}
-            <div
-              aria-hidden
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 aspect-square w-[72%] rounded-full pointer-events-none"
-              style={{
-                background:
-                  "radial-gradient(circle, transparent 78%, rgba(255,255,255,0.18) 92%, transparent 100%)",
-                mixBlendMode: "screen",
-              }}
-            />
-
-            {/* Orbiting particles — slow organic drift */}
-            {[
-              { t: "6%", l: "48%", d: "0s" },
-              { t: "16%", l: "82%", d: "2.4s" },
-              { t: "44%", l: "94%", d: "4.1s" },
-              { t: "78%", l: "84%", d: "1.2s" },
-              { t: "92%", l: "50%", d: "3s" },
-              { t: "78%", l: "12%", d: "5s" },
-              { t: "44%", l: "4%", d: "2s" },
-              { t: "14%", l: "16%", d: "3.8s" },
-            ].map((p, i) => (
-              <span
-                key={i}
-                aria-hidden
-                className="light-dot"
-                style={{
-                  top: p.t,
-                  left: p.l,
-                  animationDelay: p.d,
-                  background: "rgba(20,20,20,0.65)",
-                  boxShadow: "0 0 8px 1px rgba(20,20,20,0.3)",
-                }}
-              />
-            ))}
           </div>
 
           {/* floating chip */}
