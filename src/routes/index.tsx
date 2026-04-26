@@ -588,18 +588,17 @@ function Services() {
               <article
                 key={s.n}
                 className={[
-                  "group relative p-10 md:p-12 min-h-[290px] flex flex-col justify-between transition-colors duration-500 lift sr",
+                  "group relative p-10 md:p-12 min-h-[290px] flex flex-col justify-between transition-all duration-500 lift sr",
                   `sr-d${Math.min((i % 3) + 1, 5)}`,
-                  isDark
-                    ? "bg-ink text-paper hover:bg-paper hover:text-ink"
-                    : "bg-paper text-ink hover:bg-ink hover:text-paper",
+                  isDark ? "bg-ink text-paper" : "bg-paper text-ink",
+                  "hover:shadow-[0_20px_50px_-20px_rgba(0,0,0,0.35)]",
                 ].join(" ")}
               >
                 <div className="flex items-start justify-between">
-                  <span className={`text-[11px] uppercase tracking-[0.3em] transition-colors duration-500 ${isDark ? "text-paper/60 group-hover:text-dim" : "text-dim group-hover:text-paper/60"}`}>
+                  <span className={`text-[11px] uppercase tracking-[0.3em] ${isDark ? "text-paper/60" : "text-dim"}`}>
                     {s.n}
                   </span>
-                  <span className={`inline-flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-500 ${isDark ? "border-paper/30 group-hover:border-line" : "border-line group-hover:border-paper/30"}`}>
+                  <span className={`inline-flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-500 ${isDark ? "border-paper/30 group-hover:border-paper/60" : "border-line group-hover:border-ink/40"}`}>
                     <Plus className="h-3.5 w-3.5 transition-transform duration-500 group-hover:rotate-90" />
                   </span>
                 </div>
@@ -607,7 +606,7 @@ function Services() {
                   <h4 className="font-medium text-2xl md:text-[1.75rem] tracking-[-0.02em] leading-tight">
                     {s.t}
                   </h4>
-                  <p className={`mt-3 text-sm leading-relaxed max-w-xs transition-colors duration-500 ${isDark ? "text-paper/70 group-hover:text-dim" : "text-dim group-hover:text-paper/70"}`}>
+                  <p className={`mt-3 text-sm leading-relaxed max-w-xs ${isDark ? "text-paper/70" : "text-dim"}`}>
                     {s.d}
                   </p>
                 </div>
