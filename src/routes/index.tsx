@@ -264,8 +264,8 @@ function Hero() {
             </svg>
           </div>
 
-          {/* Social icons — vertical, transparent, discreet */}
-          <div className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 flex flex-col items-center gap-5 md:gap-6">
+          {/* Social icons — vertical, transparent, tech micro-interface */}
+          <div className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 flex flex-col items-center gap-7 md:gap-8">
             {SOCIALS.map((s) => {
               const Icon = s.Icon;
               return (
@@ -275,13 +275,34 @@ function Hero() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={s.name}
-                  className="group relative inline-flex h-8 w-8 items-center justify-center text-ink/70 transition-all duration-500 hover:text-ink hover:scale-125 hover:-translate-y-0.5"
-                  style={{ filter: "drop-shadow(0 0 0 transparent)" }}
+                  className="social-tech group relative inline-flex h-9 w-9 items-center justify-center text-ink/70 transition-all duration-500 hover:text-ink hover:scale-110"
                 >
-                  <Icon className="relative h-[18px] w-[18px] transition-all duration-500 group-hover:[filter:drop-shadow(0_0_10px_rgba(0,0,0,0.45))]" />
-                  <span className="pointer-events-none absolute -inset-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    style={{ background: "radial-gradient(circle, rgba(0,0,0,0.12), transparent 70%)" }}
-                  />
+                  <Icon className="relative z-10 h-[18px] w-[18px] transition-transform duration-500" />
+
+                  {/* Drawing circle outline */}
+                  <svg
+                    className="pointer-events-none absolute inset-0 h-full w-full -rotate-90"
+                    viewBox="0 0 36 36"
+                    aria-hidden
+                  >
+                    <circle
+                      cx="18"
+                      cy="18"
+                      r="16"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="0.6"
+                      className="text-ink/60 social-ring"
+                    />
+                  </svg>
+
+                  {/* Tech micro-info */}
+                  <span className="pointer-events-none absolute right-full mr-3 top-1/2 -translate-y-1/2 whitespace-nowrap font-mono text-[9px] uppercase tracking-[0.18em] text-ink/45 opacity-0 -translate-x-1 transition-all duration-500 group-hover:opacity-100 group-hover:translate-x-0">
+                    <span className="inline-flex items-center gap-1.5">
+                      <span className="inline-block h-1 w-1 rounded-full bg-ink/60" />
+                      {s.meta}
+                    </span>
+                  </span>
                 </a>
               );
             })}
