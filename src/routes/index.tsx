@@ -411,7 +411,7 @@ function Services() {
     <section id="services" className="bg-paper py-28 md:py-36">
       <div className="mx-auto max-w-[1440px] px-6 md:px-10">
         <div className="grid grid-cols-12 gap-6 mb-16">
-          <div className="col-span-12 md:col-span-6">
+          <div className="col-span-12 md:col-span-6 sr">
             <div className="text-[11px] uppercase tracking-[0.3em] text-dim flex items-center gap-3">
               <span className="h-px w-8 bg-ink/40" />
               Services
@@ -421,31 +421,31 @@ function Services() {
               One ecosystem.
             </h3>
           </div>
-          <p className="col-span-12 md:col-span-5 md:col-start-8 text-base text-dim self-end max-w-md">
+          <p className="col-span-12 md:col-span-5 md:col-start-8 text-base text-dim self-end max-w-md sr sr-d2">
             Cada serviço opera como módulo dentro de uma engrenagem visual única
             — coerência total entre estratégia, design e execução.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-line border border-line">
-          {services.map((s) => (
+          {services.map((s, i) => (
             <article
               key={s.n}
-              className="group relative bg-paper p-10 md:p-12 min-h-[290px] flex flex-col justify-between transition-colors hover:bg-ink hover:text-paper"
+              className={`group relative bg-paper p-10 md:p-12 min-h-[290px] flex flex-col justify-between transition-all duration-500 hover:bg-ink hover:text-paper lift sr sr-d${Math.min((i % 3) + 1, 5)}`}
             >
               <div className="flex items-start justify-between">
-                <span className="text-[11px] uppercase tracking-[0.3em] text-dim group-hover:text-paper/60">
+                <span className="text-[11px] uppercase tracking-[0.3em] text-dim group-hover:text-paper/60 transition-colors duration-500">
                   {s.n}
                 </span>
-                <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-line group-hover:border-paper/30 transition-all">
-                  <Plus className="h-3.5 w-3.5 transition-transform group-hover:rotate-90" />
+                <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-line group-hover:border-paper/30 transition-all duration-500">
+                  <Plus className="h-3.5 w-3.5 transition-transform duration-500 group-hover:rotate-90" />
                 </span>
               </div>
               <div>
                 <h4 className="font-medium text-2xl md:text-[1.75rem] tracking-[-0.02em] leading-tight">
                   {s.t}
                 </h4>
-                <p className="mt-3 text-sm leading-relaxed text-dim group-hover:text-paper/70 max-w-xs">
+                <p className="mt-3 text-sm leading-relaxed text-dim group-hover:text-paper/70 max-w-xs transition-colors duration-500">
                   {s.d}
                 </p>
               </div>
@@ -456,6 +456,7 @@ function Services() {
     </section>
   );
 }
+
 
 /* =================== PORTFOLIO =================== */
 function Portfolio() {
