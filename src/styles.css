@@ -296,14 +296,15 @@
       transparent 70%
     );
     transform: translateX(-120%);
-    opacity: 0;
+    opacity: 1;
+    animation: sweep-loop 3.2s linear infinite;
     transition: opacity 0.35s ease-out;
     pointer-events: none;
     mix-blend-mode: screen;
   }
   .btn-shine:hover::before {
-    opacity: 1;
-    animation: sweep-loop 2.2s linear infinite;
+    opacity: 0;
+    animation-play-state: paused;
   }
 
   /* Subtle blurred backdrop layer */
