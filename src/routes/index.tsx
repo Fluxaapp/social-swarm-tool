@@ -128,13 +128,13 @@ function Hero() {
               href="#contact"
               className="group btn-shine inline-flex items-center gap-3 bg-ink text-paper rounded-full pl-6 pr-2 py-2 transition-all duration-500 hover:bg-ink/85 hover:scale-[1.02]"
             >
-              <span className="text-[13px] font-medium">Começar</span>
+              <span className="text-[13px] font-medium">Entrar em contato</span>
               <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-paper text-ink transition-transform duration-500 group-hover:rotate-45">
                 <ArrowUpRight className="h-4 w-4" />
               </span>
             </a>
             <a href="#contact" className="text-[13px] text-ink/80 hover:text-ink underline-offset-4 hover:underline transition-colors">
-              Contato
+              Solicitar proposta
             </a>
           </div>
 
