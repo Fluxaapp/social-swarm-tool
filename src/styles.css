@@ -288,17 +288,17 @@
     position: absolute;
     inset: 0;
     background: linear-gradient(
-      120deg,
+      115deg,
       transparent 30%,
-      rgba(255, 255, 255, 0.18) 50%,
+      rgba(255, 255, 255, 0.22) 48%,
+      rgba(255, 255, 255, 0.42) 50%,
+      rgba(255, 255, 255, 0.22) 52%,
       transparent 70%
     );
     transform: translateX(-120%);
-    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: sweep 5s ease-in-out infinite;
     pointer-events: none;
-  }
-  .btn-shine:hover::before {
-    transform: translateX(120%);
+    mix-blend-mode: screen;
   }
 
   /* Subtle blurred backdrop layer */
