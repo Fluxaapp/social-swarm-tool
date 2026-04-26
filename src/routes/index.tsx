@@ -71,10 +71,10 @@ function WhatsAppIcon({ className = "" }: { className?: string }) {
 }
 
 const SOCIALS = [
-  { name: "Instagram", href: "https://instagram.com", Icon: Instagram, meta: "signal 98%" },
-  { name: "WhatsApp", href: "https://wa.me/", Icon: WhatsAppIcon, meta: "latency 12ms" },
-  { name: "Facebook", href: "https://facebook.com", Icon: Facebook, meta: "node online" },
-  { name: "Google", href: "https://google.com", Icon: GoogleIcon, meta: "connect://active" },
+  { name: "Instagram", href: "https://instagram.com", Icon: Instagram, meta: "@glassmaind" },
+  { name: "WhatsApp", href: "https://wa.me/", Icon: WhatsAppIcon, meta: "Fale conosco" },
+  { name: "Facebook", href: "https://facebook.com", Icon: Facebook, meta: "/glassmaind" },
+  { name: "Google", href: "https://google.com", Icon: GoogleIcon, meta: "Avaliações 5★" },
 ];
 
 function Hero() {
@@ -185,21 +185,8 @@ function Hero() {
               className="w-full h-full max-w-[520px]"
               preserveAspectRatio="xMidYMid meet"
             >
-              <polygon
-                points="250,60 460,520 40,520"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="0.6"
-                className="text-ink/15 dash-flow"
-              />
-              <polygon
-                points="250,520 60,180 440,180"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="0.5"
-                className="text-ink/10 dash-flow"
-                style={{ animationDelay: "3s" }}
-              />
+              {/* (estrela de 6 pontas removida) */}
+
 
               <g stroke="currentColor" strokeWidth="0.5" className="text-ink/20" fill="none">
                 <line x1="250" y1="60" x2="120" y2="220" />
@@ -296,8 +283,8 @@ function Hero() {
                     />
                   </svg>
 
-                  {/* Tech micro-info */}
-                  <span className="pointer-events-none absolute right-full mr-3 top-1/2 -translate-y-1/2 whitespace-nowrap font-mono text-[9px] uppercase tracking-[0.18em] text-ink/45 opacity-0 -translate-x-1 transition-all duration-500 group-hover:opacity-100 group-hover:translate-x-0">
+                  {/* Social micro-info */}
+                  <span className="pointer-events-none absolute right-full mr-3 top-1/2 -translate-y-1/2 whitespace-nowrap text-[10px] tracking-[0.08em] text-ink/55 opacity-0 -translate-x-1 transition-all duration-500 group-hover:opacity-100 group-hover:translate-x-0">
                     <span className="inline-flex items-center gap-1.5">
                       <span className="inline-block h-1 w-1 rounded-full bg-ink/60" />
                       {s.meta}
