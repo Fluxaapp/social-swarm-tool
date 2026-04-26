@@ -303,7 +303,7 @@
   }
   .btn-shine:hover::before {
     opacity: 1;
-    animation: sweep 2.4s linear infinite;
+    animation: sweep-loop 2.2s linear infinite;
   }
 
   /* Subtle blurred backdrop layer */
