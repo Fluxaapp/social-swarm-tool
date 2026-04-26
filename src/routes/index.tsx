@@ -15,7 +15,7 @@ export const Route = createFileRoute("/")({
 function Nav() {
   return (
     <header className="absolute top-0 left-0 right-0 z-50">
-      <div className="mx-auto max-w-[1440px] px-6 md:px-10 h-20 flex items-center justify-between gap-6">
+      <div className="mx-auto max-w-[1280px] px-6 md:px-10 h-20 flex items-center justify-between gap-6">
         {/* Logo */}
         <a href="#top" className="flex items-center gap-2.5">
           <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-ink text-paper">
@@ -26,18 +26,18 @@ function Nav() {
 
         {/* Menu */}
         <nav className="hidden md:flex items-center gap-9 text-[14px] text-ink/60">
-          <a href="#top" className="text-ink">Home</a>
-          <a href="#about" className="hover:text-ink transition-colors">About</a>
-          <a href="#services" className="hover:text-ink transition-colors">Services</a>
-          <a href="#contact" className="hover:text-ink transition-colors">Contact</a>
+          <a href="#top" className="text-ink">Início</a>
+          <a href="#about" className="hover:text-ink transition-colors">Sobre</a>
+          <a href="#services" className="hover:text-ink transition-colors">Serviços</a>
+          <a href="#contact" className="hover:text-ink transition-colors">Contato</a>
         </nav>
 
         {/* Search */}
-        <div className="hidden lg:flex items-center gap-2 bg-white/70 backdrop-blur border border-line rounded-full px-4 py-2.5 w-72">
+        <div className="hidden lg:flex items-center gap-2 bg-white/70 backdrop-blur border border-line rounded-full px-4 py-2.5 w-64">
           <Search className="h-3.5 w-3.5 text-dim" />
           <input
             type="text"
-            placeholder="I am looking for..."
+            placeholder="Buscar..."
             className="bg-transparent text-[13px] outline-none placeholder:text-dim flex-1"
           />
         </div>
@@ -45,7 +45,7 @@ function Nav() {
         <a
           href="#contact"
           className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-full bg-ink text-paper"
-          aria-label="Contact"
+          aria-label="Contato"
         >
           <ArrowUpRight className="h-4 w-4" />
         </a>
@@ -84,47 +84,55 @@ function Hero() {
         />
       </svg>
 
-      <div className="mx-auto max-w-[1440px] px-6 md:px-10 pt-32 md:pt-40 pb-12 md:pb-20 grid grid-cols-12 gap-6 md:gap-10 items-end min-h-[100vh] relative">
+      <div className="mx-auto max-w-[1280px] px-6 md:px-10 pt-32 md:pt-36 pb-16 md:pb-24 grid grid-cols-12 gap-8 md:gap-12 items-center min-h-[100vh] relative">
         {/* LEFT — text */}
         <div className="col-span-12 lg:col-span-7 relative z-10">
           <div className="text-[11px] tracking-[0.3em] uppercase text-dim reveal reveal-d1">
-            Futuristic
+            Futurístico
           </div>
 
-          <div className="mt-4 flex items-start gap-6 reveal reveal-d2">
+          <div className="mt-5 flex items-start gap-5 reveal reveal-d2">
             <span className="text-sm text-dim mt-3">05</span>
-            <h1 className="font-medium text-ink leading-[0.92] tracking-[-0.045em] text-[clamp(3.25rem,9vw,9rem)]">
-              <span className="block reveal reveal-d2">NEW DIGITAL</span>
-              <span className="block reveal reveal-d3">BRAND</span>
-              <span className="block reveal reveal-d4">EXPERIENCE</span>
+            <h1
+              className="font-medium text-ink max-w-[10ch]"
+              style={{
+                fontSize: "clamp(2.75rem, 7.5vw, 7rem)",
+                lineHeight: 0.95,
+                letterSpacing: "-0.045em",
+              }}
+            >
+              <span className="block reveal reveal-d2">NOVA</span>
+              <span className="block reveal reveal-d3">EXPERIÊNCIA</span>
+              <span className="block reveal reveal-d4">DIGITAL</span>
+              <span className="block reveal reveal-d5">DE MARCA</span>
             </h1>
           </div>
 
-          <p className="mt-10 max-w-md text-[15px] leading-relaxed text-dim reveal reveal-d4">
+          <p className="mt-8 max-w-[480px] text-[15px] leading-relaxed text-dim reveal reveal-d4">
             Criamos presença, posicionamento e percepção para marcas que querem
             crescer com autoridade.
           </p>
 
-          <div className="mt-10 flex items-center gap-5 reveal reveal-d5">
+          <div className="mt-8 flex flex-wrap items-center gap-5 reveal reveal-d5">
             <a
               href="#contact"
               className="group btn-shine inline-flex items-center gap-3 bg-ink text-paper rounded-full pl-6 pr-2 py-2 transition-all duration-500 hover:bg-ink/85 hover:scale-[1.02]"
             >
-              <span className="text-[13px] font-medium">Get Started</span>
+              <span className="text-[13px] font-medium">Começar</span>
               <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-paper text-ink transition-transform duration-500 group-hover:rotate-45">
                 <ArrowUpRight className="h-4 w-4" />
               </span>
             </a>
             <a href="#contact" className="text-[13px] text-ink/80 hover:text-ink underline-offset-4 hover:underline transition-colors">
-              Contact Us
+              Contato
             </a>
           </div>
 
           {/* trusted */}
-          <div className="mt-16 flex items-center gap-10 reveal reveal-d5">
+          <div className="mt-14 flex items-center gap-8 md:gap-10 reveal reveal-d5">
             <div>
               <div className="text-[10px] uppercase tracking-[0.25em] text-dim mb-2.5">
-                Trusted by Clients
+                Clientes atendidos
               </div>
               <div className="flex items-center gap-3">
                 <div className="flex -space-x-2">
@@ -141,7 +149,7 @@ function Hero() {
             <div className="h-12 w-px bg-line" />
             <div>
               <div className="text-[10px] uppercase tracking-[0.25em] text-dim mb-2.5">
-                Reality
+                Resultados
               </div>
               <div className="text-2xl font-medium text-ink tracking-tight">47.2%</div>
             </div>
@@ -149,7 +157,7 @@ function Hero() {
         </div>
 
         {/* RIGHT — image */}
-        <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3">
+        <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 lg:pl-6">
           {/* Soft depth glow behind the image */}
           <div
             aria-hidden
@@ -200,14 +208,14 @@ function Hero() {
 function InfoStrip() {
   return (
     <section className="bg-ink text-paper">
-      <div className="mx-auto max-w-[1440px] px-6 md:px-10 py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="mx-auto max-w-[1280px] px-6 md:px-10 py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-paper/20">
+          <div className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-paper/20 shrink-0">
             <span className="block h-3 w-3 border border-paper/80 rotate-45" />
           </div>
           <p className="text-sm text-paper/80 max-w-md">
-            In this futuristic realm, brands explore hyper-realistic visual
-            environments and connect with AI-driven systems.
+            Em um cenário futurista, marcas exploram ambientes visuais
+            hiper-realistas conectados a sistemas inteligentes.
           </p>
         </div>
         <div className="flex items-center gap-8">
@@ -217,10 +225,10 @@ function InfoStrip() {
             <Star className="h-3.5 w-3.5 fill-paper text-paper" />
             <Star className="h-3.5 w-3.5 fill-paper text-paper" />
             <Star className="h-3.5 w-3.5 fill-paper text-paper" />
-            <span className="text-[12px] tracking-wide ml-2">3,000+ Customers</span>
+            <span className="text-[12px] tracking-wide ml-2">3.000+ clientes</span>
           </div>
           <span className="text-[11px] uppercase tracking-[0.25em] text-paper/40 hidden md:inline">
-            · Scroll Down
+            · Role para baixo
           </span>
         </div>
       </div>
@@ -232,15 +240,15 @@ function InfoStrip() {
 function About() {
   return (
     <section id="about" className="bg-paper py-28 md:py-40">
-      <div className="mx-auto max-w-[1440px] px-6 md:px-10">
+      <div className="mx-auto max-w-[1280px] px-6 md:px-10">
         <div className="text-center max-w-4xl mx-auto">
           <div className="text-[11px] uppercase tracking-[0.35em] text-dim inline-flex items-center gap-3 sr">
             <span className="h-px w-10 bg-ink/40" />
-            About Us
+            Sobre nós
             <span className="h-px w-10 bg-ink/40" />
           </div>
-          <h2 className="mt-10 font-medium text-ink leading-[1] tracking-[-0.035em] text-[clamp(2.5rem,5.5vw,5rem)] text-balance sr sr-d1">
-            Engineering brand presence for the next generation of companies.
+          <h2 className="mt-10 font-medium text-ink leading-[1] tracking-[-0.035em] text-[clamp(2.25rem,5vw,4.5rem)] text-balance sr sr-d1">
+            Construindo presença de marca para a próxima geração de empresas.
           </h2>
           <p className="mt-8 text-base text-dim leading-relaxed max-w-2xl mx-auto sr sr-d2">
             A Glass Maind une design estratégico, comunicação visual e marketing
@@ -293,20 +301,20 @@ function Technology() {
       <span className="light-dot" style={{ top: "30%", right: "10%", animationDelay: "5s" }} aria-hidden />
       <span className="light-dot" style={{ top: "78%", right: "16%", animationDelay: "1.5s" }} aria-hidden />
 
-      <div className="mx-auto max-w-[1440px] px-6 md:px-10 py-24 md:py-36 relative">
+      <div className="mx-auto max-w-[1280px] px-6 md:px-10 py-24 md:py-36 relative">
         {/* pill */}
         <div className="flex justify-center sr">
           <span className="inline-flex items-center gap-2 bg-paper text-ink rounded-full px-5 py-2 text-[12px] font-medium">
             <span className="h-1.5 w-1.5 rounded-full bg-ink" />
-            Smart Brand Feature
+            Inteligência de Marca
           </span>
         </div>
 
-        <h2 className="mt-10 text-center font-medium leading-[0.95] tracking-[-0.035em] text-[clamp(2.5rem,6.5vw,6rem)] sr sr-d1">
-          Technology in Every Layer
+        <h2 className="mt-10 text-center font-medium leading-[0.95] tracking-[-0.035em] text-[clamp(2.25rem,5.5vw,5.25rem)] sr sr-d1 max-w-4xl mx-auto">
+          Tecnologia em Cada Camada
         </h2>
         <p className="mt-6 max-w-xl mx-auto text-center text-paper/60 text-[15px] leading-relaxed sr sr-d2">
-          Smart structure, maximum performance. Cinco componentes principais
+          Estrutura inteligente, máxima performance. Cinco componentes principais
           trabalhando em integração contínua dentro de cada marca.
         </p>
 
@@ -409,16 +417,16 @@ function Services() {
 
   return (
     <section id="services" className="bg-paper py-28 md:py-36">
-      <div className="mx-auto max-w-[1440px] px-6 md:px-10">
+      <div className="mx-auto max-w-[1280px] px-6 md:px-10">
         <div className="grid grid-cols-12 gap-6 mb-16">
           <div className="col-span-12 md:col-span-6 sr">
             <div className="text-[11px] uppercase tracking-[0.3em] text-dim flex items-center gap-3">
               <span className="h-px w-8 bg-ink/40" />
-              Services
+              Serviços
             </div>
             <h3 className="mt-6 font-medium text-[clamp(2rem,4vw,3.25rem)] leading-[1.05] tracking-[-0.03em] text-ink">
-              Six disciplines.<br />
-              One ecosystem.
+              Seis disciplinas.<br />
+              Um único ecossistema.
             </h3>
           </div>
           <p className="col-span-12 md:col-span-5 md:col-start-8 text-base text-dim self-end max-w-md sr sr-d2">
@@ -462,19 +470,19 @@ function Services() {
 function Portfolio() {
   return (
     <section id="portfolio" className="bg-soft py-28 md:py-40">
-      <div className="mx-auto max-w-[1440px] px-6 md:px-10">
+      <div className="mx-auto max-w-[1280px] px-6 md:px-10">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-8">
           <div>
             <div className="text-[11px] uppercase tracking-[0.3em] text-dim flex items-center gap-3">
               <span className="h-px w-8 bg-ink/40" />
-              Selected Work
+              Trabalhos Selecionados
             </div>
             <h2 className="mt-6 font-medium text-[clamp(2.25rem,5vw,4.25rem)] leading-[1] tracking-[-0.03em] text-ink">
               Trabalhos que vendem.
             </h2>
           </div>
           <a href="#contact" className="group inline-flex items-center gap-2 text-[12px] uppercase tracking-[0.25em] text-ink border-b border-ink pb-1 self-start">
-            All Projects
+            Todos os projetos
             <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>
         </div>
@@ -540,13 +548,13 @@ function CTA() {
       <span className="light-dot" style={{ top: "30%", left: "15%" }} aria-hidden />
       <span className="light-dot" style={{ top: "70%", right: "18%", animationDelay: "4s" }} aria-hidden />
 
-      <div className="mx-auto max-w-[1440px] px-6 md:px-10 py-32 md:py-44 text-center relative">
+      <div className="mx-auto max-w-[1280px] px-6 md:px-10 py-32 md:py-44 text-center relative">
         <div className="text-[11px] uppercase tracking-[0.3em] text-paper/50 inline-flex items-center gap-3 sr">
           <span className="h-px w-8 bg-paper/40" />
-          Get in Touch
+          Vamos conversar
           <span className="h-px w-8 bg-paper/40" />
         </div>
-        <h2 className="mt-12 font-medium leading-[0.95] tracking-[-0.04em] text-[clamp(2.5rem,7.5vw,7.5rem)] max-w-5xl mx-auto text-balance sr sr-d1">
+        <h2 className="mt-12 font-medium leading-[0.95] tracking-[-0.04em] text-[clamp(2.25rem,6.5vw,6rem)] max-w-5xl mx-auto text-balance sr sr-d1">
           Sua marca pode parecer tão forte quanto ela realmente é.
         </h2>
 
@@ -578,7 +586,7 @@ function CTA() {
 function Footer() {
   return (
     <footer className="bg-ink text-paper border-t border-paper/10">
-      <div className="mx-auto max-w-[1440px] px-6 md:px-10 py-14">
+      <div className="mx-auto max-w-[1280px] px-6 md:px-10 py-14">
         <div className="grid grid-cols-12 gap-8">
           <div className="col-span-12 md:col-span-6">
             <div className="flex items-center gap-2.5">
@@ -588,7 +596,7 @@ function Footer() {
               <span className="text-[15px] font-medium">Glass Maind</span>
             </div>
             <p className="mt-6 text-sm text-paper/60 max-w-sm">
-              Marketing, Design & Gestão Visual. São Paulo / Worldwide.
+              Marketing, Design e Gestão Visual. São Paulo / Worldwide.
             </p>
           </div>
 
@@ -604,9 +612,9 @@ function Footer() {
           <div className="col-span-6 md:col-span-2">
             <div className="text-[10px] uppercase tracking-[0.3em] text-paper/40 mb-4">Navegar</div>
             <ul className="space-y-2.5 text-sm text-paper/80">
-              <li><a href="#about" className="hover:text-paper">About</a></li>
-              <li><a href="#services" className="hover:text-paper">Services</a></li>
-              <li><a href="#portfolio" className="hover:text-paper">Work</a></li>
+              <li><a href="#about" className="hover:text-paper">Sobre</a></li>
+              <li><a href="#services" className="hover:text-paper">Serviços</a></li>
+              <li><a href="#portfolio" className="hover:text-paper">Trabalhos</a></li>
             </ul>
           </div>
 
@@ -619,7 +627,7 @@ function Footer() {
 
         <div className="mt-14 pt-6 border-t border-paper/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-[11px] uppercase tracking-[0.25em] text-paper/40">
           <span>© {new Date().getFullYear()} Agência Glass Maind</span>
-          <span>All rights reserved</span>
+          <span>Todos os direitos reservados</span>
         </div>
       </div>
     </footer>
