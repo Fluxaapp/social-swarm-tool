@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowUpRight, Search, Plus, Star, Instagram, Facebook, MapPin } from "lucide-react";
+import { ArrowUpRight, Search, Plus, Star, Instagram, Facebook } from "lucide-react";
 import { useState } from "react";
 
 import workBranding from "@/assets/work-branding.jpg";
