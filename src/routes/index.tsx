@@ -366,35 +366,23 @@ function About() {
 
         <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-4">
           {stats.map((it, i) => {
-            const isLight = it.tone === "light";
-            const bgClass =
-              it.tone === "dark"
-                ? "bg-ink text-paper"
-                : it.tone === "gray"
-                ? "text-paper"
-                : "bg-paper text-ink border border-line";
-            const inlineStyle =
-              it.tone === "gray"
-                ? { backgroundColor: "oklch(0.22 0 0)" }
-                : undefined;
             return (
               <div
                 key={it.l}
-                style={inlineStyle}
+                style={{ backgroundColor: "oklch(0.22 0 0)" }}
                 className={[
-                  "py-14 md:py-20 px-8 md:px-10 rounded-[2px] sr lift",
+                  "py-14 md:py-20 px-8 md:px-10 rounded-[2px] sr lift text-paper",
                   `sr-d${i + 1}`,
-                  bgClass,
                 ].join(" ")}
               >
                 <div className="font-medium text-[clamp(3.5rem,7vw,6rem)] leading-none tracking-[-0.05em]">
                   {it.n}
                 </div>
-                <div className={`mt-5 flex items-center gap-3 text-[11px] uppercase tracking-[0.25em] ${isLight ? "text-ink/70" : "text-paper/70"}`}>
-                  <span className={`h-px w-6 ${isLight ? "bg-ink/60" : "bg-paper/60"}`} />
+                <div className="mt-5 flex items-center gap-3 text-[11px] uppercase tracking-[0.25em] text-paper/70">
+                  <span className="h-px w-6 bg-paper/60" />
                   {it.l}
                 </div>
-                <p className={`mt-3 text-sm max-w-xs ${isLight ? "text-dim" : "text-paper/60"}`}>{it.d}</p>
+                <p className="mt-3 text-sm max-w-xs text-paper/60">{it.d}</p>
               </div>
             );
           })}
