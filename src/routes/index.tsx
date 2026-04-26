@@ -628,6 +628,9 @@ function Footer() {
 
 /* =================== PAGE =================== */
 function Index() {
+  useScrollReveal();
+  useParallax();
+
   return (
     <main className="bg-paper text-ink min-h-screen">
       <Nav />
@@ -642,3 +645,4 @@ function Index() {
     </main>
   );
 }
+
