@@ -769,18 +769,20 @@ function Footer() {
 function Index() {
   useScrollReveal();
   useParallax();
+  const [proposalOpen, setProposalOpen] = useState(false);
 
   return (
     <main className="bg-paper text-ink min-h-screen">
-      <Nav />
-      <Hero />
-      <Technology />
+      <Nav onOpenProposal={() => setProposalOpen(true)} />
+      <Hero onOpenProposal={() => setProposalOpen(true)} />
+      <Technology onOpenProposal={() => setProposalOpen(true)} />
       <InfoStrip />
       <About />
       <Services />
       <Portfolio />
-      <CTA />
+      <CTA onOpenProposal={() => setProposalOpen(true)} />
       <Footer />
+      <ProposalModal open={proposalOpen} onClose={() => setProposalOpen(false)} />
     </main>
   );
 }
