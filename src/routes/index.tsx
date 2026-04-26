@@ -256,8 +256,8 @@ function Hero() {
             </svg>
           </div>
 
-          {/* Social icons */}
-          <div className="absolute right-0 bottom-2 md:bottom-6 z-10 flex items-center gap-3 md:gap-4">
+          {/* Social icons — vertical, transparent, discreet */}
+          <div className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 flex flex-col items-center gap-5 md:gap-6">
             {SOCIALS.map((s) => {
               const Icon = s.Icon;
               return (
@@ -267,14 +267,13 @@ function Hero() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={s.name}
-                  className="group relative inline-flex h-11 w-11 md:h-12 md:w-12 items-center justify-center rounded-full bg-white border border-line text-ink overflow-hidden transition-transform duration-500 hover:scale-110 hover:-translate-y-1"
+                  className="group relative inline-flex h-8 w-8 items-center justify-center text-ink/70 transition-all duration-500 hover:text-ink hover:scale-125 hover:-translate-y-0.5"
+                  style={{ filter: "drop-shadow(0 0 0 transparent)" }}
                 >
-                  <span className="absolute inset-0 rounded-full bg-ink scale-0 group-hover:scale-100 transition-transform duration-500 ease-[cubic-bezier(.16,1,.3,1)]" />
-                  <span
-                    className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    style={{ boxShadow: "0 8px 30px 2px rgba(0,0,0,0.35)" }}
+                  <Icon className="relative h-[18px] w-[18px] transition-all duration-500 group-hover:[filter:drop-shadow(0_0_10px_rgba(0,0,0,0.45))]" />
+                  <span className="pointer-events-none absolute -inset-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    style={{ background: "radial-gradient(circle, rgba(0,0,0,0.12), transparent 70%)" }}
                   />
-                  <Icon className="relative h-[18px] w-[18px] md:h-5 md:w-5 transition-all duration-500 group-hover:text-paper group-hover:rotate-[-8deg]" />
                 </a>
               );
             })}
