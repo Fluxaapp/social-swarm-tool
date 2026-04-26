@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight, Search, Plus, Star } from "lucide-react";
-import heroVision from "@/assets/hero-vision.jpg";
+
 import deviceFront from "@/assets/device-front.jpg";
 import deviceRow from "@/assets/device-row.jpg";
 import portraitSecond from "@/assets/portrait-second.jpg";

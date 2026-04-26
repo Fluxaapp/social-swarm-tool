@@ -306,6 +306,23 @@
     filter: blur(50px);
     opacity: 0.55;
   }
+
+  /* Eclipse / portal pulsing halo */
+  .eclipse-pulse {
+    animation: eclipse-pulse 9s ease-in-out infinite;
+    will-change: transform, opacity;
+  }
+}
+
+@keyframes eclipse-pulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.06);
+    opacity: 1;
+  }
 }
 
 @keyframes reveal-in {
