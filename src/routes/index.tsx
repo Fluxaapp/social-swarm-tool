@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowUpRight, Search, Plus, Star, Instagram, Facebook } from "lucide-react";
+import { ArrowUpRight, Search, Plus, Star, Instagram, Facebook, MapPin } from "lucide-react";
 import { useState } from "react";
 
 import workBranding from "@/assets/work-branding.jpg";
@@ -7,6 +7,8 @@ import workEditorial from "@/assets/work-editorial.jpg";
 import workPackaging from "@/assets/work-packaging.jpg";
 import workCampaign from "@/assets/work-campaign.jpg";
 import { useParallax, useScrollReveal } from "@/hooks/use-scroll-reveal";
+import { CONTACT, whatsappLink, mailtoLink } from "@/lib/contact";
+import { ProposalModal } from "@/components/ProposalModal";
 
 export const Route = createFileRoute("/")({
   component: Index,
