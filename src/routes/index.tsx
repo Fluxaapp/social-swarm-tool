@@ -155,25 +155,134 @@ function Hero() {
           </div>
         </div>
 
-        {/* RIGHT — image */}
+        {/* RIGHT — abstract eclipse / light portal */}
         <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 lg:pl-6">
-          {/* Soft depth glow behind the image */}
+          {/* Outer soft glow */}
           <div
             aria-hidden
-            className="absolute -inset-8 rounded-[2rem] bg-gradient-to-br from-ink/8 via-transparent to-ink/5 depth-blur"
+            className="absolute -inset-10 rounded-[2.5rem] bg-gradient-to-br from-ink/10 via-transparent to-ink/5 depth-blur"
           />
+
           <div
             data-parallax="-0.05"
-            className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-card light-sweep"
+            className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-ink light-sweep"
           >
-            <img
-              src={heroVision}
-              alt="Glass Maind — futuro digital"
-              width={1024}
-              height={1280}
-              className="h-full w-full object-cover breathe"
+            {/* Deep cinematic backdrop */}
+            <div
+              aria-hidden
+              className="absolute inset-0"
+              style={{
+                background:
+                  "radial-gradient(120% 80% at 50% 110%, oklch(0.18 0 0) 0%, oklch(0.08 0 0) 45%, oklch(0.04 0 0) 100%)",
+              }}
             />
+
+            {/* Subtle vertical streaks */}
+            <div
+              aria-hidden
+              className="absolute inset-0 opacity-[0.35]"
+              style={{
+                backgroundImage:
+                  "repeating-linear-gradient(90deg, transparent 0, transparent 38px, rgba(255,255,255,0.04) 38px, rgba(255,255,255,0.04) 39px)",
+              }}
+            />
+
+            {/* Eclipse / portal — outermost halo */}
+            <div
+              aria-hidden
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 aspect-square w-[140%] rounded-full eclipse-pulse"
+              style={{
+                background:
+                  "radial-gradient(circle, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.04) 30%, transparent 55%)",
+                filter: "blur(20px)",
+              }}
+            />
+
+            {/* Mid halo */}
+            <div
+              aria-hidden
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 aspect-square w-[78%] rounded-full eclipse-pulse"
+              style={{
+                animationDelay: "1.2s",
+                background:
+                  "radial-gradient(circle, rgba(255,255,255,0.55) 0%, rgba(220,235,255,0.20) 22%, rgba(255,255,255,0.05) 45%, transparent 65%)",
+                filter: "blur(8px)",
+              }}
+            />
+
+            {/* Sharp ring — the eclipse rim */}
+            <div
+              aria-hidden
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 aspect-square w-[58%] rounded-full"
+              style={{
+                background:
+                  "radial-gradient(circle, transparent 60%, rgba(255,255,255,0.85) 62%, rgba(255,255,255,0.35) 64%, transparent 70%)",
+                filter: "blur(0.6px)",
+              }}
+            />
+
+            {/* Dark core (eclipse occlusion) */}
+            <div
+              aria-hidden
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 aspect-square w-[56%] rounded-full breathe"
+              style={{
+                background:
+                  "radial-gradient(circle at 35% 35%, oklch(0.16 0 0) 0%, oklch(0.06 0 0) 55%, oklch(0.03 0 0) 100%)",
+                boxShadow:
+                  "inset 0 0 80px rgba(0,0,0,0.7), 0 0 60px rgba(0,0,0,0.6)",
+              }}
+            />
+
+            {/* Inner highlight crescent */}
+            <div
+              aria-hidden
+              className="absolute left-1/2 top-1/2 -translate-x-[58%] -translate-y-[58%] aspect-square w-[52%] rounded-full"
+              style={{
+                background:
+                  "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.18) 0%, transparent 45%)",
+                mixBlendMode: "screen",
+              }}
+            />
+
+            {/* Fine particles */}
+            {[
+              { t: "18%", l: "22%", d: "0s" },
+              { t: "30%", l: "78%", d: "2s" },
+              { t: "62%", l: "14%", d: "4s" },
+              { t: "74%", l: "82%", d: "1s" },
+              { t: "86%", l: "44%", d: "3s" },
+              { t: "12%", l: "60%", d: "5s" },
+              { t: "48%", l: "8%", d: "2.5s" },
+              { t: "52%", l: "92%", d: "3.8s" },
+            ].map((p, i) => (
+              <span
+                key={i}
+                aria-hidden
+                className="light-dot"
+                style={{ top: p.t, left: p.l, animationDelay: p.d }}
+              />
+            ))}
+
+            {/* Top hairline + label */}
+            <div className="absolute top-5 left-5 right-5 flex items-center justify-between text-[10px] uppercase tracking-[0.3em] text-paper/50">
+              <span>Eclipse · 001</span>
+              <span className="h-px flex-1 mx-4 bg-paper/15" />
+              <span>∞</span>
+            </div>
+
+            {/* Bottom coords */}
+            <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between text-[10px] uppercase tracking-[0.28em] text-paper/45">
+              <div className="flex flex-col gap-1">
+                <span className="text-paper/30">Lat</span>
+                <span className="text-paper/70">42.0871° N</span>
+              </div>
+              <div className="flex flex-col items-end gap-1">
+                <span className="text-paper/30">Vol</span>
+                <span className="text-paper/70">A · 24</span>
+              </div>
+            </div>
           </div>
+
           {/* floating chip */}
           <div className="absolute -left-4 top-12 hidden md:flex items-center gap-2 bg-white border border-line rounded-full px-4 py-2 shadow-sm float-slow">
             <span className="h-2 w-2 rounded-full bg-ink" />
