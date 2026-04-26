@@ -312,6 +312,21 @@
     animation: eclipse-pulse 9s ease-in-out infinite;
     will-change: transform, opacity;
   }
+
+  /* Black hole accretion ring rotations */
+  .bh-spin-slow {
+    animation: bh-spin 38s linear infinite;
+    will-change: transform;
+  }
+  .bh-spin-rev {
+    animation: bh-spin 26s linear infinite reverse;
+    will-change: transform;
+  }
+}
+
+@keyframes bh-spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
 @keyframes eclipse-pulse {
