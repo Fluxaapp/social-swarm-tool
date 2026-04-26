@@ -58,7 +58,33 @@ function Nav() {
 function Hero() {
   return (
     <section id="top" className="relative bg-soft overflow-hidden">
-      <div className="mx-auto max-w-[1440px] px-6 md:px-10 pt-32 md:pt-40 pb-12 md:pb-20 grid grid-cols-12 gap-6 md:gap-10 items-end min-h-[100vh]">
+      {/* Decorative grid lines (parallax slow) */}
+      <div
+        data-parallax="0.08"
+        className="pointer-events-none absolute inset-0 opacity-[0.5]"
+        aria-hidden
+      >
+        <div className="absolute top-0 bottom-0 left-[16%] w-px bg-gradient-to-b from-transparent via-ink/10 to-transparent" />
+        <div className="absolute top-0 bottom-0 left-[58%] w-px bg-gradient-to-b from-transparent via-ink/8 to-transparent" />
+        <div className="absolute top-0 bottom-0 right-[10%] w-px bg-gradient-to-b from-transparent via-ink/10 to-transparent" />
+      </div>
+
+      {/* Animated diagonal sweep line crossing the hero */}
+      <svg
+        className="pointer-events-none absolute inset-0 w-full h-full"
+        viewBox="0 0 1440 900"
+        preserveAspectRatio="none"
+        aria-hidden
+      >
+        <line
+          x1="-50" y1="780" x2="1500" y2="120"
+          stroke="currentColor"
+          strokeWidth="1"
+          className="text-ink/15 dash-flow"
+        />
+      </svg>
+
+      <div className="mx-auto max-w-[1440px] px-6 md:px-10 pt-32 md:pt-40 pb-12 md:pb-20 grid grid-cols-12 gap-6 md:gap-10 items-end min-h-[100vh] relative">
         {/* LEFT — text */}
         <div className="col-span-12 lg:col-span-7 relative z-10">
           <div className="text-[11px] tracking-[0.3em] uppercase text-dim reveal reveal-d1">
@@ -68,30 +94,28 @@ function Hero() {
           <div className="mt-4 flex items-start gap-6 reveal reveal-d2">
             <span className="text-sm text-dim mt-3">05</span>
             <h1 className="font-medium text-ink leading-[0.92] tracking-[-0.045em] text-[clamp(3.25rem,9vw,9rem)]">
-              NEW DIGITAL
-              <br />
-              BRAND
-              <br />
-              EXPERIENCE
+              <span className="block reveal reveal-d2">NEW DIGITAL</span>
+              <span className="block reveal reveal-d3">BRAND</span>
+              <span className="block reveal reveal-d4">EXPERIENCE</span>
             </h1>
           </div>
 
-          <p className="mt-10 max-w-md text-[15px] leading-relaxed text-dim reveal reveal-d3">
+          <p className="mt-10 max-w-md text-[15px] leading-relaxed text-dim reveal reveal-d4">
             Criamos presença, posicionamento e percepção para marcas que querem
             crescer com autoridade.
           </p>
 
-          <div className="mt-10 flex items-center gap-5 reveal reveal-d4">
+          <div className="mt-10 flex items-center gap-5 reveal reveal-d5">
             <a
               href="#contact"
-              className="group inline-flex items-center gap-3 bg-ink text-paper rounded-full pl-6 pr-2 py-2 transition-all hover:bg-ink/85"
+              className="group btn-shine inline-flex items-center gap-3 bg-ink text-paper rounded-full pl-6 pr-2 py-2 transition-all duration-500 hover:bg-ink/85 hover:scale-[1.02]"
             >
               <span className="text-[13px] font-medium">Get Started</span>
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-paper text-ink transition-transform group-hover:rotate-45">
+              <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-paper text-ink transition-transform duration-500 group-hover:rotate-45">
                 <ArrowUpRight className="h-4 w-4" />
               </span>
             </a>
-            <a href="#contact" className="text-[13px] text-ink/80 hover:text-ink underline-offset-4 hover:underline">
+            <a href="#contact" className="text-[13px] text-ink/80 hover:text-ink underline-offset-4 hover:underline transition-colors">
               Contact Us
             </a>
           </div>
@@ -126,19 +150,32 @@ function Hero() {
 
         {/* RIGHT — image */}
         <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-card">
+          {/* Soft depth glow behind the image */}
+          <div
+            aria-hidden
+            className="absolute -inset-8 rounded-[2rem] bg-gradient-to-br from-ink/8 via-transparent to-ink/5 depth-blur"
+          />
+          <div
+            data-parallax="-0.05"
+            className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-card light-sweep"
+          >
             <img
               src={heroVision}
               alt="Glass Maind — futuro digital"
               width={1024}
               height={1280}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover breathe"
             />
           </div>
           {/* floating chip */}
-          <div className="absolute -left-4 top-12 hidden md:flex items-center gap-2 bg-white border border-line rounded-full px-4 py-2 shadow-sm">
+          <div className="absolute -left-4 top-12 hidden md:flex items-center gap-2 bg-white border border-line rounded-full px-4 py-2 shadow-sm float-slow">
             <span className="h-2 w-2 rounded-full bg-ink" />
             <span className="text-[11px] uppercase tracking-[0.25em] text-ink/70">Vol. 01</span>
+          </div>
+          {/* floating index */}
+          <div className="absolute -right-3 bottom-16 hidden md:flex flex-col items-end gap-1 float-slower">
+            <span className="text-[10px] uppercase tracking-[0.3em] text-ink/50">Index</span>
+            <span className="text-sm text-ink/80 font-medium">A · 24</span>
           </div>
         </div>
       </div>
@@ -157,6 +194,7 @@ function Hero() {
     </section>
   );
 }
+
 
 /* =================== INFO STRIP =================== */
 function InfoStrip() {
