@@ -611,7 +611,7 @@ function Portfolio() {
 
           <figure className="col-span-12 md:col-span-5 md:mt-24 group sr sr-d2">
             <div className="overflow-hidden rounded-2xl bg-card aspect-[4/5]">
-              <img src={heroVision} alt="Maison" width={1024} height={1280} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]" />
+              <img src={deviceFront} alt="Maison" width={1024} height={1280} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]" />
             </div>
             <figcaption className="mt-5">
               <div className="text-[11px] uppercase tracking-[0.25em] text-dim">02 / Social</div>
