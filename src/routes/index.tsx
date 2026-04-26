@@ -71,10 +71,10 @@ function WhatsAppIcon({ className = "" }: { className?: string }) {
 }
 
 const SOCIALS = [
-  { name: "Instagram", href: "https://instagram.com", Icon: Instagram, meta: "@glassmaind" },
-  { name: "WhatsApp", href: "https://wa.me/", Icon: WhatsAppIcon, meta: "Fale conosco" },
-  { name: "Facebook", href: "https://facebook.com", Icon: Facebook, meta: "/glassmaind" },
-  { name: "Google", href: "https://google.com", Icon: GoogleIcon, meta: "Avaliações 5★" },
+  { name: "Instagram", href: "https://instagram.com", Icon: Instagram },
+  { name: "WhatsApp", href: "https://wa.me/", Icon: WhatsAppIcon },
+  { name: "Facebook", href: "https://facebook.com", Icon: Facebook },
+  { name: "Google", href: "https://google.com", Icon: GoogleIcon },
 ];
 
 function Hero() {
@@ -213,12 +213,9 @@ function Hero() {
                     />
                   </svg>
 
-                  {/* Social micro-info */}
-                  <span className="pointer-events-none absolute right-full mr-3 top-1/2 -translate-y-1/2 whitespace-nowrap text-[10px] tracking-[0.08em] text-ink/55 opacity-0 -translate-x-1 transition-all duration-500 group-hover:opacity-100 group-hover:translate-x-0">
-                    <span className="inline-flex items-center gap-1.5">
-                      <span className="inline-block h-1 w-1 rounded-full bg-ink/60" />
-                      {s.meta}
-                    </span>
+                  {/* Social name on hover */}
+                  <span className="pointer-events-none absolute right-full mr-3 top-1/2 -translate-y-1/2 whitespace-nowrap text-[11px] tracking-[0.08em] text-ink/70 opacity-0 -translate-x-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">
+                    {s.name}
                   </span>
                 </a>
               );
