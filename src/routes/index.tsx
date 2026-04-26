@@ -393,57 +393,84 @@ function Technology() {
 
         {/* 3D rotating product */}
         <div className="mt-20 md:mt-24 grid grid-cols-12 gap-10 items-center">
-          <div className="col-span-12 lg:col-span-7 relative aspect-[5/4] sr sr-d3" style={{ perspective: "1400px" }}>
+          <div
+            className="col-span-12 lg:col-span-7 relative aspect-[5/4] sr sr-d3"
+            style={{ perspective: "1600px" }}
+          >
+            {/* 3D rotating prism */}
             <div
-              className="absolute inset-0 transition-transform duration-[1400ms] ease-[cubic-bezier(.16,1,.3,1)]"
+              className="absolute inset-0 transition-transform duration-[1200ms] ease-[cubic-bezier(.16,1,.3,1)]"
               style={{
                 transformStyle: "preserve-3d",
-                transform: `rotateY(${-view.rotate}deg) rotateX(-8deg)`,
+                transform: `rotateX(-10deg) rotateY(${-active * 120}deg)`,
               }}
             >
-              {[0, 120, 240].map((deg, i) => (
+              {TECH_VIEWS.map((v, i) => (
                 <div
-                  key={deg}
-                  className="absolute inset-0 m-auto rounded-[2px] flex items-center justify-center"
+                  key={v.n}
+                  className="absolute inset-0 m-auto rounded-[3px] flex items-center justify-center overflow-hidden"
                   style={{
-                    width: "62%",
+                    width: "60%",
                     height: "78%",
-                    transform: `rotateY(${deg}deg) translateZ(180px)`,
+                    transform: `rotateY(${i * 120}deg) translateZ(190px)`,
                     background:
                       i === 0
-                        ? "linear-gradient(135deg, oklch(0.18 0 0), oklch(0.06 0 0))"
+                        ? "linear-gradient(140deg, oklch(0.22 0 0) 0%, oklch(0.06 0 0) 100%)"
                         : i === 1
-                        ? "linear-gradient(135deg, oklch(0.97 0 0), oklch(0.78 0 0))"
-                        : "linear-gradient(135deg, oklch(0.32 0 0), oklch(0.12 0 0))",
+                        ? "linear-gradient(140deg, oklch(0.98 0 0) 0%, oklch(0.78 0 0) 100%)"
+                        : "linear-gradient(140deg, oklch(0.36 0 0) 0%, oklch(0.12 0 0) 100%)",
                     border: "1px solid rgba(255,255,255,0.12)",
                     boxShadow:
                       i === 1
-                        ? "0 30px 80px -20px rgba(255,255,255,0.18), inset 0 0 0 1px rgba(255,255,255,0.6)"
-                        : "0 30px 80px -20px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(255,255,255,0.06)",
+                        ? "0 40px 90px -20px rgba(255,255,255,0.22), inset 0 1px 0 rgba(255,255,255,0.7), inset 0 -40px 60px -30px rgba(0,0,0,0.25)"
+                        : "0 40px 90px -20px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -40px 60px -30px rgba(0,0,0,0.6)",
                   }}
                 >
-                  <div className="text-center px-6">
-                    <div className={`text-[10px] uppercase tracking-[0.4em] ${i === 1 ? "text-ink/60" : "text-paper/50"}`}>
-                      {TECH_VIEWS[i].n}
+                  {/* Specular highlight */}
+                  <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                      background:
+                        "linear-gradient(115deg, transparent 35%, rgba(255,255,255,0.18) 50%, transparent 65%)",
+                      mixBlendMode: "screen",
+                    }}
+                  />
+                  {/* Grid texture */}
+                  <div
+                    className="absolute inset-0 pointer-events-none opacity-[0.08]"
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(currentColor 1px, transparent 1px), linear-gradient(90deg, currentColor 1px, transparent 1px)",
+                      backgroundSize: "32px 32px",
+                      color: i === 1 ? "#000" : "#fff",
+                    }}
+                  />
+                  <div className="relative text-center px-6">
+                    <div className={`text-[10px] uppercase tracking-[0.4em] ${i === 1 ? "text-ink/60" : "text-paper/55"}`}>
+                      {v.n}
                     </div>
                     <div
                       className={`mt-4 font-medium tracking-[-0.04em] ${i === 1 ? "text-ink" : "text-paper"}`}
                       style={{ fontSize: "clamp(2rem,4.5vw,4rem)", lineHeight: 0.95 }}
                     >
-                      {TECH_VIEWS[i].label}
+                      {v.label}
                     </div>
                     <div className={`mt-6 mx-auto h-px w-12 ${i === 1 ? "bg-ink/40" : "bg-paper/40"}`} />
+                    <div className={`mt-4 text-[10px] tracking-[0.2em] ${i === 1 ? "text-ink/45" : "text-paper/45"}`}>
+                      {v.tech}
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
 
+            {/* Floor shadow */}
             <div
               aria-hidden
-              className="absolute left-1/2 -translate-x-1/2 bottom-0 w-[55%] h-8 rounded-full"
+              className="absolute left-1/2 -translate-x-1/2 bottom-2 w-[55%] h-10 rounded-full"
               style={{
-                background: "radial-gradient(ellipse, rgba(0,0,0,0.55), transparent 70%)",
-                filter: "blur(14px)",
+                background: "radial-gradient(ellipse, rgba(0,0,0,0.65), transparent 70%)",
+                filter: "blur(18px)",
               }}
             />
           </div>
@@ -453,8 +480,10 @@ function Technology() {
               <span className="h-px w-8 bg-paper/40" />
               {view.n} · {view.label}
             </div>
-            <div key={active} className="animate-[fade-in_0.5s_ease-out]">
-              <h3 className="mt-6 font-medium text-[clamp(1.75rem,3vw,2.5rem)] leading-[1.05] tracking-[-0.03em] text-paper">
+
+            {/* Smooth content transition */}
+            <div key={active} className="tech-fade mt-6">
+              <h3 className="font-medium text-[clamp(1.75rem,3vw,2.5rem)] leading-[1.05] tracking-[-0.03em] text-paper">
                 {view.title}
               </h3>
               <p className="mt-5 text-[15px] leading-relaxed text-paper/60 max-w-md">
@@ -463,6 +492,27 @@ function Technology() {
               <div className="mt-8 inline-flex items-center gap-3 bg-paper/5 border border-paper/10 rounded-full px-4 py-2 text-[12px] text-paper/80">
                 <span className="h-1.5 w-1.5 rounded-full bg-paper" />
                 {view.highlight}
+              </div>
+
+              {/* Tech micro-line */}
+              <div className="mt-8 flex items-center gap-3">
+                <span className="h-px flex-1 max-w-[80px] bg-paper/15" />
+                <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-paper/40">
+                  {view.tech}
+                </span>
+              </div>
+
+              {/* CTA */}
+              <div className="mt-8">
+                <a
+                  href="#contact"
+                  className="group btn-shine inline-flex items-center gap-3 bg-paper text-ink rounded-full pl-6 pr-2 py-2 transition-transform duration-500 hover:scale-[1.02]"
+                >
+                  <span className="text-[13px] font-medium">Solicitar proposta</span>
+                  <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-ink text-paper transition-transform duration-500 group-hover:rotate-45">
+                    <ArrowUpRight className="h-4 w-4" />
+                  </span>
+                </a>
               </div>
             </div>
           </div>
