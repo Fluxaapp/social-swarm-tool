@@ -480,22 +480,22 @@ function Portfolio() {
         </div>
 
         <div className="grid grid-cols-12 gap-6 md:gap-10">
-          <figure className="col-span-12 md:col-span-7 group">
-            <div className="overflow-hidden rounded-2xl bg-card aspect-[5/4]">
-              <img src={portraitSecond} alt="Studio Noir Brand System" width={1024} height={1280} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
+          <figure className="col-span-12 md:col-span-7 group sr">
+            <div className="overflow-hidden rounded-2xl bg-card aspect-[5/4] light-sweep">
+              <img src={portraitSecond} alt="Studio Noir Brand System" width={1024} height={1280} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]" />
             </div>
             <figcaption className="mt-5 flex items-end justify-between">
               <div>
                 <div className="text-[11px] uppercase tracking-[0.25em] text-dim">01 / Identity</div>
                 <div className="mt-1 text-xl text-ink font-medium">Studio Noir — Brand System</div>
               </div>
-              <ArrowUpRight className="h-5 w-5 text-ink/60 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+              <ArrowUpRight className="h-5 w-5 text-ink/60 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
             </figcaption>
           </figure>
 
-          <figure className="col-span-12 md:col-span-5 md:mt-24 group">
+          <figure className="col-span-12 md:col-span-5 md:mt-24 group sr sr-d2">
             <div className="overflow-hidden rounded-2xl bg-card aspect-[4/5]">
-              <img src={heroVision} alt="Maison" width={1024} height={1280} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
+              <img src={heroVision} alt="Maison" width={1024} height={1280} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]" />
             </div>
             <figcaption className="mt-5">
               <div className="text-[11px] uppercase tracking-[0.25em] text-dim">02 / Social</div>
@@ -503,9 +503,9 @@ function Portfolio() {
             </figcaption>
           </figure>
 
-          <figure className="col-span-12 md:col-span-5 md:mt-12 group">
+          <figure className="col-span-12 md:col-span-5 md:mt-12 group sr sr-d3">
             <div className="overflow-hidden rounded-2xl bg-card aspect-[4/5]">
-              <img src={deviceRow} alt="Catalog 04" width={1280} height={1024} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
+              <img src={deviceRow} alt="Catalog 04" width={1280} height={1024} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]" />
             </div>
             <figcaption className="mt-5">
               <div className="text-[11px] uppercase tracking-[0.25em] text-dim">03 / Catalog</div>
@@ -513,16 +513,16 @@ function Portfolio() {
             </figcaption>
           </figure>
 
-          <figure className="col-span-12 md:col-span-7 group">
-            <div className="overflow-hidden rounded-2xl bg-ink aspect-[16/10] relative">
-              <img src={deviceFront} alt="Aurora launch" width={1280} height={800} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
+          <figure className="col-span-12 md:col-span-7 group sr sr-d4">
+            <div className="overflow-hidden rounded-2xl bg-ink aspect-[16/10] relative light-sweep">
+              <img src={deviceFront} alt="Aurora launch" width={1280} height={800} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]" />
             </div>
             <figcaption className="mt-5 flex items-end justify-between">
               <div>
                 <div className="text-[11px] uppercase tracking-[0.25em] text-dim">04 / Direção</div>
                 <div className="mt-1 text-xl text-ink font-medium">Aurora — Lançamento de Produto</div>
               </div>
-              <ArrowUpRight className="h-5 w-5 text-ink/60 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+              <ArrowUpRight className="h-5 w-5 text-ink/60 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
             </figcaption>
           </figure>
         </div>
