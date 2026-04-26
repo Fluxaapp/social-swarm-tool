@@ -464,7 +464,7 @@ function Technology() {
               className="absolute inset-0 transition-transform duration-[1400ms] ease-[cubic-bezier(.16,1,.3,1)]"
               style={{
                 transformStyle: "preserve-3d",
-                transform: `rotateY(${view.rotate}deg) rotateX(-8deg)`,
+                transform: `rotateY(${-view.rotate}deg) rotateX(-8deg)`,
               }}
             >
               {[0, 120, 240].map((deg, i) => (
