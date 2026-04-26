@@ -7,6 +7,8 @@ import workEditorial from "@/assets/work-editorial.jpg";
 import workPackaging from "@/assets/work-packaging.jpg";
 import workCampaign from "@/assets/work-campaign.jpg";
 import { useParallax, useScrollReveal } from "@/hooks/use-scroll-reveal";
+import { CONTACT, whatsappLink, mailtoLink } from "@/lib/contact";
+import { ProposalModal } from "@/components/ProposalModal";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -14,7 +16,7 @@ export const Route = createFileRoute("/")({
 
 
 /* =================== NAV =================== */
-function Nav() {
+function Nav({ onOpenProposal }: { onOpenProposal: () => void }) {
   return (
     <header className="absolute top-0 left-0 right-0 z-50">
       <div className="mx-auto max-w-[1280px] px-6 md:px-10 h-20 flex items-center justify-between gap-6">
@@ -41,13 +43,14 @@ function Nav() {
           />
         </div>
 
-        <a
-          href="#contact"
+        <button
+          type="button"
+          onClick={onOpenProposal}
           className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-full bg-ink text-paper"
-          aria-label="Contato"
+          aria-label="Solicitar proposta"
         >
           <ArrowUpRight className="h-4 w-4" />
-        </a>
+        </button>
       </div>
     </header>
   );
@@ -71,13 +74,13 @@ function WhatsAppIcon({ className = "" }: { className?: string }) {
 }
 
 const SOCIALS = [
-  { name: "Instagram", href: "https://instagram.com", Icon: Instagram },
-  { name: "WhatsApp", href: "https://wa.me/", Icon: WhatsAppIcon },
-  { name: "Facebook", href: "https://facebook.com", Icon: Facebook },
-  { name: "Google", href: "https://google.com", Icon: GoogleIcon },
+  { name: "Instagram", href: CONTACT.instagram.url, Icon: Instagram },
+  { name: "WhatsApp", href: whatsappLink("Olá! Vim pelo site da Glass Maind."), Icon: WhatsAppIcon },
+  { name: "Facebook", href: CONTACT.facebook.url, Icon: Facebook },
+  { name: "Google", href: CONTACT.google.url, Icon: GoogleIcon },
 ];
 
-function Hero() {
+function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
   return (
     <section id="top" className="relative bg-soft overflow-hidden">
       <div
@@ -133,7 +136,9 @@ function Hero() {
 
           <div className="mt-8 flex flex-wrap items-center gap-5 reveal reveal-d5">
             <a
-              href="#contact"
+              href={whatsappLink("Olá! Quero entrar em contato com a Glass Maind.")}
+              target="_blank"
+              rel="noopener noreferrer"
               className="group btn-shine inline-flex items-center gap-3 bg-ink text-paper rounded-full pl-6 pr-2 py-2 transition-transform duration-500 hover:scale-[1.02]"
             >
               <span className="text-[13px] font-medium">Entrar em contato</span>
@@ -141,9 +146,13 @@ function Hero() {
                 <ArrowUpRight className="h-4 w-4" />
               </span>
             </a>
-            <a href="#contact" className="text-[13px] text-ink/80 hover:text-ink underline-offset-4 hover:underline transition-colors">
+            <button
+              type="button"
+              onClick={onOpenProposal}
+              className="text-[13px] text-ink/80 hover:text-ink underline-offset-4 hover:underline transition-colors"
+            >
               Solicitar proposta
-            </a>
+            </button>
           </div>
 
           <div className="mt-14 flex items-center gap-8 md:gap-10 reveal reveal-d5">
@@ -364,7 +373,7 @@ const TECH_VIEWS = [
   },
 ] as const;
 
-function Technology() {
+function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
   const [active, setActive] = useState(0);
   const view = TECH_VIEWS[active];
 
@@ -501,15 +510,16 @@ function Technology() {
 
               {/* CTA */}
               <div className="mt-8">
-                <a
-                  href="#contact"
+                <button
+                  type="button"
+                  onClick={onOpenProposal}
                   className="group btn-shine inline-flex items-center gap-3 bg-paper text-ink rounded-full pl-6 pr-2 py-2 transition-transform duration-500 hover:scale-[1.02]"
                 >
                   <span className="text-[13px] font-medium">Solicitar proposta</span>
                   <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-ink text-paper transition-transform duration-500 group-hover:rotate-45">
                     <ArrowUpRight className="h-4 w-4" />
                   </span>
-                </a>
+                </button>
               </div>
             </div>
           </div>
@@ -670,7 +680,7 @@ function Portfolio() {
 }
 
 /* =================== CTA =================== */
-function CTA() {
+function CTA({ onOpenProposal }: { onOpenProposal: () => void }) {
   return (
     <section id="contact" className="bg-ink text-paper relative overflow-hidden">
       <div className="ambient-glow" aria-hidden />
@@ -688,17 +698,55 @@ function CTA() {
         </h2>
 
         <div className="mt-14 flex flex-col sm:flex-row items-center justify-center gap-4 sr sr-d2">
-          <a
-            href="mailto:contato@glassmaind.com"
+          <button
+            type="button"
+            onClick={onOpenProposal}
             className="group btn-shine inline-flex items-center gap-3 bg-paper text-ink rounded-full pl-7 pr-2 py-2 transition-transform duration-500 hover:scale-[1.02]"
           >
             <span className="text-[13px] font-medium">Solicitar proposta</span>
             <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-ink text-paper transition-transform duration-500 group-hover:rotate-45">
               <ArrowUpRight className="h-4 w-4" />
             </span>
-          </a>
-          <a href="https://wa.me/" className="text-[13px] text-paper/80 hover:text-paper underline-offset-4 hover:underline transition-colors">
+          </button>
+          <a
+            href={whatsappLink("Olá! Quero conversar com a Glass Maind.")}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[13px] text-paper/80 hover:text-paper underline-offset-4 hover:underline transition-colors"
+          >
             Falar no WhatsApp →
+          </a>
+        </div>
+
+        {/* Contact grid */}
+        <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-px bg-paper/10 border border-paper/10 sr sr-d3 max-w-4xl mx-auto text-left">
+          <a
+            href={whatsappLink("Olá!")}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group bg-ink p-6 hover:bg-paper/5 transition-colors"
+          >
+            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/40">WhatsApp</div>
+            <div className="mt-2 text-paper text-[15px] font-medium">{CONTACT.phoneDisplay}</div>
+            <div className="mt-1 text-[12px] text-paper/50 group-hover:text-paper/70 transition-colors">Resposta rápida →</div>
+          </a>
+          <a
+            href={mailtoLink("Contato pelo site Glass Maind")}
+            className="group bg-ink p-6 hover:bg-paper/5 transition-colors"
+          >
+            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/40">E-mail</div>
+            <div className="mt-2 text-paper text-[15px] font-medium break-all">{CONTACT.email}</div>
+            <div className="mt-1 text-[12px] text-paper/50 group-hover:text-paper/70 transition-colors">Enviar mensagem →</div>
+          </a>
+          <a
+            href="https://maps.google.com/?q=Av.+Des.+Moreira,+1300+-+Aldeota,+Fortaleza+-+CE"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group bg-ink p-6 hover:bg-paper/5 transition-colors"
+          >
+            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/40">Endereço</div>
+            <div className="mt-2 text-paper text-[14px] font-medium leading-snug">{CONTACT.address}</div>
+            <div className="mt-1 text-[12px] text-paper/50 group-hover:text-paper/70 transition-colors">Ver no mapa →</div>
           </a>
         </div>
 
@@ -725,16 +773,49 @@ function Footer() {
               <span className="text-[15px] font-medium">Glass Maind</span>
             </div>
             <p className="mt-6 text-sm text-paper/60 max-w-sm">
-              Marketing, Design e Gestão Visual. São Paulo / Worldwide.
+              Marketing, Design e Gestão Visual. Fortaleza / Brasil.
             </p>
+            <p className="mt-3 text-sm text-paper/50 max-w-sm">{CONTACT.address}</p>
           </div>
 
           <div className="col-span-6 md:col-span-2">
             <div className="text-[10px] uppercase tracking-[0.3em] text-paper/40 mb-4">Contato</div>
             <ul className="space-y-2.5 text-sm text-paper/80">
-              <li><a href="https://wa.me/" className="hover:text-paper">WhatsApp</a></li>
-              <li><a href="mailto:contato@glassmaind.com" className="hover:text-paper">E-mail</a></li>
-              <li><a href="https://instagram.com" className="hover:text-paper">Instagram</a></li>
+              <li>
+                <a
+                  href={whatsappLink("Olá!")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-paper"
+                >
+                  WhatsApp
+                </a>
+              </li>
+              <li>
+                <a href={mailtoLink()} className="hover:text-paper">
+                  E-mail
+                </a>
+              </li>
+              <li>
+                <a
+                  href={CONTACT.instagram.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-paper"
+                >
+                  Instagram
+                </a>
+              </li>
+              <li>
+                <a
+                  href={CONTACT.facebook.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-paper"
+                >
+                  Facebook
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -749,8 +830,9 @@ function Footer() {
 
           <div className="col-span-12 md:col-span-2">
             <div className="text-[10px] uppercase tracking-[0.3em] text-paper/40 mb-4">Estúdio</div>
-            <p className="text-sm text-paper/80">São Paulo / SP</p>
+            <p className="text-sm text-paper/80">Fortaleza / CE</p>
             <p className="mt-1 text-sm text-paper/60">Seg — Sex · 09 → 18</p>
+            <p className="mt-3 text-sm text-paper/80">{CONTACT.phoneDisplay}</p>
           </div>
         </div>
 
@@ -767,18 +849,20 @@ function Footer() {
 function Index() {
   useScrollReveal();
   useParallax();
+  const [proposalOpen, setProposalOpen] = useState(false);
 
   return (
     <main className="bg-paper text-ink min-h-screen">
-      <Nav />
-      <Hero />
-      <Technology />
+      <Nav onOpenProposal={() => setProposalOpen(true)} />
+      <Hero onOpenProposal={() => setProposalOpen(true)} />
+      <Technology onOpenProposal={() => setProposalOpen(true)} />
       <InfoStrip />
       <About />
       <Services />
       <Portfolio />
-      <CTA />
+      <CTA onOpenProposal={() => setProposalOpen(true)} />
       <Footer />
+      <ProposalModal open={proposalOpen} onClose={() => setProposalOpen(false)} />
     </main>
   );
 }
