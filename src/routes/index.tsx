@@ -177,40 +177,9 @@ function Hero() {
         <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 lg:pl-6 min-h-[480px] lg:min-h-[560px]">
           <div
             data-parallax="-0.05"
-            className="absolute inset-0 flex items-center justify-center"
+            className="absolute inset-0"
             aria-hidden
-          >
-            <svg
-              viewBox="0 0 500 600"
-              className="w-full h-full max-w-[520px]"
-              preserveAspectRatio="xMidYMid meet"
-            >
-              {/* Floating particles only — no triangular structure */}
-              <g fill="currentColor" className="text-ink/30">
-                <circle cx="180" cy="300" r="1.5">
-                  <animateMotion path="M0,0 Q40,-30 80,10 T160,-20" dur="9s" repeatCount="indefinite" />
-                  <animate attributeName="opacity" values="0;1;0" dur="9s" repeatCount="indefinite" />
-                </circle>
-                <circle cx="320" cy="160" r="1.5">
-                  <animateMotion path="M0,0 Q-30,40 -60,80 T-120,160" dur="11s" repeatCount="indefinite" />
-                  <animate attributeName="opacity" values="0;1;0" dur="11s" repeatCount="indefinite" />
-                </circle>
-                <circle cx="100" cy="420" r="1.2">
-                  <animateMotion path="M0,0 Q60,-20 120,-60 T240,-100" dur="13s" repeatCount="indefinite" />
-                  <animate attributeName="opacity" values="0;1;0" dur="13s" repeatCount="indefinite" />
-                </circle>
-                <circle cx="380" cy="380" r="1.3">
-                  <animateMotion path="M0,0 Q-50,-40 -100,-20 T-200,40" dur="12s" repeatCount="indefinite" />
-                  <animate attributeName="opacity" values="0;0.8;0" dur="12s" repeatCount="indefinite" />
-                </circle>
-                <circle cx="220" cy="120" r="1.1">
-                  <animateMotion path="M0,0 Q30,60 70,120 T140,240" dur="14s" repeatCount="indefinite" />
-                  <animate attributeName="opacity" values="0;0.7;0" dur="14s" repeatCount="indefinite" />
-                </circle>
-              </g>
-
-            </svg>
-          </div>
+          />
 
           {/* Social icons — vertical, transparent, tech micro-interface */}
           <div className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 flex flex-col items-center gap-7 md:gap-8">
