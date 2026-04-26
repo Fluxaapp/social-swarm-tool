@@ -390,3 +390,13 @@
   }
   .sr { opacity: 1; transform: none; }
 }
+
+/* Social icon ring — animated draw on hover */
+.social-tech .social-ring {
+  stroke-dasharray: 100.5;
+  stroke-dashoffset: 100.5;
+  transition: stroke-dashoffset 0.7s cubic-bezier(.16,1,.3,1);
+}
+.social-tech:hover .social-ring {
+  stroke-dashoffset: 0;
+}
