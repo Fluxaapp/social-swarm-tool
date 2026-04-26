@@ -278,7 +278,7 @@
       0 24px 40px -20px rgba(0, 0, 0, 0.18);
   }
 
-  /* Premium button shine */
+  /* Premium button shine — continuous on hover */
   .btn-shine {
     position: relative;
     overflow: hidden;
@@ -291,14 +291,19 @@
       115deg,
       transparent 30%,
       rgba(255, 255, 255, 0.22) 48%,
-      rgba(255, 255, 255, 0.42) 50%,
+      rgba(255, 255, 255, 0.45) 50%,
       rgba(255, 255, 255, 0.22) 52%,
       transparent 70%
     );
     transform: translateX(-120%);
-    animation: sweep 5s ease-in-out infinite;
+    opacity: 0;
+    transition: opacity 0.35s ease-out;
     pointer-events: none;
     mix-blend-mode: screen;
+  }
+  .btn-shine:hover::before {
+    opacity: 1;
+    animation: sweep 2.4s linear infinite;
   }
 
   /* Subtle blurred backdrop layer */
