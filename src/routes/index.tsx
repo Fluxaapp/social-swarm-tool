@@ -535,38 +535,44 @@ function Portfolio() {
 function CTA() {
   return (
     <section id="contact" className="bg-ink text-paper relative overflow-hidden">
-      <div className="mx-auto max-w-[1440px] px-6 md:px-10 py-32 md:py-44 text-center">
-        <div className="text-[11px] uppercase tracking-[0.3em] text-paper/50 inline-flex items-center gap-3">
+      {/* ambient glow + dots */}
+      <div className="ambient-glow" aria-hidden />
+      <span className="light-dot" style={{ top: "30%", left: "15%" }} aria-hidden />
+      <span className="light-dot" style={{ top: "70%", right: "18%", animationDelay: "4s" }} aria-hidden />
+
+      <div className="mx-auto max-w-[1440px] px-6 md:px-10 py-32 md:py-44 text-center relative">
+        <div className="text-[11px] uppercase tracking-[0.3em] text-paper/50 inline-flex items-center gap-3 sr">
           <span className="h-px w-8 bg-paper/40" />
           Get in Touch
           <span className="h-px w-8 bg-paper/40" />
         </div>
-        <h2 className="mt-12 font-medium leading-[0.95] tracking-[-0.04em] text-[clamp(2.5rem,7.5vw,7.5rem)] max-w-5xl mx-auto text-balance">
+        <h2 className="mt-12 font-medium leading-[0.95] tracking-[-0.04em] text-[clamp(2.5rem,7.5vw,7.5rem)] max-w-5xl mx-auto text-balance sr sr-d1">
           Sua marca pode parecer tão forte quanto ela realmente é.
         </h2>
 
-        <div className="mt-14 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="mt-14 flex flex-col sm:flex-row items-center justify-center gap-4 sr sr-d2">
           <a
             href="mailto:contato@glassmaind.com"
-            className="group inline-flex items-center gap-3 bg-paper text-ink rounded-full pl-7 pr-2 py-2"
+            className="group btn-shine inline-flex items-center gap-3 bg-paper text-ink rounded-full pl-7 pr-2 py-2 transition-transform duration-500 hover:scale-[1.02]"
           >
             <span className="text-[13px] font-medium">Solicitar proposta</span>
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-ink text-paper transition-transform group-hover:rotate-45">
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-ink text-paper transition-transform duration-500 group-hover:rotate-45">
               <ArrowUpRight className="h-4 w-4" />
             </span>
           </a>
-          <a href="https://wa.me/" className="text-[13px] text-paper/80 hover:text-paper underline-offset-4 hover:underline">
+          <a href="https://wa.me/" className="text-[13px] text-paper/80 hover:text-paper underline-offset-4 hover:underline transition-colors">
             Falar no WhatsApp →
           </a>
         </div>
 
-        <p className="mt-10 text-[11px] uppercase tracking-[0.25em] text-paper/40">
+        <p className="mt-10 text-[11px] uppercase tracking-[0.25em] text-paper/40 sr sr-d3">
           Resposta em até 24 horas úteis
         </p>
       </div>
     </section>
   );
 }
+
 
 /* =================== FOOTER =================== */
 function Footer() {
