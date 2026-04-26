@@ -278,7 +278,7 @@
       0 24px 40px -20px rgba(0, 0, 0, 0.18);
   }
 
-  /* Premium button shine */
+  /* Premium button shine — continuous on hover */
   .btn-shine {
     position: relative;
     overflow: hidden;
@@ -291,14 +291,19 @@
       115deg,
       transparent 30%,
       rgba(255, 255, 255, 0.22) 48%,
-      rgba(255, 255, 255, 0.42) 50%,
+      rgba(255, 255, 255, 0.45) 50%,
       rgba(255, 255, 255, 0.22) 52%,
       transparent 70%
     );
     transform: translateX(-120%);
-    animation: sweep 5s ease-in-out infinite;
+    opacity: 0;
+    transition: opacity 0.35s ease-out;
     pointer-events: none;
     mix-blend-mode: screen;
+  }
+  .btn-shine:hover::before {
+    opacity: 1;
+    animation: sweep-loop 2.2s linear infinite;
   }
 
   /* Subtle blurred backdrop layer */
@@ -366,6 +371,10 @@
   0% { transform: translateX(-120%); }
   60%, 100% { transform: translateX(120%); }
 }
+@keyframes sweep-loop {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(120%); }
+}
 
 @keyframes ambient-drift {
   0% { transform: translate(0, 0) rotate(0deg); }
@@ -399,4 +408,13 @@
 }
 .social-tech:hover .social-ring {
   stroke-dashoffset: 0;
+}
+
+/* Tech panel fade + slide on view change */
+.tech-fade {
+  animation: tech-fade 0.4s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes tech-fade {
+  0% { opacity: 0; transform: translateY(10px); filter: blur(4px); }
+  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
 }
