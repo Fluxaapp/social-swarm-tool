@@ -315,7 +315,7 @@ function About() {
             return (
               <div
                 key={it.l}
-                style={{ backgroundColor: "oklch(0.22 0 0)" }}
+                style={{ backgroundColor: "oklch(0.13 0 0)" }}
                 className={[
                   "py-14 md:py-20 px-8 md:px-10 rounded-[2px] sr lift text-paper",
                   `sr-d${i + 1}`,
