@@ -4,10 +4,12 @@ import heroVision from "@/assets/hero-vision.jpg";
 import deviceFront from "@/assets/device-front.jpg";
 import deviceRow from "@/assets/device-row.jpg";
 import portraitSecond from "@/assets/portrait-second.jpg";
+import { useParallax, useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
+
 
 /* =================== NAV =================== */
 function Nav() {
