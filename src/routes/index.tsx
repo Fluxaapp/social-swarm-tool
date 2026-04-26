@@ -74,13 +74,13 @@ function WhatsAppIcon({ className = "" }: { className?: string }) {
 }
 
 const SOCIALS = [
-  { name: "Instagram", href: "https://instagram.com", Icon: Instagram },
-  { name: "WhatsApp", href: "https://wa.me/", Icon: WhatsAppIcon },
-  { name: "Facebook", href: "https://facebook.com", Icon: Facebook },
-  { name: "Google", href: "https://google.com", Icon: GoogleIcon },
+  { name: "Instagram", href: CONTACT.instagram.url, Icon: Instagram },
+  { name: "WhatsApp", href: whatsappLink("Olá! Vim pelo site da Glass Maind."), Icon: WhatsAppIcon },
+  { name: "Facebook", href: CONTACT.facebook.url, Icon: Facebook },
+  { name: "Google", href: CONTACT.google.url, Icon: GoogleIcon },
 ];
 
-function Hero() {
+function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
   return (
     <section id="top" className="relative bg-soft overflow-hidden">
       <div
