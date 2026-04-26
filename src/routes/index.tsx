@@ -340,9 +340,9 @@ function InfoStrip() {
 /* =================== ABOUT =================== */
 function About() {
   const stats = [
-    { n: "20+", l: "Marcas atendidas", d: "Clientes ativos no Brasil e exterior", tone: "dark" as const },
-    { n: "47%", l: "Crescimento médio", d: "Aumento de presença em 90 dias", tone: "gray" as const },
-    { n: "03", l: "Pilares de atuação", d: "Design · Marketing · Gestão", tone: "light" as const },
+    { n: "20+", l: "Marcas atendidas", d: "Clientes ativos no Brasil e exterior" },
+    { n: "47%", l: "Crescimento médio", d: "Aumento de presença em 90 dias" },
+    { n: "03", l: "Pilares de atuação", d: "Design · Marketing · Gestão" },
   ];
 
   return (
