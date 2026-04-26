@@ -16,7 +16,7 @@ export const Route = createFileRoute("/")({
 
 
 /* =================== NAV =================== */
-function Nav() {
+function Nav({ onOpenProposal }: { onOpenProposal: () => void }) {
   return (
     <header className="absolute top-0 left-0 right-0 z-50">
       <div className="mx-auto max-w-[1280px] px-6 md:px-10 h-20 flex items-center justify-between gap-6">
@@ -43,13 +43,14 @@ function Nav() {
           />
         </div>
 
-        <a
-          href="#contact"
+        <button
+          type="button"
+          onClick={onOpenProposal}
           className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-full bg-ink text-paper"
-          aria-label="Contato"
+          aria-label="Solicitar proposta"
         >
           <ArrowUpRight className="h-4 w-4" />
-        </a>
+        </button>
       </div>
     </header>
   );
