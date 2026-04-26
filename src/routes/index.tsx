@@ -773,16 +773,49 @@ function Footer() {
               <span className="text-[15px] font-medium">Glass Maind</span>
             </div>
             <p className="mt-6 text-sm text-paper/60 max-w-sm">
-              Marketing, Design e Gestão Visual. São Paulo / Worldwide.
+              Marketing, Design e Gestão Visual. Fortaleza / Brasil.
             </p>
+            <p className="mt-3 text-sm text-paper/50 max-w-sm">{CONTACT.address}</p>
           </div>
 
           <div className="col-span-6 md:col-span-2">
             <div className="text-[10px] uppercase tracking-[0.3em] text-paper/40 mb-4">Contato</div>
             <ul className="space-y-2.5 text-sm text-paper/80">
-              <li><a href="https://wa.me/" className="hover:text-paper">WhatsApp</a></li>
-              <li><a href="mailto:contato@glassmaind.com" className="hover:text-paper">E-mail</a></li>
-              <li><a href="https://instagram.com" className="hover:text-paper">Instagram</a></li>
+              <li>
+                <a
+                  href={whatsappLink("Olá!")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-paper"
+                >
+                  WhatsApp
+                </a>
+              </li>
+              <li>
+                <a href={mailtoLink()} className="hover:text-paper">
+                  E-mail
+                </a>
+              </li>
+              <li>
+                <a
+                  href={CONTACT.instagram.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-paper"
+                >
+                  Instagram
+                </a>
+              </li>
+              <li>
+                <a
+                  href={CONTACT.facebook.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-paper"
+                >
+                  Facebook
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -797,8 +830,9 @@ function Footer() {
 
           <div className="col-span-12 md:col-span-2">
             <div className="text-[10px] uppercase tracking-[0.3em] text-paper/40 mb-4">Estúdio</div>
-            <p className="text-sm text-paper/80">São Paulo / SP</p>
+            <p className="text-sm text-paper/80">Fortaleza / CE</p>
             <p className="mt-1 text-sm text-paper/60">Seg — Sex · 09 → 18</p>
+            <p className="mt-3 text-sm text-paper/80">{CONTACT.phoneDisplay}</p>
           </div>
         </div>
 
