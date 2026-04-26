@@ -134,7 +134,7 @@ function Hero() {
           <div className="mt-8 flex flex-wrap items-center gap-5 reveal reveal-d5">
             <a
               href="#contact"
-              className="group btn-shine inline-flex items-center gap-3 bg-ink text-paper rounded-full pl-6 pr-2 py-2 transition-all duration-500 hover:bg-ink/85 hover:scale-[1.02]"
+              className="group btn-shine inline-flex items-center gap-3 bg-ink text-paper rounded-full pl-6 pr-2 py-2 transition-transform duration-500 hover:scale-[1.02]"
             >
               <span className="text-[13px] font-medium">Entrar em contato</span>
               <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-paper text-ink transition-transform duration-500 group-hover:rotate-45">
