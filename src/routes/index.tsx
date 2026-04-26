@@ -185,56 +185,8 @@ function Hero() {
               className="w-full h-full max-w-[520px]"
               preserveAspectRatio="xMidYMid meet"
             >
-              {/* (estrela de 6 pontas removida) */}
-
-
-              <g stroke="currentColor" strokeWidth="0.5" className="text-ink/20" fill="none">
-                <line x1="250" y1="60" x2="120" y2="220" />
-                <line x1="250" y1="60" x2="380" y2="220" />
-                <line x1="120" y1="220" x2="380" y2="220" />
-                <line x1="120" y1="220" x2="250" y2="380" />
-                <line x1="380" y1="220" x2="250" y2="380" />
-                <line x1="250" y1="380" x2="60" y2="520" />
-                <line x1="250" y1="380" x2="440" y2="520" />
-                <line x1="60" y1="520" x2="440" y2="520" />
-                <line x1="120" y1="220" x2="60" y2="520" />
-                <line x1="380" y1="220" x2="440" y2="520" />
-                <line x1="250" y1="60" x2="250" y2="380" />
-              </g>
-
-              <g stroke="currentColor" strokeWidth="0.8" className="text-ink/40 dash-flow" fill="none">
-                <line x1="120" y1="220" x2="380" y2="220" />
-              </g>
-              <g stroke="currentColor" strokeWidth="0.8" className="text-ink/35 dash-flow" fill="none" style={{ animationDelay: "2s" }}>
-                <line x1="250" y1="60" x2="250" y2="380" />
-              </g>
-
-              <g fill="currentColor" className="text-ink">
-                <circle cx="250" cy="60" r="3.5" />
-                <circle cx="120" cy="220" r="3" />
-                <circle cx="380" cy="220" r="3" />
-                <circle cx="250" cy="380" r="4" />
-                <circle cx="60" cy="520" r="2.5" />
-                <circle cx="440" cy="520" r="2.5" />
-              </g>
-              <g fill="currentColor" className="text-ink/70">
-                <circle cx="250" cy="60" r="6">
-                  <animate attributeName="opacity" values="0.2;0.7;0.2" dur="3.5s" repeatCount="indefinite" />
-                  <animate attributeName="r" values="6;10;6" dur="3.5s" repeatCount="indefinite" />
-                </circle>
-                <circle cx="250" cy="380" r="7">
-                  <animate attributeName="opacity" values="0.15;0.6;0.15" dur="4s" begin="1s" repeatCount="indefinite" />
-                  <animate attributeName="r" values="7;12;7" dur="4s" begin="1s" repeatCount="indefinite" />
-                </circle>
-                <circle cx="120" cy="220" r="5">
-                  <animate attributeName="opacity" values="0.1;0.5;0.1" dur="3.2s" begin="0.5s" repeatCount="indefinite" />
-                </circle>
-                <circle cx="380" cy="220" r="5">
-                  <animate attributeName="opacity" values="0.1;0.5;0.1" dur="3.8s" begin="1.5s" repeatCount="indefinite" />
-                </circle>
-              </g>
-
-              <g fill="currentColor" className="text-ink/40">
+              {/* Floating particles only — no triangular structure */}
+              <g fill="currentColor" className="text-ink/30">
                 <circle cx="180" cy="300" r="1.5">
                   <animateMotion path="M0,0 Q40,-30 80,10 T160,-20" dur="9s" repeatCount="indefinite" />
                   <animate attributeName="opacity" values="0;1;0" dur="9s" repeatCount="indefinite" />
@@ -247,7 +199,16 @@ function Hero() {
                   <animateMotion path="M0,0 Q60,-20 120,-60 T240,-100" dur="13s" repeatCount="indefinite" />
                   <animate attributeName="opacity" values="0;1;0" dur="13s" repeatCount="indefinite" />
                 </circle>
+                <circle cx="380" cy="380" r="1.3">
+                  <animateMotion path="M0,0 Q-50,-40 -100,-20 T-200,40" dur="12s" repeatCount="indefinite" />
+                  <animate attributeName="opacity" values="0;0.8;0" dur="12s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="220" cy="120" r="1.1">
+                  <animateMotion path="M0,0 Q30,60 70,120 T140,240" dur="14s" repeatCount="indefinite" />
+                  <animate attributeName="opacity" values="0;0.7;0" dur="14s" repeatCount="indefinite" />
+                </circle>
               </g>
+
             </svg>
           </div>
 
