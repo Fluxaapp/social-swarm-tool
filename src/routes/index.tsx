@@ -234,15 +234,15 @@ function About() {
     <section id="about" className="bg-paper py-28 md:py-40">
       <div className="mx-auto max-w-[1440px] px-6 md:px-10">
         <div className="text-center max-w-4xl mx-auto">
-          <div className="text-[11px] uppercase tracking-[0.35em] text-dim inline-flex items-center gap-3">
+          <div className="text-[11px] uppercase tracking-[0.35em] text-dim inline-flex items-center gap-3 sr">
             <span className="h-px w-10 bg-ink/40" />
             About Us
             <span className="h-px w-10 bg-ink/40" />
           </div>
-          <h2 className="mt-10 font-medium text-ink leading-[1] tracking-[-0.035em] text-[clamp(2.5rem,5.5vw,5rem)] text-balance">
+          <h2 className="mt-10 font-medium text-ink leading-[1] tracking-[-0.035em] text-[clamp(2.5rem,5.5vw,5rem)] text-balance sr sr-d1">
             Engineering brand presence for the next generation of companies.
           </h2>
-          <p className="mt-8 text-base text-dim leading-relaxed max-w-2xl mx-auto">
+          <p className="mt-8 text-base text-dim leading-relaxed max-w-2xl mx-auto sr sr-d2">
             A Glass Maind une design estratégico, comunicação visual e marketing
             para transformar empresas comuns em marcas com presença, consistência
             e desejo.
@@ -258,7 +258,8 @@ function About() {
             <div
               key={it.l}
               className={[
-                "py-14 md:py-20 px-2 md:px-10",
+                "py-14 md:py-20 px-2 md:px-10 sr",
+                `sr-d${i + 1}`,
                 i !== 0 ? "border-t md:border-t-0 md:border-l border-line" : "",
               ].join(" ")}
             >
@@ -277,6 +278,7 @@ function About() {
     </section>
   );
 }
+
 
 /* =================== DARK / TECHNOLOGY =================== */
 function Technology() {
