@@ -256,8 +256,8 @@ function Hero() {
             </svg>
           </div>
 
-          {/* Social icons */}
-          <div className="absolute right-0 bottom-2 md:bottom-6 z-10 flex items-center gap-3 md:gap-4">
+          {/* Social icons — vertical, transparent, discreet */}
+          <div className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 flex flex-col items-center gap-5 md:gap-6">
             {SOCIALS.map((s) => {
               const Icon = s.Icon;
               return (
@@ -267,14 +267,13 @@ function Hero() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={s.name}
-                  className="group relative inline-flex h-11 w-11 md:h-12 md:w-12 items-center justify-center rounded-full bg-white border border-line text-ink overflow-hidden transition-transform duration-500 hover:scale-110 hover:-translate-y-1"
+                  className="group relative inline-flex h-8 w-8 items-center justify-center text-ink/70 transition-all duration-500 hover:text-ink hover:scale-125 hover:-translate-y-0.5"
+                  style={{ filter: "drop-shadow(0 0 0 transparent)" }}
                 >
-                  <span className="absolute inset-0 rounded-full bg-ink scale-0 group-hover:scale-100 transition-transform duration-500 ease-[cubic-bezier(.16,1,.3,1)]" />
-                  <span
-                    className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    style={{ boxShadow: "0 8px 30px 2px rgba(0,0,0,0.35)" }}
+                  <Icon className="relative h-[18px] w-[18px] transition-all duration-500 group-hover:[filter:drop-shadow(0_0_10px_rgba(0,0,0,0.45))]" />
+                  <span className="pointer-events-none absolute -inset-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    style={{ background: "radial-gradient(circle, rgba(0,0,0,0.12), transparent 70%)" }}
                   />
-                  <Icon className="relative h-[18px] w-[18px] md:h-5 md:w-5 transition-all duration-500 group-hover:text-paper group-hover:rotate-[-8deg]" />
                 </a>
               );
             })}
@@ -341,9 +340,9 @@ function InfoStrip() {
 /* =================== ABOUT =================== */
 function About() {
   const stats = [
-    { n: "20+", l: "Marcas atendidas", d: "Clientes ativos no Brasil e exterior", tone: "dark" as const },
-    { n: "47%", l: "Crescimento médio", d: "Aumento de presença em 90 dias", tone: "gray" as const },
-    { n: "03", l: "Pilares de atuação", d: "Design · Marketing · Gestão", tone: "light" as const },
+    { n: "20+", l: "Marcas atendidas", d: "Clientes ativos no Brasil e exterior" },
+    { n: "47%", l: "Crescimento médio", d: "Aumento de presença em 90 dias" },
+    { n: "03", l: "Pilares de atuação", d: "Design · Marketing · Gestão" },
   ];
 
   return (
@@ -367,35 +366,23 @@ function About() {
 
         <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-4">
           {stats.map((it, i) => {
-            const isLight = it.tone === "light";
-            const bgClass =
-              it.tone === "dark"
-                ? "bg-ink text-paper"
-                : it.tone === "gray"
-                ? "text-paper"
-                : "bg-paper text-ink border border-line";
-            const inlineStyle =
-              it.tone === "gray"
-                ? { backgroundColor: "oklch(0.22 0 0)" }
-                : undefined;
             return (
               <div
                 key={it.l}
-                style={inlineStyle}
+                style={{ backgroundColor: "oklch(0.22 0 0)" }}
                 className={[
-                  "py-14 md:py-20 px-8 md:px-10 rounded-[2px] sr lift",
+                  "py-14 md:py-20 px-8 md:px-10 rounded-[2px] sr lift text-paper",
                   `sr-d${i + 1}`,
-                  bgClass,
                 ].join(" ")}
               >
                 <div className="font-medium text-[clamp(3.5rem,7vw,6rem)] leading-none tracking-[-0.05em]">
                   {it.n}
                 </div>
-                <div className={`mt-5 flex items-center gap-3 text-[11px] uppercase tracking-[0.25em] ${isLight ? "text-ink/70" : "text-paper/70"}`}>
-                  <span className={`h-px w-6 ${isLight ? "bg-ink/60" : "bg-paper/60"}`} />
+                <div className="mt-5 flex items-center gap-3 text-[11px] uppercase tracking-[0.25em] text-paper/70">
+                  <span className="h-px w-6 bg-paper/60" />
                   {it.l}
                 </div>
-                <p className={`mt-3 text-sm max-w-xs ${isLight ? "text-dim" : "text-paper/60"}`}>{it.d}</p>
+                <p className="mt-3 text-sm max-w-xs text-paper/60">{it.d}</p>
               </div>
             );
           })}
@@ -465,7 +452,7 @@ function Technology() {
               className="absolute inset-0 transition-transform duration-[1400ms] ease-[cubic-bezier(.16,1,.3,1)]"
               style={{
                 transformStyle: "preserve-3d",
-                transform: `rotateY(${view.rotate}deg) rotateX(-8deg)`,
+                transform: `rotateY(${-view.rotate}deg) rotateX(-8deg)`,
               }}
             >
               {[0, 120, 240].map((deg, i) => (
@@ -515,20 +502,22 @@ function Technology() {
             />
           </div>
 
-          <div className="col-span-12 lg:col-span-5 sr sr-d4" key={active}>
+          <div className="col-span-12 lg:col-span-5 sr sr-d4">
             <div className="text-[11px] uppercase tracking-[0.3em] text-paper/50 flex items-center gap-3">
               <span className="h-px w-8 bg-paper/40" />
               {view.n} · {view.label}
             </div>
-            <h3 className="mt-6 font-medium text-[clamp(1.75rem,3vw,2.5rem)] leading-[1.05] tracking-[-0.03em] text-paper">
-              {view.title}
-            </h3>
-            <p className="mt-5 text-[15px] leading-relaxed text-paper/60 max-w-md">
-              {view.desc}
-            </p>
-            <div className="mt-8 inline-flex items-center gap-3 bg-paper/5 border border-paper/10 rounded-full px-4 py-2 text-[12px] text-paper/80">
-              <span className="h-1.5 w-1.5 rounded-full bg-paper" />
-              {view.highlight}
+            <div key={active} className="animate-[fade-in_0.5s_ease-out]">
+              <h3 className="mt-6 font-medium text-[clamp(1.75rem,3vw,2.5rem)] leading-[1.05] tracking-[-0.03em] text-paper">
+                {view.title}
+              </h3>
+              <p className="mt-5 text-[15px] leading-relaxed text-paper/60 max-w-md">
+                {view.desc}
+              </p>
+              <div className="mt-8 inline-flex items-center gap-3 bg-paper/5 border border-paper/10 rounded-full px-4 py-2 text-[12px] text-paper/80">
+                <span className="h-1.5 w-1.5 rounded-full bg-paper" />
+                {view.highlight}
+              </div>
             </div>
           </div>
         </div>
@@ -599,18 +588,17 @@ function Services() {
               <article
                 key={s.n}
                 className={[
-                  "group relative p-10 md:p-12 min-h-[290px] flex flex-col justify-between transition-colors duration-500 lift sr",
+                  "group relative p-10 md:p-12 min-h-[290px] flex flex-col justify-between transition-all duration-500 lift sr",
                   `sr-d${Math.min((i % 3) + 1, 5)}`,
-                  isDark
-                    ? "bg-ink text-paper hover:bg-paper hover:text-ink"
-                    : "bg-paper text-ink hover:bg-ink hover:text-paper",
+                  isDark ? "bg-ink text-paper" : "bg-paper text-ink",
+                  "hover:shadow-[0_20px_50px_-20px_rgba(0,0,0,0.35)]",
                 ].join(" ")}
               >
                 <div className="flex items-start justify-between">
-                  <span className={`text-[11px] uppercase tracking-[0.3em] transition-colors duration-500 ${isDark ? "text-paper/60 group-hover:text-dim" : "text-dim group-hover:text-paper/60"}`}>
+                  <span className={`text-[11px] uppercase tracking-[0.3em] ${isDark ? "text-paper/60" : "text-dim"}`}>
                     {s.n}
                   </span>
-                  <span className={`inline-flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-500 ${isDark ? "border-paper/30 group-hover:border-line" : "border-line group-hover:border-paper/30"}`}>
+                  <span className={`inline-flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-500 ${isDark ? "border-paper/30 group-hover:border-paper/60" : "border-line group-hover:border-ink/40"}`}>
                     <Plus className="h-3.5 w-3.5 transition-transform duration-500 group-hover:rotate-90" />
                   </span>
                 </div>
@@ -618,7 +606,7 @@ function Services() {
                   <h4 className="font-medium text-2xl md:text-[1.75rem] tracking-[-0.02em] leading-tight">
                     {s.t}
                   </h4>
-                  <p className={`mt-3 text-sm leading-relaxed max-w-xs transition-colors duration-500 ${isDark ? "text-paper/70 group-hover:text-dim" : "text-dim group-hover:text-paper/70"}`}>
+                  <p className={`mt-3 text-sm leading-relaxed max-w-xs ${isDark ? "text-paper/70" : "text-dim"}`}>
                     {s.d}
                   </p>
                 </div>
