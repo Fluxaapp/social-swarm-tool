@@ -680,7 +680,7 @@ function Portfolio() {
 }
 
 /* =================== CTA =================== */
-function CTA() {
+function CTA({ onOpenProposal }: { onOpenProposal: () => void }) {
   return (
     <section id="contact" className="bg-ink text-paper relative overflow-hidden">
       <div className="ambient-glow" aria-hidden />
@@ -698,17 +698,55 @@ function CTA() {
         </h2>
 
         <div className="mt-14 flex flex-col sm:flex-row items-center justify-center gap-4 sr sr-d2">
-          <a
-            href="mailto:contato@glassmaind.com"
+          <button
+            type="button"
+            onClick={onOpenProposal}
             className="group btn-shine inline-flex items-center gap-3 bg-paper text-ink rounded-full pl-7 pr-2 py-2 transition-transform duration-500 hover:scale-[1.02]"
           >
             <span className="text-[13px] font-medium">Solicitar proposta</span>
             <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-ink text-paper transition-transform duration-500 group-hover:rotate-45">
               <ArrowUpRight className="h-4 w-4" />
             </span>
-          </a>
-          <a href="https://wa.me/" className="text-[13px] text-paper/80 hover:text-paper underline-offset-4 hover:underline transition-colors">
+          </button>
+          <a
+            href={whatsappLink("Olá! Quero conversar com a Glass Maind.")}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[13px] text-paper/80 hover:text-paper underline-offset-4 hover:underline transition-colors"
+          >
             Falar no WhatsApp →
+          </a>
+        </div>
+
+        {/* Contact grid */}
+        <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-px bg-paper/10 border border-paper/10 sr sr-d3 max-w-4xl mx-auto text-left">
+          <a
+            href={whatsappLink("Olá!")}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group bg-ink p-6 hover:bg-paper/5 transition-colors"
+          >
+            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/40">WhatsApp</div>
+            <div className="mt-2 text-paper text-[15px] font-medium">{CONTACT.phoneDisplay}</div>
+            <div className="mt-1 text-[12px] text-paper/50 group-hover:text-paper/70 transition-colors">Resposta rápida →</div>
+          </a>
+          <a
+            href={mailtoLink("Contato pelo site Glass Maind")}
+            className="group bg-ink p-6 hover:bg-paper/5 transition-colors"
+          >
+            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/40">E-mail</div>
+            <div className="mt-2 text-paper text-[15px] font-medium break-all">{CONTACT.email}</div>
+            <div className="mt-1 text-[12px] text-paper/50 group-hover:text-paper/70 transition-colors">Enviar mensagem →</div>
+          </a>
+          <a
+            href="https://maps.google.com/?q=Av.+Des.+Moreira,+1300+-+Aldeota,+Fortaleza+-+CE"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group bg-ink p-6 hover:bg-paper/5 transition-colors"
+          >
+            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/40">Endereço</div>
+            <div className="mt-2 text-paper text-[14px] font-medium leading-snug">{CONTACT.address}</div>
+            <div className="mt-1 text-[12px] text-paper/50 group-hover:text-paper/70 transition-colors">Ver no mapa →</div>
           </a>
         </div>
 
