@@ -71,10 +71,10 @@ function WhatsAppIcon({ className = "" }: { className?: string }) {
 }
 
 const SOCIALS = [
-  { name: "Instagram", href: "https://instagram.com", Icon: Instagram, meta: "signal 98%" },
-  { name: "WhatsApp", href: "https://wa.me/", Icon: WhatsAppIcon, meta: "latency 12ms" },
-  { name: "Facebook", href: "https://facebook.com", Icon: Facebook, meta: "node online" },
-  { name: "Google", href: "https://google.com", Icon: GoogleIcon, meta: "connect://active" },
+  { name: "Instagram", href: "https://instagram.com", Icon: Instagram, meta: "@glassmaind" },
+  { name: "WhatsApp", href: "https://wa.me/", Icon: WhatsAppIcon, meta: "Fale conosco" },
+  { name: "Facebook", href: "https://facebook.com", Icon: Facebook, meta: "/glassmaind" },
+  { name: "Google", href: "https://google.com", Icon: GoogleIcon, meta: "Avaliações 5★" },
 ];
 
 function Hero() {
