@@ -86,27 +86,26 @@ function Hero() {
 
       <div className="mx-auto max-w-[1280px] px-6 md:px-10 pt-32 md:pt-36 pb-16 md:pb-24 grid grid-cols-12 gap-8 md:gap-12 items-center min-h-[100vh] relative">
         {/* LEFT — text */}
-        <div className="col-span-12 lg:col-span-7 relative z-10">
-          <div className="text-[11px] tracking-[0.3em] uppercase text-dim reveal reveal-d1">
+        <div className="col-span-12 lg:col-span-7 relative z-10 flex flex-col items-start">
+          <div className="flex items-center gap-3 text-[11px] tracking-[0.3em] uppercase text-dim reveal reveal-d1">
+            <span className="text-dim/70">05</span>
+            <span className="h-px w-6 bg-ink/30" />
             Futurístico
           </div>
 
-          <div className="mt-5 flex items-start gap-5 reveal reveal-d2">
-            <span className="text-sm text-dim mt-3">05</span>
-            <h1
-              className="font-medium text-ink max-w-[10ch]"
-              style={{
-                fontSize: "clamp(2.75rem, 7.5vw, 7rem)",
-                lineHeight: 0.95,
-                letterSpacing: "-0.045em",
-              }}
-            >
-              <span className="block reveal reveal-d2">NOVA</span>
-              <span className="block reveal reveal-d3">EXPERIÊNCIA</span>
-              <span className="block reveal reveal-d4">DIGITAL</span>
-              <span className="block reveal reveal-d5">DE MARCA</span>
-            </h1>
-          </div>
+          <h1
+            className="mt-6 font-medium text-ink max-w-[11ch] reveal reveal-d2"
+            style={{
+              fontSize: "clamp(2.75rem, 7.5vw, 7rem)",
+              lineHeight: 0.95,
+              letterSpacing: "-0.045em",
+            }}
+          >
+            <span className="block reveal reveal-d2">NOVA</span>
+            <span className="block reveal reveal-d3">EXPERIÊNCIA</span>
+            <span className="block reveal reveal-d4">DIGITAL</span>
+            <span className="block reveal reveal-d5">DE MARCA</span>
+          </h1>
 
           <p className="mt-8 max-w-[480px] text-[15px] leading-relaxed text-dim reveal reveal-d4">
             Criamos presença, posicionamento e percepção para marcas que querem
@@ -643,9 +642,9 @@ function Index() {
     <main className="bg-paper text-ink min-h-screen">
       <Nav />
       <Hero />
+      <Technology />
       <InfoStrip />
       <About />
-      <Technology />
       <Services />
       <Portfolio />
       <CTA />
