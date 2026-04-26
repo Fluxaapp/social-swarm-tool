@@ -371,6 +371,10 @@
   0% { transform: translateX(-120%); }
   60%, 100% { transform: translateX(120%); }
 }
+@keyframes sweep-loop {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(120%); }
+}
 
 @keyframes ambient-drift {
   0% { transform: translate(0, 0) rotate(0deg); }
