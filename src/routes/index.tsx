@@ -347,7 +347,7 @@ const TECH_VIEWS = [
     title: "Identidade que se vê e se sente.",
     desc: "Sistemas visuais coerentes, do logotipo ao território de marca, construídos para durar e escalar.",
     highlight: "Sistema modular · 12 ativos",
-    rotate: 0,
+    tech: "system://branding — module 01",
   },
   {
     n: "02",
@@ -355,7 +355,7 @@ const TECH_VIEWS = [
     title: "Performance com narrativa.",
     desc: "Campanhas pensadas para converter sem perder identidade. Estratégia, criativo e mídia integrados.",
     highlight: "ROI médio · 3.4x",
-    rotate: 120,
+    tech: "protocol v2.3 · roi 3.4x",
   },
   {
     n: "03",
@@ -363,7 +363,7 @@ const TECH_VIEWS = [
     title: "Forma a serviço da marca.",
     desc: "Direção de arte premium para campanhas, materiais e produtos — do conceito ao acabamento.",
     highlight: "Direção · Editorial",
-    rotate: 240,
+    tech: "grid aligned · 128 nodes",
   },
 ] as const;
 
