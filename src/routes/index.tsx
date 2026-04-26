@@ -510,15 +510,16 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
 
               {/* CTA */}
               <div className="mt-8">
-                <a
-                  href="#contact"
+                <button
+                  type="button"
+                  onClick={onOpenProposal}
                   className="group btn-shine inline-flex items-center gap-3 bg-paper text-ink rounded-full pl-6 pr-2 py-2 transition-transform duration-500 hover:scale-[1.02]"
                 >
                   <span className="text-[13px] font-medium">Solicitar proposta</span>
                   <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-ink text-paper transition-transform duration-500 group-hover:rotate-45">
                     <ArrowUpRight className="h-4 w-4" />
                   </span>
-                </a>
+                </button>
               </div>
             </div>
           </div>
