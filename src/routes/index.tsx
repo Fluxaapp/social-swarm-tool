@@ -540,6 +540,93 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
                 filter: "blur(18px)",
               }}
             />
+
+            {/* Animated half-moon arc around active prism */}
+            <svg
+              key={`arc-${active}`}
+              aria-hidden
+              viewBox="0 0 100 100"
+              preserveAspectRatio="xMidYMid meet"
+              className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[68%] h-[88%] opacity-90"
+            >
+              <defs>
+                <linearGradient id="arcGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="rgba(255,255,255,0.7)" />
+                  <stop offset="100%" stopColor="rgba(255,255,255,0)" />
+                </linearGradient>
+              </defs>
+              <circle
+                cx="50"
+                cy="50"
+                r="46"
+                fill="none"
+                stroke="rgba(255,255,255,0.08)"
+                strokeWidth="0.4"
+              />
+              <circle
+                cx="50"
+                cy="50"
+                r="46"
+                fill="none"
+                stroke="url(#arcGrad)"
+                strokeWidth="0.6"
+                strokeLinecap="round"
+                pathLength={1}
+                strokeDasharray="0.6 1"
+                strokeDashoffset="1"
+                style={{
+                  transformOrigin: "50% 50%",
+                  transform: "rotate(-90deg)",
+                  animation: "arcDraw 900ms cubic-bezier(0.22,1,0.36,1) forwards",
+                  filter: "drop-shadow(0 0 6px rgba(255,255,255,0.35))",
+                }}
+              />
+            </svg>
+
+            {/* Satellites — 5 micro-info chips around the active item */}
+            <div key={`sats-${active}`} className="pointer-events-none absolute inset-0 hidden md:block">
+              {(() => {
+                const positions = [
+                  { side: "left", top: "14%" },
+                  { side: "left", top: "44%" },
+                  { side: "left", top: "74%" },
+                  { side: "right", top: "26%" },
+                  { side: "right", top: "62%" },
+                ] as const;
+                return view.satellites.map((s, i) => {
+                  const p = positions[i];
+                  const isLeft = p.side === "left";
+                  return (
+                    <div
+                      key={s}
+                      className="absolute flex items-center gap-2"
+                      style={{
+                        top: p.top,
+                        [isLeft ? "left" : "right"]: "2%",
+                        opacity: 0,
+                        animation: `satFadeIn 600ms cubic-bezier(0.22,1,0.36,1) forwards`,
+                        animationDelay: `${500 + i * 110}ms`,
+                        flexDirection: isLeft ? "row" : "row-reverse",
+                      }}
+                    >
+                      <span className="text-[10.5px] tracking-[0.22em] uppercase text-paper/70 whitespace-nowrap">
+                        {s}
+                      </span>
+                      <span
+                        aria-hidden
+                        className="block h-px w-12 md:w-16"
+                        style={{
+                          background: isLeft
+                            ? "linear-gradient(to right, rgba(255,255,255,0.45), transparent)"
+                            : "linear-gradient(to left, rgba(255,255,255,0.45), transparent)",
+                          filter: "drop-shadow(0 0 4px rgba(255,255,255,0.25))",
+                        }}
+                      />
+                    </div>
+                  );
+                });
+              })()}
+            </div>
           </div>
 
           <div className="col-span-12 lg:col-span-5 sr sr-d4">
