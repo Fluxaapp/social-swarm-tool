@@ -609,6 +609,12 @@
    and to the left so the preview card and entering card remain visible,
    but the right edge cuts cleanly at the container boundary. */
 .tech-card-clip {
+  --tech-active-shift-x: 0px;
+  --tech-preview-distance: 175px;
+  --tech-upcoming-distance: 215px;
+  --tech-preview-lift: 8px;
+  --tech-preview-scale: 0.82;
+  --tech-exit-distance: 560px;
   /* inset: top right bottom left — negative values = extend outside box */
   clip-path: inset(-200px 0px -200px -260px);
   -webkit-clip-path: inset(-200px 0px -200px -260px);
@@ -618,6 +624,11 @@
    mas mantém espaço suficiente à esquerda para o card de preview aparecer */
 @media (max-width: 767px) {
   .tech-card-clip {
+    --tech-active-shift-x: -28px;
+    --tech-preview-distance: 118px;
+    --tech-upcoming-distance: 158px;
+    --tech-preview-lift: 6px;
+    --tech-exit-distance: 320px;
     clip-path: inset(-120px 0px -120px -140px);
     -webkit-clip-path: inset(-120px 0px -120px -140px);
   }
@@ -627,21 +638,18 @@
   z-index: 20;
   opacity: 1;
   filter: blur(0);
-  transform: translate3d(-50%, -50%, 0) scale(1);
+  transform: translate3d(calc(-50% + var(--tech-active-shift-x)), -50%, 0) scale(1);
 }
 
 .tech-card-motion-preview {
   z-index: 1;
   opacity: 0.42;
   filter: blur(0);
-  transform: translate3d(calc(-50% - 175px), calc(-50% - 8px), 0) scale(0.82);
-}
-
-/* Mobile: aproxima o card secundário (offsets menores) */
-@media (max-width: 767px) {
-  .tech-card-motion-preview {
-    transform: translate3d(calc(-50% - 90px), calc(-50% - 6px), 0) scale(0.82);
-  }
+  transform: translate3d(
+    calc(-50% + var(--tech-active-shift-x) - var(--tech-preview-distance)),
+    calc(-50% - var(--tech-preview-lift)),
+    0
+  ) scale(var(--tech-preview-scale));
 }
 
 /* Card que será o próximo preview — já renderizado em background
@@ -665,22 +673,38 @@
 @keyframes tech-card-upcoming-in-next {
   0% {
     opacity: 0;
-    transform: translate3d(calc(-50% - 215px), calc(-50% - 8px), 0) scale(0.78);
+    transform: translate3d(
+      calc(-50% + var(--tech-active-shift-x) - var(--tech-upcoming-distance)),
+      calc(-50% - var(--tech-preview-lift)),
+      0
+    ) scale(0.78);
   }
   100% {
     opacity: 0.42;
-    transform: translate3d(calc(-50% - 175px), calc(-50% - 8px), 0) scale(0.82);
+    transform: translate3d(
+      calc(-50% + var(--tech-active-shift-x) - var(--tech-preview-distance)),
+      calc(-50% - var(--tech-preview-lift)),
+      0
+    ) scale(var(--tech-preview-scale));
   }
 }
 
 @keyframes tech-card-upcoming-in-prev {
   0% {
     opacity: 0;
-    transform: translate3d(calc(-50% + 215px), calc(-50% - 8px), 0) scale(0.78);
+    transform: translate3d(
+      calc(-50% + var(--tech-active-shift-x) + var(--tech-upcoming-distance)),
+      calc(-50% - var(--tech-preview-lift)),
+      0
+    ) scale(0.78);
   }
   100% {
     opacity: 0.42;
-    transform: translate3d(calc(-50% + 175px), calc(-50% - 8px), 0) scale(0.82);
+    transform: translate3d(
+      calc(-50% + var(--tech-active-shift-x) + var(--tech-preview-distance)),
+      calc(-50% - var(--tech-preview-lift)),
+      0
+    ) scale(var(--tech-preview-scale));
   }
 }
 
@@ -711,12 +735,16 @@
   0% {
     opacity: 1;
     filter: blur(0);
-    transform: translate3d(-50%, -50%, 0) scale(1);
+    transform: translate3d(calc(-50% + var(--tech-active-shift-x)), -50%, 0) scale(1);
   }
   100% {
     opacity: 1;
     filter: blur(0);
-    transform: translate3d(calc(-50% + 560px), -50%, 0) scale(1);
+    transform: translate3d(
+      calc(-50% + var(--tech-active-shift-x) + var(--tech-exit-distance)),
+      -50%,
+      0
+    ) scale(1);
   }
 }
 
@@ -724,7 +752,11 @@
   0% {
     opacity: 0.42;
     filter: blur(0);
-    transform: translate3d(calc(-50% - 175px), calc(-50% - 8px), 0) scale(0.82);
+    transform: translate3d(
+      calc(-50% + var(--tech-active-shift-x) - var(--tech-preview-distance)),
+      calc(-50% - var(--tech-preview-lift)),
+      0
+    ) scale(var(--tech-preview-scale));
   }
   60% {
     opacity: 0.9;
@@ -733,7 +765,7 @@
   100% {
     opacity: 1;
     filter: blur(0);
-    transform: translate3d(-50%, -50%, 0) scale(1);
+    transform: translate3d(calc(-50% + var(--tech-active-shift-x)), -50%, 0) scale(1);
   }
 }
 
@@ -745,7 +777,7 @@
   0% {
     opacity: 1;
     filter: blur(0);
-    transform: translate3d(-50%, -50%, 0) scale(1);
+    transform: translate3d(calc(-50% + var(--tech-active-shift-x)), -50%, 0) scale(1);
   }
   85% {
     opacity: 1;
@@ -754,7 +786,11 @@
   100% {
     opacity: 0;
     filter: blur(0);
-    transform: translate3d(calc(-50% - 560px), -50%, 0) scale(1);
+    transform: translate3d(
+      calc(-50% + var(--tech-active-shift-x) - var(--tech-exit-distance)),
+      -50%,
+      0
+    ) scale(1);
   }
 }
 
@@ -762,7 +798,11 @@
   0% {
     opacity: 0.42;
     filter: blur(0);
-    transform: translate3d(calc(-50% + 175px), calc(-50% - 8px), 0) scale(0.82);
+    transform: translate3d(
+      calc(-50% + var(--tech-active-shift-x) + var(--tech-preview-distance)),
+      calc(-50% - var(--tech-preview-lift)),
+      0
+    ) scale(var(--tech-preview-scale));
   }
   60% {
     opacity: 0.9;
@@ -771,74 +811,7 @@
   100% {
     opacity: 1;
     filter: blur(0);
-    transform: translate3d(-50%, -50%, 0) scale(1);
-  }
-}
-
-/* ===== Mobile carousel — offsets reduzidos ===== */
-@media (max-width: 767px) {
-  @keyframes tech-card-upcoming-in-next {
-    0% {
-      opacity: 0;
-      transform: translate3d(calc(-50% - 130px), calc(-50% - 6px), 0) scale(0.78);
-    }
-    100% {
-      opacity: 0.42;
-      transform: translate3d(calc(-50% - 90px), calc(-50% - 6px), 0) scale(0.82);
-    }
-  }
-  @keyframes tech-card-upcoming-in-prev {
-    0% {
-      opacity: 0;
-      transform: translate3d(calc(-50% + 130px), calc(-50% - 6px), 0) scale(0.78);
-    }
-    100% {
-      opacity: 0.42;
-      transform: translate3d(calc(-50% + 90px), calc(-50% - 6px), 0) scale(0.82);
-    }
-  }
-  @keyframes tech-card-exit-next {
-    0% {
-      opacity: 1;
-      transform: translate3d(-50%, -50%, 0) scale(1);
-    }
-    100% {
-      opacity: 1;
-      transform: translate3d(calc(-50% + 320px), -50%, 0) scale(1);
-    }
-  }
-  @keyframes tech-card-enter-next {
-    0% {
-      opacity: 0.42;
-      transform: translate3d(calc(-50% - 90px), calc(-50% - 6px), 0) scale(0.82);
-    }
-    60% { opacity: 0.9; }
-    100% {
-      opacity: 1;
-      transform: translate3d(-50%, -50%, 0) scale(1);
-    }
-  }
-  @keyframes tech-card-exit-prev {
-    0% {
-      opacity: 1;
-      transform: translate3d(-50%, -50%, 0) scale(1);
-    }
-    85% { opacity: 1; }
-    100% {
-      opacity: 0;
-      transform: translate3d(calc(-50% - 320px), -50%, 0) scale(1);
-    }
-  }
-  @keyframes tech-card-enter-prev {
-    0% {
-      opacity: 0.42;
-      transform: translate3d(calc(-50% + 90px), calc(-50% - 6px), 0) scale(0.82);
-    }
-    60% { opacity: 0.9; }
-    100% {
-      opacity: 1;
-      transform: translate3d(-50%, -50%, 0) scale(1);
-    }
+    transform: translate3d(calc(-50% + var(--tech-active-shift-x)), -50%, 0) scale(1);
   }
 }
 
@@ -854,13 +827,17 @@
   .tech-card-motion-active {
     opacity: 1 !important;
     filter: none !important;
-    transform: translate3d(-50%, -50%, 0) scale(1) !important;
+    transform: translate3d(calc(-50% + var(--tech-active-shift-x)), -50%, 0) scale(1) !important;
   }
 
   .tech-card-motion-preview {
     opacity: 0.42 !important;
     filter: none !important;
-    transform: translate3d(calc(-50% - 175px), calc(-50% - 8px), 0) scale(0.82) !important;
+    transform: translate3d(
+      calc(-50% + var(--tech-active-shift-x) - var(--tech-preview-distance)),
+      calc(-50% - var(--tech-preview-lift)),
+      0
+    ) scale(var(--tech-preview-scale)) !important;
   }
 }
 
