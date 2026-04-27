@@ -229,9 +229,9 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
         </div>
 
         {/* RIGHT — social icons rail (showcase lives behind, full-bleed) */}
-        <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 min-h-[120px] sm:min-h-[180px] lg:min-h-[620px]">
-          {/* Social icons — horizontal no mobile, vertical no desktop */}
-          <div className="lg:absolute lg:right-4 lg:top-1/2 lg:-translate-y-1/2 lg:flex-col z-20 flex flex-row items-center justify-start gap-5 sm:gap-6 lg:gap-8">
+        <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 min-h-[60px] sm:min-h-[100px] lg:min-h-[620px]">
+          {/* Social icons — horizontal e centralizados no mobile, vertical no desktop */}
+          <div className="lg:absolute lg:right-4 lg:top-1/2 lg:-translate-y-1/2 lg:flex-col lg:justify-start z-20 flex flex-row items-center justify-center gap-5 sm:gap-6 lg:gap-8">
             {SOCIALS.map((s) => {
               const Icon = s.Icon;
               return (
