@@ -455,12 +455,15 @@ function About() {
 
 
 /* =================== DARK / TECHNOLOGY =================== */
-type CarouselDirection = -1 | 1;
+// Swiper-like sliding carousel: a continuous strip of cards translates
+// horizontally. The center card is the "active" one. Side cards are
+// dimmed and slightly scaled, evoking the glassmind.ct.ws Swiper effect.
 type InfoPhase = "idle" | "out" | "in";
 
-const CARD_CAROUSEL_MS = 1100;
-const INFO_FADE_OUT_DELAY_MS = 320;
-const INFO_SWAP_DELAY_MS = 540;
+const SLIDE_MS = 700; // slide transition duration (close to Swiper speed:500-700)
+const INFO_FADE_OUT_DELAY_MS = 120;
+const INFO_SWAP_DELAY_MS = 360;
+const AUTOPLAY_MS = 5000;
 
 const wrapTechIndex = (index: number, total: number) => (index + total) % total;
 
@@ -519,17 +522,30 @@ const TECH_VIEWS = [
 
 function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
   const [active, setActive] = useState(0);
-  const [incoming, setIncoming] = useState<number | null>(null);
-  const [direction, setDirection] = useState<CarouselDirection>(1);
-  const [isAnimating, setIsAnimating] = useState(false);
   const [infoIndex, setInfoIndex] = useState(0);
   const [infoPhase, setInfoPhase] = useState<InfoPhase>("idle");
+  const [isAnimating, setIsAnimating] = useState(false);
   const timersRef = useRef<number[]>([]);
+  const autoplayRef = useRef<number | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [step, setStep] = useState(340); // px between consecutive card centers
   const total = TECH_VIEWS.length;
-  const view = TECH_VIEWS[active];
   const dynamicView = TECH_VIEWS[infoIndex];
-  const previewIdx = wrapTechIndex(active + 1, total);
-  const visibleSecondary = TECH_VIEWS[incoming ?? previewIdx];
+
+  // Responsive step: matches card width + gap
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const compute = () => {
+      const w = window.innerWidth;
+      if (w < 640) setStep(280);       // mobile: 260 + 20
+      else if (w < 768) setStep(310);   // sm: 280 + 30
+      else setStep(340);                // md+: 300 + 40
+    };
+    compute();
+    window.addEventListener("resize", compute);
+    return () => window.removeEventListener("resize", compute);
+  }, []);
+
   const infoMotionClass =
     infoPhase === "out"
       ? "tech-copy-out"
@@ -539,46 +555,87 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
 
   const clearTimers = () => {
     if (typeof window === "undefined") return;
-    timersRef.current.forEach((timer) => window.clearTimeout(timer));
+    timersRef.current.forEach((t) => window.clearTimeout(t));
     timersRef.current = [];
+  };
+
+  const stopAutoplay = () => {
+    if (autoplayRef.current !== null && typeof window !== "undefined") {
+      window.clearInterval(autoplayRef.current);
+      autoplayRef.current = null;
+    }
   };
 
   useEffect(() => clearTimers, []);
 
-  const startTransition = (targetIndex: number, nextDirection: CarouselDirection) => {
-    if (isAnimating || targetIndex === active || typeof window === "undefined") return;
+  const goTo = (target: number) => {
+    if (isAnimating || typeof window === "undefined") return;
+    const next = wrapTechIndex(target, total);
+    if (next === active) return;
 
     clearTimers();
-    setIncoming(targetIndex);
-    setDirection(nextDirection);
     setIsAnimating(true);
     setInfoPhase("idle");
+    setActive(next);
 
     timersRef.current.push(
-      window.setTimeout(() => {
-        setInfoPhase("out");
-      }, INFO_FADE_OUT_DELAY_MS),
+      window.setTimeout(() => setInfoPhase("out"), INFO_FADE_OUT_DELAY_MS),
     );
-
     timersRef.current.push(
       window.setTimeout(() => {
-        setInfoIndex(targetIndex);
+        setInfoIndex(next);
         setInfoPhase("in");
       }, INFO_SWAP_DELAY_MS),
     );
-
     timersRef.current.push(
       window.setTimeout(() => {
-        setActive(targetIndex);
-        setIncoming(null);
         setIsAnimating(false);
         setInfoPhase("idle");
-      }, CARD_CAROUSEL_MS),
+      }, SLIDE_MS),
     );
   };
 
-  const goPrev = () => startTransition(wrapTechIndex(active - 1, total), -1);
-  const goNext = () => startTransition(wrapTechIndex(active + 1, total), 1);
+  const goPrev = () => {
+    stopAutoplay();
+    goTo(active - 1);
+  };
+  const goNext = () => {
+    stopAutoplay();
+    goTo(active + 1);
+  };
+
+  // Autoplay (5s like the reference site)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    autoplayRef.current = window.setInterval(() => {
+      setActive((prev) => {
+        const next = wrapTechIndex(prev + 1, total);
+        // sync info copy
+        setIsAnimating(true);
+        setInfoPhase("idle");
+        timersRef.current.push(
+          window.setTimeout(() => setInfoPhase("out"), INFO_FADE_OUT_DELAY_MS),
+        );
+        timersRef.current.push(
+          window.setTimeout(() => {
+            setInfoIndex(next);
+            setInfoPhase("in");
+          }, INFO_SWAP_DELAY_MS),
+        );
+        timersRef.current.push(
+          window.setTimeout(() => {
+            setIsAnimating(false);
+            setInfoPhase("idle");
+          }, SLIDE_MS),
+        );
+        return next;
+      });
+    }, AUTOPLAY_MS);
+    return () => stopAutoplay();
+  }, [total]);
+
+  // Build a virtual strip: render all cards plus duplicates on each side for loop feel
+  const stripItems = TECH_VIEWS;
 
   return (
     <section className="bg-ink text-paper relative overflow-hidden">
@@ -600,57 +657,62 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
           performance girando em torno do mesmo eixo criativo.
         </p>
 
-        {/* LEFT: cards · RIGHT: technical info */}
         <div className="mt-20 md:mt-24 grid grid-cols-12 gap-10 lg:gap-16 items-center">
-          {/* LEFT — Cards */}
+          {/* LEFT — Swiper-like sliding strip */}
           <div className="col-span-12 lg:col-span-7 sr sr-d3">
-            <div
-              className="relative flex items-center justify-center min-h-[390px] md:min-h-[500px]"
-              style={{ perspective: "1400px" }}
-            >
+            <div className="relative flex items-center justify-center">
               <button
                 type="button"
                 onClick={goPrev}
                 aria-label="Card anterior"
-                disabled={isAnimating}
-                className="absolute left-0 md:-left-2 top-1/2 -translate-y-1/2 z-30 inline-flex h-11 w-11 items-center justify-center rounded-full bg-paper/10 hover:bg-paper/20 border border-paper/15 backdrop-blur-md text-paper transition-all duration-300 hover:scale-105 disabled:pointer-events-none disabled:opacity-40"
+                className="absolute left-0 md:-left-2 top-1/2 -translate-y-1/2 z-30 inline-flex h-11 w-11 items-center justify-center rounded-full bg-paper/10 hover:bg-paper/20 border border-paper/15 backdrop-blur-md text-paper transition-all duration-300 hover:scale-105"
               >
                 <ChevronLeft className="h-5 w-5" />
               </button>
 
-              <div className="relative mx-auto h-[390px] w-[360px] sm:w-[420px] md:h-[500px] md:w-[480px]">
-                <TechCard
-                  view={visibleSecondary}
-                  variant="preview"
-                  motionClass={
-                    isAnimating
-                      ? direction === 1
-                        ? "tech-card-motion-enter-next"
-                        : "tech-card-motion-enter-prev"
-                      : "tech-card-motion-preview"
-                  }
-                  onClick={!isAnimating ? goNext : undefined}
-                />
-
-                <TechCard
-                  view={view}
-                  variant="active"
-                  motionClass={
-                    isAnimating
-                      ? direction === 1
-                        ? "tech-card-motion-exit-next"
-                        : "tech-card-motion-exit-prev"
-                      : "tech-card-motion-active"
-                  }
-                />
+              <div
+                ref={containerRef}
+                className="tech-swiper-viewport relative mx-auto h-[420px] md:h-[520px] w-full overflow-hidden"
+              >
+                <div
+                  className="tech-swiper-track absolute top-1/2 left-1/2 flex items-center"
+                  style={{
+                    transform: `translate(-50%, -50%) translateX(${-active * step}px)`,
+                    transition: `transform ${SLIDE_MS}ms cubic-bezier(0.22, 1, 0.36, 1)`,
+                    gap: "40px",
+                  }}
+                >
+                  {stripItems.map((v, i) => {
+                    const isActiveCard = i === active;
+                    return (
+                      <div
+                        key={v.n}
+                        className="tech-swiper-slide flex-shrink-0"
+                        style={{
+                          transform: isActiveCard ? "scale(1)" : "scale(0.82)",
+                          opacity: isActiveCard ? 1 : 0.45,
+                          filter: isActiveCard ? "blur(0)" : "blur(0.5px)",
+                          transition: `transform ${SLIDE_MS}ms cubic-bezier(0.22, 1, 0.36, 1), opacity ${SLIDE_MS}ms ease, filter ${SLIDE_MS}ms ease`,
+                        }}
+                        onClick={() => {
+                          if (!isActiveCard) {
+                            stopAutoplay();
+                            goTo(i);
+                          }
+                        }}
+                      >
+                        <TechCard view={v} variant={isActiveCard ? "active" : "preview"} />
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
 
               <button
                 type="button"
                 onClick={goNext}
                 aria-label="Próximo card"
-                disabled={isAnimating}
-                className="absolute right-0 md:-right-2 top-1/2 -translate-y-1/2 z-30 inline-flex h-11 w-11 items-center justify-center rounded-full bg-paper/10 hover:bg-paper/20 border border-paper/15 backdrop-blur-md text-paper transition-all duration-300 hover:scale-105 disabled:pointer-events-none disabled:opacity-40"
+                className="absolute right-0 md:-right-2 top-1/2 -translate-y-1/2 z-30 inline-flex h-11 w-11 items-center justify-center rounded-full bg-paper/10 hover:bg-paper/20 border border-paper/15 backdrop-blur-md text-paper transition-all duration-300 hover:scale-105"
               >
                 <ChevronRight className="h-5 w-5" />
               </button>
@@ -660,9 +722,14 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
               {TECH_VIEWS.map((v, i) => {
                 const isActive = active === i;
                 return (
-                  <span
+                  <button
+                    type="button"
                     key={v.n}
-                    aria-hidden
+                    onClick={() => {
+                      stopAutoplay();
+                      goTo(i);
+                    }}
+                    aria-label={`Ir para card ${i + 1}`}
                     className={`h-1.5 rounded-full transition-all duration-500 ${
                       isActive ? "w-8 bg-paper" : "w-1.5 bg-paper/30 hover:bg-paper/60"
                     }`}
@@ -724,7 +791,7 @@ function TechCard({
 }: {
   view: (typeof TECH_VIEWS)[number];
   variant: "active" | "preview";
-  motionClass: string;
+  motionClass?: string;
   onClick?: () => void;
 }) {
   const isActive = variant === "active";
@@ -732,8 +799,8 @@ function TechCard({
     <div
       onClick={onClick}
       className={[
-        "tech-card-shell absolute left-1/2 top-1/2 w-[260px] sm:w-[300px] md:w-[360px] aspect-[3/4] rounded-2xl overflow-hidden",
-        motionClass,
+        "tech-card-shell relative w-[260px] sm:w-[280px] md:w-[300px] aspect-[3/4] rounded-2xl overflow-hidden",
+        motionClass ?? "",
         isActive ? "shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)]" : "cursor-pointer",
       ].join(" ")}
       style={{
