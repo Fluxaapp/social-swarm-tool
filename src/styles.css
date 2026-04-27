@@ -138,6 +138,8 @@
 
   html {
     scroll-behavior: smooth;
+    /* Evita overflow horizontal global no mobile */
+    overflow-x: hidden;
   }
 
   body {
@@ -148,6 +150,9 @@
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     letter-spacing: -0.011em;
+    /* Reforço: nenhum elemento deve causar scroll horizontal */
+    overflow-x: hidden;
+    width: 100%;
   }
 
   ::selection {
@@ -546,6 +551,14 @@
   -webkit-clip-path: inset(-200px 0px -200px -260px);
 }
 
+/* Mobile: limita o clip para não vazar para fora da tela */
+@media (max-width: 767px) {
+  .tech-card-clip {
+    clip-path: inset(-120px 0px -120px -60px);
+    -webkit-clip-path: inset(-120px 0px -120px -60px);
+  }
+}
+
 .tech-card-motion-active {
   z-index: 20;
   opacity: 1;
@@ -558,6 +571,13 @@
   opacity: 0.42;
   filter: blur(0);
   transform: translate3d(calc(-50% - 175px), calc(-50% - 8px), 0) scale(0.82);
+}
+
+/* Mobile: aproxima o card secundário (offsets menores) */
+@media (max-width: 767px) {
+  .tech-card-motion-preview {
+    transform: translate3d(calc(-50% - 70px), calc(-50% - 6px), 0) scale(0.84);
+  }
 }
 
 /* Card que será o próximo preview — já renderizado em background
@@ -691,8 +711,74 @@
   }
 }
 
+/* ===== Mobile carousel — offsets reduzidos ===== */
+@media (max-width: 767px) {
+  @keyframes tech-card-upcoming-in-next {
+    0% {
+      opacity: 0;
+      transform: translate3d(calc(-50% - 110px), calc(-50% - 6px), 0) scale(0.8);
+    }
+    100% {
+      opacity: 0.42;
+      transform: translate3d(calc(-50% - 70px), calc(-50% - 6px), 0) scale(0.84);
+    }
+  }
+  @keyframes tech-card-upcoming-in-prev {
+    0% {
+      opacity: 0;
+      transform: translate3d(calc(-50% + 110px), calc(-50% - 6px), 0) scale(0.8);
+    }
+    100% {
+      opacity: 0.42;
+      transform: translate3d(calc(-50% + 70px), calc(-50% - 6px), 0) scale(0.84);
+    }
+  }
+  @keyframes tech-card-exit-next {
+    0% {
+      opacity: 1;
+      transform: translate3d(-50%, -50%, 0) scale(1);
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(calc(-50% + 320px), -50%, 0) scale(1);
+    }
+  }
+  @keyframes tech-card-enter-next {
+    0% {
+      opacity: 0.42;
+      transform: translate3d(calc(-50% - 70px), calc(-50% - 6px), 0) scale(0.84);
+    }
+    60% { opacity: 0.9; }
+    100% {
+      opacity: 1;
+      transform: translate3d(-50%, -50%, 0) scale(1);
+    }
+  }
+  @keyframes tech-card-exit-prev {
+    0% {
+      opacity: 1;
+      transform: translate3d(-50%, -50%, 0) scale(1);
+    }
+    85% { opacity: 1; }
+    100% {
+      opacity: 0;
+      transform: translate3d(calc(-50% - 320px), -50%, 0) scale(1);
+    }
+  }
+  @keyframes tech-card-enter-prev {
+    0% {
+      opacity: 0.42;
+      transform: translate3d(calc(-50% + 70px), calc(-50% - 6px), 0) scale(0.84);
+    }
+    60% { opacity: 0.9; }
+    100% {
+      opacity: 1;
+      transform: translate3d(-50%, -50%, 0) scale(1);
+    }
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .tech-card-motion-exit-next,
   .tech-card-motion-enter-next,
   .tech-card-motion-exit-prev,
   .tech-card-motion-enter-prev,

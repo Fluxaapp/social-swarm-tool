@@ -57,7 +57,7 @@ function Nav({ onOpenProposal }: { onOpenProposal: () => void }) {
         transition: "transform 0.35s ease",
       }}
     >
-      <div className="mx-auto max-w-[1480px] px-6 md:px-10 h-20 flex items-center justify-between gap-6">
+      <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10 h-16 md:h-20 flex items-center justify-between gap-4 md:gap-6">
         <a href="#top" className="flex items-center leading-none">
           <span className="text-[17px] tracking-tight text-ink">
             <span className="font-light">Agencia</span>
@@ -153,7 +153,7 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
         />
       </svg>
 
-      <div className="mx-auto max-w-[1480px] px-6 md:px-10 pt-18 md:pt-22 pb-12 md:pb-16 grid grid-cols-12 gap-8 md:gap-12 items-center min-h-[calc(100svh-5rem)] md:min-h-[calc(100vh-5rem)] relative z-10">
+      <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10 pt-14 sm:pt-18 md:pt-22 pb-10 sm:pb-12 md:pb-16 grid grid-cols-12 gap-8 md:gap-12 items-center min-h-[auto] lg:min-h-[calc(100vh-5rem)] relative z-10">
         {/* LEFT — text */}
         <div className="col-span-12 lg:col-span-7 relative z-10 flex flex-col items-start justify-center self-center">
           <div className="flex items-center gap-3 text-[11px] tracking-[0.3em] uppercase text-dim reveal reveal-d1">
@@ -229,9 +229,9 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
         </div>
 
         {/* RIGHT — social icons rail (showcase lives behind, full-bleed) */}
-        <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 min-h-[520px] lg:min-h-[620px]">
-          {/* Social icons — vertical, with single subtle vertical line behind */}
-          <div className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-20 flex flex-col items-center gap-7 md:gap-8">
+        <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 min-h-[120px] sm:min-h-[180px] lg:min-h-[620px]">
+          {/* Social icons — horizontal no mobile, vertical no desktop */}
+          <div className="lg:absolute lg:right-4 lg:top-1/2 lg:-translate-y-1/2 lg:flex-col z-20 flex flex-row items-center justify-start gap-5 sm:gap-6 lg:gap-8">
             {SOCIALS.map((s) => {
               const Icon = s.Icon;
               return (
@@ -241,7 +241,7 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={s.name}
-                  className="social-tech group relative z-10 inline-flex h-9 w-9 items-center justify-center rounded-full bg-soft text-ink/70 transition-all duration-500 hover:text-ink hover:scale-110"
+                  className="social-tech group relative z-10 inline-flex h-10 w-10 lg:h-9 lg:w-9 items-center justify-center rounded-full bg-soft text-ink/70 transition-all duration-500 hover:text-ink hover:scale-110"
                 >
                   <Icon className="relative z-10 h-[18px] w-[18px] transition-transform duration-500" />
 
@@ -262,8 +262,8 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
                     />
                   </svg>
 
-                  {/* Social name on hover */}
-                  <span className="pointer-events-none absolute right-full mr-3 top-1/2 -translate-y-1/2 whitespace-nowrap text-[11px] tracking-[0.08em] text-ink/70 opacity-0 -translate-x-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">
+                  {/* Social name on hover (apenas desktop) */}
+                  <span className="pointer-events-none hidden lg:block absolute right-full mr-3 top-1/2 -translate-y-1/2 whitespace-nowrap text-[11px] tracking-[0.08em] text-ink/70 opacity-0 -translate-x-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">
                     {s.name}
                   </span>
                 </a>
@@ -284,7 +284,7 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
 function InfoStrip() {
   return (
     <section className="bg-ink text-paper">
-      <div className="mx-auto max-w-[1480px] px-6 md:px-10 py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10 py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <div className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-paper/20 shrink-0">
             <span className="block h-3 w-3 border border-paper/80 rotate-45" />
@@ -331,9 +331,9 @@ function StatCard({
     <div
       ref={ref as React.RefObject<HTMLDivElement>}
       style={{ backgroundColor: "oklch(0.13 0 0)" }}
-      className={`py-14 md:py-20 px-8 md:px-10 rounded-[2px] sr lift text-paper sr-d${delay}`}
+      className={`py-10 sm:py-14 md:py-20 px-6 sm:px-8 md:px-10 rounded-[2px] sr lift text-paper sr-d${delay}`}
     >
-      <div className="font-medium text-[clamp(3.5rem,7vw,6rem)] leading-none tracking-[-0.05em] tabular-nums">
+      <div className="font-medium text-[clamp(2.75rem,7vw,6rem)] leading-none tracking-[-0.05em] tabular-nums">
         {value}
         {suffix}
       </div>
@@ -367,8 +367,8 @@ function About() {
   ];
 
   return (
-    <section id="about" className="bg-paper py-28 md:py-40">
-      <div className="mx-auto max-w-[1480px] px-6 md:px-10">
+    <section id="about" className="bg-paper py-20 sm:py-28 md:py-40">
+      <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10">
         <div className="text-center max-w-4xl mx-auto">
           <div className="text-[11px] uppercase tracking-[0.35em] text-dim inline-flex items-center gap-3 sr">
             <span className="h-px w-10 bg-ink/40" />
@@ -385,7 +385,7 @@ function About() {
           </p>
         </div>
 
-        <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="mt-16 sm:mt-20 md:mt-24 grid grid-cols-1 md:grid-cols-3 gap-4">
           <StatCard end={20} suffix="+" label="Marcas atendidas" desc="Clientes ativos no Brasil e exterior" delay={1} />
           <StatCard end={47} suffix="%" label="Crescimento médio" desc="Aumento de presença em 90 dias" delay={2} />
           <StatCard end={3} suffix="" label="Pilares de atuação" desc="Design · Marketing · Gestão" delay={3} />
@@ -589,7 +589,7 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
     <section className="bg-ink text-paper relative overflow-hidden">
       <div className="ambient-glow" aria-hidden />
 
-      <div className="mx-auto max-w-[1480px] px-6 md:px-10 py-24 md:py-36 relative">
+      <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10 py-20 sm:py-24 md:py-36 relative">
         <div className="flex justify-center sr">
           <span className="inline-flex items-center gap-2 bg-paper text-ink rounded-full px-5 py-2 text-[12px] font-medium">
             <span className="h-1.5 w-1.5 rounded-full bg-ink" />
@@ -606,11 +606,11 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
         </p>
 
         {/* LEFT: cards · RIGHT: technical info */}
-        <div className="mt-20 md:mt-24 grid grid-cols-12 gap-10 lg:gap-16 items-center">
+        <div className="mt-16 md:mt-24 grid grid-cols-12 gap-10 lg:gap-16 items-center">
           {/* LEFT — Cards */}
           <div className="col-span-12 lg:col-span-7 sr sr-d3">
             <div
-              className="relative flex items-center justify-center min-h-[390px] md:min-h-[500px]"
+              className="relative flex items-center justify-center min-h-[360px] sm:min-h-[400px] md:min-h-[500px]"
               style={{ perspective: "1400px" }}
             >
               <button
@@ -618,13 +618,13 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
                 onClick={goPrev}
                 aria-label="Card anterior"
                 disabled={isAnimating}
-                className="absolute left-0 md:-left-2 top-1/2 -translate-y-1/2 z-30 inline-flex h-11 w-11 items-center justify-center rounded-full bg-paper/10 hover:bg-paper/20 border border-paper/15 backdrop-blur-md text-paper transition-all duration-300 hover:scale-105 disabled:pointer-events-none disabled:opacity-40"
+                className="absolute left-0 md:-left-2 top-1/2 -translate-y-1/2 z-30 inline-flex h-10 w-10 md:h-11 md:w-11 items-center justify-center rounded-full bg-paper/10 hover:bg-paper/20 border border-paper/15 backdrop-blur-md text-paper transition-all duration-300 hover:scale-105 disabled:pointer-events-none disabled:opacity-40"
               >
                 <ChevronLeft className="h-5 w-5" />
               </button>
 
               <div
-                className="tech-card-clip relative mx-auto h-[390px] w-[360px] sm:w-[420px] md:h-[500px] md:w-[480px]"
+                className="tech-card-clip relative mx-auto h-[360px] w-[280px] sm:h-[420px] sm:w-[360px] md:h-[500px] md:w-[480px]"
               >
                 {isAnimating && (
                   <TechCard
@@ -669,7 +669,7 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
                 onClick={goNext}
                 aria-label="Próximo card"
                 disabled={isAnimating}
-                className="absolute right-0 md:-right-2 top-1/2 -translate-y-1/2 z-30 inline-flex h-11 w-11 items-center justify-center rounded-full bg-paper/10 hover:bg-paper/20 border border-paper/15 backdrop-blur-md text-paper transition-all duration-300 hover:scale-105 disabled:pointer-events-none disabled:opacity-40"
+                className="absolute right-0 md:-right-2 top-1/2 -translate-y-1/2 z-30 inline-flex h-10 w-10 md:h-11 md:w-11 items-center justify-center rounded-full bg-paper/10 hover:bg-paper/20 border border-paper/15 backdrop-blur-md text-paper transition-all duration-300 hover:scale-105 disabled:pointer-events-none disabled:opacity-40"
               >
                 <ChevronRight className="h-5 w-5" />
               </button>
@@ -751,7 +751,7 @@ function TechCard({
     <div
       onClick={onClick}
       className={[
-        "tech-card-shell absolute left-1/2 top-1/2 w-[260px] sm:w-[300px] md:w-[360px] aspect-[3/4] rounded-2xl overflow-hidden",
+        "tech-card-shell absolute left-1/2 top-1/2 w-[230px] h-[330px] sm:w-[300px] sm:h-[400px] md:w-[360px] md:h-auto md:aspect-[3/4] rounded-2xl overflow-hidden",
         motionClass,
         isActive ? "shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)]" : "cursor-pointer",
       ].join(" ")}
@@ -825,8 +825,8 @@ function Services() {
   ];
 
   return (
-    <section id="services" className="bg-paper py-28 md:py-36">
-      <div className="mx-auto max-w-[1480px] px-6 md:px-10">
+    <section id="services" className="bg-paper py-20 sm:py-28 md:py-36">
+      <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10">
         <div className="grid grid-cols-12 gap-6 mb-16">
           <div className="col-span-12 md:col-span-6 sr">
             <div className="text-[11px] uppercase tracking-[0.3em] text-dim flex items-center gap-3">
@@ -851,7 +851,7 @@ function Services() {
               <article
                 key={s.n}
                 className={[
-                  "group relative p-10 md:p-12 min-h-[290px] flex flex-col justify-between transition-all duration-500 lift sr",
+                  "group relative p-7 sm:p-10 md:p-12 min-h-[240px] sm:min-h-[290px] flex flex-col justify-between transition-all duration-500 lift sr",
                   `sr-d${Math.min((i % 3) + 1, 5)}`,
                   isDark ? "bg-ink text-paper" : "bg-paper text-ink",
                   "hover:shadow-[0_20px_50px_-20px_rgba(0,0,0,0.35)]",
@@ -893,8 +893,8 @@ function Portfolio() {
   ];
 
   return (
-    <section id="portfolio" className="bg-soft py-28 md:py-40">
-      <div className="mx-auto max-w-[1480px] px-6 md:px-10">
+    <section id="portfolio" className="bg-soft py-20 sm:py-28 md:py-40">
+      <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-8">
           <div>
             <div className="text-[11px] uppercase tracking-[0.3em] text-dim flex items-center gap-3">
@@ -947,7 +947,7 @@ function CTA({ onOpenProposal }: { onOpenProposal: () => void }) {
       <span className="light-dot" style={{ top: "30%", left: "15%" }} aria-hidden />
       <span className="light-dot" style={{ top: "70%", right: "18%", animationDelay: "4s" }} aria-hidden />
 
-      <div className="mx-auto max-w-[1480px] px-6 md:px-10 py-32 md:py-44 text-center relative">
+      <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10 py-24 sm:py-32 md:py-44 text-center relative">
         <div className="text-[11px] uppercase tracking-[0.3em] text-paper/50 inline-flex items-center gap-3 sr">
           <span className="h-px w-8 bg-paper/40" />
           Vamos conversar
@@ -1023,7 +1023,7 @@ function CTA({ onOpenProposal }: { onOpenProposal: () => void }) {
 function Footer() {
   return (
     <footer className="bg-ink text-paper border-t border-paper/10">
-      <div className="mx-auto max-w-[1480px] px-6 md:px-10 py-14">
+      <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10 py-14">
         <div className="grid grid-cols-12 gap-8">
           <div className="col-span-12 md:col-span-6">
             <div className="flex items-center gap-2.5">
@@ -1112,7 +1112,7 @@ function Index() {
   const [proposalOpen, setProposalOpen] = useState(false);
 
   return (
-    <main className="bg-paper text-ink min-h-screen pt-20">
+    <main className="bg-paper text-ink min-h-screen pt-16 md:pt-20 overflow-x-hidden">
       <Nav onOpenProposal={() => setProposalOpen(true)} />
       <Hero onOpenProposal={() => setProposalOpen(true)} />
       <Technology onOpenProposal={() => setProposalOpen(true)} />
