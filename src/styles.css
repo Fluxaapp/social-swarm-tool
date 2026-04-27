@@ -441,6 +441,7 @@
 
 .tech-inline-copy {
   min-width: 0;
+  width: 100%;
   max-width: 100%;
   overflow-wrap: anywhere;
   word-break: break-word;
@@ -608,21 +609,27 @@
   }
 
   .tech-info-stack {
-    width: min(100%, 22rem);
+    width: 100%;
+    max-width: calc(100vw - 2.5rem);
+    min-width: 0;
     margin-inline: auto;
   }
 
   .tech-info-row,
   .tech-info-meta {
-    width: min(100%, 22rem);
+    width: 100%;
+    max-width: calc(100vw - 2.5rem);
+    min-width: 0;
     flex-wrap: wrap;
-    overflow: hidden;
+    overflow: visible;
   }
 
   .tech-info-chip {
-    width: min(100%, 22rem);
+    width: 100%;
+    max-width: calc(100vw - 2.5rem);
+    min-width: 0;
     flex-wrap: wrap;
-    overflow: hidden;
+    overflow: visible;
   }
 }
 
