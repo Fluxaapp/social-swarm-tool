@@ -551,11 +551,12 @@
   -webkit-clip-path: inset(-200px 0px -200px -260px);
 }
 
-/* Mobile: limita o clip para não vazar para fora da tela */
+/* Mobile: limita o clip lateral para não vazar para fora da tela,
+   mas mantém espaço suficiente à esquerda para o card de preview aparecer */
 @media (max-width: 767px) {
   .tech-card-clip {
-    clip-path: inset(-120px 0px -120px -60px);
-    -webkit-clip-path: inset(-120px 0px -120px -60px);
+    clip-path: inset(-120px 0px -120px -140px);
+    -webkit-clip-path: inset(-120px 0px -120px -140px);
   }
 }
 
@@ -576,7 +577,7 @@
 /* Mobile: aproxima o card secundário (offsets menores) */
 @media (max-width: 767px) {
   .tech-card-motion-preview {
-    transform: translate3d(calc(-50% - 70px), calc(-50% - 6px), 0) scale(0.84);
+    transform: translate3d(calc(-50% - 90px), calc(-50% - 6px), 0) scale(0.82);
   }
 }
 
