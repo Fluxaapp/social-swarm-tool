@@ -825,8 +825,8 @@ function Services() {
   ];
 
   return (
-    <section id="services" className="bg-paper py-28 md:py-36">
-      <div className="mx-auto max-w-[1480px] px-6 md:px-10">
+    <section id="services" className="bg-paper py-20 sm:py-28 md:py-36">
+      <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10">
         <div className="grid grid-cols-12 gap-6 mb-16">
           <div className="col-span-12 md:col-span-6 sr">
             <div className="text-[11px] uppercase tracking-[0.3em] text-dim flex items-center gap-3">
