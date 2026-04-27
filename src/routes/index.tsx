@@ -360,11 +360,57 @@ function InfoStrip() {
 }
 
 /* =================== ABOUT =================== */
+function StatCard({
+  end,
+  suffix = "",
+  label,
+  desc,
+  delay,
+}: {
+  end: number;
+  suffix?: string;
+  label: string;
+  desc: string;
+  delay: number;
+}) {
+  const [ref, value] = useCountUp(end, { duration: 1800 });
+  return (
+    <div
+      ref={ref as React.RefObject<HTMLDivElement>}
+      style={{ backgroundColor: "oklch(0.13 0 0)" }}
+      className={`py-14 md:py-20 px-8 md:px-10 rounded-[2px] sr lift text-paper sr-d${delay}`}
+    >
+      <div className="font-medium text-[clamp(3.5rem,7vw,6rem)] leading-none tracking-[-0.05em] tabular-nums">
+        {value}
+        {suffix}
+      </div>
+      <div className="mt-5 flex items-center gap-3 text-[11px] uppercase tracking-[0.25em] text-paper/70">
+        <span className="h-px w-6 bg-paper/60" />
+        {label}
+      </div>
+      <p className="mt-3 text-sm max-w-xs text-paper/60">{desc}</p>
+    </div>
+  );
+}
+
 function About() {
-  const stats = [
-    { n: "20+", l: "Marcas atendidas", d: "Clientes ativos no Brasil e exterior" },
-    { n: "47%", l: "Crescimento médio", d: "Aumento de presença em 90 dias" },
-    { n: "03", l: "Pilares de atuação", d: "Design · Marketing · Gestão" },
+  const pillars = [
+    {
+      t: "Estratégia visual",
+      d: "Cada projeto começa com diagnóstico de marca e plano de posicionamento — não com decoração.",
+    },
+    {
+      t: "Direção criativa unificada",
+      d: "Branding, conteúdo e mídia conduzidos pelo mesmo eixo estético. Coerência total em todos os pontos de contato.",
+    },
+    {
+      t: "Execução premium",
+      d: "Acabamento editorial em cada peça entregue. Tipografia, espaço e cor tratados como ativos de marca.",
+    },
+    {
+      t: "Performance com narrativa",
+      d: "Conversão sustentada por uma história — não por gatilhos avulsos. Resultados que se acumulam.",
+    },
   ];
 
   return (
@@ -387,32 +433,72 @@ function About() {
         </div>
 
         <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-4">
-          {stats.map((it, i) => {
-            return (
+          <StatCard end={20} suffix="+" label="Marcas atendidas" desc="Clientes ativos no Brasil e exterior" delay={1} />
+          <StatCard end={47} suffix="%" label="Crescimento médio" desc="Aumento de presença em 90 dias" delay={2} />
+          <StatCard end={3} suffix="" label="Pilares de atuação" desc="Design · Marketing · Gestão" delay={3} />
+        </div>
+
+        {/* Institutional content — diferenciais */}
+        <div className="mt-28 md:mt-36 grid grid-cols-12 gap-10 md:gap-16 items-start">
+          <div className="col-span-12 md:col-span-5 sr">
+            <div className="text-[11px] uppercase tracking-[0.3em] text-dim flex items-center gap-3">
+              <span className="h-px w-8 bg-ink/40" />
+              Como pensamos
+            </div>
+            <h3 className="mt-6 font-medium text-[clamp(1.75rem,3.2vw,2.75rem)] leading-[1.05] tracking-[-0.03em] text-ink">
+              Marca não é estética.<br />
+              É decisão estratégica.
+            </h3>
+            <p className="mt-6 text-[15px] leading-relaxed text-dim max-w-md">
+              Acreditamos que percepção é precificação. Toda decisão visual
+              influencia diretamente quanto sua marca pode cobrar e o tipo de
+              cliente que ela atrai. Por isso operamos no cruzamento de design,
+              negócio e tecnologia.
+            </p>
+          </div>
+
+          <div className="col-span-12 md:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-px bg-line border border-line">
+            {pillars.map((p, i) => (
               <div
-                key={it.l}
-                style={{ backgroundColor: "oklch(0.13 0 0)" }}
-                className={[
-                  "py-14 md:py-20 px-8 md:px-10 rounded-[2px] sr lift text-paper",
-                  `sr-d${i + 1}`,
-                ].join(" ")}
+                key={p.t}
+                className={`bg-paper p-8 sr sr-d${Math.min(i + 1, 5)}`}
               >
-                <div className="font-medium text-[clamp(3.5rem,7vw,6rem)] leading-none tracking-[-0.05em]">
-                  {it.n}
+                <div className="text-[11px] uppercase tracking-[0.25em] text-dim">
+                  {String(i + 1).padStart(2, "0")}
                 </div>
-                <div className="mt-5 flex items-center gap-3 text-[11px] uppercase tracking-[0.25em] text-paper/70">
-                  <span className="h-px w-6 bg-paper/60" />
-                  {it.l}
-                </div>
-                <p className="mt-3 text-sm max-w-xs text-paper/60">{it.d}</p>
+                <h4 className="mt-3 font-medium text-[1.1rem] tracking-[-0.015em] text-ink">
+                  {p.t}
+                </h4>
+                <p className="mt-2 text-sm leading-relaxed text-dim">
+                  {p.d}
+                </p>
               </div>
-            );
-          })}
+            ))}
+          </div>
+        </div>
+
+        {/* Authority strip */}
+        <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-px bg-line border border-line sr">
+          {[
+            { k: "Fundada em", v: "Fortaleza · Brasil" },
+            { k: "Atuação", v: "Brasil · LATAM · Europa" },
+            { k: "Foco", v: "Marcas premium e em escala" },
+          ].map((it) => (
+            <div key={it.k} className="bg-paper px-8 py-7">
+              <div className="text-[10px] uppercase tracking-[0.3em] text-dim">
+                {it.k}
+              </div>
+              <div className="mt-2 text-[15px] font-medium text-ink">
+                {it.v}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
   );
 }
+
 
 
 /* =================== DARK / TECHNOLOGY =================== */
