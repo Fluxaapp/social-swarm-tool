@@ -438,7 +438,7 @@ const TECH_VIEWS = [
     desc: "Sistemas visuais coerentes, do logotipo ao território de marca, construídos para durar e escalar.",
     highlight: "Sistema modular · 12 ativos",
     tech: "system://branding — module 01",
-    satellites: ["Positioning", "Identity", "Perception", "Consistency", "Authority"],
+    infos: ["Positioning", "Identity", "Authority"],
   },
   {
     n: "02",
@@ -447,7 +447,7 @@ const TECH_VIEWS = [
     desc: "Campanhas pensadas para converter sem perder identidade. Estratégia, criativo e mídia integrados.",
     highlight: "ROI médio · 3.4x",
     tech: "protocol v2.3 · roi 3.4x",
-    satellites: ["Strategy", "Funnel", "Audience", "Conversion", "Retention"],
+    infos: ["Strategy", "Funnel", "Conversion"],
   },
   {
     n: "03",
@@ -456,13 +456,38 @@ const TECH_VIEWS = [
     desc: "Direção de arte premium para campanhas, materiais e produtos — do conceito ao acabamento.",
     highlight: "Direção · Editorial",
     tech: "grid aligned · 128 nodes",
-    satellites: ["Composition", "Typography", "Hierarchy", "Color", "Motion"],
+    infos: ["Composition", "Typography", "Color"],
+  },
+  {
+    n: "04",
+    label: "Conteúdo",
+    title: "Narrativa que sustenta a marca.",
+    desc: "Roteiros, copy e direção editorial para campanhas, social e materiais institucionais.",
+    highlight: "Editorial · Multiformato",
+    tech: "stream://content — channel 04",
+    infos: ["Voice", "Story", "Engagement"],
+  },
+  {
+    n: "05",
+    label: "Estratégia",
+    title: "Decisões guiadas por dados.",
+    desc: "Diagnóstico, posicionamento e roadmap de marca baseados em pesquisa e métricas reais.",
+    highlight: "Insights · Roadmap",
+    tech: "engine v4.1 · 24 nodes",
+    infos: ["Research", "Insight", "Roadmap"],
   },
 ] as const;
 
 function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
   const [active, setActive] = useState(0);
+  const total = TECH_VIEWS.length;
   const view = TECH_VIEWS[active];
+
+  const goPrev = () => setActive((i) => (i - 1 + total) % total);
+  const goNext = () => setActive((i) => (i + 1) % total);
+
+  // visible window: prev (preview, blurred) + active (large)
+  const prevIdx = (active - 1 + total) % total;
 
   return (
     <section className="bg-ink text-paper relative overflow-hidden">
@@ -480,178 +505,109 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
           Tecnologia em Cada Camada
         </h2>
         <p className="mt-6 max-w-xl mx-auto text-center text-paper/60 text-[15px] leading-relaxed sr sr-d2">
-          Três núcleos. Um único ecossistema de marca. Estratégia, design e
+          Cinco núcleos. Um único ecossistema de marca. Estratégia, design e
           performance girando em torno do mesmo eixo criativo.
         </p>
 
-        {/* 3D rotating product */}
+        {/* Carousel */}
         <div className="mt-20 md:mt-24 grid grid-cols-12 gap-10 items-center">
-          <div
-            className="col-span-12 lg:col-span-7 relative aspect-[5/4] sr sr-d3"
-            style={{ perspective: "1600px" }}
-          >
-            {/* 3D rotating prism */}
+          <div className="col-span-12 lg:col-span-8 lg:col-start-3 sr sr-d3">
+            {/* Info chips above the active card */}
             <div
-              className="absolute inset-0 transition-transform duration-[1200ms] ease-[cubic-bezier(.16,1,.3,1)]"
-              style={{
-                transformStyle: "preserve-3d",
-                transform: `rotateX(-10deg) rotateY(${-active * 120}deg)`,
-              }}
+              key={`infos-${active}`}
+              className="relative h-24 md:h-28 hidden md:flex items-end justify-center gap-10 md:gap-16 mb-6"
             >
-              {TECH_VIEWS.map((v, i) => (
+              {view.infos.map((info, i) => (
                 <div
-                  key={v.n}
-                  className="absolute inset-0 m-auto rounded-[3px] flex items-center justify-center overflow-hidden"
+                  key={info}
+                  className="relative flex flex-col items-center"
                   style={{
-                    width: "60%",
-                    height: "78%",
-                    transform: `rotateY(${i * 120}deg) translateZ(190px)`,
-                    background:
-                      i === 0
-                        ? "linear-gradient(140deg, oklch(0.22 0 0) 0%, oklch(0.06 0 0) 100%)"
-                        : i === 1
-                        ? "linear-gradient(140deg, oklch(0.98 0 0) 0%, oklch(0.78 0 0) 100%)"
-                        : "linear-gradient(140deg, oklch(0.36 0 0) 0%, oklch(0.12 0 0) 100%)",
-                    border: "1px solid rgba(255,255,255,0.12)",
-                    boxShadow:
-                      i === 1
-                        ? "0 40px 90px -20px rgba(255,255,255,0.22), inset 0 1px 0 rgba(255,255,255,0.7), inset 0 -40px 60px -30px rgba(0,0,0,0.25)"
-                        : "0 40px 90px -20px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.18), inset 0 -40px 60px -30px rgba(0,0,0,0.6)",
+                    opacity: 0,
+                    animation: "infoRise 600ms cubic-bezier(0.22,1,0.36,1) forwards",
+                    animationDelay: `${250 + i * 120}ms`,
                   }}
                 >
-                  {/* Specular highlight */}
-                  <div
-                    className="absolute inset-0 pointer-events-none"
+                  <span className="text-[10.5px] tracking-[0.28em] uppercase text-paper/75 whitespace-nowrap">
+                    {info}
+                  </span>
+                  {/* Connecting line down to the card */}
+                  <span
+                    aria-hidden
+                    className="mt-2 block w-px h-12 md:h-14"
                     style={{
                       background:
-                        "linear-gradient(115deg, transparent 35%, rgba(255,255,255,0.18) 50%, transparent 65%)",
-                      mixBlendMode: "screen",
+                        "linear-gradient(to bottom, rgba(255,255,255,0.45), rgba(255,255,255,0))",
+                      opacity: 0,
+                      animation: "lineFade 500ms cubic-bezier(0.22,1,0.36,1) forwards",
+                      animationDelay: `${100 + i * 120}ms`,
                     }}
                   />
-                  <div className="relative text-center px-6">
-                    <div className={`text-[10px] uppercase tracking-[0.4em] ${i === 1 ? "text-ink/60" : "text-paper/55"}`}>
-                      {v.n}
-                    </div>
-                    <div
-                      className={`mt-4 font-medium tracking-[-0.04em] ${i === 1 ? "text-ink" : "text-paper"}`}
-                      style={{ fontSize: "clamp(2rem,4.5vw,4rem)", lineHeight: 0.95 }}
-                    >
-                      {v.label}
-                    </div>
-                    <div className={`mt-6 mx-auto h-px w-12 ${i === 1 ? "bg-ink/40" : "bg-paper/40"}`} />
-                    <div className={`mt-4 text-[10px] tracking-[0.2em] ${i === 1 ? "text-ink/45" : "text-paper/45"}`}>
-                      {v.tech}
-                    </div>
-                  </div>
                 </div>
               ))}
             </div>
 
-            {/* Floor shadow */}
-            <div
-              aria-hidden
-              className="absolute left-1/2 -translate-x-1/2 bottom-2 w-[55%] h-10 rounded-full"
-              style={{
-                background: "radial-gradient(ellipse, rgba(0,0,0,0.65), transparent 70%)",
-                filter: "blur(18px)",
-              }}
-            />
+            {/* Cards row */}
+            <div className="relative flex items-stretch justify-center gap-5 md:gap-7 min-h-[360px] md:min-h-[420px]">
+              {/* Prev arrow */}
+              <button
+                type="button"
+                onClick={goPrev}
+                aria-label="Card anterior"
+                className="absolute left-0 md:-left-2 top-1/2 -translate-y-1/2 z-30 inline-flex h-11 w-11 items-center justify-center rounded-full bg-paper/10 hover:bg-paper/20 border border-paper/15 backdrop-blur-md text-paper transition-all duration-300 hover:scale-105"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
 
-            {/* Animated half-moon arc around active prism */}
-            <svg
-              key={`arc-${active}`}
-              aria-hidden
-              viewBox="0 0 100 100"
-              preserveAspectRatio="xMidYMid meet"
-              className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[68%] h-[88%] opacity-90"
-            >
-              <defs>
-                <linearGradient id="arcGrad" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="rgba(255,255,255,0.7)" />
-                  <stop offset="100%" stopColor="rgba(255,255,255,0)" />
-                </linearGradient>
-              </defs>
-              <circle
-                cx="50"
-                cy="50"
-                r="46"
-                fill="none"
-                stroke="rgba(255,255,255,0.08)"
-                strokeWidth="0.4"
+              {/* Preview (blurred) — previous card */}
+              <TechCard
+                view={TECH_VIEWS[prevIdx]}
+                variant="preview"
+                onClick={goPrev}
               />
-              <circle
-                cx="50"
-                cy="50"
-                r="46"
-                fill="none"
-                stroke="url(#arcGrad)"
-                strokeWidth="0.6"
-                strokeLinecap="round"
-                pathLength={1}
-                strokeDasharray="0.6 1"
-                strokeDashoffset="1"
-                style={{
-                  transformOrigin: "50% 50%",
-                  transform: "rotate(-90deg)",
-                  animation: "arcDraw 900ms cubic-bezier(0.22,1,0.36,1) forwards",
-                  filter: "drop-shadow(0 0 6px rgba(255,255,255,0.35))",
-                }}
-              />
-            </svg>
 
-            {/* Satellites — 5 micro-info chips around the active item */}
-            <div key={`sats-${active}`} className="pointer-events-none absolute inset-0 hidden md:block">
-              {(() => {
-                const positions = [
-                  { side: "left", top: "14%" },
-                  { side: "left", top: "44%" },
-                  { side: "left", top: "74%" },
-                  { side: "right", top: "26%" },
-                  { side: "right", top: "62%" },
-                ] as const;
-                return view.satellites.map((s, i) => {
-                  const p = positions[i];
-                  const isLeft = p.side === "left";
-                  return (
-                    <div
-                      key={s}
-                      className="absolute flex items-center gap-2"
-                      style={{
-                        top: p.top,
-                        [isLeft ? "left" : "right"]: "2%",
-                        opacity: 0,
-                        animation: `satFadeIn 600ms cubic-bezier(0.22,1,0.36,1) forwards`,
-                        animationDelay: `${500 + i * 110}ms`,
-                        flexDirection: isLeft ? "row" : "row-reverse",
-                      }}
-                    >
-                      <span className="text-[10.5px] tracking-[0.22em] uppercase text-paper/70 whitespace-nowrap">
-                        {s}
-                      </span>
-                      <span
-                        aria-hidden
-                        className="block h-px w-12 md:w-16"
-                        style={{
-                          background: isLeft
-                            ? "linear-gradient(to right, rgba(255,255,255,0.45), transparent)"
-                            : "linear-gradient(to left, rgba(255,255,255,0.45), transparent)",
-                          filter: "drop-shadow(0 0 4px rgba(255,255,255,0.25))",
-                        }}
-                      />
-                    </div>
-                  );
-                });
-              })()}
+              {/* Active card */}
+              <TechCard view={view} variant="active" />
+
+              {/* Next arrow */}
+              <button
+                type="button"
+                onClick={goNext}
+                aria-label="Próximo card"
+                className="absolute right-0 md:-right-2 top-1/2 -translate-y-1/2 z-30 inline-flex h-11 w-11 items-center justify-center rounded-full bg-paper/10 hover:bg-paper/20 border border-paper/15 backdrop-blur-md text-paper transition-all duration-300 hover:scale-105"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </div>
+
+            {/* Dots */}
+            <div className="mt-10 flex justify-center gap-2">
+              {TECH_VIEWS.map((v, i) => {
+                const isActive = active === i;
+                return (
+                  <button
+                    key={v.n}
+                    type="button"
+                    onClick={() => setActive(i)}
+                    aria-pressed={isActive}
+                    aria-label={`Ver ${v.label}`}
+                    className={`h-1.5 rounded-full transition-all duration-500 ${
+                      isActive ? "w-8 bg-paper" : "w-1.5 bg-paper/30 hover:bg-paper/60"
+                    }`}
+                  />
+                );
+              })}
             </div>
           </div>
+        </div>
 
-          <div className="col-span-12 lg:col-span-5 sr sr-d4">
+        {/* Active view detail */}
+        <div className="mt-16 md:mt-20 grid grid-cols-12 gap-10 items-start">
+          <div className="col-span-12 md:col-span-6 sr sr-d4">
             <div className="text-[11px] uppercase tracking-[0.3em] text-paper/50 flex items-center gap-3">
               <span className="h-px w-8 bg-paper/40" />
               {view.n} · {view.label}
             </div>
 
-            {/* Smooth content transition */}
             <div key={active} className="tech-fade mt-6">
               <h3 className="font-medium text-[clamp(1.75rem,3vw,2.5rem)] leading-[1.05] tracking-[-0.03em] text-paper">
                 {view.title}
@@ -663,56 +619,99 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
                 <span className="h-1.5 w-1.5 rounded-full bg-paper" />
                 {view.highlight}
               </div>
-
-              {/* Tech micro-line */}
-              <div className="mt-8 flex items-center gap-3">
-                <span className="h-px flex-1 max-w-[80px] bg-paper/15" />
-                <span className="font-mono text-[10px] tracking-[0.25em] uppercase text-paper/40">
-                  {view.tech}
-                </span>
-              </div>
-
-              {/* CTA */}
-              <div className="mt-8">
-                <button
-                  type="button"
-                  onClick={onOpenProposal}
-                  className="group btn-shine inline-flex items-center gap-3 bg-paper text-ink rounded-full pl-6 pr-2 py-2 transition-transform duration-500 hover:scale-[1.02]"
-                >
-                  <span className="text-[13px] font-medium">Solicitar proposta</span>
-                  <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-ink text-paper transition-transform duration-500 group-hover:rotate-45">
-                    <ArrowUpRight className="h-4 w-4" />
-                  </span>
-                </button>
-              </div>
             </div>
           </div>
-        </div>
 
-        <div className="mt-16 flex justify-center gap-3 sr sr-d5">
-          {TECH_VIEWS.map((v, i) => {
-            const isActive = active === i;
-            return (
-              <button
-                key={v.n}
-                type="button"
-                onClick={() => setActive(i)}
-                aria-pressed={isActive}
-                aria-label={`Ver ${v.label}`}
-                className={`group relative h-14 px-5 rounded-2xl flex items-center gap-3 transition-all duration-500 overflow-hidden ${
-                  isActive
-                    ? "bg-paper text-ink shadow-[0_0_40px_-10px_rgba(255,255,255,0.4)]"
-                    : "bg-paper/5 border border-paper/10 text-paper hover:bg-paper/10 hover:scale-[1.03]"
-                }`}
-              >
-                <span className={`block h-2.5 w-2.5 rotate-45 ${isActive ? "bg-ink" : "bg-paper/60"}`} />
-                <span className="text-[12px] uppercase tracking-[0.25em]">{v.label}</span>
-              </button>
-            );
-          })}
+          <div className="col-span-12 md:col-span-5 md:col-start-8 sr sr-d5 flex md:justify-end">
+            <button
+              type="button"
+              onClick={onOpenProposal}
+              className="group btn-shine inline-flex items-center gap-3 bg-paper text-ink rounded-full pl-6 pr-2 py-2 transition-transform duration-500 hover:scale-[1.02]"
+            >
+              <span className="text-[13px] font-medium">Solicitar proposta</span>
+              <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-ink text-paper transition-transform duration-500 group-hover:rotate-45">
+                <ArrowUpRight className="h-4 w-4" />
+              </span>
+            </button>
+          </div>
         </div>
       </div>
     </section>
+  );
+}
+
+/* Single tech card — active or preview variant */
+function TechCard({
+  view,
+  variant,
+  onClick,
+}: {
+  view: (typeof TECH_VIEWS)[number];
+  variant: "active" | "preview";
+  onClick?: () => void;
+}) {
+  const isActive = variant === "active";
+  return (
+    <div
+      onClick={onClick}
+      className={[
+        "relative shrink-0 rounded-2xl overflow-hidden transition-all duration-700 ease-[cubic-bezier(.16,1,.3,1)]",
+        isActive
+          ? "w-[260px] sm:w-[300px] md:w-[360px] aspect-[3/4] scale-100 opacity-100 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)] z-20"
+          : "hidden md:block w-[200px] md:w-[240px] aspect-[3/4] scale-[0.88] opacity-70 cursor-pointer z-10",
+      ].join(" ")}
+      style={{
+        background:
+          "linear-gradient(150deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.03) 60%, rgba(255,255,255,0.06) 100%)",
+        border: "1px solid rgba(255,255,255,0.12)",
+        backdropFilter: "blur(14px)",
+        WebkitBackdropFilter: "blur(14px)",
+        filter: isActive ? "none" : "blur(2px)",
+      }}
+    >
+      {/* Specular sheen */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(115deg, transparent 35%, rgba(255,255,255,0.10) 50%, transparent 65%)",
+          mixBlendMode: "screen",
+        }}
+      />
+      {/* Inner halo when active */}
+      {isActive && (
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -inset-px rounded-2xl"
+          style={{
+            background:
+              "radial-gradient(60% 50% at 50% 0%, rgba(255,255,255,0.18), transparent 70%)",
+          }}
+        />
+      )}
+
+      <div className="relative h-full w-full p-7 md:p-9 flex flex-col justify-between">
+        <div className="flex items-start justify-between">
+          <span className="text-[10px] uppercase tracking-[0.4em] text-paper/55">
+            {view.n}
+          </span>
+          <span className="block h-2 w-2 rotate-45 bg-paper/70" />
+        </div>
+        <div>
+          <div
+            className="font-medium tracking-[-0.04em] text-paper"
+            style={{ fontSize: "clamp(1.75rem,3.2vw,2.75rem)", lineHeight: 0.95 }}
+          >
+            {view.label}
+          </div>
+          <div className="mt-5 h-px w-12 bg-paper/40" />
+          <div className="mt-3 text-[10px] tracking-[0.25em] uppercase text-paper/45">
+            {view.tech}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
