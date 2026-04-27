@@ -947,7 +947,7 @@ function CTA({ onOpenProposal }: { onOpenProposal: () => void }) {
       <span className="light-dot" style={{ top: "30%", left: "15%" }} aria-hidden />
       <span className="light-dot" style={{ top: "70%", right: "18%", animationDelay: "4s" }} aria-hidden />
 
-      <div className="mx-auto max-w-[1480px] px-6 md:px-10 py-32 md:py-44 text-center relative">
+      <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10 py-24 sm:py-32 md:py-44 text-center relative">
         <div className="text-[11px] uppercase tracking-[0.3em] text-paper/50 inline-flex items-center gap-3 sr">
           <span className="h-px w-8 bg-paper/40" />
           Vamos conversar
