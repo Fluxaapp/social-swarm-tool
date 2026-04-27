@@ -83,9 +83,129 @@ const SOCIALS = [
 ];
 
 
+function HeroGeometry() {
+  return (
+    <div
+      aria-hidden
+      className="pointer-events-none absolute inset-y-0 right-0 z-[2] hidden lg:block w-[58%] xl:w-[55%] overflow-hidden"
+    >
+      {/* Soft ambient gradient base */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(60% 55% at 80% 45%, oklch(0.08 0 0 / 0.06), transparent 70%)",
+        }}
+      />
+
+      {/* Large blurred dark blob — depth layer */}
+      <div
+        className="absolute -top-[12%] -right-[18%] h-[70%] w-[70%] rounded-full"
+        style={{
+          background:
+            "radial-gradient(circle at 35% 35%, oklch(0.12 0 0 / 0.55), oklch(0.08 0 0 / 0.85) 60%, oklch(0.06 0 0 / 1) 100%)",
+          filter: "blur(50px)",
+          opacity: 0.45,
+          animation: "heroBreathe 16s ease-in-out infinite",
+        }}
+      />
+
+      {/* Main solid dark diagonal block — bleeds off the right edge */}
+      <div
+        className="absolute top-[8%] -right-[10%] h-[78%] w-[78%]"
+        style={{
+          background:
+            "linear-gradient(135deg, oklch(0.10 0 0) 0%, oklch(0.06 0 0) 100%)",
+          clipPath: "polygon(22% 0%, 100% 0%, 100% 100%, 0% 100%)",
+          boxShadow:
+            "0 30px 80px -30px oklch(0.06 0 0 / 0.45), inset 0 1px 0 oklch(1 0 0 / 0.04)",
+          animation: "heroDriftY 18s ease-in-out infinite",
+        }}
+      />
+
+      {/* Diagonal accent bar — mid grey, slim, overlapping */}
+      <div
+        className="absolute top-[28%] right-[18%] h-[48%] w-[14%]"
+        style={{
+          background:
+            "linear-gradient(180deg, oklch(0.22 0 0) 0%, oklch(0.14 0 0) 100%)",
+          transform: "rotate(18deg)",
+          boxShadow: "0 20px 50px -20px oklch(0 0 0 / 0.35)",
+          opacity: 0.92,
+        }}
+      />
+
+      {/* Thin tall bar — far right, just peeking */}
+      <div
+        className="absolute top-[14%] right-[4%] h-[68%] w-[5%]"
+        style={{
+          background:
+            "linear-gradient(180deg, oklch(0.18 0 0) 0%, oklch(0.08 0 0) 100%)",
+          transform: "rotate(-6deg)",
+          opacity: 0.85,
+        }}
+      />
+
+      {/* Soft floating square — blurred, low opacity */}
+      <div
+        className="absolute top-[18%] right-[44%] h-40 w-40"
+        style={{
+          background: "oklch(0.18 0 0)",
+          filter: "blur(2px)",
+          opacity: 0.18,
+          transform: "rotate(12deg)",
+          animation: "heroDriftX 22s ease-in-out infinite",
+        }}
+      />
+
+      {/* Sharp small accent square — high contrast anchor */}
+      <div
+        className="absolute bottom-[22%] right-[34%] h-12 w-12"
+        style={{
+          background: "oklch(0.06 0 0)",
+          boxShadow: "0 18px 40px -12px oklch(0 0 0 / 0.4)",
+          transform: "rotate(8deg)",
+        }}
+      />
+
+      {/* Hairline diagonal — texture detail */}
+      <div
+        className="absolute top-0 bottom-0 right-[28%] w-px origin-top"
+        style={{
+          background:
+            "linear-gradient(180deg, transparent, oklch(0.08 0 0 / 0.25), transparent)",
+          transform: "rotate(8deg)",
+        }}
+      />
+
+      {/* Subtle highlight on the leading edge of the main block */}
+      <div
+        className="absolute top-[8%] right-[64%] h-[78%] w-px"
+        style={{
+          background:
+            "linear-gradient(180deg, transparent, oklch(1 0 0 / 0.35), transparent)",
+          transform: "rotate(35deg)",
+          filter: "blur(0.5px)",
+        }}
+      />
+
+      {/* Edge fade to soft bg on the left side so it blends with text */}
+      <div
+        className="absolute inset-y-0 left-0 w-[35%]"
+        style={{
+          background:
+            "linear-gradient(90deg, var(--soft) 0%, transparent 100%)",
+        }}
+      />
+    </div>
+  );
+}
+
 function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
   return (
     <section id="top" className="relative bg-soft overflow-hidden">
+
+      <HeroGeometry />
 
       <div
         data-parallax="0.08"
