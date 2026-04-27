@@ -659,10 +659,10 @@ function TechCard({
     <div
       onClick={onClick}
       className={[
-        "relative shrink-0 rounded-2xl overflow-hidden transition-all duration-700 ease-[cubic-bezier(.16,1,.3,1)]",
+        "relative shrink-0 rounded-2xl overflow-hidden",
         isActive
-          ? "w-[260px] sm:w-[300px] md:w-[360px] aspect-[3/4] scale-100 opacity-100 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)] z-20"
-          : "hidden md:block w-[200px] md:w-[240px] aspect-[3/4] scale-[0.88] opacity-70 cursor-pointer z-10",
+          ? "card-enter-active w-[260px] sm:w-[300px] md:w-[360px] aspect-[3/4] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)] z-20"
+          : "card-enter-preview hidden md:block w-[200px] md:w-[240px] aspect-[3/4] cursor-pointer z-10",
       ].join(" ")}
       style={{
         background:
@@ -670,7 +670,6 @@ function TechCard({
         border: "1px solid rgba(255,255,255,0.12)",
         backdropFilter: "blur(14px)",
         WebkitBackdropFilter: "blur(14px)",
-        filter: isActive ? "none" : "blur(2px)",
       }}
     >
       {/* Specular sheen */}
@@ -697,9 +696,18 @@ function TechCard({
 
       <div className="relative h-full w-full p-7 md:p-9 flex flex-col justify-between">
         <div className="flex items-start justify-between">
-          <span className="text-[10px] uppercase tracking-[0.4em] text-paper/55">
-            {view.n}
-          </span>
+          <div className="flex flex-col">
+            <span className="text-[10px] uppercase tracking-[0.4em] text-paper/55">
+              {view.n}
+            </span>
+            <span
+              aria-hidden
+              className="mt-1 font-medium text-paper/10 leading-none tracking-[-0.05em] select-none"
+              style={{ fontSize: "clamp(2.5rem,5vw,3.75rem)" }}
+            >
+              {view.n}
+            </span>
+          </div>
           <span className="block h-2 w-2 rotate-45 bg-paper/70" />
         </div>
         <div>
@@ -709,6 +717,11 @@ function TechCard({
           >
             {view.label}
           </div>
+          {isActive && (
+            <p className="mt-3 text-[12px] leading-relaxed text-paper/55 max-w-[22ch]">
+              {view.subtitle}
+            </p>
+          )}
           <div className="mt-5 h-px w-12 bg-paper/40" />
           <div className="mt-3 text-[10px] tracking-[0.25em] uppercase text-paper/45">
             {view.tech}
