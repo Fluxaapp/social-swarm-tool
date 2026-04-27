@@ -774,17 +774,7 @@ function TechCard({
           mixBlendMode: "screen",
         }}
       />
-      {/* Inner halo when active */}
-      {isActive && (
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -inset-px rounded-2xl"
-          style={{
-            background:
-              "radial-gradient(60% 50% at 50% 0%, rgba(255,255,255,0.18), transparent 70%)",
-          }}
-        />
-      )}
+      {/* Inner halo removido — causava clarão no topo do card ativo */}
 
       <div className="relative h-full w-full p-7 md:p-9 flex flex-col justify-between">
         <div className="flex items-start justify-between">
