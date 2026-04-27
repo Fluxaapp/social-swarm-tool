@@ -284,7 +284,7 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
 function InfoStrip() {
   return (
     <section className="bg-ink text-paper">
-      <div className="mx-auto max-w-[1480px] px-6 md:px-10 py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10 py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <div className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-paper/20 shrink-0">
             <span className="block h-3 w-3 border border-paper/80 rotate-45" />
