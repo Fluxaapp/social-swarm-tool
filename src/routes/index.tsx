@@ -393,8 +393,8 @@ function About() {
 
         {/* Institutional content — diferenciais */}
         <div className="mt-28 md:mt-36 grid grid-cols-12 gap-10 md:gap-16 items-start">
-          <div className="col-span-12 md:col-span-5 sr text-center md:text-left">
-            <div className="text-[11px] uppercase tracking-[0.3em] text-dim inline-flex items-center gap-3 justify-center md:justify-start">
+          <div className="col-span-12 md:col-span-5 sr flex flex-col items-center text-center md:items-start md:text-left">
+            <div className="mx-auto md:mx-0 text-[11px] uppercase tracking-[0.3em] text-dim inline-flex items-center gap-3 justify-center md:justify-start">
               <span className="h-px w-8 bg-ink/40" />
               Como pensamos
             </div>
@@ -675,7 +675,7 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
               </button>
             </div>
 
-            <div className="mt-10 flex justify-center gap-2">
+            <div className="relative left-1/2 mt-10 flex w-screen max-w-[100vw] -translate-x-1/2 justify-center gap-2 md:left-auto md:w-auto md:max-w-none md:translate-x-0">
               {TECH_VIEWS.map((v, i) => {
                 const isActive = active === i;
                 return (
@@ -694,8 +694,8 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
           </div>
 
           <div className="col-span-12 lg:col-span-5 sr sr-d4">
-            <div className="text-center lg:text-left">
-              <div className="text-[11px] uppercase tracking-[0.3em] text-paper/50 inline-flex items-center gap-3 justify-center lg:justify-start">
+            <div className="mx-auto flex max-w-md flex-col items-center text-center lg:mx-0 lg:max-w-none lg:items-start lg:text-left">
+              <div className="mx-auto lg:mx-0 text-[11px] uppercase tracking-[0.3em] text-paper/50 inline-flex items-center gap-3 justify-center lg:justify-start">
                 <span className="h-px w-8 bg-paper/40" />
                 <span className={infoMotionClass}>{dynamicView.n} · {dynamicView.label}</span>
               </div>
@@ -706,7 +706,7 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
               <p className="mt-5 text-[15px] leading-relaxed text-paper/60 max-w-md mx-auto lg:mx-0">
                 <span className={infoMotionClass}>{dynamicView.desc}</span>
               </p>
-              <div className="mt-8 inline-flex items-center gap-3 bg-paper/5 border border-paper/10 rounded-full px-4 py-2 text-[12px] text-paper/80">
+              <div className="mt-8 inline-flex max-w-full items-center justify-center gap-3 rounded-full border border-paper/10 bg-paper/5 px-4 py-2 text-[12px] text-paper/80">
                 <span className="h-1.5 w-1.5 rounded-full bg-paper" />
                 <span className={infoMotionClass}>{dynamicView.highlight}</span>
               </div>
@@ -831,7 +831,7 @@ function Services() {
       <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10">
         <div className="grid grid-cols-12 gap-6 mb-16">
           <div className="col-span-12 md:col-span-6 sr text-center md:text-left">
-            <div className="text-[11px] uppercase tracking-[0.3em] text-dim inline-flex items-center gap-3 justify-center md:justify-start">
+            <div className="mx-auto md:mx-0 text-[11px] uppercase tracking-[0.3em] text-dim inline-flex items-center gap-3 justify-center md:justify-start">
               <span className="h-px w-8 bg-ink/40" />
               Serviços
             </div>
@@ -867,7 +867,7 @@ function Services() {
                     <Plus className="h-3.5 w-3.5 transition-transform duration-500 group-hover:rotate-90" />
                   </span>
                 </div>
-                <div>
+                <div className="text-center md:text-left">
                   <h4 className="font-medium text-2xl md:text-[1.75rem] tracking-[-0.02em] leading-tight">
                     {s.t}
                   </h4>
@@ -898,8 +898,8 @@ function Portfolio() {
     <section id="portfolio" className="bg-soft py-20 sm:py-28 md:py-40">
       <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-8">
-          <div className="text-center md:text-left">
-            <div className="text-[11px] uppercase tracking-[0.3em] text-dim inline-flex items-center gap-3 justify-center md:justify-start">
+          <div className="mx-auto flex max-w-md flex-col items-center text-center md:mx-0 md:max-w-none md:items-start md:text-left">
+            <div className="mx-auto md:mx-0 text-[11px] uppercase tracking-[0.3em] text-dim inline-flex items-center gap-3 justify-center md:justify-start">
               <span className="h-px w-8 bg-ink/40" />
               Trabalhos Selecionados
             </div>
