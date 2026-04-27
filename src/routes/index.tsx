@@ -437,7 +437,7 @@ function About() {
             { k: "Atuação", v: "Brasil · LATAM · Europa" },
             { k: "Foco", v: "Marcas premium e em escala" },
           ].map((it) => (
-            <div key={it.k} className="bg-paper px-8 py-7">
+            <div key={it.k} className="bg-paper px-8 py-7 text-center md:text-left">
               <div className="text-[10px] uppercase tracking-[0.3em] text-dim">
                 {it.k}
               </div>
