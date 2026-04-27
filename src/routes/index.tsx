@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowUpRight, Plus, Star, Instagram, Facebook } from "lucide-react";
+import { ArrowUpRight, Plus, Star, Instagram, Facebook, Search, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 
 import workBranding from "@/assets/work-branding.jpg";
@@ -37,13 +37,18 @@ function Nav({ onOpenProposal }: { onOpenProposal: () => void }) {
           <a href="#contact" className="hover:text-ink transition-colors">Contato</a>
         </nav>
 
-        {/* Right side — micro-info + sutil dividers */}
-        <div className="hidden md:flex items-center gap-5 text-[11px] tracking-[0.18em] uppercase text-ink/55">
-          <span>Digital Studio</span>
-          <span aria-hidden className="block w-px h-4 bg-gradient-to-b from-transparent via-ink/25 to-transparent opacity-70" />
-          <span>Brand Experience</span>
-          <span aria-hidden className="block w-px h-4 bg-gradient-to-b from-transparent via-ink/25 to-transparent opacity-70" />
-          <span className="text-ink/45">Since 2024</span>
+        {/* Right side — search + micro-info */}
+        <div className="hidden md:flex items-center gap-5">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-ink/40 pointer-events-none" />
+            <input
+              type="search"
+              placeholder="Buscar"
+              aria-label="Buscar"
+              className="h-9 w-[180px] rounded-full bg-paper border border-line pl-9 pr-3 text-[13px] text-ink placeholder:text-ink/40 outline-none focus:border-ink/40 transition-colors"
+            />
+          </div>
+          <span className="text-[11px] tracking-[0.18em] uppercase text-ink/55">Digital Studio</span>
         </div>
 
         <button
