@@ -630,7 +630,11 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
                   <TechCard
                     view={upcomingPreviewView}
                     variant="preview"
-                    motionClass="tech-card-motion-upcoming"
+                    motionClass={
+                      direction === 1
+                        ? "tech-card-motion-upcoming"
+                        : "tech-card-motion-upcoming-prev"
+                    }
                   />
                 )}
 
