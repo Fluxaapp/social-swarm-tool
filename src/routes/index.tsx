@@ -626,6 +626,14 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
               <div
                 className="tech-card-clip relative mx-auto h-[390px] w-[360px] sm:w-[420px] md:h-[500px] md:w-[480px]"
               >
+                {isAnimating && direction === 1 && (
+                  <TechCard
+                    view={upcomingPreviewView}
+                    variant="preview"
+                    motionClass="tech-card-motion-upcoming"
+                  />
+                )}
+
                 <TechCard
                   view={visibleSecondary}
                   variant="preview"
