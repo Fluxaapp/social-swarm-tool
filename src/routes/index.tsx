@@ -232,17 +232,6 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
         <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 min-h-[520px] lg:min-h-[620px]">
           {/* Social icons — vertical, with single subtle vertical line behind */}
           <div className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-20 flex flex-col items-center gap-7 md:gap-8">
-            {/* Single vertical gradient line — sits behind icons; icons mask it with bg-soft */}
-            <span
-              aria-hidden
-              className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-2 bottom-2 w-px"
-              style={{
-                background:
-                  "linear-gradient(to bottom, transparent, rgba(0,0,0,0.22), transparent)",
-                opacity: 0.5,
-                zIndex: 0,
-              }}
-            />
             {SOCIALS.map((s) => {
               const Icon = s.Icon;
               return (
