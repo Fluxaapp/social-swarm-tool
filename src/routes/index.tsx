@@ -896,19 +896,15 @@ function Portfolio() {
     <section id="portfolio" className="bg-soft py-20 sm:py-28 md:py-40">
       <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-8">
-          <div>
-            <div className="text-[11px] uppercase tracking-[0.3em] text-dim flex items-center gap-3">
+          <div className="text-center md:text-left">
+            <div className="text-[11px] uppercase tracking-[0.3em] text-dim inline-flex items-center gap-3 justify-center md:justify-start">
               <span className="h-px w-8 bg-ink/40" />
               Trabalhos Selecionados
             </div>
-            <h2 className="mt-6 font-medium text-[clamp(2.25rem,5vw,4.25rem)] leading-[1] tracking-[-0.03em] text-ink">
+            <h2 className="mt-6 font-medium text-[clamp(2rem,5vw,4.25rem)] leading-[1.05] tracking-[-0.03em] text-ink">
               Trabalhos que vendem.
             </h2>
           </div>
-          <a href="#contact" className="group inline-flex items-center gap-2 text-[12px] uppercase tracking-[0.25em] text-ink border-b border-ink pb-1 self-start">
-            Todos os projetos
-            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </a>
         </div>
 
         <div className="grid grid-cols-12 gap-6 md:gap-8">
