@@ -530,6 +530,11 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
   const dynamicView = TECH_VIEWS[infoIndex];
   const previewIdx = wrapTechIndex(active + 1, total);
   const visibleSecondary = TECH_VIEWS[incoming ?? previewIdx];
+  // Card que será o próximo preview após a transição terminar
+  // (já renderizado em background para evitar slot vazio)
+  const upcomingPreviewIdx =
+    incoming !== null ? wrapTechIndex(incoming + direction, total) : previewIdx;
+  const upcomingPreviewView = TECH_VIEWS[upcomingPreviewIdx];
   const infoMotionClass =
     infoPhase === "out"
       ? "tech-copy-out"
