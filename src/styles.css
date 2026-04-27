@@ -560,6 +560,23 @@
   transform: translate3d(calc(-50% - 175px), calc(-50% - 8px), 0) scale(0.82);
 }
 
+/* Card que será o próximo preview — já renderizado em background
+   no slot do preview, faz fade-in suave durante a transição
+   para evitar slot vazio quando o preview atual vira o ativo. */
+.tech-card-motion-upcoming {
+  z-index: 0;
+  pointer-events: none;
+  transform: translate3d(calc(-50% - 175px), calc(-50% - 8px), 0) scale(0.82);
+  filter: blur(0);
+  animation: tech-card-upcoming-fade 1400ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes tech-card-upcoming-fade {
+  0%   { opacity: 0; }
+  55%  { opacity: 0; }
+  100% { opacity: 0.42; }
+}
+
 .tech-card-motion-exit-next {
   z-index: 3;
   animation: tech-card-exit-next 1400ms cubic-bezier(0.22, 1, 0.36, 1) both;
