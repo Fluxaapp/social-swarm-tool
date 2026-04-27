@@ -393,16 +393,16 @@ function About() {
 
         {/* Institutional content — diferenciais */}
         <div className="mt-28 md:mt-36 grid grid-cols-12 gap-10 md:gap-16 items-start">
-          <div className="col-span-12 md:col-span-5 sr">
-            <div className="text-[11px] uppercase tracking-[0.3em] text-dim flex items-center gap-3">
+          <div className="col-span-12 md:col-span-5 sr text-center md:text-left">
+            <div className="text-[11px] uppercase tracking-[0.3em] text-dim inline-flex items-center gap-3 justify-center md:justify-start">
               <span className="h-px w-8 bg-ink/40" />
               Como pensamos
             </div>
-            <h3 className="mt-6 font-medium text-[clamp(1.75rem,3.2vw,2.75rem)] leading-[1.05] tracking-[-0.03em] text-ink">
+            <h3 className="mt-6 font-medium text-[clamp(1.5rem,3.2vw,2.75rem)] leading-[1.1] tracking-[-0.03em] text-ink">
               Marca não é estética.<br />
               É decisão estratégica.
             </h3>
-            <p className="mt-6 text-[15px] leading-relaxed text-dim max-w-md">
+            <p className="mt-6 text-[15px] leading-relaxed text-dim max-w-md mx-auto md:mx-0">
               Acreditamos que percepção é precificação. Toda decisão visual
               influencia diretamente quanto sua marca pode cobrar e o tipo de
               cliente que ela atrai. Por isso operamos no cruzamento de design,
