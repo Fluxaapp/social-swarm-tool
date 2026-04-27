@@ -20,13 +20,14 @@ export const Route = createFileRoute("/")({
 /* =================== NAV =================== */
 function Nav({ onOpenProposal }: { onOpenProposal: () => void }) {
   return (
-    <header className="absolute top-0 left-0 right-0 z-50">
+    <header className="fixed top-0 left-0 right-0 z-[999] bg-white/5 backdrop-blur-md supports-[backdrop-filter]:bg-white/5 border-b border-white/10">
       <div className="mx-auto max-w-[1480px] px-6 md:px-10 h-20 flex items-center justify-between gap-6">
-        <a href="#top" className="flex items-center gap-2.5">
-          <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-ink text-paper">
-            <span className="block h-3.5 w-3.5 border border-paper/90 rotate-45" />
+        <a href="#top" className="flex items-center leading-none">
+          <span className="text-[17px] tracking-tight text-ink">
+            <span className="font-light">Agencia</span>
+            <span className="mx-2 text-ink/30 font-light">|</span>
+            <span className="font-semibold">Glass Maind</span>
           </span>
-          <span className="text-[15px] font-medium tracking-tight text-ink">Glass Maind</span>
         </a>
 
         <nav className="hidden md:flex items-center gap-9 text-[14px] text-ink/60">
@@ -909,7 +910,7 @@ function Index() {
   const [proposalOpen, setProposalOpen] = useState(false);
 
   return (
-    <main className="bg-paper text-ink min-h-screen">
+    <main className="bg-paper text-ink min-h-screen pt-20">
       <Nav onOpenProposal={() => setProposalOpen(true)} />
       <Hero onOpenProposal={() => setProposalOpen(true)} />
       <Technology onOpenProposal={() => setProposalOpen(true)} />
