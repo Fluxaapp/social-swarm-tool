@@ -393,7 +393,7 @@ function About() {
 
         {/* Institutional content — diferenciais */}
         <div className="mt-28 md:mt-36 grid grid-cols-12 gap-10 md:gap-16 items-start">
-          <div className="col-span-12 md:col-span-5 sr text-center md:text-left">
+          <div className="col-span-12 md:col-span-5 sr flex flex-col items-center text-center md:items-start md:text-left">
             <div className="text-[11px] uppercase tracking-[0.3em] text-dim inline-flex items-center gap-3 justify-center md:justify-start">
               <span className="h-px w-8 bg-ink/40" />
               Como pensamos
@@ -867,7 +867,7 @@ function Services() {
                     <Plus className="h-3.5 w-3.5 transition-transform duration-500 group-hover:rotate-90" />
                   </span>
                 </div>
-                <div>
+                <div className="text-center md:text-left">
                   <h4 className="font-medium text-2xl md:text-[1.75rem] tracking-[-0.02em] leading-tight">
                     {s.t}
                   </h4>
@@ -898,7 +898,7 @@ function Portfolio() {
     <section id="portfolio" className="bg-soft py-20 sm:py-28 md:py-40">
       <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-8">
-          <div className="text-center md:text-left">
+          <div className="mx-auto flex max-w-md flex-col items-center text-center md:mx-0 md:max-w-none md:items-start md:text-left">
             <div className="text-[11px] uppercase tracking-[0.3em] text-dim inline-flex items-center gap-3 justify-center md:justify-start">
               <span className="h-px w-8 bg-ink/40" />
               Trabalhos Selecionados
