@@ -183,10 +183,19 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
           </div>
         </div>
 
-        {/* RIGHT — abstract floating tech composition + social icons */}
-        <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 lg:pl-6 min-h-[480px] lg:min-h-[560px]">
+        {/* RIGHT — vertical auto-scroll showcase + social icons */}
+        <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 lg:pl-6 min-h-[520px] lg:min-h-[620px]">
+          {/* Vertical marquee column */}
+          <div className="marquee-mask absolute inset-y-0 left-0 right-16 md:right-20 overflow-hidden">
+            <div className="marquee-vertical-track flex flex-col gap-5">
+              {[...HERO_SHOWCASE, ...HERO_SHOWCASE].map((item, i) => (
+                <HeroShowcaseCard key={`${item.id}-${i}`} item={item} />
+              ))}
+            </div>
+          </div>
+
           {/* Social icons — vertical, transparent, tech micro-interface */}
-          <div className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 flex flex-col items-center gap-7 md:gap-8">
+          <div className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-20 flex flex-col items-center gap-7 md:gap-8">
             {SOCIALS.map((s) => {
               const Icon = s.Icon;
               return (
@@ -224,15 +233,6 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
                 </a>
               );
             })}
-          </div>
-
-          <div className="absolute -left-4 top-12 hidden md:flex items-center gap-2 bg-white border border-line rounded-full px-4 py-2 shadow-sm float-slow">
-            <span className="h-2 w-2 rounded-full bg-ink" />
-            <span className="text-[11px] uppercase tracking-[0.25em] text-ink/70">Vol. 01</span>
-          </div>
-          <div className="absolute right-0 top-8 hidden md:flex flex-col items-end gap-1 float-slower">
-            <span className="text-[10px] uppercase tracking-[0.3em] text-ink/50">Index</span>
-            <span className="text-sm text-ink/80 font-medium">A · 24</span>
           </div>
         </div>
       </div>
