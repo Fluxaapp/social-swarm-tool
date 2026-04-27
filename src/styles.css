@@ -711,8 +711,74 @@
   }
 }
 
+/* ===== Mobile carousel — offsets reduzidos ===== */
+@media (max-width: 767px) {
+  @keyframes tech-card-upcoming-in-next {
+    0% {
+      opacity: 0;
+      transform: translate3d(calc(-50% - 110px), calc(-50% - 6px), 0) scale(0.8);
+    }
+    100% {
+      opacity: 0.42;
+      transform: translate3d(calc(-50% - 70px), calc(-50% - 6px), 0) scale(0.84);
+    }
+  }
+  @keyframes tech-card-upcoming-in-prev {
+    0% {
+      opacity: 0;
+      transform: translate3d(calc(-50% + 110px), calc(-50% - 6px), 0) scale(0.8);
+    }
+    100% {
+      opacity: 0.42;
+      transform: translate3d(calc(-50% + 70px), calc(-50% - 6px), 0) scale(0.84);
+    }
+  }
+  @keyframes tech-card-exit-next {
+    0% {
+      opacity: 1;
+      transform: translate3d(-50%, -50%, 0) scale(1);
+    }
+    100% {
+      opacity: 1;
+      transform: translate3d(calc(-50% + 320px), -50%, 0) scale(1);
+    }
+  }
+  @keyframes tech-card-enter-next {
+    0% {
+      opacity: 0.42;
+      transform: translate3d(calc(-50% - 70px), calc(-50% - 6px), 0) scale(0.84);
+    }
+    60% { opacity: 0.9; }
+    100% {
+      opacity: 1;
+      transform: translate3d(-50%, -50%, 0) scale(1);
+    }
+  }
+  @keyframes tech-card-exit-prev {
+    0% {
+      opacity: 1;
+      transform: translate3d(-50%, -50%, 0) scale(1);
+    }
+    85% { opacity: 1; }
+    100% {
+      opacity: 0;
+      transform: translate3d(calc(-50% - 320px), -50%, 0) scale(1);
+    }
+  }
+  @keyframes tech-card-enter-prev {
+    0% {
+      opacity: 0.42;
+      transform: translate3d(calc(-50% + 70px), calc(-50% - 6px), 0) scale(0.84);
+    }
+    60% { opacity: 0.9; }
+    100% {
+      opacity: 1;
+      transform: translate3d(-50%, -50%, 0) scale(1);
+    }
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .tech-card-motion-exit-next,
   .tech-card-motion-enter-next,
   .tech-card-motion-exit-prev,
   .tech-card-motion-enter-prev,
