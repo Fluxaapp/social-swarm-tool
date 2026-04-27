@@ -511,16 +511,6 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
                       mixBlendMode: "screen",
                     }}
                   />
-                  {/* Grid texture */}
-                  <div
-                    className="absolute inset-0 pointer-events-none opacity-[0.08]"
-                    style={{
-                      backgroundImage:
-                        "linear-gradient(currentColor 1px, transparent 1px), linear-gradient(90deg, currentColor 1px, transparent 1px)",
-                      backgroundSize: "32px 32px",
-                      color: i === 1 ? "#000" : "#fff",
-                    }}
-                  />
                   <div className="relative text-center px-6">
                     <div className={`text-[10px] uppercase tracking-[0.4em] ${i === 1 ? "text-ink/60" : "text-paper/55"}`}>
                       {v.n}
