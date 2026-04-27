@@ -10,7 +10,7 @@ import { useParallax, useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { useCountUp } from "@/hooks/use-count-up";
 import { CONTACT, whatsappLink, mailtoLink } from "@/lib/contact";
 import { ProposalModal } from "@/components/ProposalModal";
-import { HeroImmersiveShowcase } from "@/components/HeroShowcase";
+
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -86,13 +86,6 @@ const SOCIALS = [
 function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
   return (
     <section id="top" className="relative bg-soft overflow-hidden">
-      {/* Immersive editorial showcase — full-bleed on the right side of the hero */}
-      <div
-        className="pointer-events-none absolute inset-y-0 right-0 w-full lg:w-[52%] z-0"
-        aria-hidden
-      >
-        <HeroImmersiveShowcase />
-      </div>
 
       <div
         data-parallax="0.08"
