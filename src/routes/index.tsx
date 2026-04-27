@@ -682,8 +682,10 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
                   <span
                     key={v.n}
                     aria-hidden
-                    className={`h-1.5 rounded-full transition-all duration-500 ${
-                      isActive ? "w-8 bg-paper" : "w-1.5 bg-paper/30 hover:bg-paper/60"
+                    className={`h-1.5 rounded-full transition-all duration-500 md:w-1.5 ${
+                      isActive
+                        ? "w-1.5 md:w-8 bg-paper md:bg-paper scale-110 md:scale-100"
+                        : "w-1.5 bg-paper/30 hover:bg-paper/60"
                     }`}
                   />
                 );
