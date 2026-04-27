@@ -528,8 +528,23 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
   const timersRef = useRef<number[]>([]);
   const autoplayRef = useRef<number | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const [step, setStep] = useState(340); // px between consecutive card centers
   const total = TECH_VIEWS.length;
   const dynamicView = TECH_VIEWS[infoIndex];
+
+  // Responsive step: matches card width + gap
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const compute = () => {
+      const w = window.innerWidth;
+      if (w < 640) setStep(280);       // mobile: 260 + 20
+      else if (w < 768) setStep(310);   // sm: 280 + 30
+      else setStep(340);                // md+: 300 + 40
+    };
+    compute();
+    window.addEventListener("resize", compute);
+    return () => window.removeEventListener("resize", compute);
+  }, []);
 
   const infoMotionClass =
     infoPhase === "out"
