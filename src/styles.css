@@ -411,12 +411,35 @@
   stroke-dashoffset: 0;
 }
 
-/* Tech panel fade + slide on view change */
-.tech-fade {
-  animation: tech-fade 0.4s cubic-bezier(.16,1,.3,1) both;
+/* Tech panel copy transition */
+.tech-copy-idle,
+.tech-copy-in,
+.tech-copy-out {
+  display: inline-block;
+  will-change: opacity, transform, filter;
 }
-@keyframes tech-fade {
-  0% { opacity: 0; transform: translateY(10px); filter: blur(4px); }
+
+.tech-copy-idle {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+.tech-copy-out {
+  animation: tech-copy-out 0.3s ease both;
+}
+
+.tech-copy-in {
+  animation: tech-copy-in 0.3s ease both;
+}
+
+@keyframes tech-copy-out {
+  0% { opacity: 1; transform: translateY(0); filter: blur(0); }
+  100% { opacity: 0; transform: translateY(8px); filter: blur(3px); }
+}
+
+@keyframes tech-copy-in {
+  0% { opacity: 0; transform: translateY(8px); filter: blur(3px); }
   100% { opacity: 1; transform: translateY(0); filter: blur(0); }
 }
 
@@ -498,54 +521,134 @@
   100% { opacity: 1; transform: scaleY(1); transform-origin: top; }
 }
 
-/* Technology cards — depth transition (X + Y + scale + blur) */
-.card-enter-active {
-  animation: cardEnterActive 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+/* Technology cards — real carousel depth transition */
+.tech-card-shell {
+  backface-visibility: hidden;
+  will-change: transform, opacity, filter;
+}
+
+.tech-card-motion-active {
+  z-index: 20;
   opacity: 1;
-  transform: translate3d(0, 0, 0) scale(1);
   filter: blur(0);
-}
-.card-enter-preview {
-  animation: cardEnterPreview 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
-  opacity: 0.55;
-  transform: translate3d(0, 6px, 0) scale(0.86);
-  filter: blur(2.5px);
+  transform: translate3d(-50%, -50%, 0) scale(1);
 }
 
-@keyframes cardEnterActive {
+.tech-card-motion-preview {
+  z-index: 10;
+  opacity: 0.45;
+  filter: blur(10px);
+  transform: translate3d(calc(-50% - 55px), calc(-50% + 55px), 0) scale(0.82);
+}
+
+.tech-card-motion-exit-next {
+  z-index: 20;
+  animation: tech-card-exit-next 760ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.tech-card-motion-enter-next {
+  z-index: 15;
+  animation: tech-card-enter-next 760ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.tech-card-motion-exit-prev {
+  z-index: 20;
+  animation: tech-card-exit-prev 760ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.tech-card-motion-enter-prev {
+  z-index: 15;
+  animation: tech-card-enter-prev 760ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes tech-card-exit-next {
   0% {
-    opacity: 0;
-    transform: translate3d(40px, 18px, 0) scale(0.92);
-    filter: blur(6px);
-  }
-  60% {
     opacity: 1;
-    filter: blur(0.5px);
-  }
-  100% {
-    opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1);
     filter: blur(0);
+    transform: translate3d(-50%, -50%, 0) scale(1);
+  }
+  55% {
+    opacity: 0.72;
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translate3d(calc(-50% + 90px), calc(-50% + 18px), 0) scale(0.88);
   }
 }
 
-@keyframes cardEnterPreview {
+@keyframes tech-card-enter-next {
   0% {
-    opacity: 0;
-    transform: translate3d(-30px, -10px, 0) scale(0.8);
-    filter: blur(8px);
+    opacity: 0.45;
+    filter: blur(10px);
+    transform: translate3d(calc(-50% - 55px), calc(-50% + 55px), 0) scale(0.82);
+  }
+  55% {
+    opacity: 0.82;
+    filter: blur(4px);
   }
   100% {
-    opacity: 0.55;
-    transform: translate3d(0, 6px, 0) scale(0.86);
-    filter: blur(2.5px);
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(-50%, -50%, 0) scale(1);
+  }
+}
+
+@keyframes tech-card-exit-prev {
+  0% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(-50%, -50%, 0) scale(1);
+  }
+  55% {
+    opacity: 0.72;
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translate3d(calc(-50% - 90px), calc(-50% + 18px), 0) scale(0.88);
+  }
+}
+
+@keyframes tech-card-enter-prev {
+  0% {
+    opacity: 0.45;
+    filter: blur(10px);
+    transform: translate3d(calc(-50% + 55px), calc(-50% + 55px), 0) scale(0.82);
+  }
+  55% {
+    opacity: 0.82;
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(-50%, -50%, 0) scale(1);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .card-enter-active,
-  .card-enter-preview {
+  .tech-card-motion-exit-next,
+  .tech-card-motion-enter-next,
+  .tech-card-motion-exit-prev,
+  .tech-card-motion-enter-prev,
+  .tech-copy-out,
+  .tech-copy-in {
     animation: none !important;
+  }
+
+  .tech-card-motion-active {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: translate3d(-50%, -50%, 0) scale(1) !important;
+  }
+
+  .tech-card-motion-preview {
+    opacity: 0.45 !important;
+    filter: blur(10px) !important;
+    transform: translate3d(calc(-50% - 55px), calc(-50% + 55px), 0) scale(0.82) !important;
   }
 }
 
