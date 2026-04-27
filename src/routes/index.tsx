@@ -153,9 +153,9 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
         />
       </svg>
 
-      <div className="mx-auto max-w-[1480px] px-6 md:px-10 pt-32 md:pt-36 pb-16 md:pb-24 grid grid-cols-12 gap-8 md:gap-12 items-center min-h-[100vh] relative z-10">
+      <div className="mx-auto max-w-[1480px] px-6 md:px-10 pt-18 md:pt-22 pb-12 md:pb-16 grid grid-cols-12 gap-8 md:gap-12 items-center min-h-[calc(100svh-5rem)] md:min-h-[calc(100vh-5rem)] relative z-10">
         {/* LEFT — text */}
-        <div className="col-span-12 lg:col-span-7 relative z-10 flex flex-col items-start">
+        <div className="col-span-12 lg:col-span-7 relative z-10 flex flex-col items-start justify-center self-center">
           <div className="flex items-center gap-3 text-[11px] tracking-[0.3em] uppercase text-dim reveal reveal-d1">
             <span className="text-dim/70">05</span>
             <span className="h-px w-6 bg-ink/30" />
@@ -455,6 +455,15 @@ function About() {
 
 
 /* =================== DARK / TECHNOLOGY =================== */
+type CarouselDirection = -1 | 1;
+type InfoPhase = "idle" | "out" | "in";
+
+const CARD_CAROUSEL_MS = 760;
+const INFO_FADE_OUT_DELAY_MS = 250;
+const INFO_SWAP_DELAY_MS = 400;
+
+const wrapTechIndex = (index: number, total: number) => (index + total) % total;
+
 const TECH_VIEWS = [
   {
     n: "01",
@@ -510,14 +519,66 @@ const TECH_VIEWS = [
 
 function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
   const [active, setActive] = useState(0);
+  const [incoming, setIncoming] = useState<number | null>(null);
+  const [direction, setDirection] = useState<CarouselDirection>(1);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [infoIndex, setInfoIndex] = useState(0);
+  const [infoPhase, setInfoPhase] = useState<InfoPhase>("idle");
+  const timersRef = useRef<number[]>([]);
   const total = TECH_VIEWS.length;
   const view = TECH_VIEWS[active];
+  const dynamicView = TECH_VIEWS[infoIndex];
+  const previewIdx = wrapTechIndex(active + 1, total);
+  const visibleSecondary = TECH_VIEWS[incoming ?? previewIdx];
+  const infoMotionClass =
+    infoPhase === "out"
+      ? "tech-copy-out"
+      : infoPhase === "in"
+        ? "tech-copy-in"
+        : "tech-copy-idle";
 
-  const goPrev = () => setActive((i) => (i - 1 + total) % total);
-  const goNext = () => setActive((i) => (i + 1) % total);
+  const clearTimers = () => {
+    if (typeof window === "undefined") return;
+    timersRef.current.forEach((timer) => window.clearTimeout(timer));
+    timersRef.current = [];
+  };
 
-  // visible window: prev (preview, blurred) + active (large)
-  const prevIdx = (active - 1 + total) % total;
+  useEffect(() => clearTimers, []);
+
+  const startTransition = (targetIndex: number, nextDirection: CarouselDirection) => {
+    if (isAnimating || targetIndex === active || typeof window === "undefined") return;
+
+    clearTimers();
+    setIncoming(targetIndex);
+    setDirection(nextDirection);
+    setIsAnimating(true);
+    setInfoPhase("idle");
+
+    timersRef.current.push(
+      window.setTimeout(() => {
+        setInfoPhase("out");
+      }, INFO_FADE_OUT_DELAY_MS),
+    );
+
+    timersRef.current.push(
+      window.setTimeout(() => {
+        setInfoIndex(targetIndex);
+        setInfoPhase("in");
+      }, INFO_SWAP_DELAY_MS),
+    );
+
+    timersRef.current.push(
+      window.setTimeout(() => {
+        setActive(targetIndex);
+        setIncoming(null);
+        setIsAnimating(false);
+        setInfoPhase("idle");
+      }, CARD_CAROUSEL_MS),
+    );
+  };
+
+  const goPrev = () => startTransition(wrapTechIndex(active - 1, total), -1);
+  const goNext = () => startTransition(wrapTechIndex(active + 1, total), 1);
 
   return (
     <section className="bg-ink text-paper relative overflow-hidden">
@@ -543,54 +604,65 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
         <div className="mt-20 md:mt-24 grid grid-cols-12 gap-10 lg:gap-16 items-center">
           {/* LEFT — Cards */}
           <div className="col-span-12 lg:col-span-7 sr sr-d3">
-            {/* Cards row */}
             <div
-              className="relative flex items-stretch justify-center gap-5 md:gap-7 min-h-[380px] md:min-h-[460px]"
+              className="relative flex items-center justify-center min-h-[390px] md:min-h-[500px]"
               style={{ perspective: "1400px" }}
             >
-              {/* Prev arrow */}
               <button
                 type="button"
                 onClick={goPrev}
                 aria-label="Card anterior"
-                className="absolute left-0 md:-left-2 top-1/2 -translate-y-1/2 z-30 inline-flex h-11 w-11 items-center justify-center rounded-full bg-paper/10 hover:bg-paper/20 border border-paper/15 backdrop-blur-md text-paper transition-all duration-300 hover:scale-105"
+                disabled={isAnimating}
+                className="absolute left-0 md:-left-2 top-1/2 -translate-y-1/2 z-30 inline-flex h-11 w-11 items-center justify-center rounded-full bg-paper/10 hover:bg-paper/20 border border-paper/15 backdrop-blur-md text-paper transition-all duration-300 hover:scale-105 disabled:pointer-events-none disabled:opacity-40"
               >
                 <ChevronLeft className="h-5 w-5" />
               </button>
 
-              {/* Preview (blurred) — previous card */}
-              <TechCard
-                key={`prev-${prevIdx}`}
-                view={TECH_VIEWS[prevIdx]}
-                variant="preview"
-                onClick={goPrev}
-              />
+              <div className="relative h-[390px] w-full max-w-[560px] md:h-[500px]">
+                <TechCard
+                  view={visibleSecondary}
+                  variant="preview"
+                  motionClass={
+                    isAnimating
+                      ? direction === 1
+                        ? "tech-card-motion-enter-next"
+                        : "tech-card-motion-enter-prev"
+                      : "tech-card-motion-preview"
+                  }
+                  onClick={!isAnimating ? goNext : undefined}
+                />
 
-              {/* Active card */}
-              <TechCard key={`active-${active}`} view={view} variant="active" />
+                <TechCard
+                  view={view}
+                  variant="active"
+                  motionClass={
+                    isAnimating
+                      ? direction === 1
+                        ? "tech-card-motion-exit-next"
+                        : "tech-card-motion-exit-prev"
+                      : "tech-card-motion-active"
+                  }
+                />
+              </div>
 
-              {/* Next arrow */}
               <button
                 type="button"
                 onClick={goNext}
                 aria-label="Próximo card"
-                className="absolute right-0 md:-right-2 top-1/2 -translate-y-1/2 z-30 inline-flex h-11 w-11 items-center justify-center rounded-full bg-paper/10 hover:bg-paper/20 border border-paper/15 backdrop-blur-md text-paper transition-all duration-300 hover:scale-105"
+                disabled={isAnimating}
+                className="absolute right-0 md:-right-2 top-1/2 -translate-y-1/2 z-30 inline-flex h-11 w-11 items-center justify-center rounded-full bg-paper/10 hover:bg-paper/20 border border-paper/15 backdrop-blur-md text-paper transition-all duration-300 hover:scale-105 disabled:pointer-events-none disabled:opacity-40"
               >
                 <ChevronRight className="h-5 w-5" />
               </button>
             </div>
 
-            {/* Dots */}
             <div className="mt-10 flex justify-center gap-2">
               {TECH_VIEWS.map((v, i) => {
                 const isActive = active === i;
                 return (
-                  <button
+                  <span
                     key={v.n}
-                    type="button"
-                    onClick={() => setActive(i)}
-                    aria-pressed={isActive}
-                    aria-label={`Ver ${v.label}`}
+                    aria-hidden
                     className={`h-1.5 rounded-full transition-all duration-500 ${
                       isActive ? "w-8 bg-paper" : "w-1.5 bg-paper/30 hover:bg-paper/60"
                     }`}
@@ -600,28 +672,27 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
             </div>
           </div>
 
-          {/* RIGHT — Technical info (synced fade + rise) */}
           <div className="col-span-12 lg:col-span-5 sr sr-d4">
-            <div key={`info-${active}`} className="tech-fade">
+            <div>
               <div className="text-[11px] uppercase tracking-[0.3em] text-paper/50 flex items-center gap-3">
                 <span className="h-px w-8 bg-paper/40" />
-                {view.n} · {view.label}
+                <span className={infoMotionClass}>{dynamicView.n} · {dynamicView.label}</span>
               </div>
 
               <h3 className="mt-6 font-medium text-[clamp(1.75rem,3vw,2.5rem)] leading-[1.05] tracking-[-0.03em] text-paper">
-                {view.title}
+                <span className={infoMotionClass}>{dynamicView.title}</span>
               </h3>
               <p className="mt-5 text-[15px] leading-relaxed text-paper/60 max-w-md">
-                {view.desc}
+                <span className={infoMotionClass}>{dynamicView.desc}</span>
               </p>
               <div className="mt-8 inline-flex items-center gap-3 bg-paper/5 border border-paper/10 rounded-full px-4 py-2 text-[12px] text-paper/80">
                 <span className="h-1.5 w-1.5 rounded-full bg-paper" />
-                {view.highlight}
+                <span className={infoMotionClass}>{dynamicView.highlight}</span>
               </div>
 
               <div className="mt-8 flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-paper/40">
                 <span className="h-px w-6 bg-paper/30" />
-                {view.tech}
+                <span className={infoMotionClass}>{dynamicView.tech}</span>
               </div>
 
               <div className="mt-8">
@@ -648,10 +719,12 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
 function TechCard({
   view,
   variant,
+  motionClass,
   onClick,
 }: {
   view: (typeof TECH_VIEWS)[number];
   variant: "active" | "preview";
+  motionClass: string;
   onClick?: () => void;
 }) {
   const isActive = variant === "active";
@@ -659,10 +732,9 @@ function TechCard({
     <div
       onClick={onClick}
       className={[
-        "relative shrink-0 rounded-2xl overflow-hidden",
-        isActive
-          ? "card-enter-active w-[260px] sm:w-[300px] md:w-[360px] aspect-[3/4] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)] z-20"
-          : "card-enter-preview hidden md:block w-[200px] md:w-[240px] aspect-[3/4] cursor-pointer z-10",
+        "tech-card-shell absolute left-1/2 top-1/2 w-[260px] sm:w-[300px] md:w-[360px] aspect-[3/4] rounded-2xl overflow-hidden",
+        motionClass,
+        isActive ? "shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)]" : "cursor-pointer",
       ].join(" ")}
       style={{
         background:
@@ -717,11 +789,9 @@ function TechCard({
           >
             {view.label}
           </div>
-          {isActive && (
-            <p className="mt-3 text-[12px] leading-relaxed text-paper/55 max-w-[22ch]">
-              {view.subtitle}
-            </p>
-          )}
+          <p className={`mt-3 text-[12px] leading-relaxed max-w-[22ch] ${isActive ? "text-paper/55" : "text-paper/38"}`}>
+            {view.subtitle}
+          </p>
           <div className="mt-5 h-px w-12 bg-paper/40" />
           <div className="mt-3 text-[10px] tracking-[0.25em] uppercase text-paper/45">
             {view.tech}
@@ -1017,7 +1087,7 @@ function Footer() {
         </div>
 
         <div className="mt-14 pt-6 border-t border-paper/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-[11px] uppercase tracking-[0.25em] text-paper/40">
-          <span>© {new Date().getFullYear()} Agência Glass Maind</span>
+          <span suppressHydrationWarning>© {new Date().getFullYear()} Agência Glass Maind</span>
           <span>Todos os direitos reservados</span>
         </div>
       </div>
