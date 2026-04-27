@@ -677,7 +677,7 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
                 <div
                   className="tech-swiper-track absolute top-1/2 left-1/2 flex items-center"
                   style={{
-                    transform: `translate(-50%, -50%) translateX(${-active * 320}px)`,
+                    transform: `translate(-50%, -50%) translateX(${-active * step}px)`,
                     transition: `transform ${SLIDE_MS}ms cubic-bezier(0.22, 1, 0.36, 1)`,
                     gap: "40px",
                   }}
