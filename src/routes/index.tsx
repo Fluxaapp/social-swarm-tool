@@ -310,15 +310,17 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
         </div>
       </div>
 
-      <div className="relative -mt-px">
-        <svg
-          viewBox="0 0 1440 100"
-          preserveAspectRatio="none"
-          className="block w-full h-[70px] md:h-[100px]"
+      {/* Straight divider into the next dark section */}
+      <div className="relative">
+        <div
           aria-hidden
-        >
-          <polygon points="0,100 950,100 1140,0 1440,0 1440,100" fill="var(--ink)" />
-        </svg>
+          className="h-px w-full"
+          style={{
+            background:
+              "linear-gradient(90deg, transparent 0%, oklch(0.08 0 0 / 0.18) 20%, oklch(0.08 0 0 / 0.35) 50%, oklch(0.08 0 0 / 0.18) 80%, transparent 100%)",
+          }}
+        />
+        <div className="h-16 md:h-24 bg-gradient-to-b from-transparent to-ink" />
       </div>
     </section>
   );
