@@ -813,15 +813,18 @@ function TechCard({
       className={[
         "tech-card-shell relative w-[260px] sm:w-[280px] md:w-[300px] aspect-[3/4] rounded-2xl overflow-hidden",
         motionClass ?? "",
-        isActive ? "shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)]" : "cursor-pointer",
+        isActive ? "shadow-[0_40px_100px_-20px_rgba(0,0,0,0.75)]" : "cursor-pointer",
       ].join(" ")}
       style={{
-        background:
-          "radial-gradient(circle at 28% 18%, rgba(255,255,255,0.06), transparent 42%), linear-gradient(135deg, #0a0a0a 0%, #050505 55%, #000000 100%)",
-        border: "1px solid rgba(255,255,255,0.08)",
+        background: isActive
+          ? "radial-gradient(circle at 30% 15%, rgba(255,255,255,0.18), transparent 55%), linear-gradient(135deg, #1f1f1f 0%, #141414 55%, #0a0a0a 100%)"
+          : "radial-gradient(circle at 28% 18%, rgba(255,255,255,0.04), transparent 42%), linear-gradient(135deg, #060606 0%, #030303 55%, #000000 100%)",
+        border: isActive
+          ? "1px solid rgba(255,255,255,0.18)"
+          : "1px solid rgba(255,255,255,0.06)",
         boxShadow: isActive
-          ? "0 36px 90px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.05)"
-          : "0 24px 70px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.04)",
+          ? "0 44px 110px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.10)"
+          : "0 18px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.03)",
       }}
     >
       {/* Specular sheen */}
@@ -829,8 +832,9 @@ function TechCard({
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
-          background:
-            "linear-gradient(115deg, transparent 35%, rgba(255,255,255,0.10) 50%, transparent 65%)",
+          background: isActive
+            ? "linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.16) 50%, transparent 70%)"
+            : "linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.04) 50%, transparent 60%)",
           mixBlendMode: "screen",
         }}
       />
@@ -841,7 +845,7 @@ function TechCard({
           className="pointer-events-none absolute -inset-px rounded-2xl"
           style={{
             background:
-              "radial-gradient(60% 50% at 50% 0%, rgba(255,255,255,0.18), transparent 70%)",
+              "radial-gradient(70% 55% at 50% 0%, rgba(255,255,255,0.28), transparent 70%)",
           }}
         />
       )}
@@ -849,31 +853,31 @@ function TechCard({
       <div className="relative h-full w-full p-7 md:p-9 flex flex-col justify-between">
         <div className="flex items-start justify-between">
           <div className="flex flex-col">
-            <span className="text-[10px] uppercase tracking-[0.4em] text-paper/55">
+            <span className={`text-[10px] uppercase tracking-[0.4em] ${isActive ? "text-paper/85" : "text-paper/35"}`}>
               {view.n}
             </span>
             <span
               aria-hidden
-              className="mt-1 font-medium text-paper/10 leading-none tracking-[-0.05em] select-none"
+              className={`mt-1 font-medium leading-none tracking-[-0.05em] select-none ${isActive ? "text-paper/20" : "text-paper/8"}`}
               style={{ fontSize: "clamp(2.5rem,5vw,3.75rem)" }}
             >
               {view.n}
             </span>
           </div>
-          <span className="block h-2 w-2 rotate-45 bg-paper/70" />
+          <span className={`block h-2 w-2 rotate-45 ${isActive ? "bg-paper" : "bg-paper/40"}`} />
         </div>
         <div>
           <div
-            className="font-medium tracking-[-0.04em] text-paper"
+            className={`font-medium tracking-[-0.04em] ${isActive ? "text-paper" : "text-paper/70"}`}
             style={{ fontSize: "clamp(1.75rem,3.2vw,2.75rem)", lineHeight: 0.95 }}
           >
             {view.label}
           </div>
-          <p className={`mt-3 text-[12px] leading-relaxed max-w-[22ch] ${isActive ? "text-paper/55" : "text-paper/38"}`}>
+          <p className={`mt-3 text-[12px] leading-relaxed max-w-[22ch] ${isActive ? "text-paper/75" : "text-paper/30"}`}>
             {view.subtitle}
           </p>
-          <div className="mt-5 h-px w-12 bg-paper/40" />
-          <div className="mt-3 text-[10px] tracking-[0.25em] uppercase text-paper/45">
+          <div className={`mt-5 h-px w-12 ${isActive ? "bg-paper/70" : "bg-paper/25"}`} />
+          <div className={`mt-3 text-[10px] tracking-[0.25em] uppercase ${isActive ? "text-paper/65" : "text-paper/30"}`}>
             {view.tech}
           </div>
         </div>
