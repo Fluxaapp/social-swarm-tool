@@ -1023,7 +1023,7 @@ function CTA({ onOpenProposal }: { onOpenProposal: () => void }) {
 function Footer() {
   return (
     <footer className="bg-ink text-paper border-t border-paper/10">
-      <div className="mx-auto max-w-[1480px] px-6 md:px-10 py-14">
+      <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10 py-14">
         <div className="grid grid-cols-12 gap-8">
           <div className="col-span-12 md:col-span-6">
             <div className="flex items-center gap-2.5">
