@@ -185,79 +185,6 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
 
         {/* RIGHT — abstract floating tech composition + social icons */}
         <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 lg:pl-6 min-h-[480px] lg:min-h-[560px]">
-          {/* Abstract luxury orb composition — luxo, tecnologia, criatividade */}
-          <div
-            data-parallax="-0.05"
-            className="absolute inset-0 pointer-events-none"
-            aria-hidden
-          >
-            {/* Soft outer halo */}
-            <div
-              className="absolute left-1/2 top-1/2 h-[460px] w-[460px] -translate-x-1/2 -translate-y-1/2 rounded-full breathe"
-              style={{
-                background:
-                  "radial-gradient(circle at 35% 35%, oklch(0.18 0 0 / 0.18) 0%, oklch(0.12 0 0 / 0.08) 35%, transparent 70%)",
-                filter: "blur(40px)",
-              }}
-            />
-            {/* Core orb */}
-            <div
-              className="absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full eclipse-pulse"
-              style={{
-                background:
-                  "radial-gradient(circle at 32% 30%, oklch(0.96 0 0) 0%, oklch(0.78 0 0) 28%, oklch(0.32 0 0) 72%, oklch(0.08 0 0) 100%)",
-                boxShadow:
-                  "0 30px 80px -20px rgba(0,0,0,0.35), inset -20px -30px 60px rgba(0,0,0,0.45), inset 18px 22px 50px rgba(255,255,255,0.55)",
-              }}
-            />
-            {/* Specular highlight on orb */}
-            <div
-              className="absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none"
-              style={{
-                background:
-                  "radial-gradient(ellipse 40% 30% at 32% 26%, rgba(255,255,255,0.55), transparent 60%)",
-                mixBlendMode: "screen",
-              }}
-            />
-            {/* Thin orbiting ring */}
-            <svg
-              className="absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 bh-spin-slow"
-              viewBox="0 0 200 200"
-            >
-              <ellipse
-                cx="100"
-                cy="100"
-                rx="92"
-                ry="30"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="0.4"
-                className="text-ink/25"
-              />
-            </svg>
-            {/* Counter-rotating ring */}
-            <svg
-              className="absolute left-1/2 top-1/2 h-[480px] w-[480px] -translate-x-1/2 -translate-y-1/2 bh-spin-rev opacity-60"
-              viewBox="0 0 200 200"
-            >
-              <ellipse
-                cx="100"
-                cy="100"
-                rx="96"
-                ry="22"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="0.3"
-                strokeDasharray="2 4"
-                className="text-ink/30"
-              />
-            </svg>
-            {/* Drifting particles */}
-            <span className="light-dot" style={{ top: "28%", left: "22%", background: "rgba(0,0,0,0.7)", boxShadow: "0 0 12px rgba(0,0,0,0.25)" }} />
-            <span className="light-dot" style={{ top: "70%", right: "20%", background: "rgba(0,0,0,0.6)", boxShadow: "0 0 10px rgba(0,0,0,0.2)", animationDelay: "3s" }} />
-            <span className="light-dot" style={{ top: "20%", right: "30%", background: "rgba(0,0,0,0.5)", boxShadow: "0 0 8px rgba(0,0,0,0.15)", animationDelay: "6s" }} />
-          </div>
-
           {/* Social icons — vertical, transparent, tech micro-interface */}
           <div className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 flex flex-col items-center gap-7 md:gap-8">
             {SOCIALS.map((s) => {
@@ -312,15 +239,8 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
 
       {/* Straight divider into the next dark section */}
       <div className="relative">
-        <div
-          aria-hidden
-          className="h-px w-full"
-          style={{
-            background:
-              "linear-gradient(90deg, transparent 0%, oklch(0.08 0 0 / 0.18) 20%, oklch(0.08 0 0 / 0.35) 50%, oklch(0.08 0 0 / 0.18) 80%, transparent 100%)",
-          }}
-        />
-        <div className="h-16 md:h-24 bg-gradient-to-b from-transparent to-ink" />
+        <div aria-hidden className="h-px w-full bg-ink/25" />
+        <div className="h-16 md:h-24 bg-ink" />
       </div>
     </section>
   );
