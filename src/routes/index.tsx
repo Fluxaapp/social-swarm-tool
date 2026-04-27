@@ -201,6 +201,7 @@ function HeroShowcaseCard({ item }: { item: ShowcaseItem }) {
 }
 
 
+function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
   return (
     <section id="top" className="relative bg-soft overflow-hidden">
       <div
