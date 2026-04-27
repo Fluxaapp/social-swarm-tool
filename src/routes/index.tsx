@@ -893,8 +893,8 @@ function Portfolio() {
   ];
 
   return (
-    <section id="portfolio" className="bg-soft py-28 md:py-40">
-      <div className="mx-auto max-w-[1480px] px-6 md:px-10">
+    <section id="portfolio" className="bg-soft py-20 sm:py-28 md:py-40">
+      <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-8">
           <div>
             <div className="text-[11px] uppercase tracking-[0.3em] text-dim flex items-center gap-3">
