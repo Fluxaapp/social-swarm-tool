@@ -619,20 +619,32 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
               </button>
 
               <div className="relative mx-auto h-[390px] w-[360px] sm:w-[420px] md:h-[500px] md:w-[480px]">
+                {/* Always-visible idle preview (next-in-line behind the active card) */}
                 <TechCard
-                  view={visibleSecondary}
+                  key={`idle-preview-${previewIdx}`}
+                  view={TECH_VIEWS[previewIdx]}
                   variant="preview"
-                  motionClass={
-                    isAnimating
-                      ? direction === 1
-                        ? "tech-card-motion-enter-next"
-                        : "tech-card-motion-enter-prev"
-                      : "tech-card-motion-preview"
-                  }
+                  motionClass="tech-card-motion-preview"
                   onClick={!isAnimating ? goNext : undefined}
                 />
 
+                {/* Animated incoming card (only during transition) */}
+                {isAnimating && (
+                  <TechCard
+                    key={`incoming-${incoming}`}
+                    view={visibleSecondary}
+                    variant="active"
+                    motionClass={
+                      direction === 1
+                        ? "tech-card-motion-enter-next"
+                        : "tech-card-motion-enter-prev"
+                    }
+                  />
+                )}
+
+                {/* Active / exiting card */}
                 <TechCard
+                  key={`active-${active}`}
                   view={view}
                   variant="active"
                   motionClass={
