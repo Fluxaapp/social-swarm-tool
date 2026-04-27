@@ -7,6 +7,7 @@ import workEditorial from "@/assets/work-editorial.jpg";
 import workPackaging from "@/assets/work-packaging.jpg";
 import workCampaign from "@/assets/work-campaign.jpg";
 import { useParallax, useScrollReveal } from "@/hooks/use-scroll-reveal";
+import { useCountUp } from "@/hooks/use-count-up";
 import { CONTACT, whatsappLink, mailtoLink } from "@/lib/contact";
 import { ProposalModal } from "@/components/ProposalModal";
 
