@@ -572,22 +572,14 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
 
   useEffect(() => clearTimers, []);
 
-  const goTo = (target: number) => {
-    if (isAnimating || typeof window === "undefined") return;
-    const next = wrapTechIndex(target, total);
-    if (next === active) return;
-
-    clearTimers();
-    setIsAnimating(true);
+  const animateInfo = (nextRealIndex: number) => {
     setInfoPhase("idle");
-    setActive(next);
-
     timersRef.current.push(
       window.setTimeout(() => setInfoPhase("out"), INFO_FADE_OUT_DELAY_MS),
     );
     timersRef.current.push(
       window.setTimeout(() => {
-        setInfoIndex(next);
+        setInfoIndex(nextRealIndex);
         setInfoPhase("in");
       }, INFO_SWAP_DELAY_MS),
     );
@@ -599,47 +591,62 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
     );
   };
 
+  const slideTo = (nextVirtual: number) => {
+    if (isAnimating || typeof window === "undefined") return;
+    clearTimers();
+    setIsAnimating(true);
+    setWithTransition(true);
+    setVirtualIndex(nextVirtual);
+
+    const nextReal = ((nextVirtual - 1) % total + total) % total;
+    animateInfo(nextReal);
+
+    // After the slide animation, if we landed on a clone, jump silently
+    // to the corresponding real index (no transition) so the loop is seamless.
+    timersRef.current.push(
+      window.setTimeout(() => {
+        if (nextVirtual === total + 1) {
+          setWithTransition(false);
+          setVirtualIndex(1);
+        } else if (nextVirtual === 0) {
+          setWithTransition(false);
+          setVirtualIndex(total);
+        }
+      }, SLIDE_MS + 20),
+    );
+  };
+
   const goPrev = () => {
     stopAutoplay();
-    goTo(active - 1);
+    slideTo(virtualIndex - 1);
   };
   const goNext = () => {
     stopAutoplay();
-    goTo(active + 1);
+    slideTo(virtualIndex + 1);
+  };
+
+  const goToRealIndex = (realIdx: number) => {
+    stopAutoplay();
+    slideTo(realIdx + 1);
   };
 
   // Autoplay (5s like the reference site)
   useEffect(() => {
     if (typeof window === "undefined") return;
     autoplayRef.current = window.setInterval(() => {
-      setActive((prev) => {
-        const next = wrapTechIndex(prev + 1, total);
-        // sync info copy
-        setIsAnimating(true);
-        setInfoPhase("idle");
-        timersRef.current.push(
-          window.setTimeout(() => setInfoPhase("out"), INFO_FADE_OUT_DELAY_MS),
-        );
-        timersRef.current.push(
-          window.setTimeout(() => {
-            setInfoIndex(next);
-            setInfoPhase("in");
-          }, INFO_SWAP_DELAY_MS),
-        );
-        timersRef.current.push(
-          window.setTimeout(() => {
-            setIsAnimating(false);
-            setInfoPhase("idle");
-          }, SLIDE_MS),
-        );
-        return next;
-      });
+      if (isAnimating) return;
+      slideTo(virtualIndex + 1);
     }, AUTOPLAY_MS);
     return () => stopAutoplay();
-  }, [total]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [virtualIndex, isAnimating, total]);
 
-  // Build a virtual strip: render all cards plus duplicates on each side for loop feel
-  const stripItems = TECH_VIEWS;
+  // Strip: [last clone, ...all, first clone] for seamless infinite scroll
+  const stripItems = [
+    TECH_VIEWS[total - 1],
+    ...TECH_VIEWS,
+    TECH_VIEWS[0],
+  ];
 
   return (
     <section className="bg-ink text-paper relative overflow-hidden">
