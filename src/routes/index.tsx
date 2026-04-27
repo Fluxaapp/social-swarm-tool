@@ -414,7 +414,7 @@ function About() {
             {pillars.map((p, i) => (
               <div
                 key={p.t}
-                className={`bg-paper p-8 sr sr-d${Math.min(i + 1, 5)}`}
+                className={`bg-paper p-8 text-center md:text-left sr sr-d${Math.min(i + 1, 5)}`}
               >
                 <div className="text-[11px] uppercase tracking-[0.25em] text-dim">
                   {String(i + 1).padStart(2, "0")}
