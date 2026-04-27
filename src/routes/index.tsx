@@ -851,7 +851,7 @@ function Services() {
               <article
                 key={s.n}
                 className={[
-                  "group relative p-10 md:p-12 min-h-[290px] flex flex-col justify-between transition-all duration-500 lift sr",
+                  "group relative p-7 sm:p-10 md:p-12 min-h-[240px] sm:min-h-[290px] flex flex-col justify-between transition-all duration-500 lift sr",
                   `sr-d${Math.min((i % 3) + 1, 5)}`,
                   isDark ? "bg-ink text-paper" : "bg-paper text-ink",
                   "hover:shadow-[0_20px_50px_-20px_rgba(0,0,0,0.35)]",
