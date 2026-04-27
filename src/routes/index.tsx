@@ -1112,7 +1112,7 @@ function Index() {
   const [proposalOpen, setProposalOpen] = useState(false);
 
   return (
-    <main className="bg-paper text-ink min-h-screen pt-20">
+    <main className="bg-paper text-ink min-h-screen pt-16 md:pt-20 overflow-x-hidden">
       <Nav onOpenProposal={() => setProposalOpen(true)} />
       <Hero onOpenProposal={() => setProposalOpen(true)} />
       <Technology onOpenProposal={() => setProposalOpen(true)} />
