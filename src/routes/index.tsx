@@ -699,9 +699,9 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
 
           <div className="col-span-12 lg:col-span-5 sr sr-d4">
             <div className="tech-info-stack mx-auto flex w-full max-w-md flex-col items-center text-center lg:mx-0 lg:max-w-none lg:items-start lg:text-left">
-              <div className="mx-auto inline-flex w-full max-w-full items-center justify-center gap-3 text-center text-[11px] uppercase tracking-[0.3em] text-paper/50 lg:mx-0 lg:justify-start lg:text-left">
-                <span className="h-px w-8 bg-paper/40" />
-                <span className={infoMotionClass}>{dynamicView.n} · {dynamicView.label}</span>
+              <div className="tech-info-row mx-auto flex max-w-[22rem] items-center justify-center gap-3 text-center text-[11px] uppercase tracking-[0.22em] text-paper/50 sm:tracking-[0.3em] lg:mx-0 lg:max-w-none lg:justify-start lg:text-left">
+                <span className="h-px w-8 shrink-0 bg-paper/40" />
+                <span className={`${infoMotionClass} tech-inline-copy`}>{dynamicView.n} · {dynamicView.label}</span>
               </div>
 
               <h3 className="mt-6 mx-auto w-full max-w-[22rem] text-center font-medium text-[clamp(1.5rem,3vw,2.5rem)] leading-[1.1] tracking-[-0.03em] text-paper lg:mx-0 lg:max-w-none lg:text-left">
@@ -710,14 +710,14 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
               <p className="mx-auto mt-5 w-full max-w-[22rem] text-center text-[15px] leading-relaxed text-paper/60 lg:mx-0 lg:max-w-md lg:text-left">
                 <span className={`${infoMotionClass} tech-copy-body`}>{dynamicView.desc}</span>
               </p>
-              <div className="mx-auto mt-8 inline-flex max-w-full items-center justify-center gap-3 rounded-full border border-paper/10 bg-paper/5 px-4 py-2 text-center text-[12px] text-paper/80 lg:mx-0">
-                <span className="h-1.5 w-1.5 rounded-full bg-paper" />
-                <span className={infoMotionClass}>{dynamicView.highlight}</span>
+              <div className="tech-info-chip mx-auto mt-8 flex max-w-[22rem] items-center justify-center gap-3 rounded-full border border-paper/10 bg-paper/5 px-4 py-2 text-center text-[12px] text-paper/80 lg:mx-0 lg:max-w-none">
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-paper" />
+                <span className={`${infoMotionClass} tech-inline-copy`}>{dynamicView.highlight}</span>
               </div>
 
-              <div className="mx-auto mt-8 flex w-full items-center justify-center gap-3 text-center text-[10px] uppercase tracking-[0.3em] text-paper/40 lg:mx-0 lg:justify-start lg:text-left">
-                <span className="h-px w-6 bg-paper/30" />
-                <span className={infoMotionClass}>{dynamicView.tech}</span>
+              <div className="tech-info-meta mx-auto mt-8 flex max-w-[22rem] items-center justify-center gap-3 text-center text-[10px] uppercase tracking-[0.22em] text-paper/40 sm:tracking-[0.3em] lg:mx-0 lg:max-w-none lg:justify-start lg:text-left">
+                <span className="h-px w-6 shrink-0 bg-paper/30" />
+                <span className={`${infoMotionClass} tech-inline-copy`}>{dynamicView.tech}</span>
               </div>
 
               <div className="mt-8 flex w-full justify-center lg:justify-start">
