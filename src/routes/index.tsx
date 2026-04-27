@@ -118,7 +118,7 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
         />
       </svg>
 
-      <div className="mx-auto max-w-[1480px] px-6 md:px-10 pt-32 md:pt-36 pb-16 md:pb-24 grid grid-cols-12 gap-8 md:gap-12 items-center min-h-[100vh] relative">
+      <div className="mx-auto max-w-[1480px] px-6 md:px-10 pt-32 md:pt-36 pb-16 md:pb-24 grid grid-cols-12 gap-8 md:gap-12 items-center min-h-[100vh] relative z-10">
         {/* LEFT — text */}
         <div className="col-span-12 lg:col-span-7 relative z-10 flex flex-col items-start">
           <div className="flex items-center gap-3 text-[11px] tracking-[0.3em] uppercase text-dim reveal reveal-d1">
