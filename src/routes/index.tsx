@@ -458,9 +458,9 @@ function About() {
 type CarouselDirection = -1 | 1;
 type InfoPhase = "idle" | "out" | "in";
 
-const CARD_CAROUSEL_MS = 1100;
-const INFO_FADE_OUT_DELAY_MS = 320;
-const INFO_SWAP_DELAY_MS = 540;
+const CARD_CAROUSEL_MS = 1400;
+const INFO_FADE_OUT_DELAY_MS = 400;
+const INFO_SWAP_DELAY_MS = 680;
 
 const wrapTechIndex = (index: number, total: number) => (index + total) % total;
 
