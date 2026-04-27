@@ -153,7 +153,7 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
         />
       </svg>
 
-      <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10 pt-14 sm:pt-18 md:pt-22 pb-10 sm:pb-12 md:pb-16 grid grid-cols-12 gap-8 md:gap-12 items-center min-h-[auto] lg:min-h-[calc(100vh-5rem)] relative z-10">
+      <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10 pt-12 sm:pt-18 md:pt-22 pb-6 sm:pb-10 md:pb-16 grid grid-cols-12 gap-5 md:gap-12 items-center min-h-[auto] lg:min-h-[calc(100vh-5rem)] relative z-10">
         {/* LEFT — text */}
         <div className="col-span-12 lg:col-span-7 relative z-10 flex flex-col items-start justify-center self-center">
           <div className="flex items-center gap-3 text-[11px] tracking-[0.3em] uppercase text-dim reveal reveal-d1">
@@ -229,9 +229,9 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
         </div>
 
         {/* RIGHT — social icons rail (showcase lives behind, full-bleed) */}
-        <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 min-h-[120px] sm:min-h-[180px] lg:min-h-[620px]">
-          {/* Social icons — horizontal no mobile, vertical no desktop */}
-          <div className="lg:absolute lg:right-4 lg:top-1/2 lg:-translate-y-1/2 lg:flex-col z-20 flex flex-row items-center justify-start gap-5 sm:gap-6 lg:gap-8">
+        <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 min-h-[60px] sm:min-h-[100px] lg:min-h-[620px]">
+          {/* Social icons — horizontal e centralizados no mobile, vertical no desktop */}
+          <div className="lg:absolute lg:right-4 lg:top-1/2 lg:-translate-y-1/2 lg:flex-col lg:justify-start z-20 flex flex-row items-center justify-center gap-5 sm:gap-6 lg:gap-8">
             {SOCIALS.map((s) => {
               const Icon = s.Icon;
               return (
@@ -393,16 +393,16 @@ function About() {
 
         {/* Institutional content — diferenciais */}
         <div className="mt-28 md:mt-36 grid grid-cols-12 gap-10 md:gap-16 items-start">
-          <div className="col-span-12 md:col-span-5 sr">
-            <div className="text-[11px] uppercase tracking-[0.3em] text-dim flex items-center gap-3">
+          <div className="col-span-12 md:col-span-5 sr text-center md:text-left">
+            <div className="text-[11px] uppercase tracking-[0.3em] text-dim inline-flex items-center gap-3 justify-center md:justify-start">
               <span className="h-px w-8 bg-ink/40" />
               Como pensamos
             </div>
-            <h3 className="mt-6 font-medium text-[clamp(1.75rem,3.2vw,2.75rem)] leading-[1.05] tracking-[-0.03em] text-ink">
+            <h3 className="mt-6 font-medium text-[clamp(1.5rem,3.2vw,2.75rem)] leading-[1.1] tracking-[-0.03em] text-ink">
               Marca não é estética.<br />
               É decisão estratégica.
             </h3>
-            <p className="mt-6 text-[15px] leading-relaxed text-dim max-w-md">
+            <p className="mt-6 text-[15px] leading-relaxed text-dim max-w-md mx-auto md:mx-0">
               Acreditamos que percepção é precificação. Toda decisão visual
               influencia diretamente quanto sua marca pode cobrar e o tipo de
               cliente que ela atrai. Por isso operamos no cruzamento de design,
@@ -618,7 +618,7 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
                 onClick={goPrev}
                 aria-label="Card anterior"
                 disabled={isAnimating}
-                className="absolute left-0 md:-left-2 top-1/2 -translate-y-1/2 z-30 inline-flex h-10 w-10 md:h-11 md:w-11 items-center justify-center rounded-full bg-paper/10 hover:bg-paper/20 border border-paper/15 backdrop-blur-md text-paper transition-all duration-300 hover:scale-105 disabled:pointer-events-none disabled:opacity-40"
+                className="absolute left-1 sm:left-2 md:-left-2 top-1/2 -translate-y-1/2 z-30 inline-flex h-10 w-10 md:h-11 md:w-11 items-center justify-center rounded-full bg-paper/15 hover:bg-paper/25 border border-paper/20 backdrop-blur-md text-paper transition-all duration-300 hover:scale-105 disabled:pointer-events-none disabled:opacity-40"
               >
                 <ChevronLeft className="h-5 w-5" />
               </button>
@@ -669,7 +669,7 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
                 onClick={goNext}
                 aria-label="Próximo card"
                 disabled={isAnimating}
-                className="absolute right-0 md:-right-2 top-1/2 -translate-y-1/2 z-30 inline-flex h-10 w-10 md:h-11 md:w-11 items-center justify-center rounded-full bg-paper/10 hover:bg-paper/20 border border-paper/15 backdrop-blur-md text-paper transition-all duration-300 hover:scale-105 disabled:pointer-events-none disabled:opacity-40"
+                className="absolute right-1 sm:right-2 md:-right-2 top-1/2 -translate-y-1/2 z-30 inline-flex h-10 w-10 md:h-11 md:w-11 items-center justify-center rounded-full bg-paper/15 hover:bg-paper/25 border border-paper/20 backdrop-blur-md text-paper transition-all duration-300 hover:scale-105 disabled:pointer-events-none disabled:opacity-40"
               >
                 <ChevronRight className="h-5 w-5" />
               </button>
@@ -692,16 +692,16 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
           </div>
 
           <div className="col-span-12 lg:col-span-5 sr sr-d4">
-            <div>
-              <div className="text-[11px] uppercase tracking-[0.3em] text-paper/50 flex items-center gap-3">
+            <div className="text-center lg:text-left">
+              <div className="text-[11px] uppercase tracking-[0.3em] text-paper/50 inline-flex items-center gap-3 justify-center lg:justify-start">
                 <span className="h-px w-8 bg-paper/40" />
                 <span className={infoMotionClass}>{dynamicView.n} · {dynamicView.label}</span>
               </div>
 
-              <h3 className="mt-6 font-medium text-[clamp(1.75rem,3vw,2.5rem)] leading-[1.05] tracking-[-0.03em] text-paper">
+              <h3 className="mt-6 font-medium text-[clamp(1.5rem,3vw,2.5rem)] leading-[1.1] tracking-[-0.03em] text-paper">
                 <span className={infoMotionClass}>{dynamicView.title}</span>
               </h3>
-              <p className="mt-5 text-[15px] leading-relaxed text-paper/60 max-w-md">
+              <p className="mt-5 text-[15px] leading-relaxed text-paper/60 max-w-md mx-auto lg:mx-0">
                 <span className={infoMotionClass}>{dynamicView.desc}</span>
               </p>
               <div className="mt-8 inline-flex items-center gap-3 bg-paper/5 border border-paper/10 rounded-full px-4 py-2 text-[12px] text-paper/80">
@@ -709,12 +709,12 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
                 <span className={infoMotionClass}>{dynamicView.highlight}</span>
               </div>
 
-              <div className="mt-8 flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-paper/40">
+              <div className="mt-8 flex items-center justify-center lg:justify-start gap-3 text-[10px] uppercase tracking-[0.3em] text-paper/40">
                 <span className="h-px w-6 bg-paper/30" />
                 <span className={infoMotionClass}>{dynamicView.tech}</span>
               </div>
 
-              <div className="mt-8">
+              <div className="mt-8 flex justify-center lg:justify-start">
                 <button
                   type="button"
                   onClick={onOpenProposal}
@@ -828,17 +828,17 @@ function Services() {
     <section id="services" className="bg-paper py-20 sm:py-28 md:py-36">
       <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10">
         <div className="grid grid-cols-12 gap-6 mb-16">
-          <div className="col-span-12 md:col-span-6 sr">
-            <div className="text-[11px] uppercase tracking-[0.3em] text-dim flex items-center gap-3">
+          <div className="col-span-12 md:col-span-6 sr text-center md:text-left">
+            <div className="text-[11px] uppercase tracking-[0.3em] text-dim inline-flex items-center gap-3 justify-center md:justify-start">
               <span className="h-px w-8 bg-ink/40" />
               Serviços
             </div>
-            <h3 className="mt-6 font-medium text-[clamp(2rem,4vw,3.25rem)] leading-[1.05] tracking-[-0.03em] text-ink">
+            <h3 className="mt-6 font-medium text-[clamp(1.75rem,4vw,3.25rem)] leading-[1.1] tracking-[-0.03em] text-ink">
               Seis disciplinas.<br />
               Um único ecossistema.
             </h3>
           </div>
-          <p className="col-span-12 md:col-span-5 md:col-start-8 text-base text-dim self-end max-w-md sr sr-d2">
+          <p className="col-span-12 md:col-span-5 md:col-start-8 text-base text-dim self-end max-w-md mx-auto md:mx-0 text-center md:text-left sr sr-d2">
             Cada serviço opera como módulo dentro de uma engrenagem visual única
             — coerência total entre estratégia, design e execução.
           </p>
@@ -896,19 +896,15 @@ function Portfolio() {
     <section id="portfolio" className="bg-soft py-20 sm:py-28 md:py-40">
       <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-8">
-          <div>
-            <div className="text-[11px] uppercase tracking-[0.3em] text-dim flex items-center gap-3">
+          <div className="text-center md:text-left">
+            <div className="text-[11px] uppercase tracking-[0.3em] text-dim inline-flex items-center gap-3 justify-center md:justify-start">
               <span className="h-px w-8 bg-ink/40" />
               Trabalhos Selecionados
             </div>
-            <h2 className="mt-6 font-medium text-[clamp(2.25rem,5vw,4.25rem)] leading-[1] tracking-[-0.03em] text-ink">
+            <h2 className="mt-6 font-medium text-[clamp(2rem,5vw,4.25rem)] leading-[1.05] tracking-[-0.03em] text-ink">
               Trabalhos que vendem.
             </h2>
           </div>
-          <a href="#contact" className="group inline-flex items-center gap-2 text-[12px] uppercase tracking-[0.25em] text-ink border-b border-ink pb-1 self-start">
-            Todos os projetos
-            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </a>
         </div>
 
         <div className="grid grid-cols-12 gap-6 md:gap-8">
