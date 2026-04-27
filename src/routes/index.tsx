@@ -751,7 +751,7 @@ function TechCard({
     <div
       onClick={onClick}
       className={[
-        "tech-card-shell absolute left-1/2 top-1/2 w-[260px] sm:w-[300px] md:w-[360px] aspect-[3/4] rounded-2xl overflow-hidden",
+        "tech-card-shell absolute left-1/2 top-1/2 w-[230px] h-[330px] sm:w-[300px] sm:h-[400px] md:w-[360px] md:h-auto md:aspect-[3/4] rounded-2xl overflow-hidden",
         motionClass,
         isActive ? "shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)]" : "cursor-pointer",
       ].join(" ")}
