@@ -618,7 +618,7 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
                 onClick={goPrev}
                 aria-label="Card anterior"
                 disabled={isAnimating}
-                className="absolute left-1 sm:left-2 md:-left-2 top-1/2 -translate-y-1/2 z-30 inline-flex h-10 w-10 md:h-11 md:w-11 items-center justify-center rounded-full bg-paper/15 hover:bg-paper/25 border border-paper/20 backdrop-blur-md text-paper transition-all duration-300 hover:scale-105 disabled:pointer-events-none disabled:opacity-40"
+                className="absolute left-1 sm:left-2 md:-left-2 top-1/2 -translate-y-1/2 z-30 hidden md:inline-flex h-10 w-10 md:h-11 md:w-11 items-center justify-center rounded-full bg-paper/15 hover:bg-paper/25 border border-paper/20 backdrop-blur-md text-paper transition-all duration-300 hover:scale-105 disabled:pointer-events-none disabled:opacity-40"
               >
                 <ChevronLeft className="h-5 w-5" />
               </button>
@@ -694,16 +694,16 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
           </div>
 
           <div className="col-span-12 lg:col-span-5 sr sr-d4">
-            <div className="mx-auto flex max-w-md flex-col items-center text-center lg:mx-0 lg:max-w-none lg:items-start lg:text-left">
-              <div className="mx-auto lg:mx-0 text-[11px] uppercase tracking-[0.3em] text-paper/50 inline-flex items-center gap-3 justify-center lg:justify-start">
+            <div className="mx-auto flex w-full max-w-md flex-col items-center text-center lg:mx-0 lg:max-w-none lg:items-start lg:text-left">
+              <div className="mx-auto inline-flex w-full items-center justify-center gap-3 text-[11px] uppercase tracking-[0.3em] text-paper/50 lg:mx-0 lg:justify-start">
                 <span className="h-px w-8 bg-paper/40" />
                 <span className={infoMotionClass}>{dynamicView.n} · {dynamicView.label}</span>
               </div>
 
-              <h3 className="mt-6 font-medium text-[clamp(1.5rem,3vw,2.5rem)] leading-[1.1] tracking-[-0.03em] text-paper">
+              <h3 className="mt-6 w-full text-center font-medium text-[clamp(1.5rem,3vw,2.5rem)] leading-[1.1] tracking-[-0.03em] text-paper lg:text-left">
                 <span className={infoMotionClass}>{dynamicView.title}</span>
               </h3>
-              <p className="mt-5 text-[15px] leading-relaxed text-paper/60 max-w-md mx-auto lg:mx-0">
+              <p className="mx-auto mt-5 w-full max-w-md text-center text-[15px] leading-relaxed text-paper/60 lg:mx-0 lg:text-left">
                 <span className={infoMotionClass}>{dynamicView.desc}</span>
               </p>
               <div className="mt-8 inline-flex max-w-full items-center justify-center gap-3 rounded-full border border-paper/10 bg-paper/5 px-4 py-2 text-[12px] text-paper/80">
