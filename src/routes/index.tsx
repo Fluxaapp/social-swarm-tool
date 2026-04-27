@@ -688,27 +688,29 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
                 <div
                   className="tech-swiper-track absolute top-1/2 left-1/2 flex items-center"
                   style={{
-                    transform: `translate(-50%, -50%) translateX(${-active * step}px)`,
-                    transition: `transform ${SLIDE_MS}ms cubic-bezier(0.22, 1, 0.36, 1)`,
+                    transform: `translate(-50%, -50%) translateX(${-virtualIndex * step}px)`,
+                    transition: withTransition
+                      ? `transform ${SLIDE_MS}ms cubic-bezier(0.22, 1, 0.36, 1)`
+                      : "none",
                     gap: "40px",
                   }}
                 >
                   {stripItems.map((v, i) => {
-                    const isActiveCard = i === active;
+                    const isActiveCard = i === virtualIndex;
                     return (
                       <div
-                        key={v.n}
+                        key={`${v.n}-${i}`}
                         className="tech-swiper-slide flex-shrink-0"
                         style={{
-                          transform: isActiveCard ? "scale(1)" : "scale(0.82)",
-                          opacity: isActiveCard ? 1 : 0.45,
-                          filter: isActiveCard ? "blur(0)" : "blur(0.5px)",
+                          transform: isActiveCard ? "scale(1.08)" : "scale(0.74)",
+                          opacity: isActiveCard ? 1 : 0.32,
+                          filter: isActiveCard ? "blur(0)" : "blur(1px)",
                           transition: `transform ${SLIDE_MS}ms cubic-bezier(0.22, 1, 0.36, 1), opacity ${SLIDE_MS}ms ease, filter ${SLIDE_MS}ms ease`,
                         }}
                         onClick={() => {
-                          if (!isActiveCard) {
+                          if (!isActiveCard && !isAnimating) {
                             stopAutoplay();
-                            goTo(i);
+                            slideTo(i);
                           }
                         }}
                       >
