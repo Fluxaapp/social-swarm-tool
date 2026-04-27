@@ -458,9 +458,9 @@ function About() {
 type CarouselDirection = -1 | 1;
 type InfoPhase = "idle" | "out" | "in";
 
-const CARD_CAROUSEL_MS = 1100;
-const INFO_FADE_OUT_DELAY_MS = 320;
-const INFO_SWAP_DELAY_MS = 540;
+const CARD_CAROUSEL_MS = 850;
+const INFO_FADE_OUT_DELAY_MS = 220;
+const INFO_SWAP_DELAY_MS = 420;
 
 const wrapTechIndex = (index: number, total: number) => (index + total) % total;
 
@@ -529,6 +529,7 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
   const view = TECH_VIEWS[active];
   const dynamicView = TECH_VIEWS[infoIndex];
   const previewIdx = wrapTechIndex(active + 1, total);
+  const nextPreviewIdx = wrapTechIndex(active + 2, total);
   const visibleSecondary = TECH_VIEWS[incoming ?? previewIdx];
   const infoMotionClass =
     infoPhase === "out"
