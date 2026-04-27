@@ -565,6 +565,27 @@
   justify-content: center;
 }
 
+@media (max-width: 767px) {
+  .tech-carousel-shell {
+    margin-inline: auto;
+  }
+
+  .tech-carousel-viewport {
+    margin-inline: auto;
+    padding-inline: 0;
+  }
+
+  .tech-dots-wrapper {
+    margin-inline: auto;
+    padding-inline: 0;
+  }
+
+  .tech-info-stack {
+    width: min(100%, 22rem);
+    margin-inline: auto;
+  }
+}
+
 /* Container clip: an invisible vertical line on the right edge
    "swallows" the exiting card. We extend the clip generously above/below
    and to the left so the preview card and entering card remain visible,
