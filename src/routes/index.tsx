@@ -414,7 +414,7 @@ function About() {
             {pillars.map((p, i) => (
               <div
                 key={p.t}
-                className={`bg-paper p-8 sr sr-d${Math.min(i + 1, 5)}`}
+                className={`bg-paper p-8 text-center md:text-left sr sr-d${Math.min(i + 1, 5)}`}
               >
                 <div className="text-[11px] uppercase tracking-[0.25em] text-dim">
                   {String(i + 1).padStart(2, "0")}
@@ -437,7 +437,7 @@ function About() {
             { k: "Atuação", v: "Brasil · LATAM · Europa" },
             { k: "Foco", v: "Marcas premium e em escala" },
           ].map((it) => (
-            <div key={it.k} className="bg-paper px-8 py-7">
+            <div key={it.k} className="bg-paper px-8 py-7 text-center md:text-left">
               <div className="text-[10px] uppercase tracking-[0.3em] text-dim">
                 {it.k}
               </div>
@@ -682,8 +682,10 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
                   <span
                     key={v.n}
                     aria-hidden
-                    className={`h-1.5 rounded-full transition-all duration-500 ${
-                      isActive ? "w-8 bg-paper" : "w-1.5 bg-paper/30 hover:bg-paper/60"
+                    className={`h-1.5 rounded-full transition-all duration-500 md:w-1.5 ${
+                      isActive
+                        ? "w-1.5 md:w-8 bg-paper md:bg-paper scale-110 md:scale-100"
+                        : "w-1.5 bg-paper/30 hover:bg-paper/60"
                     }`}
                   />
                 );
@@ -920,12 +922,12 @@ function Portfolio() {
                   className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
                 />
               </div>
-              <figcaption className="mt-5 flex items-end justify-between">
+              <figcaption className="mt-5 flex flex-col items-center text-center gap-2 md:flex-row md:items-end md:justify-between md:text-left md:gap-0">
                 <div>
                   <div className="text-[11px] uppercase tracking-[0.25em] text-dim">{w.n}</div>
                   <div className="mt-1 text-xl text-ink font-medium">{w.t}</div>
                 </div>
-                <ArrowUpRight className="h-5 w-5 text-ink/60 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                <ArrowUpRight className="hidden md:inline-block h-5 w-5 text-ink/60 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
               </figcaption>
             </figure>
           ))}
