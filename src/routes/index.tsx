@@ -620,6 +620,16 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
               </button>
 
               <div className="relative mx-auto h-[390px] w-[360px] sm:w-[420px] md:h-[500px] md:w-[480px]">
+                {/* Queue card — appears behind during transition so the preview slot never goes empty */}
+                {isAnimating && direction === 1 && (
+                  <TechCard
+                    key={`queue-${nextPreviewIdx}`}
+                    view={TECH_VIEWS[nextPreviewIdx]}
+                    variant="preview"
+                    motionClass="tech-card-motion-preview"
+                  />
+                )}
+
                 {/* Always-visible idle preview (next-in-line behind the active card) */}
                 <TechCard
                   key={`idle-preview-${previewIdx}`}
