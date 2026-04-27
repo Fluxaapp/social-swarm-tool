@@ -134,15 +134,24 @@
 @layer base {
   * {
     border-color: var(--color-border);
+    box-sizing: border-box;
+  }
+
+  *::before,
+  *::after {
+    box-sizing: border-box;
   }
 
   html {
     scroll-behavior: smooth;
-    /* Evita overflow horizontal global no mobile */
+    width: 100%;
+    max-width: 100%;
     overflow-x: hidden;
   }
 
   body {
+    width: 100%;
+    max-width: 100%;
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
@@ -150,9 +159,7 @@
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     letter-spacing: -0.011em;
-    /* Reforço: nenhum elemento deve causar scroll horizontal */
     overflow-x: hidden;
-    width: 100%;
   }
 
   ::selection {
@@ -539,6 +546,23 @@
 .tech-card-shell {
   backface-visibility: hidden;
   will-change: transform, opacity, filter;
+}
+
+.tech-carousel-shell,
+.tech-carousel-viewport,
+.tech-dots-wrapper {
+  width: 100%;
+  max-width: 100%;
+}
+
+.tech-carousel-shell {
+  overflow: hidden;
+}
+
+.tech-dots-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Container clip: an invisible vertical line on the right edge
