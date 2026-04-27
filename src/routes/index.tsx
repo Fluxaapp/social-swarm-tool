@@ -608,7 +608,7 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
         {/* LEFT: cards · RIGHT: technical info */}
         <div className="mt-16 md:mt-24 grid grid-cols-12 gap-10 lg:gap-16 items-center">
           {/* LEFT — Cards */}
-          <div className="col-span-12 max-w-full overflow-hidden lg:col-span-7 sr sr-d3">
+          <div className="col-span-12 min-w-0 max-w-full overflow-hidden lg:col-span-7 sr sr-d3">
             <div className="tech-carousel-shell">
               <div
                 className="tech-carousel-viewport relative flex min-h-[360px] w-full max-w-full items-center justify-center overflow-hidden sm:min-h-[400px] md:min-h-[500px]"
@@ -697,8 +697,8 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
             </div>
           </div>
 
-          <div className="col-span-12 lg:col-span-5 sr sr-d4">
-            <div className="tech-info-stack mx-auto flex w-full max-w-md flex-col items-center text-center lg:mx-0 lg:max-w-none lg:items-start lg:text-left">
+          <div className="col-span-12 min-w-0 lg:col-span-5 sr sr-d4">
+            <div className="tech-info-stack mx-auto flex w-full max-w-md min-w-0 flex-col items-center text-center lg:mx-0 lg:max-w-none lg:items-start lg:text-left">
               <div className="tech-info-row mx-auto flex max-w-[22rem] items-center justify-center gap-3 text-center text-[11px] uppercase tracking-[0.22em] text-paper/50 sm:tracking-[0.3em] lg:mx-0 lg:max-w-none lg:justify-start lg:text-left">
                 <span className="h-px w-8 shrink-0 bg-paper/40" />
                 <span className={`${infoMotionClass} tech-inline-copy`}>{dynamicView.n} · {dynamicView.label}</span>
