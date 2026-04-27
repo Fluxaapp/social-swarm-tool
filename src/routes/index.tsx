@@ -458,9 +458,9 @@ function About() {
 type CarouselDirection = -1 | 1;
 type InfoPhase = "idle" | "out" | "in";
 
-const CARD_CAROUSEL_MS = 1100;
-const INFO_FADE_OUT_DELAY_MS = 320;
-const INFO_SWAP_DELAY_MS = 540;
+const CARD_CAROUSEL_MS = 850;
+const INFO_FADE_OUT_DELAY_MS = 220;
+const INFO_SWAP_DELAY_MS = 420;
 
 const wrapTechIndex = (index: number, total: number) => (index + total) % total;
 
@@ -529,6 +529,7 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
   const view = TECH_VIEWS[active];
   const dynamicView = TECH_VIEWS[infoIndex];
   const previewIdx = wrapTechIndex(active + 1, total);
+  const nextPreviewIdx = wrapTechIndex(active + 2, total);
   const visibleSecondary = TECH_VIEWS[incoming ?? previewIdx];
   const infoMotionClass =
     infoPhase === "out"
@@ -619,6 +620,16 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
               </button>
 
               <div className="relative mx-auto h-[390px] w-[360px] sm:w-[420px] md:h-[500px] md:w-[480px]">
+                {/* Queue card — appears behind during transition so the preview slot never goes empty */}
+                {isAnimating && direction === 1 && (
+                  <TechCard
+                    key={`queue-${nextPreviewIdx}`}
+                    view={TECH_VIEWS[nextPreviewIdx]}
+                    variant="preview"
+                    motionClass="tech-card-motion-preview"
+                  />
+                )}
+
                 {/* Always-visible idle preview (next-in-line behind the active card) */}
                 <TechCard
                   key={`idle-preview-${previewIdx}`}
