@@ -238,10 +238,7 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
       </div>
 
       {/* Straight divider into the next dark section */}
-      <div className="relative">
-        <div aria-hidden className="h-px w-full bg-ink/25" />
-        <div className="h-16 md:h-24 bg-ink" />
-      </div>
+      <div aria-hidden className="h-px w-full bg-ink/25" />
     </section>
   );
 }
