@@ -922,12 +922,12 @@ function Portfolio() {
                   className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
                 />
               </div>
-              <figcaption className="mt-5 flex items-end justify-between">
+              <figcaption className="mt-5 flex flex-col items-center text-center gap-2 md:flex-row md:items-end md:justify-between md:text-left md:gap-0">
                 <div>
                   <div className="text-[11px] uppercase tracking-[0.25em] text-dim">{w.n}</div>
                   <div className="mt-1 text-xl text-ink font-medium">{w.t}</div>
                 </div>
-                <ArrowUpRight className="h-5 w-5 text-ink/60 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                <ArrowUpRight className="hidden md:inline-block h-5 w-5 text-ink/60 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
               </figcaption>
             </figure>
           ))}
