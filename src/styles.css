@@ -420,7 +420,7 @@
 .tech-copy-idle,
 .tech-copy-in,
 .tech-copy-out {
-  display: inline-block;
+  display: inline;
   will-change: opacity, transform, filter;
 }
 
