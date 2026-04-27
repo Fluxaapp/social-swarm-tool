@@ -10,7 +10,7 @@ import { useParallax, useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { useCountUp } from "@/hooks/use-count-up";
 import { CONTACT, whatsappLink, mailtoLink } from "@/lib/contact";
 import { ProposalModal } from "@/components/ProposalModal";
-import { HERO_SHOWCASE, HeroShowcaseCard } from "@/components/HeroShowcase";
+import { HeroImmersiveShowcase } from "@/components/HeroShowcase";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -185,16 +185,9 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
           </div>
         </div>
 
-        {/* RIGHT — vertical auto-scroll showcase + social icons */}
-        <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 lg:pl-6 min-h-[520px] lg:min-h-[620px]">
-          {/* Vertical marquee column */}
-          <div className="marquee-mask absolute inset-y-0 left-0 right-16 md:right-20 overflow-hidden">
-            <div className="marquee-vertical-track flex flex-col gap-5">
-              {[...HERO_SHOWCASE, ...HERO_SHOWCASE].map((item, i) => (
-                <HeroShowcaseCard key={`${item.id}-${i}`} item={item} />
-              ))}
-            </div>
-          </div>
+        {/* RIGHT — immersive editorial showcase + social icons */}
+        <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 min-h-[520px] lg:min-h-[620px] lg:absolute lg:right-0 lg:top-0 lg:bottom-0 lg:w-[46%] lg:col-span-auto">
+          <HeroImmersiveShowcase />
 
           {/* Social icons — vertical, transparent, tech micro-interface */}
           <div className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-20 flex flex-col items-center gap-7 md:gap-8">
