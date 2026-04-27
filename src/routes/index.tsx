@@ -692,16 +692,16 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
           </div>
 
           <div className="col-span-12 lg:col-span-5 sr sr-d4">
-            <div>
-              <div className="text-[11px] uppercase tracking-[0.3em] text-paper/50 flex items-center gap-3">
+            <div className="text-center lg:text-left">
+              <div className="text-[11px] uppercase tracking-[0.3em] text-paper/50 inline-flex items-center gap-3 justify-center lg:justify-start">
                 <span className="h-px w-8 bg-paper/40" />
                 <span className={infoMotionClass}>{dynamicView.n} · {dynamicView.label}</span>
               </div>
 
-              <h3 className="mt-6 font-medium text-[clamp(1.75rem,3vw,2.5rem)] leading-[1.05] tracking-[-0.03em] text-paper">
+              <h3 className="mt-6 font-medium text-[clamp(1.5rem,3vw,2.5rem)] leading-[1.1] tracking-[-0.03em] text-paper">
                 <span className={infoMotionClass}>{dynamicView.title}</span>
               </h3>
-              <p className="mt-5 text-[15px] leading-relaxed text-paper/60 max-w-md">
+              <p className="mt-5 text-[15px] leading-relaxed text-paper/60 max-w-md mx-auto lg:mx-0">
                 <span className={infoMotionClass}>{dynamicView.desc}</span>
               </p>
               <div className="mt-8 inline-flex items-center gap-3 bg-paper/5 border border-paper/10 rounded-full px-4 py-2 text-[12px] text-paper/80">
@@ -709,12 +709,12 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
                 <span className={infoMotionClass}>{dynamicView.highlight}</span>
               </div>
 
-              <div className="mt-8 flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-paper/40">
+              <div className="mt-8 flex items-center justify-center lg:justify-start gap-3 text-[10px] uppercase tracking-[0.3em] text-paper/40">
                 <span className="h-px w-6 bg-paper/30" />
                 <span className={infoMotionClass}>{dynamicView.tech}</span>
               </div>
 
-              <div className="mt-8">
+              <div className="mt-8 flex justify-center lg:justify-start">
                 <button
                   type="button"
                   onClick={onOpenProposal}
