@@ -618,7 +618,9 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
                 <ChevronLeft className="h-5 w-5" />
               </button>
 
-              <div className="relative mx-auto h-[390px] w-[360px] sm:w-[420px] md:h-[500px] md:w-[480px]">
+              <div
+                className="tech-card-clip relative mx-auto h-[390px] w-[360px] sm:w-[420px] md:h-[500px] md:w-[480px]"
+              >
                 <TechCard
                   view={visibleSecondary}
                   variant="preview"
