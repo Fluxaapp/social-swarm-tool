@@ -458,9 +458,9 @@ function About() {
 type CarouselDirection = -1 | 1;
 type InfoPhase = "idle" | "out" | "in";
 
-  const CARD_CAROUSEL_MS = 850;
-  const INFO_FADE_OUT_DELAY_MS = 280;
-  const INFO_SWAP_DELAY_MS = 440;
+const CARD_CAROUSEL_MS = 850;
+const INFO_FADE_OUT_DELAY_MS = 280;
+const INFO_SWAP_DELAY_MS = 440;
 
 const wrapTechIndex = (index: number, total: number) => (index + total) % total;
 
@@ -738,10 +738,11 @@ function TechCard({
       ].join(" ")}
       style={{
         background:
-          "linear-gradient(150deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.03) 60%, rgba(255,255,255,0.06) 100%)",
-        border: "1px solid rgba(255,255,255,0.12)",
-        backdropFilter: "blur(14px)",
-        WebkitBackdropFilter: "blur(14px)",
+          "radial-gradient(circle at 30% 25%, rgba(255,255,255,0.10), transparent 38%), linear-gradient(135deg, rgba(32,32,32,0.97) 0%, rgba(14,14,14,0.98) 55%, rgba(6,6,6,0.99) 100%)",
+        border: "1px solid rgba(255,255,255,0.10)",
+        boxShadow: isActive
+          ? "0 30px 80px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.06)"
+          : "0 20px 60px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.04)",
       }}
     >
       {/* Specular sheen */}
