@@ -827,13 +827,17 @@
   .tech-card-motion-active {
     opacity: 1 !important;
     filter: none !important;
-    transform: translate3d(-50%, -50%, 0) scale(1) !important;
+    transform: translate3d(calc(-50% + var(--tech-active-shift-x)), -50%, 0) scale(1) !important;
   }
 
   .tech-card-motion-preview {
     opacity: 0.42 !important;
     filter: none !important;
-    transform: translate3d(calc(-50% - 175px), calc(-50% - 8px), 0) scale(0.82) !important;
+    transform: translate3d(
+      calc(-50% + var(--tech-active-shift-x) - var(--tech-preview-distance)),
+      calc(-50% - var(--tech-preview-lift)),
+      0
+    ) scale(var(--tech-preview-scale)) !important;
   }
 }
 
