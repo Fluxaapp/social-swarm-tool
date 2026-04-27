@@ -551,6 +551,14 @@
   -webkit-clip-path: inset(-200px 0px -200px -260px);
 }
 
+/* Mobile: limita o clip para não vazar para fora da tela */
+@media (max-width: 767px) {
+  .tech-card-clip {
+    clip-path: inset(-120px 0px -120px -60px);
+    -webkit-clip-path: inset(-120px 0px -120px -60px);
+  }
+}
+
 .tech-card-motion-active {
   z-index: 20;
   opacity: 1;
@@ -563,6 +571,13 @@
   opacity: 0.42;
   filter: blur(0);
   transform: translate3d(calc(-50% - 175px), calc(-50% - 8px), 0) scale(0.82);
+}
+
+/* Mobile: aproxima o card secundário (offsets menores) */
+@media (max-width: 767px) {
+  .tech-card-motion-preview {
+    transform: translate3d(calc(-50% - 70px), calc(-50% - 6px), 0) scale(0.84);
+  }
 }
 
 /* Card que será o próximo preview — já renderizado em background
