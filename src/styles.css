@@ -477,4 +477,24 @@
   }
 }
 
+/* Vertical auto-scroll marquee for hero showcase */
+@keyframes marquee-vertical {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-50%); }
+}
+.marquee-vertical-track {
+  animation: marquee-vertical 38s linear infinite;
+  will-change: transform;
+}
+.marquee-vertical-track:hover {
+  animation-play-state: paused;
+}
+.marquee-mask {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 86%, transparent 100%);
+          mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 86%, transparent 100%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-vertical-track { animation: none !important; }
+}
+
 #lovable-badge {display: none !important;}

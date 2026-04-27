@@ -20,7 +20,7 @@ export const Route = createFileRoute("/")({
 function Nav({ onOpenProposal }: { onOpenProposal: () => void }) {
   return (
     <header className="absolute top-0 left-0 right-0 z-50">
-      <div className="mx-auto max-w-[1280px] px-6 md:px-10 h-20 flex items-center justify-between gap-6">
+      <div className="mx-auto max-w-[1480px] px-6 md:px-10 h-20 flex items-center justify-between gap-6">
         <a href="#top" className="flex items-center gap-2.5">
           <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-ink text-paper">
             <span className="block h-3.5 w-3.5 border border-paper/90 rotate-45" />
@@ -81,6 +81,126 @@ const SOCIALS = [
   { name: "Google", href: CONTACT.google.url, Icon: GoogleIcon },
 ];
 
+/* Minimalist branding mockups for hero vertical marquee */
+type ShowcaseItem = {
+  id: string;
+  kind: "social" | "ui" | "card" | "type";
+  label: string;
+  meta?: string;
+};
+
+const HERO_SHOWCASE: ShowcaseItem[] = [
+  { id: "ig-post", kind: "social", label: "@glassmainnd", meta: "Post · 1:1" },
+  { id: "dash", kind: "ui", label: "Dashboard", meta: "Analytics · v2" },
+  { id: "card", kind: "card", label: "Glass Maind", meta: "Business Card" },
+  { id: "type", kind: "type", label: "Aa", meta: "Display / Sans" },
+  { id: "ig-story", kind: "social", label: "Story", meta: "9:16 · Reels" },
+  { id: "ui-app", kind: "ui", label: "Mobile App", meta: "iOS · UI Kit" },
+  { id: "layout", kind: "type", label: "Grid 12", meta: "Editorial Layout" },
+];
+
+function HeroShowcaseCard({ item }: { item: ShowcaseItem }) {
+  return (
+    <div className="relative rounded-2xl border border-ink/10 bg-paper/70 backdrop-blur-sm shadow-[0_10px_40px_-20px_rgba(0,0,0,0.18)] overflow-hidden opacity-90 hover:opacity-100 transition-opacity duration-500">
+      {/* top meta strip */}
+      <div className="flex items-center justify-between px-4 pt-3 pb-2 border-b border-ink/5">
+        <div className="flex items-center gap-1.5">
+          <span className="h-1.5 w-1.5 rounded-full bg-ink/30" />
+          <span className="h-1.5 w-1.5 rounded-full bg-ink/15" />
+          <span className="h-1.5 w-1.5 rounded-full bg-ink/15" />
+        </div>
+        <span className="text-[9px] uppercase tracking-[0.25em] text-ink/40">{item.meta}</span>
+      </div>
+
+      {/* body — minimalist mockup per kind */}
+      <div className="p-4">
+        {item.kind === "social" && (
+          <div className="aspect-square w-full rounded-md bg-gradient-to-br from-ink/[0.04] to-ink/[0.10] flex flex-col justify-between p-3">
+            <div className="flex items-center gap-2">
+              <div className="h-6 w-6 rounded-full bg-ink/80" />
+              <div className="flex flex-col gap-1">
+                <span className="h-1.5 w-16 rounded-full bg-ink/40" />
+                <span className="h-1 w-10 rounded-full bg-ink/20" />
+              </div>
+            </div>
+            <div className="flex items-end justify-between">
+              <div className="flex flex-col gap-1.5">
+                <span className="h-1.5 w-20 rounded-full bg-ink/30" />
+                <span className="h-1 w-14 rounded-full bg-ink/15" />
+              </div>
+              <div className="flex gap-1.5">
+                <span className="h-3 w-3 rounded-sm border border-ink/30" />
+                <span className="h-3 w-3 rounded-sm border border-ink/30" />
+              </div>
+            </div>
+          </div>
+        )}
+        {item.kind === "ui" && (
+          <div className="rounded-md bg-ink/[0.03] p-3 space-y-2.5">
+            <div className="flex items-center justify-between">
+              <span className="h-1.5 w-14 rounded-full bg-ink/40" />
+              <span className="h-1.5 w-6 rounded-full bg-ink/20" />
+            </div>
+            <div className="grid grid-cols-3 gap-1.5">
+              {[0, 1, 2].map((i) => (
+                <div key={i} className="h-10 rounded bg-paper border border-ink/10 flex items-end p-1">
+                  <span
+                    className="block w-full rounded-sm bg-ink/60"
+                    style={{ height: `${30 + i * 18}%` }}
+                  />
+                </div>
+              ))}
+            </div>
+            <div className="space-y-1">
+              <span className="block h-1 w-full rounded-full bg-ink/15" />
+              <span className="block h-1 w-3/4 rounded-full bg-ink/10" />
+              <span className="block h-1 w-1/2 rounded-full bg-ink/10" />
+            </div>
+          </div>
+        )}
+        {item.kind === "card" && (
+          <div className="aspect-[1.7/1] w-full rounded-md bg-ink text-paper p-4 flex flex-col justify-between">
+            <div className="flex items-center justify-between">
+              <span className="inline-flex h-5 w-5 items-center justify-center rounded-sm border border-paper/70">
+                <span className="block h-1.5 w-1.5 border border-paper/90 rotate-45" />
+              </span>
+              <span className="text-[9px] uppercase tracking-[0.3em] text-paper/60">2025</span>
+            </div>
+            <div>
+              <div className="text-[11px] font-medium tracking-tight">{item.label}</div>
+              <div className="text-[9px] uppercase tracking-[0.25em] text-paper/50 mt-0.5">
+                Marketing Studio
+              </div>
+            </div>
+          </div>
+        )}
+        {item.kind === "type" && (
+          <div className="rounded-md bg-ink/[0.03] p-4 flex items-center justify-between">
+            <span
+              className="text-ink/85 font-medium leading-none"
+              style={{ fontSize: "44px", letterSpacing: "-0.04em" }}
+            >
+              {item.label}
+            </span>
+            <div className="flex flex-col items-end gap-1">
+              <span className="text-[9px] uppercase tracking-[0.3em] text-ink/40">Type</span>
+              <span className="h-px w-10 bg-ink/30" />
+              <span className="text-[10px] text-ink/50">A–Z · 0–9</span>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* footer label */}
+      <div className="px-4 pb-3 pt-1 flex items-center justify-between">
+        <span className="text-[10px] uppercase tracking-[0.25em] text-ink/50">{item.label}</span>
+        <span className="h-1 w-1 rounded-full bg-ink/40" />
+      </div>
+    </div>
+  );
+}
+
+
 function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
   return (
     <section id="top" className="relative bg-soft overflow-hidden">
@@ -108,7 +228,7 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
         />
       </svg>
 
-      <div className="mx-auto max-w-[1280px] px-6 md:px-10 pt-32 md:pt-36 pb-16 md:pb-24 grid grid-cols-12 gap-8 md:gap-12 items-center min-h-[100vh] relative">
+      <div className="mx-auto max-w-[1480px] px-6 md:px-10 pt-32 md:pt-36 pb-16 md:pb-24 grid grid-cols-12 gap-8 md:gap-12 items-center min-h-[100vh] relative">
         {/* LEFT — text */}
         <div className="col-span-12 lg:col-span-7 relative z-10 flex flex-col items-start">
           <div className="flex items-center gap-3 text-[11px] tracking-[0.3em] uppercase text-dim reveal reveal-d1">
@@ -183,10 +303,19 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
           </div>
         </div>
 
-        {/* RIGHT — abstract floating tech composition + social icons */}
-        <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 lg:pl-6 min-h-[480px] lg:min-h-[560px]">
+        {/* RIGHT — vertical auto-scroll showcase + social icons */}
+        <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 lg:pl-6 min-h-[520px] lg:min-h-[620px]">
+          {/* Vertical marquee column */}
+          <div className="marquee-mask absolute inset-y-0 left-0 right-16 md:right-20 overflow-hidden">
+            <div className="marquee-vertical-track flex flex-col gap-5">
+              {[...HERO_SHOWCASE, ...HERO_SHOWCASE].map((item, i) => (
+                <HeroShowcaseCard key={`${item.id}-${i}`} item={item} />
+              ))}
+            </div>
+          </div>
+
           {/* Social icons — vertical, transparent, tech micro-interface */}
-          <div className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 flex flex-col items-center gap-7 md:gap-8">
+          <div className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-20 flex flex-col items-center gap-7 md:gap-8">
             {SOCIALS.map((s) => {
               const Icon = s.Icon;
               return (
@@ -225,15 +354,6 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
               );
             })}
           </div>
-
-          <div className="absolute -left-4 top-12 hidden md:flex items-center gap-2 bg-white border border-line rounded-full px-4 py-2 shadow-sm float-slow">
-            <span className="h-2 w-2 rounded-full bg-ink" />
-            <span className="text-[11px] uppercase tracking-[0.25em] text-ink/70">Vol. 01</span>
-          </div>
-          <div className="absolute right-0 top-8 hidden md:flex flex-col items-end gap-1 float-slower">
-            <span className="text-[10px] uppercase tracking-[0.3em] text-ink/50">Index</span>
-            <span className="text-sm text-ink/80 font-medium">A · 24</span>
-          </div>
         </div>
       </div>
 
@@ -248,7 +368,7 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
 function InfoStrip() {
   return (
     <section className="bg-ink text-paper">
-      <div className="mx-auto max-w-[1280px] px-6 md:px-10 py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="mx-auto max-w-[1480px] px-6 md:px-10 py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <div className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-paper/20 shrink-0">
             <span className="block h-3 w-3 border border-paper/80 rotate-45" />
@@ -332,7 +452,7 @@ function About() {
 
   return (
     <section id="about" className="bg-paper py-28 md:py-40">
-      <div className="mx-auto max-w-[1280px] px-6 md:px-10">
+      <div className="mx-auto max-w-[1480px] px-6 md:px-10">
         <div className="text-center max-w-4xl mx-auto">
           <div className="text-[11px] uppercase tracking-[0.35em] text-dim inline-flex items-center gap-3 sr">
             <span className="h-px w-10 bg-ink/40" />
@@ -454,7 +574,7 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
     <section className="bg-ink text-paper relative overflow-hidden">
       <div className="ambient-glow" aria-hidden />
 
-      <div className="mx-auto max-w-[1280px] px-6 md:px-10 py-24 md:py-36 relative">
+      <div className="mx-auto max-w-[1480px] px-6 md:px-10 py-24 md:py-36 relative">
         <div className="flex justify-center sr">
           <span className="inline-flex items-center gap-2 bg-paper text-ink rounded-full px-5 py-2 text-[12px] font-medium">
             <span className="h-1.5 w-1.5 rounded-full bg-ink" />
@@ -629,7 +749,7 @@ function Services() {
 
   return (
     <section id="services" className="bg-paper py-28 md:py-36">
-      <div className="mx-auto max-w-[1280px] px-6 md:px-10">
+      <div className="mx-auto max-w-[1480px] px-6 md:px-10">
         <div className="grid grid-cols-12 gap-6 mb-16">
           <div className="col-span-12 md:col-span-6 sr">
             <div className="text-[11px] uppercase tracking-[0.3em] text-dim flex items-center gap-3">
@@ -697,7 +817,7 @@ function Portfolio() {
 
   return (
     <section id="portfolio" className="bg-soft py-28 md:py-40">
-      <div className="mx-auto max-w-[1280px] px-6 md:px-10">
+      <div className="mx-auto max-w-[1480px] px-6 md:px-10">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-8">
           <div>
             <div className="text-[11px] uppercase tracking-[0.3em] text-dim flex items-center gap-3">
@@ -750,7 +870,7 @@ function CTA({ onOpenProposal }: { onOpenProposal: () => void }) {
       <span className="light-dot" style={{ top: "30%", left: "15%" }} aria-hidden />
       <span className="light-dot" style={{ top: "70%", right: "18%", animationDelay: "4s" }} aria-hidden />
 
-      <div className="mx-auto max-w-[1280px] px-6 md:px-10 py-32 md:py-44 text-center relative">
+      <div className="mx-auto max-w-[1480px] px-6 md:px-10 py-32 md:py-44 text-center relative">
         <div className="text-[11px] uppercase tracking-[0.3em] text-paper/50 inline-flex items-center gap-3 sr">
           <span className="h-px w-8 bg-paper/40" />
           Vamos conversar
@@ -826,7 +946,7 @@ function CTA({ onOpenProposal }: { onOpenProposal: () => void }) {
 function Footer() {
   return (
     <footer className="bg-ink text-paper border-t border-paper/10">
-      <div className="mx-auto max-w-[1280px] px-6 md:px-10 py-14">
+      <div className="mx-auto max-w-[1480px] px-6 md:px-10 py-14">
         <div className="grid grid-cols-12 gap-8">
           <div className="col-span-12 md:col-span-6">
             <div className="flex items-center gap-2.5">
