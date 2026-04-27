@@ -532,23 +532,30 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
   const timersRef = useRef<number[]>([]);
   const autoplayRef = useRef<number | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const [step, setStep] = useState(360); // px between consecutive card centers
+  const [carouselMetrics, setCarouselMetrics] = useState({ step: 336, gap: 36 });
   const dynamicView = TECH_VIEWS[infoIndex];
   const active = ((virtualIndex - 1) % total + total) % total;
+  const { step, gap } = carouselMetrics;
 
   // Responsive step: matches active card width + gap
   useEffect(() => {
     if (typeof window === "undefined") return;
     const compute = () => {
       const w = window.innerWidth;
-      if (w < 640) setStep(290);       // mobile
-      else if (w < 768) setStep(320);   // sm
-      else setStep(360);                // md+
+      if (w < 640) setCarouselMetrics({ step: 288, gap: 28 });
+      else if (w < 768) setCarouselMetrics({ step: 312, gap: 32 });
+      else setCarouselMetrics({ step: 336, gap: 36 });
     };
     compute();
     window.addEventListener("resize", compute);
     return () => window.removeEventListener("resize", compute);
   }, []);
+
+  useEffect(() => {
+    if (withTransition || typeof window === "undefined") return;
+    const id = window.requestAnimationFrame(() => setWithTransition(true));
+    return () => window.cancelAnimationFrame(id);
+  }, [withTransition]);
 
   const infoMotionClass =
     infoPhase === "out"
@@ -692,19 +699,26 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
                     transition: withTransition
                       ? `transform ${SLIDE_MS}ms cubic-bezier(0.22, 1, 0.36, 1)`
                       : "none",
-                    gap: "40px",
+                    gap: `${gap}px`,
                   }}
                 >
                   {stripItems.map((v, i) => {
                     const isActiveCard = i === virtualIndex;
+                    const slideDistance = Math.abs(i - virtualIndex);
+                    const isAdjacent = slideDistance === 1;
                     return (
                       <div
                         key={`${v.n}-${i}`}
                         className="tech-swiper-slide flex-shrink-0"
                         style={{
-                          transform: isActiveCard ? "scale(1.08)" : "scale(0.74)",
-                          opacity: isActiveCard ? 1 : 0.32,
-                          filter: isActiveCard ? "blur(0)" : "blur(1px)",
+                          transform: isActiveCard
+                            ? "scale(1.16)"
+                            : isAdjacent
+                              ? "scale(0.72)"
+                              : "scale(0.58)",
+                          opacity: isActiveCard ? 1 : isAdjacent ? 0.34 : 0.12,
+                          filter: "blur(0)",
+                          zIndex: isActiveCard ? 3 : isAdjacent ? 2 : 1,
                           transition: `transform ${SLIDE_MS}ms cubic-bezier(0.22, 1, 0.36, 1), opacity ${SLIDE_MS}ms ease, filter ${SLIDE_MS}ms ease`,
                         }}
                         onClick={() => {
@@ -817,14 +831,14 @@ function TechCard({
       ].join(" ")}
       style={{
         background: isActive
-          ? "radial-gradient(circle at 30% 15%, rgba(255,255,255,0.18), transparent 55%), linear-gradient(135deg, #1f1f1f 0%, #141414 55%, #0a0a0a 100%)"
-          : "radial-gradient(circle at 28% 18%, rgba(255,255,255,0.04), transparent 42%), linear-gradient(135deg, #060606 0%, #030303 55%, #000000 100%)",
+          ? "radial-gradient(circle at 30% 15%, rgba(255,255,255,0.22), transparent 55%), linear-gradient(135deg, #2b2b2b 0%, #181818 52%, #0a0a0a 100%)"
+          : "radial-gradient(circle at 28% 18%, rgba(255,255,255,0.03), transparent 42%), linear-gradient(135deg, #070707 0%, #030303 58%, #000000 100%)",
         border: isActive
-          ? "1px solid rgba(255,255,255,0.18)"
-          : "1px solid rgba(255,255,255,0.06)",
+          ? "1px solid rgba(255,255,255,0.2)"
+          : "1px solid rgba(255,255,255,0.05)",
         boxShadow: isActive
-          ? "0 44px 110px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.10)"
-          : "0 18px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.03)",
+          ? "0 48px 120px rgba(0,0,0,0.74), inset 0 1px 0 rgba(255,255,255,0.12)"
+          : "0 18px 50px rgba(0,0,0,0.56), inset 0 1px 0 rgba(255,255,255,0.02)",
       }}
     >
       {/* Specular sheen */}
