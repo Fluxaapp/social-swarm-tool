@@ -705,10 +705,10 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
               </div>
 
               <h3 className="mt-6 mx-auto w-full max-w-[22rem] text-center font-medium text-[clamp(1.5rem,3vw,2.5rem)] leading-[1.1] tracking-[-0.03em] text-paper lg:mx-0 lg:max-w-none lg:text-left">
-                <span className={infoMotionClass}>{dynamicView.title}</span>
+                <span className={`${infoMotionClass} tech-copy-title`}>{dynamicView.title}</span>
               </h3>
               <p className="mx-auto mt-5 w-full max-w-[22rem] text-center text-[15px] leading-relaxed text-paper/60 lg:mx-0 lg:max-w-md lg:text-left">
-                <span className={infoMotionClass}>{dynamicView.desc}</span>
+                <span className={`${infoMotionClass} tech-copy-body`}>{dynamicView.desc}</span>
               </p>
               <div className="mx-auto mt-8 inline-flex max-w-full items-center justify-center gap-3 rounded-full border border-paper/10 bg-paper/5 px-4 py-2 text-center text-[12px] text-paper/80 lg:mx-0">
                 <span className="h-1.5 w-1.5 rounded-full bg-paper" />

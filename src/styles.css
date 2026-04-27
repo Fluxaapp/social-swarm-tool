@@ -431,6 +431,24 @@
   will-change: opacity, transform, filter;
 }
 
+.tech-copy-title,
+.tech-copy-body {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  white-space: normal;
+}
+
+.tech-copy-title {
+  display: block;
+  text-wrap: balance;
+}
+
+.tech-copy-body {
+  display: inline;
+  text-wrap: pretty;
+}
+
 .tech-copy-idle {
   opacity: 1;
   transform: translateY(0);
