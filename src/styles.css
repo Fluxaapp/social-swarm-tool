@@ -439,6 +439,15 @@
   white-space: normal;
 }
 
+.tech-inline-copy {
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  white-space: normal;
+  text-wrap: pretty;
+}
+
 .tech-copy-title {
   display: block;
   text-wrap: balance;
@@ -601,6 +610,19 @@
   .tech-info-stack {
     width: min(100%, 22rem);
     margin-inline: auto;
+  }
+
+  .tech-info-row,
+  .tech-info-meta {
+    width: min(100%, 22rem);
+    flex-wrap: wrap;
+    overflow: hidden;
+  }
+
+  .tech-info-chip {
+    width: min(100%, 22rem);
+    flex-wrap: wrap;
+    overflow: hidden;
   }
 }
 
