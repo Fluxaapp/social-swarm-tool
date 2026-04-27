@@ -589,7 +589,7 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
     <section className="bg-ink text-paper relative overflow-hidden">
       <div className="ambient-glow" aria-hidden />
 
-      <div className="mx-auto max-w-[1480px] px-6 md:px-10 py-24 md:py-36 relative">
+      <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10 py-20 sm:py-24 md:py-36 relative">
         <div className="flex justify-center sr">
           <span className="inline-flex items-center gap-2 bg-paper text-ink rounded-full px-5 py-2 text-[12px] font-medium">
             <span className="h-1.5 w-1.5 rounded-full bg-ink" />
