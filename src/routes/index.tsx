@@ -57,7 +57,7 @@ function Nav({ onOpenProposal }: { onOpenProposal: () => void }) {
         transition: "transform 0.35s ease",
       }}
     >
-      <div className="mx-auto max-w-[1480px] px-6 md:px-10 h-20 flex items-center justify-between gap-6">
+      <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10 h-16 md:h-20 flex items-center justify-between gap-4 md:gap-6">
         <a href="#top" className="flex items-center leading-none">
           <span className="text-[17px] tracking-tight text-ink">
             <span className="font-light">Agencia</span>
