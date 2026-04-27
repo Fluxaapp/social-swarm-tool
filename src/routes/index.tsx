@@ -229,9 +229,9 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
         </div>
 
         {/* RIGHT — social icons rail (showcase lives behind, full-bleed) */}
-        <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 min-h-[520px] lg:min-h-[620px]">
-          {/* Social icons — vertical, with single subtle vertical line behind */}
-          <div className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-20 flex flex-col items-center gap-7 md:gap-8">
+        <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 min-h-[120px] sm:min-h-[180px] lg:min-h-[620px]">
+          {/* Social icons — horizontal no mobile, vertical no desktop */}
+          <div className="lg:absolute lg:right-4 lg:top-1/2 lg:-translate-y-1/2 lg:flex-col z-20 flex flex-row items-center justify-start gap-5 sm:gap-6 lg:gap-8">
             {SOCIALS.map((s) => {
               const Icon = s.Icon;
               return (
@@ -241,7 +241,7 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={s.name}
-                  className="social-tech group relative z-10 inline-flex h-9 w-9 items-center justify-center rounded-full bg-soft text-ink/70 transition-all duration-500 hover:text-ink hover:scale-110"
+                  className="social-tech group relative z-10 inline-flex h-10 w-10 lg:h-9 lg:w-9 items-center justify-center rounded-full bg-soft text-ink/70 transition-all duration-500 hover:text-ink hover:scale-110"
                 >
                   <Icon className="relative z-10 h-[18px] w-[18px] transition-transform duration-500" />
 
@@ -262,8 +262,8 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
                     />
                   </svg>
 
-                  {/* Social name on hover */}
-                  <span className="pointer-events-none absolute right-full mr-3 top-1/2 -translate-y-1/2 whitespace-nowrap text-[11px] tracking-[0.08em] text-ink/70 opacity-0 -translate-x-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">
+                  {/* Social name on hover (apenas desktop) */}
+                  <span className="pointer-events-none hidden lg:block absolute right-full mr-3 top-1/2 -translate-y-1/2 whitespace-nowrap text-[11px] tracking-[0.08em] text-ink/70 opacity-0 -translate-x-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">
                     {s.name}
                   </span>
                 </a>
