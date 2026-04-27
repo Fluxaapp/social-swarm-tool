@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowUpRight, Search, Plus, Star, Instagram, Facebook } from "lucide-react";
+import { ArrowUpRight, Plus, Star, Instagram, Facebook } from "lucide-react";
 import { useState } from "react";
 
 import workBranding from "@/assets/work-branding.jpg";
@@ -37,13 +37,13 @@ function Nav({ onOpenProposal }: { onOpenProposal: () => void }) {
           <a href="#contact" className="hover:text-ink transition-colors">Contato</a>
         </nav>
 
-        <div className="hidden lg:flex items-center gap-2 bg-white/70 backdrop-blur border border-line rounded-full px-4 py-2.5 w-64">
-          <Search className="h-3.5 w-3.5 text-dim" />
-          <input
-            type="text"
-            placeholder="Buscar..."
-            className="bg-transparent text-[13px] outline-none placeholder:text-dim flex-1"
-          />
+        {/* Right side — micro-info + sutil dividers */}
+        <div className="hidden md:flex items-center gap-5 text-[11px] tracking-[0.18em] uppercase text-ink/55">
+          <span>Digital Studio</span>
+          <span aria-hidden className="block w-px h-4 bg-gradient-to-b from-transparent via-ink/25 to-transparent opacity-70" />
+          <span>Brand Experience</span>
+          <span aria-hidden className="block w-px h-4 bg-gradient-to-b from-transparent via-ink/25 to-transparent opacity-70" />
+          <span className="text-ink/45">Since 2024</span>
         </div>
 
         <button
@@ -422,6 +422,7 @@ const TECH_VIEWS = [
     desc: "Sistemas visuais coerentes, do logotipo ao território de marca, construídos para durar e escalar.",
     highlight: "Sistema modular · 12 ativos",
     tech: "system://branding — module 01",
+    satellites: ["Positioning", "Identity", "Perception", "Consistency", "Authority"],
   },
   {
     n: "02",
@@ -430,6 +431,7 @@ const TECH_VIEWS = [
     desc: "Campanhas pensadas para converter sem perder identidade. Estratégia, criativo e mídia integrados.",
     highlight: "ROI médio · 3.4x",
     tech: "protocol v2.3 · roi 3.4x",
+    satellites: ["Strategy", "Funnel", "Audience", "Conversion", "Retention"],
   },
   {
     n: "03",
@@ -438,6 +440,7 @@ const TECH_VIEWS = [
     desc: "Direção de arte premium para campanhas, materiais e produtos — do conceito ao acabamento.",
     highlight: "Direção · Editorial",
     tech: "grid aligned · 128 nodes",
+    satellites: ["Composition", "Typography", "Hierarchy", "Color", "Motion"],
   },
 ] as const;
 
@@ -537,6 +540,93 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
                 filter: "blur(18px)",
               }}
             />
+
+            {/* Animated half-moon arc around active prism */}
+            <svg
+              key={`arc-${active}`}
+              aria-hidden
+              viewBox="0 0 100 100"
+              preserveAspectRatio="xMidYMid meet"
+              className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[68%] h-[88%] opacity-90"
+            >
+              <defs>
+                <linearGradient id="arcGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="rgba(255,255,255,0.7)" />
+                  <stop offset="100%" stopColor="rgba(255,255,255,0)" />
+                </linearGradient>
+              </defs>
+              <circle
+                cx="50"
+                cy="50"
+                r="46"
+                fill="none"
+                stroke="rgba(255,255,255,0.08)"
+                strokeWidth="0.4"
+              />
+              <circle
+                cx="50"
+                cy="50"
+                r="46"
+                fill="none"
+                stroke="url(#arcGrad)"
+                strokeWidth="0.6"
+                strokeLinecap="round"
+                pathLength={1}
+                strokeDasharray="0.6 1"
+                strokeDashoffset="1"
+                style={{
+                  transformOrigin: "50% 50%",
+                  transform: "rotate(-90deg)",
+                  animation: "arcDraw 900ms cubic-bezier(0.22,1,0.36,1) forwards",
+                  filter: "drop-shadow(0 0 6px rgba(255,255,255,0.35))",
+                }}
+              />
+            </svg>
+
+            {/* Satellites — 5 micro-info chips around the active item */}
+            <div key={`sats-${active}`} className="pointer-events-none absolute inset-0 hidden md:block">
+              {(() => {
+                const positions = [
+                  { side: "left", top: "14%" },
+                  { side: "left", top: "44%" },
+                  { side: "left", top: "74%" },
+                  { side: "right", top: "26%" },
+                  { side: "right", top: "62%" },
+                ] as const;
+                return view.satellites.map((s, i) => {
+                  const p = positions[i];
+                  const isLeft = p.side === "left";
+                  return (
+                    <div
+                      key={s}
+                      className="absolute flex items-center gap-2"
+                      style={{
+                        top: p.top,
+                        [isLeft ? "left" : "right"]: "2%",
+                        opacity: 0,
+                        animation: `satFadeIn 600ms cubic-bezier(0.22,1,0.36,1) forwards`,
+                        animationDelay: `${500 + i * 110}ms`,
+                        flexDirection: isLeft ? "row" : "row-reverse",
+                      }}
+                    >
+                      <span className="text-[10.5px] tracking-[0.22em] uppercase text-paper/70 whitespace-nowrap">
+                        {s}
+                      </span>
+                      <span
+                        aria-hidden
+                        className="block h-px w-12 md:w-16"
+                        style={{
+                          background: isLeft
+                            ? "linear-gradient(to right, rgba(255,255,255,0.45), transparent)"
+                            : "linear-gradient(to left, rgba(255,255,255,0.45), transparent)",
+                          filter: "drop-shadow(0 0 4px rgba(255,255,255,0.25))",
+                        }}
+                      />
+                    </div>
+                  );
+                });
+              })()}
+            </div>
           </div>
 
           <div className="col-span-12 lg:col-span-5 sr sr-d4">

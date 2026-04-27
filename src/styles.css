@@ -477,4 +477,18 @@
   }
 }
 
+/* Technology — animated half-moon arc + satellite info */
+@keyframes arcDraw {
+  0%   { stroke-dashoffset: 1; opacity: 0; }
+  20%  { opacity: 1; }
+  100% { stroke-dashoffset: 0.4; opacity: 1; }
+}
+@keyframes satFadeIn {
+  0%   { opacity: 0; transform: translateX(var(--sat-x, -8px)); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  [style*="arcDraw"], [style*="satFadeIn"] { animation: none !important; opacity: 1 !important; }
+}
+
 #lovable-badge {display: none !important;}
