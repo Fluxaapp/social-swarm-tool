@@ -458,9 +458,9 @@ function About() {
 type CarouselDirection = -1 | 1;
 type InfoPhase = "idle" | "out" | "in";
 
-const CARD_CAROUSEL_MS = 1100;
-const INFO_FADE_OUT_DELAY_MS = 320;
-const INFO_SWAP_DELAY_MS = 540;
+const CARD_CAROUSEL_MS = 1400;
+const INFO_FADE_OUT_DELAY_MS = 400;
+const INFO_SWAP_DELAY_MS = 680;
 
 const wrapTechIndex = (index: number, total: number) => (index + total) % total;
 
@@ -530,6 +530,11 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
   const dynamicView = TECH_VIEWS[infoIndex];
   const previewIdx = wrapTechIndex(active + 1, total);
   const visibleSecondary = TECH_VIEWS[incoming ?? previewIdx];
+  // Card que será o próximo preview após a transição terminar
+  // (já renderizado em background para evitar slot vazio)
+  const upcomingPreviewIdx =
+    incoming !== null ? wrapTechIndex(incoming + direction, total) : previewIdx;
+  const upcomingPreviewView = TECH_VIEWS[upcomingPreviewIdx];
   const infoMotionClass =
     infoPhase === "out"
       ? "tech-copy-out"
@@ -621,6 +626,14 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
               <div
                 className="tech-card-clip relative mx-auto h-[390px] w-[360px] sm:w-[420px] md:h-[500px] md:w-[480px]"
               >
+                {isAnimating && direction === 1 && (
+                  <TechCard
+                    view={upcomingPreviewView}
+                    variant="preview"
+                    motionClass="tech-card-motion-upcoming"
+                  />
+                )}
+
                 <TechCard
                   view={visibleSecondary}
                   variant="preview"
