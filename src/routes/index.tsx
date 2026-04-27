@@ -20,7 +20,7 @@ export const Route = createFileRoute("/")({
 /* =================== NAV =================== */
 function Nav({ onOpenProposal }: { onOpenProposal: () => void }) {
   return (
-    <header className="fixed top-0 left-0 right-0 z-[999] bg-white/5 backdrop-blur-md supports-[backdrop-filter]:bg-white/5 border-b border-white/10">
+    <header className="fixed top-0 left-0 right-0 z-[999] bg-soft border-b border-line">
       <div className="mx-auto max-w-[1480px] px-6 md:px-10 h-20 flex items-center justify-between gap-6">
         <a href="#top" className="flex items-center leading-none">
           <span className="text-[17px] tracking-tight text-ink">
