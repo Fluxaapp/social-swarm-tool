@@ -739,8 +739,7 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
                     type="button"
                     key={v.n}
                     onClick={() => {
-                      stopAutoplay();
-                      goTo(i);
+                      goToRealIndex(i);
                     }}
                     aria-label={`Ir para card ${i + 1}`}
                     className={`h-1.5 rounded-full transition-all duration-500 ${
