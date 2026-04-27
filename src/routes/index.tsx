@@ -10,7 +10,7 @@ import { useParallax, useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { useCountUp } from "@/hooks/use-count-up";
 import { CONTACT, whatsappLink, mailtoLink } from "@/lib/contact";
 import { ProposalModal } from "@/components/ProposalModal";
-import { HERO_SHOWCASE, HeroShowcaseCard } from "@/components/HeroShowcase";
+import { HeroImmersiveShowcase } from "@/components/HeroShowcase";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -86,9 +86,17 @@ const SOCIALS = [
 function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
   return (
     <section id="top" className="relative bg-soft overflow-hidden">
+      {/* Immersive editorial showcase — full-bleed on the right side of the hero */}
+      <div
+        className="pointer-events-none absolute inset-y-0 right-0 w-full lg:w-[52%] z-0"
+        aria-hidden
+      >
+        <HeroImmersiveShowcase />
+      </div>
+
       <div
         data-parallax="0.08"
-        className="pointer-events-none absolute inset-0 opacity-[0.5]"
+        className="pointer-events-none absolute inset-0 opacity-[0.5] z-[1]"
         aria-hidden
       >
         <div className="absolute top-0 bottom-0 left-[16%] w-px bg-gradient-to-b from-transparent via-ink/10 to-transparent" />
@@ -110,7 +118,7 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
         />
       </svg>
 
-      <div className="mx-auto max-w-[1480px] px-6 md:px-10 pt-32 md:pt-36 pb-16 md:pb-24 grid grid-cols-12 gap-8 md:gap-12 items-center min-h-[100vh] relative">
+      <div className="mx-auto max-w-[1480px] px-6 md:px-10 pt-32 md:pt-36 pb-16 md:pb-24 grid grid-cols-12 gap-8 md:gap-12 items-center min-h-[100vh] relative z-10">
         {/* LEFT — text */}
         <div className="col-span-12 lg:col-span-7 relative z-10 flex flex-col items-start">
           <div className="flex items-center gap-3 text-[11px] tracking-[0.3em] uppercase text-dim reveal reveal-d1">
@@ -185,17 +193,8 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
           </div>
         </div>
 
-        {/* RIGHT — vertical auto-scroll showcase + social icons */}
-        <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 lg:pl-6 min-h-[520px] lg:min-h-[620px]">
-          {/* Vertical marquee column */}
-          <div className="marquee-mask absolute inset-y-0 left-0 right-16 md:right-20 overflow-hidden">
-            <div className="marquee-vertical-track flex flex-col gap-5">
-              {[...HERO_SHOWCASE, ...HERO_SHOWCASE].map((item, i) => (
-                <HeroShowcaseCard key={`${item.id}-${i}`} item={item} />
-              ))}
-            </div>
-          </div>
-
+        {/* RIGHT — social icons rail (showcase lives behind, full-bleed) */}
+        <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 min-h-[520px] lg:min-h-[620px]">
           {/* Social icons — vertical, transparent, tech micro-interface */}
           <div className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-20 flex flex-col items-center gap-7 md:gap-8">
             {SOCIALS.map((s) => {
