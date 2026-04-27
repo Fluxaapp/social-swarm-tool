@@ -394,7 +394,7 @@ function About() {
         {/* Institutional content — diferenciais */}
         <div className="mt-28 md:mt-36 grid grid-cols-12 gap-10 md:gap-16 items-start">
           <div className="col-span-12 md:col-span-5 sr flex flex-col items-center text-center md:items-start md:text-left">
-            <div className="text-[11px] uppercase tracking-[0.3em] text-dim inline-flex items-center gap-3 justify-center md:justify-start">
+            <div className="mx-auto md:mx-0 text-[11px] uppercase tracking-[0.3em] text-dim inline-flex items-center gap-3 justify-center md:justify-start">
               <span className="h-px w-8 bg-ink/40" />
               Como pensamos
             </div>
@@ -695,7 +695,7 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
 
           <div className="col-span-12 lg:col-span-5 sr sr-d4">
             <div className="mx-auto flex max-w-md flex-col items-center text-center lg:mx-0 lg:max-w-none lg:items-start lg:text-left">
-              <div className="text-[11px] uppercase tracking-[0.3em] text-paper/50 inline-flex items-center gap-3 justify-center lg:justify-start">
+              <div className="mx-auto lg:mx-0 text-[11px] uppercase tracking-[0.3em] text-paper/50 inline-flex items-center gap-3 justify-center lg:justify-start">
                 <span className="h-px w-8 bg-paper/40" />
                 <span className={infoMotionClass}>{dynamicView.n} · {dynamicView.label}</span>
               </div>
@@ -831,7 +831,7 @@ function Services() {
       <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10">
         <div className="grid grid-cols-12 gap-6 mb-16">
           <div className="col-span-12 md:col-span-6 sr text-center md:text-left">
-            <div className="text-[11px] uppercase tracking-[0.3em] text-dim inline-flex items-center gap-3 justify-center md:justify-start">
+            <div className="mx-auto md:mx-0 text-[11px] uppercase tracking-[0.3em] text-dim inline-flex items-center gap-3 justify-center md:justify-start">
               <span className="h-px w-8 bg-ink/40" />
               Serviços
             </div>
@@ -899,7 +899,7 @@ function Portfolio() {
       <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-8">
           <div className="mx-auto flex max-w-md flex-col items-center text-center md:mx-0 md:max-w-none md:items-start md:text-left">
-            <div className="text-[11px] uppercase tracking-[0.3em] text-dim inline-flex items-center gap-3 justify-center md:justify-start">
+            <div className="mx-auto md:mx-0 text-[11px] uppercase tracking-[0.3em] text-dim inline-flex items-center gap-3 justify-center md:justify-start">
               <span className="h-px w-8 bg-ink/40" />
               Trabalhos Selecionados
             </div>
