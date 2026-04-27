@@ -1087,7 +1087,7 @@ function Footer() {
         </div>
 
         <div className="mt-14 pt-6 border-t border-paper/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-[11px] uppercase tracking-[0.25em] text-paper/40">
-          <span>© {new Date().getFullYear()} Agência Glass Maind</span>
+          <span suppressHydrationWarning>© {new Date().getFullYear()} Agência Glass Maind</span>
           <span>Todos os direitos reservados</span>
         </div>
       </div>
