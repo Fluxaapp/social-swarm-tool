@@ -532,7 +532,7 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
   const timersRef = useRef<number[]>([]);
   const autoplayRef = useRef<number | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const [carouselMetrics, setCarouselMetrics] = useState({ step: 324, gap: 28 });
+  const [carouselMetrics, setCarouselMetrics] = useState({ step: 384, gap: 24 });
   const dynamicView = TECH_VIEWS[infoIndex];
   const active = ((virtualIndex - 1) % total + total) % total;
   const { step, gap } = carouselMetrics;
@@ -542,9 +542,9 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
     if (typeof window === "undefined") return;
     const compute = () => {
       const w = window.innerWidth;
-      if (w < 640) setCarouselMetrics({ step: 276, gap: 20 });
-      else if (w < 768) setCarouselMetrics({ step: 300, gap: 24 });
-      else setCarouselMetrics({ step: 324, gap: 28 });
+      if (w < 640) setCarouselMetrics({ step: 306, gap: 16 });
+      else if (w < 768) setCarouselMetrics({ step: 350, gap: 20 });
+      else setCarouselMetrics({ step: 384, gap: 24 });
     };
     compute();
     window.addEventListener("resize", compute);
@@ -690,7 +690,7 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
 
               <div
                 ref={containerRef}
-                className="tech-swiper-viewport relative mx-auto h-[420px] md:h-[520px] w-full overflow-hidden"
+                className="tech-swiper-viewport relative mx-auto h-[470px] md:h-[580px] w-full overflow-hidden"
               >
                 <div
                   className="tech-swiper-track absolute top-1/2 left-1/2 flex items-center"
@@ -712,11 +712,11 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
                         className="tech-swiper-slide flex-shrink-0"
                         style={{
                           transform: isActiveCard
-                            ? "scale(1.24)"
+                            ? "scale(1.18)"
                             : isAdjacent
-                              ? "scale(0.82)"
-                              : "scale(0.68)",
-                          opacity: isActiveCard ? 1 : isAdjacent ? 0.62 : 0.24,
+                              ? "scale(0.78)"
+                              : "scale(0.64)",
+                          opacity: isActiveCard ? 1 : isAdjacent ? 0.42 : 0.14,
                           filter: "blur(0)",
                           zIndex: isActiveCard ? 3 : isAdjacent ? 2 : 1,
                           transition: `transform ${SLIDE_MS}ms cubic-bezier(0.22, 1, 0.36, 1), opacity ${SLIDE_MS}ms ease, filter ${SLIDE_MS}ms ease`,
@@ -825,19 +825,19 @@ function TechCard({
     <div
       onClick={onClick}
       className={[
-        "tech-card-shell relative w-[260px] sm:w-[280px] md:w-[300px] aspect-[3/4] rounded-2xl overflow-hidden",
+        "tech-card-shell relative w-[290px] sm:w-[330px] md:w-[360px] aspect-[3/4] rounded-2xl overflow-hidden",
         motionClass ?? "",
         isActive ? "shadow-[0_40px_100px_-20px_rgba(0,0,0,0.75)]" : "cursor-pointer",
       ].join(" ")}
       style={{
         background: isActive
-          ? "radial-gradient(circle at 30% 15%, rgba(255,255,255,0.28), transparent 55%), linear-gradient(135deg, #353535 0%, #1d1d1d 52%, #0d0d0d 100%)"
+          ? "radial-gradient(circle at 30% 15%, rgba(255,255,255,0.34), transparent 55%), linear-gradient(135deg, #454545 0%, #242424 50%, #101010 100%)"
           : "radial-gradient(circle at 28% 18%, rgba(255,255,255,0.03), transparent 42%), linear-gradient(135deg, #070707 0%, #030303 58%, #000000 100%)",
         border: isActive
-          ? "1px solid rgba(255,255,255,0.24)"
-          : "1px solid rgba(255,255,255,0.08)",
+          ? "1px solid rgba(255,255,255,0.28)"
+          : "1px solid rgba(255,255,255,0.06)",
         boxShadow: isActive
-          ? "0 52px 128px rgba(0,0,0,0.72), inset 0 1px 0 rgba(255,255,255,0.14)"
+          ? "0 60px 140px rgba(0,0,0,0.72), inset 0 1px 0 rgba(255,255,255,0.18)"
           : "0 18px 50px rgba(0,0,0,0.56), inset 0 1px 0 rgba(255,255,255,0.03)",
       }}
     >
@@ -859,7 +859,7 @@ function TechCard({
           className="pointer-events-none absolute -inset-px rounded-2xl"
           style={{
             background:
-              "radial-gradient(70% 55% at 50% 0%, rgba(255,255,255,0.28), transparent 70%)",
+              "radial-gradient(70% 55% at 50% 0%, rgba(255,255,255,0.34), transparent 70%)",
           }}
         />
       )}
@@ -867,31 +867,31 @@ function TechCard({
       <div className="relative h-full w-full p-7 md:p-9 flex flex-col justify-between">
         <div className="flex items-start justify-between">
           <div className="flex flex-col">
-            <span className={`text-[10px] uppercase tracking-[0.4em] ${isActive ? "text-paper/85" : "text-paper/35"}`}>
+            <span className={`text-[10px] uppercase tracking-[0.4em] ${isActive ? "text-paper/92" : "text-paper/26"}`}>
               {view.n}
             </span>
             <span
               aria-hidden
-              className={`mt-1 font-medium leading-none tracking-[-0.05em] select-none ${isActive ? "text-paper/20" : "text-paper/8"}`}
+              className={`mt-1 font-medium leading-none tracking-[-0.05em] select-none ${isActive ? "text-paper/28" : "text-paper/6"}`}
               style={{ fontSize: "clamp(2.5rem,5vw,3.75rem)" }}
             >
               {view.n}
             </span>
           </div>
-          <span className={`block h-2 w-2 rotate-45 ${isActive ? "bg-paper" : "bg-paper/40"}`} />
+          <span className={`block h-2 w-2 rotate-45 ${isActive ? "bg-paper" : "bg-paper/18"}`} />
         </div>
         <div>
           <div
-            className={`font-medium tracking-[-0.04em] ${isActive ? "text-paper" : "text-paper/70"}`}
+            className={`font-medium tracking-[-0.04em] ${isActive ? "text-paper" : "text-paper/38"}`}
             style={{ fontSize: "clamp(1.75rem,3.2vw,2.75rem)", lineHeight: 0.95 }}
           >
             {view.label}
           </div>
-          <p className={`mt-3 text-[12px] leading-relaxed max-w-[22ch] ${isActive ? "text-paper/75" : "text-paper/30"}`}>
+          <p className={`mt-3 text-[12px] leading-relaxed max-w-[22ch] ${isActive ? "text-paper/82" : "text-paper/18"}`}>
             {view.subtitle}
           </p>
-          <div className={`mt-5 h-px w-12 ${isActive ? "bg-paper/70" : "bg-paper/25"}`} />
-          <div className={`mt-3 text-[10px] tracking-[0.25em] uppercase ${isActive ? "text-paper/65" : "text-paper/30"}`}>
+          <div className={`mt-5 h-px w-12 ${isActive ? "bg-paper/82" : "bg-paper/16"}`} />
+          <div className={`mt-3 text-[10px] tracking-[0.25em] uppercase ${isActive ? "text-paper/72" : "text-paper/18"}`}>
             {view.tech}
           </div>
         </div>
