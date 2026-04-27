@@ -86,9 +86,17 @@ const SOCIALS = [
 function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
   return (
     <section id="top" className="relative bg-soft overflow-hidden">
+      {/* Immersive editorial showcase — full-bleed on the right side of the hero */}
+      <div
+        className="pointer-events-none absolute inset-y-0 right-0 w-full lg:w-[52%] z-0"
+        aria-hidden
+      >
+        <HeroImmersiveShowcase />
+      </div>
+
       <div
         data-parallax="0.08"
-        className="pointer-events-none absolute inset-0 opacity-[0.5]"
+        className="pointer-events-none absolute inset-0 opacity-[0.5] z-[1]"
         aria-hidden
       >
         <div className="absolute top-0 bottom-0 left-[16%] w-px bg-gradient-to-b from-transparent via-ink/10 to-transparent" />
@@ -185,10 +193,8 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
           </div>
         </div>
 
-        {/* RIGHT — immersive editorial showcase + social icons */}
-        <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 min-h-[520px] lg:min-h-[620px] lg:absolute lg:right-0 lg:top-0 lg:bottom-0 lg:w-[46%] lg:col-span-auto">
-          <HeroImmersiveShowcase />
-
+        {/* RIGHT — social icons rail (showcase lives behind, full-bleed) */}
+        <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 min-h-[520px] lg:min-h-[620px]">
           {/* Social icons — vertical, transparent, tech micro-interface */}
           <div className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-20 flex flex-col items-center gap-7 md:gap-8">
             {SOCIALS.map((s) => {
