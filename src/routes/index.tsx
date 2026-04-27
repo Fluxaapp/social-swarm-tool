@@ -422,6 +422,7 @@ const TECH_VIEWS = [
     desc: "Sistemas visuais coerentes, do logotipo ao território de marca, construídos para durar e escalar.",
     highlight: "Sistema modular · 12 ativos",
     tech: "system://branding — module 01",
+    satellites: ["Positioning", "Identity", "Perception", "Consistency", "Authority"],
   },
   {
     n: "02",
@@ -430,6 +431,7 @@ const TECH_VIEWS = [
     desc: "Campanhas pensadas para converter sem perder identidade. Estratégia, criativo e mídia integrados.",
     highlight: "ROI médio · 3.4x",
     tech: "protocol v2.3 · roi 3.4x",
+    satellites: ["Strategy", "Funnel", "Audience", "Conversion", "Retention"],
   },
   {
     n: "03",
@@ -438,6 +440,7 @@ const TECH_VIEWS = [
     desc: "Direção de arte premium para campanhas, materiais e produtos — do conceito ao acabamento.",
     highlight: "Direção · Editorial",
     tech: "grid aligned · 128 nodes",
+    satellites: ["Composition", "Typography", "Hierarchy", "Color", "Motion"],
   },
 ] as const;
 
