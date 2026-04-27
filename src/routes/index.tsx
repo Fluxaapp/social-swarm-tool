@@ -675,7 +675,7 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
               </button>
             </div>
 
-            <div className="mt-10 flex justify-center gap-2">
+            <div className="relative left-1/2 mt-10 flex w-screen max-w-[100vw] -translate-x-1/2 justify-center gap-2 md:left-auto md:w-auto md:max-w-none md:translate-x-0">
               {TECH_VIEWS.map((v, i) => {
                 const isActive = active === i;
                 return (
@@ -694,7 +694,7 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
           </div>
 
           <div className="col-span-12 lg:col-span-5 sr sr-d4">
-            <div className="text-center lg:text-left">
+            <div className="mx-auto flex max-w-md flex-col items-center text-center lg:mx-0 lg:max-w-none lg:items-start lg:text-left">
               <div className="text-[11px] uppercase tracking-[0.3em] text-paper/50 inline-flex items-center gap-3 justify-center lg:justify-start">
                 <span className="h-px w-8 bg-paper/40" />
                 <span className={infoMotionClass}>{dynamicView.n} · {dynamicView.label}</span>
@@ -706,7 +706,7 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
               <p className="mt-5 text-[15px] leading-relaxed text-paper/60 max-w-md mx-auto lg:mx-0">
                 <span className={infoMotionClass}>{dynamicView.desc}</span>
               </p>
-              <div className="mt-8 inline-flex items-center gap-3 bg-paper/5 border border-paper/10 rounded-full px-4 py-2 text-[12px] text-paper/80">
+              <div className="mt-8 inline-flex max-w-full items-center justify-center gap-3 rounded-full border border-paper/10 bg-paper/5 px-4 py-2 text-[12px] text-paper/80">
                 <span className="h-1.5 w-1.5 rounded-full bg-paper" />
                 <span className={infoMotionClass}>{dynamicView.highlight}</span>
               </div>
