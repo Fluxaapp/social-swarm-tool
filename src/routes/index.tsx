@@ -455,12 +455,15 @@ function About() {
 
 
 /* =================== DARK / TECHNOLOGY =================== */
-type CarouselDirection = -1 | 1;
+// Swiper-like sliding carousel: a continuous strip of cards translates
+// horizontally. The center card is the "active" one. Side cards are
+// dimmed and slightly scaled, evoking the glassmind.ct.ws Swiper effect.
 type InfoPhase = "idle" | "out" | "in";
 
-const CARD_CAROUSEL_MS = 1100;
-const INFO_FADE_OUT_DELAY_MS = 320;
-const INFO_SWAP_DELAY_MS = 540;
+const SLIDE_MS = 700; // slide transition duration (close to Swiper speed:500-700)
+const INFO_FADE_OUT_DELAY_MS = 120;
+const INFO_SWAP_DELAY_MS = 360;
+const AUTOPLAY_MS = 5000;
 
 const wrapTechIndex = (index: number, total: number) => (index + total) % total;
 
