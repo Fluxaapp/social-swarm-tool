@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { X, ArrowRight, ArrowLeft, Check, Send } from "lucide-react";
-import { whatsappLink } from "@/lib/contact";
+import { X, ArrowRight, ArrowLeft, Check, Send, Mail } from "lucide-react";
+import { whatsappLink, mailtoLink } from "@/lib/contact";
 
 interface ProposalModalProps {
   open: boolean;
@@ -18,6 +18,8 @@ const SERVICES = [
 ];
 
 const BUDGETS = [
+  "Até R$ 250",
+  "Até R$ 500",
   "Até R$ 2.000",
   "R$ 2.000 — R$ 5.000",
   "R$ 5.000 — R$ 10.000",
@@ -125,6 +127,31 @@ export function ProposalModal({ open, onClose }: ProposalModalProps) {
   const sendWhatsApp = () => {
     const url = whatsappLink(buildMessage());
     window.open(url, "_blank", "noopener,noreferrer");
+  };
+
+  const buildEmailBody = () => {
+    const lines = [
+      "Nova solicitação de proposta — Glass Maind",
+      "",
+      `Nome: ${data.name}`,
+      `E-mail: ${data.email}`,
+      data.company ? `Empresa: ${data.company}` : null,
+      "",
+      "Serviços de interesse:",
+      ...data.services.map((s) => `- ${s}`),
+      "",
+      `Investimento: ${data.budget}`,
+      `Prazo desejado: ${data.timeline}`,
+      "",
+      "Sobre o projeto:",
+      data.description,
+    ].filter(Boolean);
+    return lines.join("\n");
+  };
+
+  const sendEmail = () => {
+    const url = mailtoLink("Nova solicitação de proposta", buildEmailBody());
+    window.location.href = url;
   };
 
   return (
