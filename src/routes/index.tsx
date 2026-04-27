@@ -37,13 +37,13 @@ function Nav({ onOpenProposal }: { onOpenProposal: () => void }) {
           <a href="#contact" className="hover:text-ink transition-colors">Contato</a>
         </nav>
 
-        <div className="hidden lg:flex items-center gap-2 bg-white/70 backdrop-blur border border-line rounded-full px-4 py-2.5 w-64">
-          <Search className="h-3.5 w-3.5 text-dim" />
-          <input
-            type="text"
-            placeholder="Buscar..."
-            className="bg-transparent text-[13px] outline-none placeholder:text-dim flex-1"
-          />
+        {/* Right side — micro-info + sutil dividers */}
+        <div className="hidden md:flex items-center gap-5 text-[11px] tracking-[0.18em] uppercase text-ink/55">
+          <span>Digital Studio</span>
+          <span aria-hidden className="block w-px h-4 bg-gradient-to-b from-transparent via-ink/25 to-transparent opacity-70" />
+          <span>Brand Experience</span>
+          <span aria-hidden className="block w-px h-4 bg-gradient-to-b from-transparent via-ink/25 to-transparent opacity-70" />
+          <span className="text-ink/45">Since 2024</span>
         </div>
 
         <button
