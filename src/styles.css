@@ -477,7 +477,7 @@
   }
 }
 
-/* Technology — animated half-moon arc + satellite info */
+/* Technology — animated half-moon arc + satellite info (legacy, kept for safety) */
 @keyframes arcDraw {
   0%   { stroke-dashoffset: 1; opacity: 0; }
   20%  { opacity: 1; }
@@ -487,8 +487,24 @@
   0%   { opacity: 0; transform: translateX(var(--sat-x, -8px)); }
   100% { opacity: 1; transform: translateX(0); }
 }
+
+/* Technology cards — info chip rise + connector line fade */
+@keyframes infoRise {
+  0%   { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes lineFade {
+  0%   { opacity: 0; transform: scaleY(0.4); transform-origin: top; }
+  100% { opacity: 1; transform: scaleY(1); transform-origin: top; }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  [style*="arcDraw"], [style*="satFadeIn"] { animation: none !important; opacity: 1 !important; }
+  [style*="arcDraw"], [style*="satFadeIn"],
+  [style*="infoRise"], [style*="lineFade"] {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
 #lovable-badge {display: none !important;}
