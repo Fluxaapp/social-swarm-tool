@@ -477,13 +477,4 @@
   }
 }
 
-/* Hero immersive showcase — slow ken-burns zoom on the active image */
-@keyframes heroSlowZoom {
-  0%   { transform: scale(1); }
-  100% { transform: scale(1.08); }
-}
-@media (prefers-reduced-motion: reduce) {
-  [style*="heroSlowZoom"] { animation: none !important; }
-}
-
 #lovable-badge {display: none !important;}
