@@ -367,8 +367,8 @@ function About() {
   ];
 
   return (
-    <section id="about" className="bg-paper py-28 md:py-40">
-      <div className="mx-auto max-w-[1480px] px-6 md:px-10">
+    <section id="about" className="bg-paper py-20 sm:py-28 md:py-40">
+      <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10">
         <div className="text-center max-w-4xl mx-auto">
           <div className="text-[11px] uppercase tracking-[0.35em] text-dim inline-flex items-center gap-3 sr">
             <span className="h-px w-10 bg-ink/40" />
