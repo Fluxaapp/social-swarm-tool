@@ -608,11 +608,12 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
         {/* LEFT: cards · RIGHT: technical info */}
         <div className="mt-16 md:mt-24 grid grid-cols-12 gap-10 lg:gap-16 items-center">
           {/* LEFT — Cards */}
-          <div className="col-span-12 lg:col-span-7 sr sr-d3">
-            <div
-              className="relative flex items-center justify-center min-h-[360px] sm:min-h-[400px] md:min-h-[500px]"
-              style={{ perspective: "1400px" }}
-            >
+          <div className="col-span-12 max-w-full overflow-hidden lg:col-span-7 sr sr-d3">
+            <div className="tech-carousel-shell">
+              <div
+                className="tech-carousel-viewport relative flex min-h-[360px] w-full max-w-full items-center justify-center overflow-hidden sm:min-h-[400px] md:min-h-[500px]"
+                style={{ perspective: "1400px" }}
+              >
               <button
                 type="button"
                 onClick={goPrev}
@@ -623,9 +624,9 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
                 <ChevronLeft className="h-5 w-5" />
               </button>
 
-              <div
-                className="tech-card-clip relative mx-auto h-[360px] w-[280px] sm:h-[420px] sm:w-[360px] md:h-[500px] md:w-[480px]"
-              >
+                <div
+                  className="tech-card-clip relative mx-auto h-[360px] w-[280px] max-w-full sm:h-[420px] sm:w-[360px] md:h-[500px] md:w-[480px]"
+                >
                 {isAnimating && (
                   <TechCard
                     view={upcomingPreviewView}
@@ -675,48 +676,51 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
               </button>
             </div>
 
-            <div className="relative left-1/2 mt-10 flex w-screen max-w-[100vw] -translate-x-1/2 justify-center gap-2 md:left-auto md:w-auto md:max-w-none md:translate-x-0">
-              {TECH_VIEWS.map((v, i) => {
-                const isActive = active === i;
-                return (
-                  <span
-                    key={v.n}
-                    aria-hidden
-                    className={`h-1.5 rounded-full transition-all duration-500 md:w-1.5 ${
-                      isActive
-                        ? "w-1.5 md:w-8 bg-paper md:bg-paper scale-110 md:scale-100"
-                        : "w-1.5 bg-paper/30 hover:bg-paper/60"
-                    }`}
-                  />
-                );
-              })}
+              <div className="tech-dots-wrapper mt-10">
+                <div className="flex w-full items-center justify-center gap-2">
+                  {TECH_VIEWS.map((v, i) => {
+                    const isActive = active === i;
+                    return (
+                      <span
+                        key={v.n}
+                        aria-hidden
+                        className={`h-1.5 rounded-full transition-all duration-500 md:w-1.5 ${
+                          isActive
+                            ? "w-1.5 md:w-8 bg-paper md:bg-paper scale-110 md:scale-100"
+                            : "w-1.5 bg-paper/30 hover:bg-paper/60"
+                        }`}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
             </div>
           </div>
 
           <div className="col-span-12 lg:col-span-5 sr sr-d4">
-            <div className="mx-auto flex w-full max-w-md flex-col items-center text-center lg:mx-0 lg:max-w-none lg:items-start lg:text-left">
-              <div className="mx-auto inline-flex w-full items-center justify-center gap-3 text-[11px] uppercase tracking-[0.3em] text-paper/50 lg:mx-0 lg:justify-start">
+            <div className="tech-info-stack mx-auto flex w-full max-w-md flex-col items-center text-center lg:mx-0 lg:max-w-none lg:items-start lg:text-left">
+              <div className="mx-auto inline-flex w-full max-w-full items-center justify-center gap-3 text-center text-[11px] uppercase tracking-[0.3em] text-paper/50 lg:mx-0 lg:justify-start lg:text-left">
                 <span className="h-px w-8 bg-paper/40" />
                 <span className={infoMotionClass}>{dynamicView.n} · {dynamicView.label}</span>
               </div>
 
-              <h3 className="mt-6 w-full text-center font-medium text-[clamp(1.5rem,3vw,2.5rem)] leading-[1.1] tracking-[-0.03em] text-paper lg:text-left">
+              <h3 className="mt-6 mx-auto w-full max-w-[22rem] text-center font-medium text-[clamp(1.5rem,3vw,2.5rem)] leading-[1.1] tracking-[-0.03em] text-paper lg:mx-0 lg:max-w-none lg:text-left">
                 <span className={infoMotionClass}>{dynamicView.title}</span>
               </h3>
-              <p className="mx-auto mt-5 w-full max-w-md text-center text-[15px] leading-relaxed text-paper/60 lg:mx-0 lg:text-left">
+              <p className="mx-auto mt-5 w-full max-w-[22rem] text-center text-[15px] leading-relaxed text-paper/60 lg:mx-0 lg:max-w-md lg:text-left">
                 <span className={infoMotionClass}>{dynamicView.desc}</span>
               </p>
-              <div className="mt-8 inline-flex max-w-full items-center justify-center gap-3 rounded-full border border-paper/10 bg-paper/5 px-4 py-2 text-[12px] text-paper/80">
+              <div className="mx-auto mt-8 inline-flex max-w-full items-center justify-center gap-3 rounded-full border border-paper/10 bg-paper/5 px-4 py-2 text-center text-[12px] text-paper/80 lg:mx-0">
                 <span className="h-1.5 w-1.5 rounded-full bg-paper" />
                 <span className={infoMotionClass}>{dynamicView.highlight}</span>
               </div>
 
-              <div className="mt-8 flex items-center justify-center lg:justify-start gap-3 text-[10px] uppercase tracking-[0.3em] text-paper/40">
+              <div className="mx-auto mt-8 flex w-full items-center justify-center gap-3 text-center text-[10px] uppercase tracking-[0.3em] text-paper/40 lg:mx-0 lg:justify-start lg:text-left">
                 <span className="h-px w-6 bg-paper/30" />
                 <span className={infoMotionClass}>{dynamicView.tech}</span>
               </div>
 
-              <div className="mt-8 flex justify-center lg:justify-start">
+              <div className="mt-8 flex w-full justify-center lg:justify-start">
                 <button
                   type="button"
                   onClick={onOpenProposal}
