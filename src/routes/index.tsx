@@ -828,17 +828,17 @@ function Services() {
     <section id="services" className="bg-paper py-20 sm:py-28 md:py-36">
       <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10">
         <div className="grid grid-cols-12 gap-6 mb-16">
-          <div className="col-span-12 md:col-span-6 sr">
-            <div className="text-[11px] uppercase tracking-[0.3em] text-dim flex items-center gap-3">
+          <div className="col-span-12 md:col-span-6 sr text-center md:text-left">
+            <div className="text-[11px] uppercase tracking-[0.3em] text-dim inline-flex items-center gap-3 justify-center md:justify-start">
               <span className="h-px w-8 bg-ink/40" />
               Serviços
             </div>
-            <h3 className="mt-6 font-medium text-[clamp(2rem,4vw,3.25rem)] leading-[1.05] tracking-[-0.03em] text-ink">
+            <h3 className="mt-6 font-medium text-[clamp(1.75rem,4vw,3.25rem)] leading-[1.1] tracking-[-0.03em] text-ink">
               Seis disciplinas.<br />
               Um único ecossistema.
             </h3>
           </div>
-          <p className="col-span-12 md:col-span-5 md:col-start-8 text-base text-dim self-end max-w-md sr sr-d2">
+          <p className="col-span-12 md:col-span-5 md:col-start-8 text-base text-dim self-end max-w-md mx-auto md:mx-0 text-center md:text-left sr sr-d2">
             Cada serviço opera como módulo dentro de uma engrenagem visual única
             — coerência total entre estratégia, design e execução.
           </p>
