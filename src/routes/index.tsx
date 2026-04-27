@@ -19,8 +19,44 @@ export const Route = createFileRoute("/")({
 
 /* =================== NAV =================== */
 function Nav({ onOpenProposal }: { onOpenProposal: () => void }) {
+  const [hidden, setHidden] = useState(false);
+  const lastY = useRef(0);
+
+  useEffect(() => {
+    lastY.current = window.scrollY;
+    let ticking = false;
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(() => {
+        const y = window.scrollY;
+        const delta = y - lastY.current;
+        // Ignore tiny jitters
+        if (Math.abs(delta) > 6) {
+          if (delta > 0 && y > 80) {
+            setHidden(true); // scrolling down
+          } else if (delta < 0) {
+            setHidden(false); // scrolling up
+          }
+          lastY.current = y;
+        }
+        ticking = false;
+      });
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-[999] bg-soft border-b border-line">
+    <header
+      className="fixed top-0 left-0 right-0 z-[999] bg-soft border-b border-line will-change-transform"
+      style={{
+        transform: hidden ? "translateY(-100%)" : "translateY(0)",
+        transition: "transform 0.35s ease",
+      }}
+    >
       <div className="mx-auto max-w-[1480px] px-6 md:px-10 h-20 flex items-center justify-between gap-6">
         <a href="#top" className="flex items-center leading-none">
           <span className="text-[17px] tracking-tight text-ink">
