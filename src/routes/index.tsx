@@ -20,7 +20,7 @@ export const Route = createFileRoute("/")({
 function Nav({ onOpenProposal }: { onOpenProposal: () => void }) {
   return (
     <header className="absolute top-0 left-0 right-0 z-50">
-      <div className="mx-auto max-w-[1280px] px-6 md:px-10 h-20 flex items-center justify-between gap-6">
+      <div className="mx-auto max-w-[1480px] px-6 md:px-10 h-20 flex items-center justify-between gap-6">
         <a href="#top" className="flex items-center gap-2.5">
           <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-ink text-paper">
             <span className="block h-3.5 w-3.5 border border-paper/90 rotate-45" />
@@ -108,7 +108,7 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
         />
       </svg>
 
-      <div className="mx-auto max-w-[1280px] px-6 md:px-10 pt-32 md:pt-36 pb-16 md:pb-24 grid grid-cols-12 gap-8 md:gap-12 items-center min-h-[100vh] relative">
+      <div className="mx-auto max-w-[1480px] px-6 md:px-10 pt-32 md:pt-36 pb-16 md:pb-24 grid grid-cols-12 gap-8 md:gap-12 items-center min-h-[100vh] relative">
         {/* LEFT — text */}
         <div className="col-span-12 lg:col-span-7 relative z-10 flex flex-col items-start">
           <div className="flex items-center gap-3 text-[11px] tracking-[0.3em] uppercase text-dim reveal reveal-d1">
@@ -248,7 +248,7 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
 function InfoStrip() {
   return (
     <section className="bg-ink text-paper">
-      <div className="mx-auto max-w-[1280px] px-6 md:px-10 py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="mx-auto max-w-[1480px] px-6 md:px-10 py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <div className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-paper/20 shrink-0">
             <span className="block h-3 w-3 border border-paper/80 rotate-45" />
@@ -332,7 +332,7 @@ function About() {
 
   return (
     <section id="about" className="bg-paper py-28 md:py-40">
-      <div className="mx-auto max-w-[1280px] px-6 md:px-10">
+      <div className="mx-auto max-w-[1480px] px-6 md:px-10">
         <div className="text-center max-w-4xl mx-auto">
           <div className="text-[11px] uppercase tracking-[0.35em] text-dim inline-flex items-center gap-3 sr">
             <span className="h-px w-10 bg-ink/40" />
@@ -454,7 +454,7 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
     <section className="bg-ink text-paper relative overflow-hidden">
       <div className="ambient-glow" aria-hidden />
 
-      <div className="mx-auto max-w-[1280px] px-6 md:px-10 py-24 md:py-36 relative">
+      <div className="mx-auto max-w-[1480px] px-6 md:px-10 py-24 md:py-36 relative">
         <div className="flex justify-center sr">
           <span className="inline-flex items-center gap-2 bg-paper text-ink rounded-full px-5 py-2 text-[12px] font-medium">
             <span className="h-1.5 w-1.5 rounded-full bg-ink" />
@@ -629,7 +629,7 @@ function Services() {
 
   return (
     <section id="services" className="bg-paper py-28 md:py-36">
-      <div className="mx-auto max-w-[1280px] px-6 md:px-10">
+      <div className="mx-auto max-w-[1480px] px-6 md:px-10">
         <div className="grid grid-cols-12 gap-6 mb-16">
           <div className="col-span-12 md:col-span-6 sr">
             <div className="text-[11px] uppercase tracking-[0.3em] text-dim flex items-center gap-3">
@@ -697,7 +697,7 @@ function Portfolio() {
 
   return (
     <section id="portfolio" className="bg-soft py-28 md:py-40">
-      <div className="mx-auto max-w-[1280px] px-6 md:px-10">
+      <div className="mx-auto max-w-[1480px] px-6 md:px-10">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-8">
           <div>
             <div className="text-[11px] uppercase tracking-[0.3em] text-dim flex items-center gap-3">
@@ -750,7 +750,7 @@ function CTA({ onOpenProposal }: { onOpenProposal: () => void }) {
       <span className="light-dot" style={{ top: "30%", left: "15%" }} aria-hidden />
       <span className="light-dot" style={{ top: "70%", right: "18%", animationDelay: "4s" }} aria-hidden />
 
-      <div className="mx-auto max-w-[1280px] px-6 md:px-10 py-32 md:py-44 text-center relative">
+      <div className="mx-auto max-w-[1480px] px-6 md:px-10 py-32 md:py-44 text-center relative">
         <div className="text-[11px] uppercase tracking-[0.3em] text-paper/50 inline-flex items-center gap-3 sr">
           <span className="h-px w-8 bg-paper/40" />
           Vamos conversar
@@ -826,7 +826,7 @@ function CTA({ onOpenProposal }: { onOpenProposal: () => void }) {
 function Footer() {
   return (
     <footer className="bg-ink text-paper border-t border-paper/10">
-      <div className="mx-auto max-w-[1280px] px-6 md:px-10 py-14">
+      <div className="mx-auto max-w-[1480px] px-6 md:px-10 py-14">
         <div className="grid grid-cols-12 gap-8">
           <div className="col-span-12 md:col-span-6">
             <div className="flex items-center gap-2.5">
