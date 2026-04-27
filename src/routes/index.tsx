@@ -539,45 +539,15 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
           performance girando em torno do mesmo eixo criativo.
         </p>
 
-        {/* Carousel */}
-        <div className="mt-20 md:mt-24 grid grid-cols-12 gap-10 items-center">
-          <div className="col-span-12 lg:col-span-8 lg:col-start-3 sr sr-d3">
-            {/* Info chips above the active card */}
-            <div
-              key={`infos-${active}`}
-              className="relative h-24 md:h-28 hidden md:flex items-end justify-center gap-10 md:gap-16 mb-6"
-            >
-              {view.infos.map((info, i) => (
-                <div
-                  key={info}
-                  className="relative flex flex-col items-center"
-                  style={{
-                    opacity: 0,
-                    animation: "infoRise 600ms cubic-bezier(0.22,1,0.36,1) forwards",
-                    animationDelay: `${250 + i * 120}ms`,
-                  }}
-                >
-                  <span className="text-[10.5px] tracking-[0.28em] uppercase text-paper/75 whitespace-nowrap">
-                    {info}
-                  </span>
-                  {/* Connecting line down to the card */}
-                  <span
-                    aria-hidden
-                    className="mt-2 block w-px h-12 md:h-14"
-                    style={{
-                      background:
-                        "linear-gradient(to bottom, rgba(255,255,255,0.45), rgba(255,255,255,0))",
-                      opacity: 0,
-                      animation: "lineFade 500ms cubic-bezier(0.22,1,0.36,1) forwards",
-                      animationDelay: `${100 + i * 120}ms`,
-                    }}
-                  />
-                </div>
-              ))}
-            </div>
-
+        {/* LEFT: cards · RIGHT: technical info */}
+        <div className="mt-20 md:mt-24 grid grid-cols-12 gap-10 lg:gap-16 items-center">
+          {/* LEFT — Cards */}
+          <div className="col-span-12 lg:col-span-7 sr sr-d3">
             {/* Cards row */}
-            <div className="relative flex items-stretch justify-center gap-5 md:gap-7 min-h-[360px] md:min-h-[420px]">
+            <div
+              className="relative flex items-stretch justify-center gap-5 md:gap-7 min-h-[380px] md:min-h-[460px]"
+              style={{ perspective: "1400px" }}
+            >
               {/* Prev arrow */}
               <button
                 type="button"
@@ -590,13 +560,14 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
 
               {/* Preview (blurred) — previous card */}
               <TechCard
+                key={`prev-${prevIdx}`}
                 view={TECH_VIEWS[prevIdx]}
                 variant="preview"
                 onClick={goPrev}
               />
 
               {/* Active card */}
-              <TechCard view={view} variant="active" />
+              <TechCard key={`active-${active}`} view={view} variant="active" />
 
               {/* Next arrow */}
               <button
@@ -628,18 +599,16 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
               })}
             </div>
           </div>
-        </div>
 
-        {/* Active view detail */}
-        <div className="mt-16 md:mt-20 grid grid-cols-12 gap-10 items-start">
-          <div className="col-span-12 md:col-span-6 sr sr-d4">
-            <div className="text-[11px] uppercase tracking-[0.3em] text-paper/50 flex items-center gap-3">
-              <span className="h-px w-8 bg-paper/40" />
-              {view.n} · {view.label}
-            </div>
+          {/* RIGHT — Technical info (synced fade + rise) */}
+          <div className="col-span-12 lg:col-span-5 sr sr-d4">
+            <div key={`info-${active}`} className="tech-fade">
+              <div className="text-[11px] uppercase tracking-[0.3em] text-paper/50 flex items-center gap-3">
+                <span className="h-px w-8 bg-paper/40" />
+                {view.n} · {view.label}
+              </div>
 
-            <div key={active} className="tech-fade mt-6">
-              <h3 className="font-medium text-[clamp(1.75rem,3vw,2.5rem)] leading-[1.05] tracking-[-0.03em] text-paper">
+              <h3 className="mt-6 font-medium text-[clamp(1.75rem,3vw,2.5rem)] leading-[1.05] tracking-[-0.03em] text-paper">
                 {view.title}
               </h3>
               <p className="mt-5 text-[15px] leading-relaxed text-paper/60 max-w-md">
@@ -649,20 +618,25 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
                 <span className="h-1.5 w-1.5 rounded-full bg-paper" />
                 {view.highlight}
               </div>
-            </div>
-          </div>
 
-          <div className="col-span-12 md:col-span-5 md:col-start-8 sr sr-d5 flex md:justify-end">
-            <button
-              type="button"
-              onClick={onOpenProposal}
-              className="group btn-shine inline-flex items-center gap-3 bg-paper text-ink rounded-full pl-6 pr-2 py-2 transition-transform duration-500 hover:scale-[1.02]"
-            >
-              <span className="text-[13px] font-medium">Solicitar proposta</span>
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-ink text-paper transition-transform duration-500 group-hover:rotate-45">
-                <ArrowUpRight className="h-4 w-4" />
-              </span>
-            </button>
+              <div className="mt-8 flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-paper/40">
+                <span className="h-px w-6 bg-paper/30" />
+                {view.tech}
+              </div>
+
+              <div className="mt-8">
+                <button
+                  type="button"
+                  onClick={onOpenProposal}
+                  className="group btn-shine inline-flex items-center gap-3 bg-paper text-ink rounded-full pl-6 pr-2 py-2 transition-transform duration-500 hover:scale-[1.02]"
+                >
+                  <span className="text-[13px] font-medium">Solicitar proposta</span>
+                  <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-ink text-paper transition-transform duration-500 group-hover:rotate-45">
+                    <ArrowUpRight className="h-4 w-4" />
+                  </span>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
