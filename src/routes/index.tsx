@@ -455,15 +455,12 @@ function About() {
 
 
 /* =================== DARK / TECHNOLOGY =================== */
-// Swiper-like sliding carousel: a continuous strip of cards translates
-// horizontally. The center card is the "active" one. Side cards are
-// dimmed and slightly scaled, evoking the glassmind.ct.ws Swiper effect.
+type CarouselDirection = -1 | 1;
 type InfoPhase = "idle" | "out" | "in";
 
-const SLIDE_MS = 700; // slide transition duration (close to Swiper speed:500-700)
-const INFO_FADE_OUT_DELAY_MS = 120;
-const INFO_SWAP_DELAY_MS = 360;
-const AUTOPLAY_MS = 5000;
+const CARD_CAROUSEL_MS = 1100;
+const INFO_FADE_OUT_DELAY_MS = 320;
+const INFO_SWAP_DELAY_MS = 540;
 
 const wrapTechIndex = (index: number, total: number) => (index + total) % total;
 
@@ -521,42 +518,18 @@ const TECH_VIEWS = [
 ] as const;
 
 function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
-  const total = TECH_VIEWS.length;
-  // We render [last clone, ...all, first clone] for seamless infinite loop.
-  // virtualIndex 0 = last clone, 1..total = real items, total+1 = first clone.
-  const [virtualIndex, setVirtualIndex] = useState(1);
-  const [withTransition, setWithTransition] = useState(true);
+  const [active, setActive] = useState(0);
+  const [incoming, setIncoming] = useState<number | null>(null);
+  const [direction, setDirection] = useState<CarouselDirection>(1);
+  const [isAnimating, setIsAnimating] = useState(false);
   const [infoIndex, setInfoIndex] = useState(0);
   const [infoPhase, setInfoPhase] = useState<InfoPhase>("idle");
-  const [isAnimating, setIsAnimating] = useState(false);
   const timersRef = useRef<number[]>([]);
-  const autoplayRef = useRef<number | null>(null);
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const [carouselMetrics, setCarouselMetrics] = useState({ step: 384, gap: 24 });
+  const total = TECH_VIEWS.length;
+  const view = TECH_VIEWS[active];
   const dynamicView = TECH_VIEWS[infoIndex];
-  const active = ((virtualIndex - 1) % total + total) % total;
-  const { step, gap } = carouselMetrics;
-
-  // Responsive step: matches active card width + gap
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const compute = () => {
-      const w = window.innerWidth;
-      if (w < 640) setCarouselMetrics({ step: 306, gap: 16 });
-      else if (w < 768) setCarouselMetrics({ step: 350, gap: 20 });
-      else setCarouselMetrics({ step: 384, gap: 24 });
-    };
-    compute();
-    window.addEventListener("resize", compute);
-    return () => window.removeEventListener("resize", compute);
-  }, []);
-
-  useEffect(() => {
-    if (withTransition || typeof window === "undefined") return;
-    const id = window.requestAnimationFrame(() => setWithTransition(true));
-    return () => window.cancelAnimationFrame(id);
-  }, [withTransition]);
-
+  const previewIdx = wrapTechIndex(active + 1, total);
+  const visibleSecondary = TECH_VIEWS[incoming ?? previewIdx];
   const infoMotionClass =
     infoPhase === "out"
       ? "tech-copy-out"
@@ -566,94 +539,46 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
 
   const clearTimers = () => {
     if (typeof window === "undefined") return;
-    timersRef.current.forEach((t) => window.clearTimeout(t));
+    timersRef.current.forEach((timer) => window.clearTimeout(timer));
     timersRef.current = [];
-  };
-
-  const stopAutoplay = () => {
-    if (autoplayRef.current !== null && typeof window !== "undefined") {
-      window.clearInterval(autoplayRef.current);
-      autoplayRef.current = null;
-    }
   };
 
   useEffect(() => clearTimers, []);
 
-  const animateInfo = (nextRealIndex: number) => {
+  const startTransition = (targetIndex: number, nextDirection: CarouselDirection) => {
+    if (isAnimating || targetIndex === active || typeof window === "undefined") return;
+
+    clearTimers();
+    setIncoming(targetIndex);
+    setDirection(nextDirection);
+    setIsAnimating(true);
     setInfoPhase("idle");
-    timersRef.current.push(
-      window.setTimeout(() => setInfoPhase("out"), INFO_FADE_OUT_DELAY_MS),
-    );
+
     timersRef.current.push(
       window.setTimeout(() => {
-        setInfoIndex(nextRealIndex);
+        setInfoPhase("out");
+      }, INFO_FADE_OUT_DELAY_MS),
+    );
+
+    timersRef.current.push(
+      window.setTimeout(() => {
+        setInfoIndex(targetIndex);
         setInfoPhase("in");
       }, INFO_SWAP_DELAY_MS),
     );
+
     timersRef.current.push(
       window.setTimeout(() => {
+        setActive(targetIndex);
+        setIncoming(null);
         setIsAnimating(false);
         setInfoPhase("idle");
-      }, SLIDE_MS),
+      }, CARD_CAROUSEL_MS),
     );
   };
 
-  const slideTo = (nextVirtual: number) => {
-    if (isAnimating || typeof window === "undefined") return;
-    clearTimers();
-    setIsAnimating(true);
-    setWithTransition(true);
-    setVirtualIndex(nextVirtual);
-
-    const nextReal = ((nextVirtual - 1) % total + total) % total;
-    animateInfo(nextReal);
-
-    // After the slide animation, if we landed on a clone, jump silently
-    // to the corresponding real index (no transition) so the loop is seamless.
-    timersRef.current.push(
-      window.setTimeout(() => {
-        if (nextVirtual === total + 1) {
-          setWithTransition(false);
-          setVirtualIndex(1);
-        } else if (nextVirtual === 0) {
-          setWithTransition(false);
-          setVirtualIndex(total);
-        }
-      }, SLIDE_MS + 20),
-    );
-  };
-
-  const goPrev = () => {
-    stopAutoplay();
-    slideTo(virtualIndex - 1);
-  };
-  const goNext = () => {
-    stopAutoplay();
-    slideTo(virtualIndex + 1);
-  };
-
-  const goToRealIndex = (realIdx: number) => {
-    stopAutoplay();
-    slideTo(realIdx + 1);
-  };
-
-  // Autoplay (5s like the reference site)
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    autoplayRef.current = window.setInterval(() => {
-      if (isAnimating) return;
-      slideTo(virtualIndex + 1);
-    }, AUTOPLAY_MS);
-    return () => stopAutoplay();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [virtualIndex, isAnimating, total]);
-
-  // Strip: [last clone, ...all, first clone] for seamless infinite scroll
-  const stripItems = [
-    TECH_VIEWS[total - 1],
-    ...TECH_VIEWS,
-    TECH_VIEWS[0],
-  ];
+  const goPrev = () => startTransition(wrapTechIndex(active - 1, total), -1);
+  const goNext = () => startTransition(wrapTechIndex(active + 1, total), 1);
 
   return (
     <section className="bg-ink text-paper relative overflow-hidden">
@@ -675,71 +600,57 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
           performance girando em torno do mesmo eixo criativo.
         </p>
 
+        {/* LEFT: cards · RIGHT: technical info */}
         <div className="mt-20 md:mt-24 grid grid-cols-12 gap-10 lg:gap-16 items-center">
-          {/* LEFT — Swiper-like sliding strip */}
+          {/* LEFT — Cards */}
           <div className="col-span-12 lg:col-span-7 sr sr-d3">
-            <div className="relative flex items-center justify-center">
+            <div
+              className="relative flex items-center justify-center min-h-[390px] md:min-h-[500px]"
+              style={{ perspective: "1400px" }}
+            >
               <button
                 type="button"
                 onClick={goPrev}
                 aria-label="Card anterior"
-                className="absolute left-0 md:-left-2 top-1/2 -translate-y-1/2 z-30 inline-flex h-11 w-11 items-center justify-center rounded-full bg-paper/10 hover:bg-paper/20 border border-paper/15 backdrop-blur-md text-paper transition-all duration-300 hover:scale-105"
+                disabled={isAnimating}
+                className="absolute left-0 md:-left-2 top-1/2 -translate-y-1/2 z-30 inline-flex h-11 w-11 items-center justify-center rounded-full bg-paper/10 hover:bg-paper/20 border border-paper/15 backdrop-blur-md text-paper transition-all duration-300 hover:scale-105 disabled:pointer-events-none disabled:opacity-40"
               >
                 <ChevronLeft className="h-5 w-5" />
               </button>
 
-              <div
-                ref={containerRef}
-                className="tech-swiper-viewport relative mx-auto h-[470px] md:h-[580px] w-full overflow-hidden"
-              >
-                <div
-                  className="tech-swiper-track absolute top-1/2 left-1/2 flex items-center"
-                  style={{
-                    transform: `translate(-50%, -50%) translateX(${-virtualIndex * step}px)`,
-                    transition: withTransition
-                      ? `transform ${SLIDE_MS}ms cubic-bezier(0.22, 1, 0.36, 1)`
-                      : "none",
-                    gap: `${gap}px`,
-                  }}
-                >
-                  {stripItems.map((v, i) => {
-                    const isActiveCard = i === virtualIndex;
-                    const slideDistance = Math.abs(i - virtualIndex);
-                    const isAdjacent = slideDistance === 1;
-                    return (
-                      <div
-                        key={`${v.n}-${i}`}
-                        className="tech-swiper-slide flex-shrink-0"
-                        style={{
-                          transform: isActiveCard
-                            ? "scale(1.18)"
-                            : isAdjacent
-                              ? "scale(0.78)"
-                              : "scale(0.64)",
-                          opacity: isActiveCard ? 1 : isAdjacent ? 0.42 : 0.14,
-                          filter: "blur(0)",
-                          zIndex: isActiveCard ? 3 : isAdjacent ? 2 : 1,
-                          transition: `transform ${SLIDE_MS}ms cubic-bezier(0.22, 1, 0.36, 1), opacity ${SLIDE_MS}ms ease, filter ${SLIDE_MS}ms ease`,
-                        }}
-                        onClick={() => {
-                          if (!isActiveCard && !isAnimating) {
-                            stopAutoplay();
-                            slideTo(i);
-                          }
-                        }}
-                      >
-                        <TechCard view={v} variant={isActiveCard ? "active" : "preview"} />
-                      </div>
-                    );
-                  })}
-                </div>
+              <div className="relative mx-auto h-[390px] w-[360px] sm:w-[420px] md:h-[500px] md:w-[480px]">
+                <TechCard
+                  view={visibleSecondary}
+                  variant="preview"
+                  motionClass={
+                    isAnimating
+                      ? direction === 1
+                        ? "tech-card-motion-enter-next"
+                        : "tech-card-motion-enter-prev"
+                      : "tech-card-motion-preview"
+                  }
+                  onClick={!isAnimating ? goNext : undefined}
+                />
+
+                <TechCard
+                  view={view}
+                  variant="active"
+                  motionClass={
+                    isAnimating
+                      ? direction === 1
+                        ? "tech-card-motion-exit-next"
+                        : "tech-card-motion-exit-prev"
+                      : "tech-card-motion-active"
+                  }
+                />
               </div>
 
               <button
                 type="button"
                 onClick={goNext}
                 aria-label="Próximo card"
-                className="absolute right-0 md:-right-2 top-1/2 -translate-y-1/2 z-30 inline-flex h-11 w-11 items-center justify-center rounded-full bg-paper/10 hover:bg-paper/20 border border-paper/15 backdrop-blur-md text-paper transition-all duration-300 hover:scale-105"
+                disabled={isAnimating}
+                className="absolute right-0 md:-right-2 top-1/2 -translate-y-1/2 z-30 inline-flex h-11 w-11 items-center justify-center rounded-full bg-paper/10 hover:bg-paper/20 border border-paper/15 backdrop-blur-md text-paper transition-all duration-300 hover:scale-105 disabled:pointer-events-none disabled:opacity-40"
               >
                 <ChevronRight className="h-5 w-5" />
               </button>
@@ -749,13 +660,9 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
               {TECH_VIEWS.map((v, i) => {
                 const isActive = active === i;
                 return (
-                  <button
-                    type="button"
+                  <span
                     key={v.n}
-                    onClick={() => {
-                      goToRealIndex(i);
-                    }}
-                    aria-label={`Ir para card ${i + 1}`}
+                    aria-hidden
                     className={`h-1.5 rounded-full transition-all duration-500 ${
                       isActive ? "w-8 bg-paper" : "w-1.5 bg-paper/30 hover:bg-paper/60"
                     }`}
@@ -817,7 +724,7 @@ function TechCard({
 }: {
   view: (typeof TECH_VIEWS)[number];
   variant: "active" | "preview";
-  motionClass?: string;
+  motionClass: string;
   onClick?: () => void;
 }) {
   const isActive = variant === "active";
@@ -825,20 +732,17 @@ function TechCard({
     <div
       onClick={onClick}
       className={[
-        "tech-card-shell relative w-[290px] sm:w-[330px] md:w-[360px] aspect-[3/4] rounded-2xl overflow-hidden",
-        motionClass ?? "",
-        isActive ? "shadow-[0_40px_100px_-20px_rgba(0,0,0,0.75)]" : "cursor-pointer",
+        "tech-card-shell absolute left-1/2 top-1/2 w-[260px] sm:w-[300px] md:w-[360px] aspect-[3/4] rounded-2xl overflow-hidden",
+        motionClass,
+        isActive ? "shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)]" : "cursor-pointer",
       ].join(" ")}
       style={{
-        background: isActive
-          ? "radial-gradient(circle at 30% 15%, rgba(255,255,255,0.34), transparent 55%), linear-gradient(135deg, #454545 0%, #242424 50%, #101010 100%)"
-          : "radial-gradient(circle at 28% 18%, rgba(255,255,255,0.03), transparent 42%), linear-gradient(135deg, #070707 0%, #030303 58%, #000000 100%)",
-        border: isActive
-          ? "1px solid rgba(255,255,255,0.28)"
-          : "1px solid rgba(255,255,255,0.06)",
+        background:
+          "radial-gradient(circle at 28% 18%, rgba(255,255,255,0.06), transparent 42%), linear-gradient(135deg, #0a0a0a 0%, #050505 55%, #000000 100%)",
+        border: "1px solid rgba(255,255,255,0.08)",
         boxShadow: isActive
-          ? "0 60px 140px rgba(0,0,0,0.72), inset 0 1px 0 rgba(255,255,255,0.18)"
-          : "0 18px 50px rgba(0,0,0,0.56), inset 0 1px 0 rgba(255,255,255,0.03)",
+          ? "0 36px 90px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.05)"
+          : "0 24px 70px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.04)",
       }}
     >
       {/* Specular sheen */}
@@ -846,9 +750,8 @@ function TechCard({
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
-          background: isActive
-            ? "linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.16) 50%, transparent 70%)"
-            : "linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.04) 50%, transparent 60%)",
+          background:
+            "linear-gradient(115deg, transparent 35%, rgba(255,255,255,0.10) 50%, transparent 65%)",
           mixBlendMode: "screen",
         }}
       />
@@ -859,7 +762,7 @@ function TechCard({
           className="pointer-events-none absolute -inset-px rounded-2xl"
           style={{
             background:
-              "radial-gradient(70% 55% at 50% 0%, rgba(255,255,255,0.34), transparent 70%)",
+              "radial-gradient(60% 50% at 50% 0%, rgba(255,255,255,0.18), transparent 70%)",
           }}
         />
       )}
@@ -867,31 +770,31 @@ function TechCard({
       <div className="relative h-full w-full p-7 md:p-9 flex flex-col justify-between">
         <div className="flex items-start justify-between">
           <div className="flex flex-col">
-            <span className={`text-[10px] uppercase tracking-[0.4em] ${isActive ? "text-paper/92" : "text-paper/26"}`}>
+            <span className="text-[10px] uppercase tracking-[0.4em] text-paper/55">
               {view.n}
             </span>
             <span
               aria-hidden
-              className={`mt-1 font-medium leading-none tracking-[-0.05em] select-none ${isActive ? "text-paper/28" : "text-paper/6"}`}
+              className="mt-1 font-medium text-paper/10 leading-none tracking-[-0.05em] select-none"
               style={{ fontSize: "clamp(2.5rem,5vw,3.75rem)" }}
             >
               {view.n}
             </span>
           </div>
-          <span className={`block h-2 w-2 rotate-45 ${isActive ? "bg-paper" : "bg-paper/18"}`} />
+          <span className="block h-2 w-2 rotate-45 bg-paper/70" />
         </div>
         <div>
           <div
-            className={`font-medium tracking-[-0.04em] ${isActive ? "text-paper" : "text-paper/38"}`}
+            className="font-medium tracking-[-0.04em] text-paper"
             style={{ fontSize: "clamp(1.75rem,3.2vw,2.75rem)", lineHeight: 0.95 }}
           >
             {view.label}
           </div>
-          <p className={`mt-3 text-[12px] leading-relaxed max-w-[22ch] ${isActive ? "text-paper/82" : "text-paper/18"}`}>
+          <p className={`mt-3 text-[12px] leading-relaxed max-w-[22ch] ${isActive ? "text-paper/55" : "text-paper/38"}`}>
             {view.subtitle}
           </p>
-          <div className={`mt-5 h-px w-12 ${isActive ? "bg-paper/82" : "bg-paper/16"}`} />
-          <div className={`mt-3 text-[10px] tracking-[0.25em] uppercase ${isActive ? "text-paper/72" : "text-paper/18"}`}>
+          <div className="mt-5 h-px w-12 bg-paper/40" />
+          <div className="mt-3 text-[10px] tracking-[0.25em] uppercase text-paper/45">
             {view.tech}
           </div>
         </div>
