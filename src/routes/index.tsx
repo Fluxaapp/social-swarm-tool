@@ -331,9 +331,9 @@ function StatCard({
     <div
       ref={ref as React.RefObject<HTMLDivElement>}
       style={{ backgroundColor: "oklch(0.13 0 0)" }}
-      className={`py-14 md:py-20 px-8 md:px-10 rounded-[2px] sr lift text-paper sr-d${delay}`}
+      className={`py-10 sm:py-14 md:py-20 px-6 sm:px-8 md:px-10 rounded-[2px] sr lift text-paper sr-d${delay}`}
     >
-      <div className="font-medium text-[clamp(3.5rem,7vw,6rem)] leading-none tracking-[-0.05em] tabular-nums">
+      <div className="font-medium text-[clamp(2.75rem,7vw,6rem)] leading-none tracking-[-0.05em] tabular-nums">
         {value}
         {suffix}
       </div>
