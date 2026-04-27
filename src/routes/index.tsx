@@ -521,25 +521,29 @@ const TECH_VIEWS = [
 ] as const;
 
 function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
-  const [active, setActive] = useState(0);
+  const total = TECH_VIEWS.length;
+  // We render [last clone, ...all, first clone] for seamless infinite loop.
+  // virtualIndex 0 = last clone, 1..total = real items, total+1 = first clone.
+  const [virtualIndex, setVirtualIndex] = useState(1);
+  const [withTransition, setWithTransition] = useState(true);
   const [infoIndex, setInfoIndex] = useState(0);
   const [infoPhase, setInfoPhase] = useState<InfoPhase>("idle");
   const [isAnimating, setIsAnimating] = useState(false);
   const timersRef = useRef<number[]>([]);
   const autoplayRef = useRef<number | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const [step, setStep] = useState(340); // px between consecutive card centers
-  const total = TECH_VIEWS.length;
+  const [step, setStep] = useState(360); // px between consecutive card centers
   const dynamicView = TECH_VIEWS[infoIndex];
+  const active = ((virtualIndex - 1) % total + total) % total;
 
-  // Responsive step: matches card width + gap
+  // Responsive step: matches active card width + gap
   useEffect(() => {
     if (typeof window === "undefined") return;
     const compute = () => {
       const w = window.innerWidth;
-      if (w < 640) setStep(280);       // mobile: 260 + 20
-      else if (w < 768) setStep(310);   // sm: 280 + 30
-      else setStep(340);                // md+: 300 + 40
+      if (w < 640) setStep(290);       // mobile
+      else if (w < 768) setStep(320);   // sm
+      else setStep(360);                // md+
     };
     compute();
     window.addEventListener("resize", compute);
