@@ -606,11 +606,11 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
         </p>
 
         {/* LEFT: cards · RIGHT: technical info */}
-        <div className="mt-20 md:mt-24 grid grid-cols-12 gap-10 lg:gap-16 items-center">
+        <div className="mt-16 md:mt-24 grid grid-cols-12 gap-10 lg:gap-16 items-center">
           {/* LEFT — Cards */}
           <div className="col-span-12 lg:col-span-7 sr sr-d3">
             <div
-              className="relative flex items-center justify-center min-h-[390px] md:min-h-[500px]"
+              className="relative flex items-center justify-center min-h-[360px] sm:min-h-[400px] md:min-h-[500px]"
               style={{ perspective: "1400px" }}
             >
               <button
@@ -618,13 +618,13 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
                 onClick={goPrev}
                 aria-label="Card anterior"
                 disabled={isAnimating}
-                className="absolute left-0 md:-left-2 top-1/2 -translate-y-1/2 z-30 inline-flex h-11 w-11 items-center justify-center rounded-full bg-paper/10 hover:bg-paper/20 border border-paper/15 backdrop-blur-md text-paper transition-all duration-300 hover:scale-105 disabled:pointer-events-none disabled:opacity-40"
+                className="absolute left-0 md:-left-2 top-1/2 -translate-y-1/2 z-30 inline-flex h-10 w-10 md:h-11 md:w-11 items-center justify-center rounded-full bg-paper/10 hover:bg-paper/20 border border-paper/15 backdrop-blur-md text-paper transition-all duration-300 hover:scale-105 disabled:pointer-events-none disabled:opacity-40"
               >
                 <ChevronLeft className="h-5 w-5" />
               </button>
 
               <div
-                className="tech-card-clip relative mx-auto h-[390px] w-[360px] sm:w-[420px] md:h-[500px] md:w-[480px]"
+                className="tech-card-clip relative mx-auto h-[360px] w-[280px] sm:h-[420px] sm:w-[360px] md:h-[500px] md:w-[480px]"
               >
                 {isAnimating && (
                   <TechCard
