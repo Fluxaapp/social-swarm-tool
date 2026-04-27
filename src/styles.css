@@ -498,6 +498,57 @@
   100% { opacity: 1; transform: scaleY(1); transform-origin: top; }
 }
 
+/* Technology cards — depth transition (X + Y + scale + blur) */
+.card-enter-active {
+  animation: cardEnterActive 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(0);
+}
+.card-enter-preview {
+  animation: cardEnterPreview 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  opacity: 0.55;
+  transform: translate3d(0, 6px, 0) scale(0.86);
+  filter: blur(2.5px);
+}
+
+@keyframes cardEnterActive {
+  0% {
+    opacity: 0;
+    transform: translate3d(40px, 18px, 0) scale(0.92);
+    filter: blur(6px);
+  }
+  60% {
+    opacity: 1;
+    filter: blur(0.5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes cardEnterPreview {
+  0% {
+    opacity: 0;
+    transform: translate3d(-30px, -10px, 0) scale(0.8);
+    filter: blur(8px);
+  }
+  100% {
+    opacity: 0.55;
+    transform: translate3d(0, 6px, 0) scale(0.86);
+    filter: blur(2.5px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-enter-active,
+  .card-enter-preview {
+    animation: none !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   [style*="arcDraw"], [style*="satFadeIn"],
   [style*="infoRise"], [style*="lineFade"] {

@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight, Plus, Star, Instagram, Facebook, Search, ChevronLeft, ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import workBranding from "@/assets/work-branding.jpg";
 import workEditorial from "@/assets/work-editorial.jpg";
@@ -19,8 +19,44 @@ export const Route = createFileRoute("/")({
 
 /* =================== NAV =================== */
 function Nav({ onOpenProposal }: { onOpenProposal: () => void }) {
+  const [hidden, setHidden] = useState(false);
+  const lastY = useRef(0);
+
+  useEffect(() => {
+    lastY.current = window.scrollY;
+    let ticking = false;
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(() => {
+        const y = window.scrollY;
+        const delta = y - lastY.current;
+        // Ignore tiny jitters
+        if (Math.abs(delta) > 6) {
+          if (delta > 0 && y > 80) {
+            setHidden(true); // scrolling down
+          } else if (delta < 0) {
+            setHidden(false); // scrolling up
+          }
+          lastY.current = y;
+        }
+        ticking = false;
+      });
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-[999] bg-soft border-b border-line">
+    <header
+      className="fixed top-0 left-0 right-0 z-[999] bg-soft border-b border-line will-change-transform"
+      style={{
+        transform: hidden ? "translateY(-100%)" : "translateY(0)",
+        transition: "transform 0.35s ease",
+      }}
+    >
       <div className="mx-auto max-w-[1480px] px-6 md:px-10 h-20 flex items-center justify-between gap-6">
         <a href="#top" className="flex items-center leading-none">
           <span className="text-[17px] tracking-tight text-ink">
@@ -196,17 +232,6 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
         <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 min-h-[520px] lg:min-h-[620px]">
           {/* Social icons — vertical, with single subtle vertical line behind */}
           <div className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-20 flex flex-col items-center gap-7 md:gap-8">
-            {/* Single vertical gradient line — sits behind icons; icons mask it with bg-soft */}
-            <span
-              aria-hidden
-              className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-2 bottom-2 w-px"
-              style={{
-                background:
-                  "linear-gradient(to bottom, transparent, rgba(0,0,0,0.22), transparent)",
-                opacity: 0.5,
-                zIndex: 0,
-              }}
-            />
             {SOCIALS.map((s) => {
               const Icon = s.Icon;
               return (
@@ -434,46 +459,51 @@ const TECH_VIEWS = [
   {
     n: "01",
     label: "Branding",
+    subtitle: "Identidade visual estratégica",
     title: "Identidade que se vê e se sente.",
     desc: "Sistemas visuais coerentes, do logotipo ao território de marca, construídos para durar e escalar.",
     highlight: "Sistema modular · 12 ativos",
-    tech: "system://branding — module 01",
+    tech: "ENGINE V4.1 · 12 MÓDULOS",
     infos: ["Positioning", "Identity", "Authority"],
   },
   {
     n: "02",
     label: "Marketing",
+    subtitle: "Performance com narrativa",
     title: "Performance com narrativa.",
     desc: "Campanhas pensadas para converter sem perder identidade. Estratégia, criativo e mídia integrados.",
     highlight: "ROI médio · 3.4x",
-    tech: "protocol v2.3 · roi 3.4x",
+    tech: "PROTOCOL V2.3 · ROI 3.4x",
     infos: ["Strategy", "Funnel", "Conversion"],
   },
   {
     n: "03",
     label: "Design",
+    subtitle: "Direção de arte premium",
     title: "Forma a serviço da marca.",
     desc: "Direção de arte premium para campanhas, materiais e produtos — do conceito ao acabamento.",
     highlight: "Direção · Editorial",
-    tech: "grid aligned · 128 nodes",
+    tech: "GRID ALIGNED · 128 NODES",
     infos: ["Composition", "Typography", "Color"],
   },
   {
     n: "04",
     label: "Conteúdo",
+    subtitle: "Narrativa editorial multiformato",
     title: "Narrativa que sustenta a marca.",
     desc: "Roteiros, copy e direção editorial para campanhas, social e materiais institucionais.",
     highlight: "Editorial · Multiformato",
-    tech: "stream://content — channel 04",
+    tech: "STREAM V1.8 · CHANNEL 04",
     infos: ["Voice", "Story", "Engagement"],
   },
   {
     n: "05",
     label: "Estratégia",
+    subtitle: "Decisões guiadas por dados",
     title: "Decisões guiadas por dados.",
     desc: "Diagnóstico, posicionamento e roadmap de marca baseados em pesquisa e métricas reais.",
     highlight: "Insights · Roadmap",
-    tech: "engine v4.1 · 24 nodes",
+    tech: "ENGINE V4.1 · 24 NODES",
     infos: ["Research", "Insight", "Roadmap"],
   },
 ] as const;
@@ -509,45 +539,15 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
           performance girando em torno do mesmo eixo criativo.
         </p>
 
-        {/* Carousel */}
-        <div className="mt-20 md:mt-24 grid grid-cols-12 gap-10 items-center">
-          <div className="col-span-12 lg:col-span-8 lg:col-start-3 sr sr-d3">
-            {/* Info chips above the active card */}
-            <div
-              key={`infos-${active}`}
-              className="relative h-24 md:h-28 hidden md:flex items-end justify-center gap-10 md:gap-16 mb-6"
-            >
-              {view.infos.map((info, i) => (
-                <div
-                  key={info}
-                  className="relative flex flex-col items-center"
-                  style={{
-                    opacity: 0,
-                    animation: "infoRise 600ms cubic-bezier(0.22,1,0.36,1) forwards",
-                    animationDelay: `${250 + i * 120}ms`,
-                  }}
-                >
-                  <span className="text-[10.5px] tracking-[0.28em] uppercase text-paper/75 whitespace-nowrap">
-                    {info}
-                  </span>
-                  {/* Connecting line down to the card */}
-                  <span
-                    aria-hidden
-                    className="mt-2 block w-px h-12 md:h-14"
-                    style={{
-                      background:
-                        "linear-gradient(to bottom, rgba(255,255,255,0.45), rgba(255,255,255,0))",
-                      opacity: 0,
-                      animation: "lineFade 500ms cubic-bezier(0.22,1,0.36,1) forwards",
-                      animationDelay: `${100 + i * 120}ms`,
-                    }}
-                  />
-                </div>
-              ))}
-            </div>
-
+        {/* LEFT: cards · RIGHT: technical info */}
+        <div className="mt-20 md:mt-24 grid grid-cols-12 gap-10 lg:gap-16 items-center">
+          {/* LEFT — Cards */}
+          <div className="col-span-12 lg:col-span-7 sr sr-d3">
             {/* Cards row */}
-            <div className="relative flex items-stretch justify-center gap-5 md:gap-7 min-h-[360px] md:min-h-[420px]">
+            <div
+              className="relative flex items-stretch justify-center gap-5 md:gap-7 min-h-[380px] md:min-h-[460px]"
+              style={{ perspective: "1400px" }}
+            >
               {/* Prev arrow */}
               <button
                 type="button"
@@ -560,13 +560,14 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
 
               {/* Preview (blurred) — previous card */}
               <TechCard
+                key={`prev-${prevIdx}`}
                 view={TECH_VIEWS[prevIdx]}
                 variant="preview"
                 onClick={goPrev}
               />
 
               {/* Active card */}
-              <TechCard view={view} variant="active" />
+              <TechCard key={`active-${active}`} view={view} variant="active" />
 
               {/* Next arrow */}
               <button
@@ -598,18 +599,16 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
               })}
             </div>
           </div>
-        </div>
 
-        {/* Active view detail */}
-        <div className="mt-16 md:mt-20 grid grid-cols-12 gap-10 items-start">
-          <div className="col-span-12 md:col-span-6 sr sr-d4">
-            <div className="text-[11px] uppercase tracking-[0.3em] text-paper/50 flex items-center gap-3">
-              <span className="h-px w-8 bg-paper/40" />
-              {view.n} · {view.label}
-            </div>
+          {/* RIGHT — Technical info (synced fade + rise) */}
+          <div className="col-span-12 lg:col-span-5 sr sr-d4">
+            <div key={`info-${active}`} className="tech-fade">
+              <div className="text-[11px] uppercase tracking-[0.3em] text-paper/50 flex items-center gap-3">
+                <span className="h-px w-8 bg-paper/40" />
+                {view.n} · {view.label}
+              </div>
 
-            <div key={active} className="tech-fade mt-6">
-              <h3 className="font-medium text-[clamp(1.75rem,3vw,2.5rem)] leading-[1.05] tracking-[-0.03em] text-paper">
+              <h3 className="mt-6 font-medium text-[clamp(1.75rem,3vw,2.5rem)] leading-[1.05] tracking-[-0.03em] text-paper">
                 {view.title}
               </h3>
               <p className="mt-5 text-[15px] leading-relaxed text-paper/60 max-w-md">
@@ -619,20 +618,25 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
                 <span className="h-1.5 w-1.5 rounded-full bg-paper" />
                 {view.highlight}
               </div>
-            </div>
-          </div>
 
-          <div className="col-span-12 md:col-span-5 md:col-start-8 sr sr-d5 flex md:justify-end">
-            <button
-              type="button"
-              onClick={onOpenProposal}
-              className="group btn-shine inline-flex items-center gap-3 bg-paper text-ink rounded-full pl-6 pr-2 py-2 transition-transform duration-500 hover:scale-[1.02]"
-            >
-              <span className="text-[13px] font-medium">Solicitar proposta</span>
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-ink text-paper transition-transform duration-500 group-hover:rotate-45">
-                <ArrowUpRight className="h-4 w-4" />
-              </span>
-            </button>
+              <div className="mt-8 flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-paper/40">
+                <span className="h-px w-6 bg-paper/30" />
+                {view.tech}
+              </div>
+
+              <div className="mt-8">
+                <button
+                  type="button"
+                  onClick={onOpenProposal}
+                  className="group btn-shine inline-flex items-center gap-3 bg-paper text-ink rounded-full pl-6 pr-2 py-2 transition-transform duration-500 hover:scale-[1.02]"
+                >
+                  <span className="text-[13px] font-medium">Solicitar proposta</span>
+                  <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-ink text-paper transition-transform duration-500 group-hover:rotate-45">
+                    <ArrowUpRight className="h-4 w-4" />
+                  </span>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -655,10 +659,10 @@ function TechCard({
     <div
       onClick={onClick}
       className={[
-        "relative shrink-0 rounded-2xl overflow-hidden transition-all duration-700 ease-[cubic-bezier(.16,1,.3,1)]",
+        "relative shrink-0 rounded-2xl overflow-hidden",
         isActive
-          ? "w-[260px] sm:w-[300px] md:w-[360px] aspect-[3/4] scale-100 opacity-100 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)] z-20"
-          : "hidden md:block w-[200px] md:w-[240px] aspect-[3/4] scale-[0.88] opacity-70 cursor-pointer z-10",
+          ? "card-enter-active w-[260px] sm:w-[300px] md:w-[360px] aspect-[3/4] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)] z-20"
+          : "card-enter-preview hidden md:block w-[200px] md:w-[240px] aspect-[3/4] cursor-pointer z-10",
       ].join(" ")}
       style={{
         background:
@@ -666,7 +670,6 @@ function TechCard({
         border: "1px solid rgba(255,255,255,0.12)",
         backdropFilter: "blur(14px)",
         WebkitBackdropFilter: "blur(14px)",
-        filter: isActive ? "none" : "blur(2px)",
       }}
     >
       {/* Specular sheen */}
@@ -693,9 +696,18 @@ function TechCard({
 
       <div className="relative h-full w-full p-7 md:p-9 flex flex-col justify-between">
         <div className="flex items-start justify-between">
-          <span className="text-[10px] uppercase tracking-[0.4em] text-paper/55">
-            {view.n}
-          </span>
+          <div className="flex flex-col">
+            <span className="text-[10px] uppercase tracking-[0.4em] text-paper/55">
+              {view.n}
+            </span>
+            <span
+              aria-hidden
+              className="mt-1 font-medium text-paper/10 leading-none tracking-[-0.05em] select-none"
+              style={{ fontSize: "clamp(2.5rem,5vw,3.75rem)" }}
+            >
+              {view.n}
+            </span>
+          </div>
           <span className="block h-2 w-2 rotate-45 bg-paper/70" />
         </div>
         <div>
@@ -705,6 +717,11 @@ function TechCard({
           >
             {view.label}
           </div>
+          {isActive && (
+            <p className="mt-3 text-[12px] leading-relaxed text-paper/55 max-w-[22ch]">
+              {view.subtitle}
+            </p>
+          )}
           <div className="mt-5 h-px w-12 bg-paper/40" />
           <div className="mt-3 text-[10px] tracking-[0.25em] uppercase text-paper/45">
             {view.tech}
