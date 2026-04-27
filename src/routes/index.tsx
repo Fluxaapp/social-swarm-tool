@@ -7,6 +7,7 @@ import workEditorial from "@/assets/work-editorial.jpg";
 import workPackaging from "@/assets/work-packaging.jpg";
 import workCampaign from "@/assets/work-campaign.jpg";
 import { useParallax, useScrollReveal } from "@/hooks/use-scroll-reveal";
+import { useCountUp } from "@/hooks/use-count-up";
 import { CONTACT, whatsappLink, mailtoLink } from "@/lib/contact";
 import { ProposalModal } from "@/components/ProposalModal";
 
@@ -184,11 +185,78 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
 
         {/* RIGHT — abstract floating tech composition + social icons */}
         <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 lg:pl-6 min-h-[480px] lg:min-h-[560px]">
+          {/* Abstract luxury orb composition — luxo, tecnologia, criatividade */}
           <div
             data-parallax="-0.05"
-            className="absolute inset-0"
+            className="absolute inset-0 pointer-events-none"
             aria-hidden
-          />
+          >
+            {/* Soft outer halo */}
+            <div
+              className="absolute left-1/2 top-1/2 h-[460px] w-[460px] -translate-x-1/2 -translate-y-1/2 rounded-full breathe"
+              style={{
+                background:
+                  "radial-gradient(circle at 35% 35%, oklch(0.18 0 0 / 0.18) 0%, oklch(0.12 0 0 / 0.08) 35%, transparent 70%)",
+                filter: "blur(40px)",
+              }}
+            />
+            {/* Core orb */}
+            <div
+              className="absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full eclipse-pulse"
+              style={{
+                background:
+                  "radial-gradient(circle at 32% 30%, oklch(0.96 0 0) 0%, oklch(0.78 0 0) 28%, oklch(0.32 0 0) 72%, oklch(0.08 0 0) 100%)",
+                boxShadow:
+                  "0 30px 80px -20px rgba(0,0,0,0.35), inset -20px -30px 60px rgba(0,0,0,0.45), inset 18px 22px 50px rgba(255,255,255,0.55)",
+              }}
+            />
+            {/* Specular highlight on orb */}
+            <div
+              className="absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none"
+              style={{
+                background:
+                  "radial-gradient(ellipse 40% 30% at 32% 26%, rgba(255,255,255,0.55), transparent 60%)",
+                mixBlendMode: "screen",
+              }}
+            />
+            {/* Thin orbiting ring */}
+            <svg
+              className="absolute left-1/2 top-1/2 h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 bh-spin-slow"
+              viewBox="0 0 200 200"
+            >
+              <ellipse
+                cx="100"
+                cy="100"
+                rx="92"
+                ry="30"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="0.4"
+                className="text-ink/25"
+              />
+            </svg>
+            {/* Counter-rotating ring */}
+            <svg
+              className="absolute left-1/2 top-1/2 h-[480px] w-[480px] -translate-x-1/2 -translate-y-1/2 bh-spin-rev opacity-60"
+              viewBox="0 0 200 200"
+            >
+              <ellipse
+                cx="100"
+                cy="100"
+                rx="96"
+                ry="22"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="0.3"
+                strokeDasharray="2 4"
+                className="text-ink/30"
+              />
+            </svg>
+            {/* Drifting particles */}
+            <span className="light-dot" style={{ top: "28%", left: "22%", background: "rgba(0,0,0,0.7)", boxShadow: "0 0 12px rgba(0,0,0,0.25)" }} />
+            <span className="light-dot" style={{ top: "70%", right: "20%", background: "rgba(0,0,0,0.6)", boxShadow: "0 0 10px rgba(0,0,0,0.2)", animationDelay: "3s" }} />
+            <span className="light-dot" style={{ top: "20%", right: "30%", background: "rgba(0,0,0,0.5)", boxShadow: "0 0 8px rgba(0,0,0,0.15)", animationDelay: "6s" }} />
+          </div>
 
           {/* Social icons — vertical, transparent, tech micro-interface */}
           <div className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 flex flex-col items-center gap-7 md:gap-8">
@@ -242,15 +310,17 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
         </div>
       </div>
 
-      <div className="relative -mt-px">
-        <svg
-          viewBox="0 0 1440 100"
-          preserveAspectRatio="none"
-          className="block w-full h-[70px] md:h-[100px]"
+      {/* Straight divider into the next dark section */}
+      <div className="relative">
+        <div
           aria-hidden
-        >
-          <polygon points="0,100 950,100 1140,0 1440,0 1440,100" fill="var(--ink)" />
-        </svg>
+          className="h-px w-full"
+          style={{
+            background:
+              "linear-gradient(90deg, transparent 0%, oklch(0.08 0 0 / 0.18) 20%, oklch(0.08 0 0 / 0.35) 50%, oklch(0.08 0 0 / 0.18) 80%, transparent 100%)",
+          }}
+        />
+        <div className="h-16 md:h-24 bg-gradient-to-b from-transparent to-ink" />
       </div>
     </section>
   );
@@ -290,11 +360,57 @@ function InfoStrip() {
 }
 
 /* =================== ABOUT =================== */
+function StatCard({
+  end,
+  suffix = "",
+  label,
+  desc,
+  delay,
+}: {
+  end: number;
+  suffix?: string;
+  label: string;
+  desc: string;
+  delay: number;
+}) {
+  const [ref, value] = useCountUp(end, { duration: 1800 });
+  return (
+    <div
+      ref={ref as React.RefObject<HTMLDivElement>}
+      style={{ backgroundColor: "oklch(0.13 0 0)" }}
+      className={`py-14 md:py-20 px-8 md:px-10 rounded-[2px] sr lift text-paper sr-d${delay}`}
+    >
+      <div className="font-medium text-[clamp(3.5rem,7vw,6rem)] leading-none tracking-[-0.05em] tabular-nums">
+        {value}
+        {suffix}
+      </div>
+      <div className="mt-5 flex items-center gap-3 text-[11px] uppercase tracking-[0.25em] text-paper/70">
+        <span className="h-px w-6 bg-paper/60" />
+        {label}
+      </div>
+      <p className="mt-3 text-sm max-w-xs text-paper/60">{desc}</p>
+    </div>
+  );
+}
+
 function About() {
-  const stats = [
-    { n: "20+", l: "Marcas atendidas", d: "Clientes ativos no Brasil e exterior" },
-    { n: "47%", l: "Crescimento médio", d: "Aumento de presença em 90 dias" },
-    { n: "03", l: "Pilares de atuação", d: "Design · Marketing · Gestão" },
+  const pillars = [
+    {
+      t: "Estratégia visual",
+      d: "Cada projeto começa com diagnóstico de marca e plano de posicionamento — não com decoração.",
+    },
+    {
+      t: "Direção criativa unificada",
+      d: "Branding, conteúdo e mídia conduzidos pelo mesmo eixo estético. Coerência total em todos os pontos de contato.",
+    },
+    {
+      t: "Execução premium",
+      d: "Acabamento editorial em cada peça entregue. Tipografia, espaço e cor tratados como ativos de marca.",
+    },
+    {
+      t: "Performance com narrativa",
+      d: "Conversão sustentada por uma história — não por gatilhos avulsos. Resultados que se acumulam.",
+    },
   ];
 
   return (
@@ -317,32 +433,72 @@ function About() {
         </div>
 
         <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-4">
-          {stats.map((it, i) => {
-            return (
+          <StatCard end={20} suffix="+" label="Marcas atendidas" desc="Clientes ativos no Brasil e exterior" delay={1} />
+          <StatCard end={47} suffix="%" label="Crescimento médio" desc="Aumento de presença em 90 dias" delay={2} />
+          <StatCard end={3} suffix="" label="Pilares de atuação" desc="Design · Marketing · Gestão" delay={3} />
+        </div>
+
+        {/* Institutional content — diferenciais */}
+        <div className="mt-28 md:mt-36 grid grid-cols-12 gap-10 md:gap-16 items-start">
+          <div className="col-span-12 md:col-span-5 sr">
+            <div className="text-[11px] uppercase tracking-[0.3em] text-dim flex items-center gap-3">
+              <span className="h-px w-8 bg-ink/40" />
+              Como pensamos
+            </div>
+            <h3 className="mt-6 font-medium text-[clamp(1.75rem,3.2vw,2.75rem)] leading-[1.05] tracking-[-0.03em] text-ink">
+              Marca não é estética.<br />
+              É decisão estratégica.
+            </h3>
+            <p className="mt-6 text-[15px] leading-relaxed text-dim max-w-md">
+              Acreditamos que percepção é precificação. Toda decisão visual
+              influencia diretamente quanto sua marca pode cobrar e o tipo de
+              cliente que ela atrai. Por isso operamos no cruzamento de design,
+              negócio e tecnologia.
+            </p>
+          </div>
+
+          <div className="col-span-12 md:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-px bg-line border border-line">
+            {pillars.map((p, i) => (
               <div
-                key={it.l}
-                style={{ backgroundColor: "oklch(0.13 0 0)" }}
-                className={[
-                  "py-14 md:py-20 px-8 md:px-10 rounded-[2px] sr lift text-paper",
-                  `sr-d${i + 1}`,
-                ].join(" ")}
+                key={p.t}
+                className={`bg-paper p-8 sr sr-d${Math.min(i + 1, 5)}`}
               >
-                <div className="font-medium text-[clamp(3.5rem,7vw,6rem)] leading-none tracking-[-0.05em]">
-                  {it.n}
+                <div className="text-[11px] uppercase tracking-[0.25em] text-dim">
+                  {String(i + 1).padStart(2, "0")}
                 </div>
-                <div className="mt-5 flex items-center gap-3 text-[11px] uppercase tracking-[0.25em] text-paper/70">
-                  <span className="h-px w-6 bg-paper/60" />
-                  {it.l}
-                </div>
-                <p className="mt-3 text-sm max-w-xs text-paper/60">{it.d}</p>
+                <h4 className="mt-3 font-medium text-[1.1rem] tracking-[-0.015em] text-ink">
+                  {p.t}
+                </h4>
+                <p className="mt-2 text-sm leading-relaxed text-dim">
+                  {p.d}
+                </p>
               </div>
-            );
-          })}
+            ))}
+          </div>
+        </div>
+
+        {/* Authority strip */}
+        <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-px bg-line border border-line sr">
+          {[
+            { k: "Fundada em", v: "Fortaleza · Brasil" },
+            { k: "Atuação", v: "Brasil · LATAM · Europa" },
+            { k: "Foco", v: "Marcas premium e em escala" },
+          ].map((it) => (
+            <div key={it.k} className="bg-paper px-8 py-7">
+              <div className="text-[10px] uppercase tracking-[0.3em] text-dim">
+                {it.k}
+              </div>
+              <div className="mt-2 text-[15px] font-medium text-ink">
+                {it.v}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
   );
 }
+
 
 
 /* =================== DARK / TECHNOLOGY =================== */
@@ -439,16 +595,6 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
                       background:
                         "linear-gradient(115deg, transparent 35%, rgba(255,255,255,0.18) 50%, transparent 65%)",
                       mixBlendMode: "screen",
-                    }}
-                  />
-                  {/* Grid texture */}
-                  <div
-                    className="absolute inset-0 pointer-events-none opacity-[0.08]"
-                    style={{
-                      backgroundImage:
-                        "linear-gradient(currentColor 1px, transparent 1px), linear-gradient(90deg, currentColor 1px, transparent 1px)",
-                      backgroundSize: "32px 32px",
-                      color: i === 1 ? "#000" : "#fff",
                     }}
                   />
                   <div className="relative text-center px-6">

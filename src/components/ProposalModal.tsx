@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { X, ArrowRight, ArrowLeft, Check, Send } from "lucide-react";
-import { whatsappLink } from "@/lib/contact";
+import { X, ArrowRight, ArrowLeft, Check, Send, Mail } from "lucide-react";
+import { whatsappLink, mailtoLink } from "@/lib/contact";
 
 interface ProposalModalProps {
   open: boolean;
@@ -18,6 +18,8 @@ const SERVICES = [
 ];
 
 const BUDGETS = [
+  "Até R$ 250",
+  "Até R$ 500",
   "Até R$ 2.000",
   "R$ 2.000 — R$ 5.000",
   "R$ 5.000 — R$ 10.000",
@@ -125,6 +127,31 @@ export function ProposalModal({ open, onClose }: ProposalModalProps) {
   const sendWhatsApp = () => {
     const url = whatsappLink(buildMessage());
     window.open(url, "_blank", "noopener,noreferrer");
+  };
+
+  const buildEmailBody = () => {
+    const lines = [
+      "Nova solicitação de proposta — Glass Maind",
+      "",
+      `Nome: ${data.name}`,
+      `E-mail: ${data.email}`,
+      data.company ? `Empresa: ${data.company}` : null,
+      "",
+      "Serviços de interesse:",
+      ...data.services.map((s) => `- ${s}`),
+      "",
+      `Investimento: ${data.budget}`,
+      `Prazo desejado: ${data.timeline}`,
+      "",
+      "Sobre o projeto:",
+      data.description,
+    ].filter(Boolean);
+    return lines.join("\n");
+  };
+
+  const sendEmail = () => {
+    const url = mailtoLink("Nova solicitação de proposta", buildEmailBody());
+    window.location.href = url;
   };
 
   return (
@@ -416,27 +443,44 @@ export function ProposalModal({ open, onClose }: ProposalModalProps) {
               </span>
             </button>
           ) : (
-            <button
-              type="button"
-              onClick={sendWhatsApp}
-              disabled={!canAdvance()}
-              className={`group btn-shine inline-flex items-center gap-3 rounded-full pl-5 pr-2 py-2 transition-all ${
-                canAdvance()
-                  ? "bg-ink text-paper hover:scale-[1.02]"
-                  : "bg-soft text-ink/40 cursor-not-allowed"
-              }`}
-            >
-              <span className="text-[13px] font-medium">Enviar pelo WhatsApp</span>
-              <span
-                className={`inline-flex h-8 w-8 items-center justify-center rounded-full transition-transform duration-500 ${
+            <div className="flex items-center gap-2 sm:gap-3">
+              <button
+                type="button"
+                onClick={sendEmail}
+                disabled={!canAdvance()}
+                title="Enviar por E-mail"
+                className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 transition-all ${
                   canAdvance()
-                    ? "bg-paper text-ink group-hover:rotate-12"
-                    : "bg-line text-ink/40"
+                    ? "border-ink/20 text-ink/80 hover:text-ink hover:border-ink/50 hover:bg-soft"
+                    : "border-line text-ink/30 cursor-not-allowed"
                 }`}
               >
-                <Send className="h-3.5 w-3.5" />
-              </span>
-            </button>
+                <Mail className="h-3.5 w-3.5" />
+                <span className="text-[12px] font-medium hidden sm:inline">Enviar por E-mail</span>
+                <span className="text-[12px] font-medium sm:hidden">E-mail</span>
+              </button>
+              <button
+                type="button"
+                onClick={sendWhatsApp}
+                disabled={!canAdvance()}
+                className={`group btn-shine inline-flex items-center gap-3 rounded-full pl-5 pr-2 py-2 transition-all ${
+                  canAdvance()
+                    ? "bg-ink text-paper hover:scale-[1.02]"
+                    : "bg-soft text-ink/40 cursor-not-allowed"
+                }`}
+              >
+                <span className="text-[13px] font-medium">Enviar pelo WhatsApp</span>
+                <span
+                  className={`inline-flex h-8 w-8 items-center justify-center rounded-full transition-transform duration-500 ${
+                    canAdvance()
+                      ? "bg-paper text-ink group-hover:rotate-12"
+                      : "bg-line text-ink/40"
+                  }`}
+                >
+                  <Send className="h-3.5 w-3.5" />
+                </span>
+              </button>
+            </div>
           )}
         </div>
       </div>
