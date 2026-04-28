@@ -441,8 +441,10 @@
 
 .tech-inline-copy {
   min-width: 0;
-  width: 100%;
+  flex: 1 1 auto;
+  width: auto;
   max-width: 100%;
+  display: block;
   overflow-wrap: anywhere;
   word-break: break-word;
   white-space: normal;
@@ -687,6 +689,18 @@
   .tech-info-meta {
     justify-content: center;
     text-align: center;
+    gap: 0.625rem;
+  }
+
+  .tech-info-row,
+  .tech-info-meta {
+    letter-spacing: 0.18em;
+  }
+
+  .tech-info-chip .tech-inline-copy,
+  .tech-info-row .tech-inline-copy,
+  .tech-info-meta .tech-inline-copy {
+    flex-basis: 0;
   }
 }
 
