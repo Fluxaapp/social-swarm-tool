@@ -709,12 +709,11 @@
     flex-basis: 0;
   }
 
-  /* About: remove side lines, shrink cards, shift left (mobile only) */
+  /* About: shrink cards, keep thin border, shift further left (mobile only) */
   #about .bg-line.border-line {
     background: transparent !important;
-    border: 0 !important;
     gap: 0.75rem !important;
-    transform: translateX(-3vw);
+    transform: translateX(-6vw);
   }
   #about .bg-line.border-line > .bg-paper {
     padding: 1.25rem 1rem !important;
