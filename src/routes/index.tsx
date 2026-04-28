@@ -698,24 +698,24 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
           </div>
 
           <div className="col-span-12 min-w-0 lg:col-span-5 sr sr-d4">
-            <div className="tech-info-stack mx-auto flex w-full max-w-md min-w-0 flex-col items-center text-center lg:mx-0 lg:max-w-none lg:items-start lg:text-left">
-              <div className="tech-info-row mx-auto flex max-w-[22rem] items-center justify-center gap-3 text-center text-[11px] uppercase tracking-[0.22em] text-paper/50 sm:tracking-[0.3em] lg:mx-0 lg:max-w-none lg:justify-start lg:text-left">
+            <div className="tech-info-stack mx-auto box-border flex w-full max-w-[340px] min-w-0 flex-col items-center px-4 text-center lg:mx-0 lg:max-w-none lg:items-start lg:px-0 lg:text-left">
+              <div className="tech-info-row mx-auto flex w-full max-w-full items-center justify-center gap-3 break-words text-center text-[11px] uppercase tracking-[0.22em] text-paper/50 sm:tracking-[0.3em] lg:mx-0 lg:max-w-none lg:justify-start lg:text-left">
                 <span className="hidden lg:inline-block h-px w-8 shrink-0 bg-paper/40" />
                 <span className={`${infoMotionClass} tech-inline-copy`}>{dynamicView.n} · {dynamicView.label}</span>
               </div>
 
-              <h3 className="tech-info-title mt-6 mx-auto w-full max-w-[22rem] text-center font-medium text-[clamp(1.5rem,3vw,2.5rem)] leading-[1.1] tracking-[-0.03em] text-paper lg:mx-0 lg:max-w-none lg:text-left">
+              <h3 className="tech-info-title mx-auto mt-6 w-full max-w-[320px] break-words text-center font-medium leading-tight tracking-[-0.03em] text-paper text-[clamp(1.5rem,3vw,2.5rem)] lg:mx-0 lg:max-w-none lg:leading-[1.1] lg:text-left">
                 <span className={`${infoMotionClass} tech-copy-title`}>{dynamicView.title}</span>
               </h3>
-              <p className="tech-info-body mx-auto mt-5 w-full max-w-[22rem] text-center text-[15px] leading-relaxed text-paper/60 lg:mx-0 lg:max-w-md lg:text-left">
+              <p className="tech-info-body mx-auto mt-5 w-full max-w-[320px] break-words text-center text-[15px] leading-relaxed text-paper/60 lg:mx-0 lg:max-w-md lg:text-left">
                 <span className={`${infoMotionClass} tech-copy-body`}>{dynamicView.desc}</span>
               </p>
-              <div className="tech-info-chip mx-auto mt-8 inline-flex w-auto max-w-max items-center justify-center gap-2 rounded-full border border-paper/10 bg-paper/5 px-3 py-1.5 text-center text-[11px] text-paper/80 lg:mx-0">
+              <div className="tech-info-chip mx-auto mt-8 inline-flex w-auto max-w-full items-center justify-center gap-2 break-words rounded-full border border-paper/10 bg-paper/5 px-3 py-1.5 text-center text-[11px] text-paper/80 lg:mx-0">
                 <span className="h-1 w-1 shrink-0 rounded-full bg-paper" />
                 <span className={`${infoMotionClass} tech-inline-copy`}>{dynamicView.highlight}</span>
               </div>
 
-              <div className="tech-info-meta mx-auto mt-8 flex max-w-[22rem] items-center justify-center gap-3 text-center text-[10px] uppercase tracking-[0.22em] text-paper/40 sm:tracking-[0.3em] lg:mx-0 lg:max-w-none lg:justify-start lg:text-left">
+              <div className="tech-info-meta mx-auto mt-8 flex w-full max-w-full items-center justify-center gap-3 break-words text-center text-[10px] uppercase tracking-[0.22em] text-paper/40 sm:tracking-[0.3em] lg:mx-0 lg:max-w-none lg:justify-start lg:text-left">
                 <span className="hidden lg:inline-block h-px w-6 shrink-0 bg-paper/30" />
                 <span className={`${infoMotionClass} tech-inline-copy`}>{dynamicView.tech}</span>
               </div>
