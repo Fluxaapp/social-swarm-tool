@@ -675,12 +675,12 @@
     width: 100%;
     max-width: calc(100vw - 2.5rem);
     margin-inline: auto;
-    transform: translateX(-20px);
+    transform: translateX(calc(-20px - 5vw));
   }
 
   .tech-info-chip {
     max-width: max-content;
-    transform: translateX(-20px);
+    transform: translateX(calc(-20px - 5vw));
   }
 
   .tech-info-title,
