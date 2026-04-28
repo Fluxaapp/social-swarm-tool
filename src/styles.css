@@ -454,6 +454,7 @@
 .tech-copy-title {
   display: block;
   text-wrap: balance;
+  white-space: pre-line;
 }
 
 .tech-copy-body {
