@@ -670,7 +670,7 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
                 onClick={goNext}
                 aria-label="Próximo card"
                 disabled={isAnimating}
-                className="absolute right-1 sm:right-2 md:-right-2 top-1/2 -translate-y-1/2 z-30 inline-flex h-10 w-10 md:h-11 md:w-11 items-center justify-center rounded-full bg-paper/15 hover:bg-paper/25 border border-paper/20 backdrop-blur-md text-paper transition-all duration-300 hover:scale-105 disabled:pointer-events-none disabled:opacity-40"
+                className="absolute right-1 sm:right-2 md:right-16 lg:right-24 top-1/2 -translate-y-1/2 z-30 inline-flex h-10 w-10 md:h-11 md:w-11 items-center justify-center rounded-full bg-paper/15 hover:bg-paper/25 border border-paper/20 backdrop-blur-md text-paper transition-all duration-300 hover:scale-105 disabled:pointer-events-none disabled:opacity-40"
               >
                 <ChevronRight className="h-5 w-5" />
               </button>
