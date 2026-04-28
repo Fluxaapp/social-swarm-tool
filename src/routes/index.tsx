@@ -606,9 +606,9 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
         </p>
 
         {/* LEFT: cards · RIGHT: technical info */}
-        <div className="mt-16 md:mt-24 grid grid-cols-12 gap-10 lg:gap-16 items-center">
+        <div className="mt-16 md:mt-24 flex w-full max-w-full flex-col items-center lg:grid lg:grid-cols-12 lg:items-center lg:gap-16">
           {/* LEFT — Cards */}
-          <div className="col-span-12 min-w-0 max-w-full overflow-hidden lg:col-span-7 sr sr-d3">
+          <div className="flex w-full max-w-full justify-center overflow-hidden lg:col-span-7 lg:block sr sr-d3">
             <div className="tech-carousel-shell">
               <div
                 className="tech-carousel-viewport relative flex min-h-[360px] w-full max-w-full items-center justify-center overflow-hidden px-3 sm:min-h-[400px] sm:px-0 md:min-h-[500px]"
