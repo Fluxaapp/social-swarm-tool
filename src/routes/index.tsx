@@ -415,22 +415,25 @@ function About() {
           <div className="mt-10 flex w-full max-w-full justify-center md:col-span-7 md:mt-0 md:block">
             <div className="mx-auto box-border w-full max-w-[360px] px-4 md:max-w-none md:px-0">
               <div className="grid w-full grid-cols-1 sm:grid-cols-2 gap-px bg-line border border-line">
-                {pillars.map((p, i) => (
-                  <div
-                    key={p.t}
-                    className={`bg-paper p-8 text-center md:text-left sr sr-d${Math.min(i + 1, 5)}`}
-                  >
-                    <div className="text-[11px] uppercase tracking-[0.25em] text-dim">
-                      {String(i + 1).padStart(2, "0")}
+                {pillars.map((p, i) => {
+                  const isDark = i % 2 === 0;
+                  return (
+                    <div
+                      key={p.t}
+                      className={`p-8 text-center md:text-left sr sr-d${Math.min(i + 1, 5)} ${isDark ? "bg-ink text-paper" : "bg-paper text-ink"}`}
+                    >
+                      <div className={`text-[11px] uppercase tracking-[0.25em] ${isDark ? "text-paper/60" : "text-dim"}`}>
+                        {String(i + 1).padStart(2, "0")}
+                      </div>
+                      <h4 className={`mt-3 font-medium text-[1.1rem] tracking-[-0.015em] ${isDark ? "text-paper" : "text-ink"}`}>
+                        {p.t}
+                      </h4>
+                      <p className={`mt-2 text-sm leading-relaxed ${isDark ? "text-paper/70" : "text-dim"}`}>
+                        {p.d}
+                      </p>
                     </div>
-                    <h4 className="mt-3 font-medium text-[1.1rem] tracking-[-0.015em] text-ink">
-                      {p.t}
-                    </h4>
-                    <p className="mt-2 text-sm leading-relaxed text-dim">
-                      {p.d}
-                    </p>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </div>

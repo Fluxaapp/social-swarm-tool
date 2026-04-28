@@ -735,7 +735,7 @@
     margin-inline: auto;
     box-sizing: border-box;
   }
-  #about .bg-line.border-line > .bg-paper {
+  #about .bg-line.border-line > * {
     width: 100%;
     max-width: 100%;
     padding: 1.25rem 1rem !important;
