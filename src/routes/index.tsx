@@ -965,7 +965,7 @@ function CTA({ onOpenProposal }: { onOpenProposal: () => void }) {
           <span className="h-px w-8 bg-paper/40" />
         </div>
         <h2 className="mt-12 font-medium leading-[0.95] tracking-[-0.04em] text-[clamp(2.25rem,6.5vw,6rem)] max-w-5xl mx-auto text-balance sr sr-d1">
-          Sua marca merece crescer, mas primeiro ela precisa parecer que merece.
+          Sua marca merece crescer, mas primeiro, ela precisa parecer que merece.
         </h2>
 
         <div className="mt-14 flex flex-col sm:flex-row items-center justify-center gap-4 sr sr-d2">
