@@ -611,7 +611,7 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
           <div className="col-span-12 min-w-0 max-w-full overflow-hidden lg:col-span-7 sr sr-d3">
             <div className="tech-carousel-shell">
               <div
-                className="tech-carousel-viewport relative flex min-h-[360px] w-full max-w-full items-center justify-center overflow-hidden sm:min-h-[400px] md:min-h-[500px]"
+                className="tech-carousel-viewport relative flex min-h-[360px] w-full max-w-full items-center justify-center overflow-hidden px-3 sm:min-h-[400px] sm:px-0 md:min-h-[500px]"
                 style={{ perspective: "1400px" }}
               >
               <button
@@ -625,7 +625,7 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
               </button>
 
                 <div
-                  className="tech-card-clip relative mx-auto h-[360px] w-[280px] max-w-full sm:h-[420px] sm:w-[360px] md:h-[500px] md:w-[480px]"
+                  className="tech-card-clip relative mx-auto h-[360px] w-full max-w-[280px] sm:h-[420px] sm:max-w-[360px] md:h-[500px] md:max-w-[480px]"
                 >
                 {isAnimating && (
                   <TechCard
@@ -704,10 +704,10 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
                 <span className={`${infoMotionClass} tech-inline-copy`}>{dynamicView.n} · {dynamicView.label}</span>
               </div>
 
-              <h3 className="mt-6 mx-auto w-full max-w-[22rem] text-center font-medium text-[clamp(1.5rem,3vw,2.5rem)] leading-[1.1] tracking-[-0.03em] text-paper lg:mx-0 lg:max-w-none lg:text-left">
+              <h3 className="tech-info-title mt-6 mx-auto w-full max-w-[22rem] text-center font-medium text-[clamp(1.5rem,3vw,2.5rem)] leading-[1.1] tracking-[-0.03em] text-paper lg:mx-0 lg:max-w-none lg:text-left">
                 <span className={`${infoMotionClass} tech-copy-title`}>{dynamicView.title}</span>
               </h3>
-              <p className="mx-auto mt-5 w-full max-w-[22rem] text-center text-[15px] leading-relaxed text-paper/60 lg:mx-0 lg:max-w-md lg:text-left">
+              <p className="tech-info-body mx-auto mt-5 w-full max-w-[22rem] text-center text-[15px] leading-relaxed text-paper/60 lg:mx-0 lg:max-w-md lg:text-left">
                 <span className={`${infoMotionClass} tech-copy-body`}>{dynamicView.desc}</span>
               </p>
               <div className="tech-info-chip mx-auto mt-8 flex max-w-[22rem] items-center justify-center gap-3 rounded-full border border-paper/10 bg-paper/5 px-4 py-2 text-center text-[12px] text-paper/80 lg:mx-0 lg:max-w-none">
@@ -720,7 +720,7 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
                 <span className={`${infoMotionClass} tech-inline-copy`}>{dynamicView.tech}</span>
               </div>
 
-              <div className="mt-8 flex w-full justify-center lg:justify-start">
+              <div className="tech-info-cta mt-8 flex w-full justify-center lg:justify-start">
                 <button
                   type="button"
                   onClick={onOpenProposal}
