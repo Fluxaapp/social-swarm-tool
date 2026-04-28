@@ -469,7 +469,7 @@ const TECH_VIEWS = [
     n: "01",
     label: "Branding",
     subtitle: "Identidade visual estratégica",
-    title: "Identidade que se vê e se sente.",
+    title: "Presença que permanece,\nessência que se revela.",
     desc: "Sistemas visuais coerentes, do logotipo ao território de marca, construídos para durar e escalar.",
     highlight: "Sistema modular · 12 ativos",
     tech: "ENGINE V4.1 · 12 MÓDULOS",
