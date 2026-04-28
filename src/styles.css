@@ -671,12 +671,16 @@
   .tech-info-body,
   .tech-info-cta,
   .tech-info-row,
-  .tech-info-meta,
-  .tech-info-chip {
+  .tech-info-meta {
     width: 100%;
     max-width: calc(100vw - 2.5rem);
     margin-inline: auto;
-    transform: translateX(-24px);
+    transform: translateX(-36px);
+  }
+
+  .tech-info-chip {
+    max-width: max-content;
+    transform: translateX(-36px);
   }
 
   .tech-info-title,
