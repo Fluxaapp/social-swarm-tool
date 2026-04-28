@@ -656,7 +656,12 @@
    mas mantém espaço suficiente à esquerda para o card de preview aparecer */
 @media (max-width: 767px) {
   .tech-card-clip {
-    --tech-active-shift-x: 0px;
+    /* Compensação: card preview (escala 0.78, ~180px largura) fica 104px à
+       esquerda do ativo, o que desloca o centro visual da composição
+       (preview + ativo) para a esquerda do centro do frame. Empurramos o
+       conjunto inteiro para a direita pela metade desse offset visual,
+       fazendo o centro da composição coincidir com o centro do viewport. */
+    --tech-active-shift-x: 40px;
     --tech-preview-distance: 104px;
     --tech-upcoming-distance: 158px;
     --tech-preview-lift: 6px;
