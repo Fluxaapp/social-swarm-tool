@@ -675,6 +675,7 @@
     width: 100%;
     max-width: calc(100vw - 2.5rem);
     margin-inline: auto;
+    transform: translateX(-12px);
   }
 
   .tech-info-title,
