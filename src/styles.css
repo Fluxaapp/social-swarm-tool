@@ -600,7 +600,7 @@
 
   .tech-carousel-viewport {
     margin-inline: auto;
-    padding-inline: 0;
+    padding-inline: 0.75rem;
   }
 
   .tech-dots-wrapper {
@@ -653,13 +653,40 @@
    mas mantém espaço suficiente à esquerda para o card de preview aparecer */
 @media (max-width: 767px) {
   .tech-card-clip {
-    --tech-active-shift-x: -28px;
-    --tech-preview-distance: 118px;
+    --tech-active-shift-x: 0px;
+    --tech-preview-distance: 104px;
     --tech-upcoming-distance: 158px;
     --tech-preview-lift: 6px;
+    --tech-preview-scale: 0.78;
     --tech-exit-distance: 320px;
-    clip-path: inset(-120px 0px -120px -140px);
-    -webkit-clip-path: inset(-120px 0px -120px -140px);
+    clip-path: inset(-120px 0px -120px -112px);
+    -webkit-clip-path: inset(-120px 0px -120px -112px);
+  }
+
+  .tech-info-stack,
+  .tech-info-title,
+  .tech-info-body,
+  .tech-info-cta,
+  .tech-info-row,
+  .tech-info-meta,
+  .tech-info-chip {
+    width: 100%;
+    max-width: calc(100vw - 2.5rem);
+    margin-inline: auto;
+  }
+
+  .tech-info-title,
+  .tech-info-body,
+  .tech-inline-copy {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .tech-info-chip,
+  .tech-info-row,
+  .tech-info-meta {
+    justify-content: center;
+    text-align: center;
   }
 }
 
