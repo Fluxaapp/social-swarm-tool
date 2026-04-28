@@ -392,41 +392,47 @@ function About() {
         </div>
 
         {/* Institutional content — diferenciais */}
-        <div className="mt-28 md:mt-36 grid grid-cols-12 gap-10 md:gap-16 items-start">
-          <div className="col-span-12 md:col-span-5 sr flex w-full flex-col items-center text-center md:items-start md:text-left">
-            <div className="mx-auto inline-flex w-full items-center justify-center gap-3 text-[11px] uppercase tracking-[0.3em] text-dim md:mx-0 md:justify-start">
-              <span className="h-px w-8 bg-ink/40" />
-              Como pensamos
+        <div className="mt-28 md:mt-36 flex w-full max-w-full flex-col items-center md:grid md:grid-cols-12 md:items-start md:gap-16">
+          <div className="flex w-full max-w-full justify-center md:col-span-5 md:block sr">
+            <div className="mx-auto box-border flex w-full max-w-[360px] flex-col items-center px-4 text-center md:mx-0 md:max-w-none md:items-start md:px-0 md:text-left">
+              <div className="mx-auto inline-flex w-full max-w-full items-center justify-center gap-3 break-words text-[11px] uppercase tracking-[0.3em] text-dim md:mx-0 md:justify-start">
+                <span className="hidden md:inline-block h-px w-8 bg-ink/40" />
+                Como pensamos
+              </div>
+              <h3 className="mx-auto mt-6 w-full max-w-[320px] break-words text-center font-medium leading-tight tracking-[-0.03em] text-ink text-[clamp(1.5rem,3.2vw,2.75rem)] md:max-w-none md:leading-[1.1] md:text-left">
+                Marca não é estética.<br />
+                É decisão estratégica.
+              </h3>
+              <p className="mx-auto mt-6 w-full max-w-[320px] break-words text-center text-[15px] leading-relaxed text-dim md:max-w-md md:mx-0 md:text-left">
+                Acreditamos que percepção é precificação. Toda decisão visual
+                influencia diretamente quanto sua marca pode cobrar e o tipo de
+                cliente que ela atrai. Por isso operamos no cruzamento de design,
+                negócio e tecnologia.
+              </p>
             </div>
-            <h3 className="mt-6 w-full text-center font-medium text-[clamp(1.5rem,3.2vw,2.75rem)] leading-[1.1] tracking-[-0.03em] text-ink md:text-left">
-              Marca não é estética.<br />
-              É decisão estratégica.
-            </h3>
-            <p className="mx-auto mt-6 w-full max-w-md text-center text-[15px] leading-relaxed text-dim md:mx-0 md:text-left">
-              Acreditamos que percepção é precificação. Toda decisão visual
-              influencia diretamente quanto sua marca pode cobrar e o tipo de
-              cliente que ela atrai. Por isso operamos no cruzamento de design,
-              negócio e tecnologia.
-            </p>
           </div>
 
-          <div className="col-span-12 md:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-px bg-line border border-line">
-            {pillars.map((p, i) => (
-              <div
-                key={p.t}
-                className={`bg-paper p-8 text-center md:text-left sr sr-d${Math.min(i + 1, 5)}`}
-              >
-                <div className="text-[11px] uppercase tracking-[0.25em] text-dim">
-                  {String(i + 1).padStart(2, "0")}
-                </div>
-                <h4 className="mt-3 font-medium text-[1.1rem] tracking-[-0.015em] text-ink">
-                  {p.t}
-                </h4>
-                <p className="mt-2 text-sm leading-relaxed text-dim">
-                  {p.d}
-                </p>
+          <div className="mt-10 flex w-full max-w-full justify-center md:col-span-7 md:mt-0 md:block">
+            <div className="mx-auto box-border w-full max-w-[360px] px-4 md:max-w-none md:px-0">
+              <div className="grid w-full grid-cols-1 sm:grid-cols-2 gap-px bg-line border border-line">
+                {pillars.map((p, i) => (
+                  <div
+                    key={p.t}
+                    className={`bg-paper p-8 text-center md:text-left sr sr-d${Math.min(i + 1, 5)}`}
+                  >
+                    <div className="text-[11px] uppercase tracking-[0.25em] text-dim">
+                      {String(i + 1).padStart(2, "0")}
+                    </div>
+                    <h4 className="mt-3 font-medium text-[1.1rem] tracking-[-0.015em] text-ink">
+                      {p.t}
+                    </h4>
+                    <p className="mt-2 text-sm leading-relaxed text-dim">
+                      {p.d}
+                    </p>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         </div>
 
