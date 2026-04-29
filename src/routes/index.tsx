@@ -10,6 +10,8 @@ import { useParallax, useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { useCountUp } from "@/hooks/use-count-up";
 import { CONTACT, whatsappLink, mailtoLink } from "@/lib/contact";
 import { ProposalModal } from "@/components/ProposalModal";
+import { lazy, Suspense } from "react";
+const HeroSculpture = lazy(() => import("@/components/HeroSculpture"));
 
 
 export const Route = createFileRoute("/")({
