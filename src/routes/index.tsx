@@ -233,7 +233,7 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
         <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 min-h-[60px] sm:min-h-[100px] lg:min-h-[620px]">
           {/* 3D sculpture — desktop only, behind icons */}
           <div className="hidden lg:block absolute inset-0 z-0">
-            <ClientOnly>
+            <ClientOnly fallback={null}>
               <Suspense fallback={null}>
                 <HeroSculpture />
               </Suspense>
