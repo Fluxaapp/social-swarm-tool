@@ -6,7 +6,6 @@ import workBranding from "@/assets/work-branding.jpg";
 import workEditorial from "@/assets/work-editorial.jpg";
 import workPackaging from "@/assets/work-packaging.jpg";
 import workCampaign from "@/assets/work-campaign.jpg";
-import heroModel from "@/assets/hero-model.jpg";
 import { useParallax, useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { useCountUp } from "@/hooks/use-count-up";
 import { CONTACT, whatsappLink, mailtoLink } from "@/lib/contact";
@@ -138,26 +137,6 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
         <div className="absolute top-0 bottom-0 left-[16%] w-px bg-gradient-to-b from-transparent via-ink/10 to-transparent" />
         <div className="absolute top-0 bottom-0 left-[58%] w-px bg-gradient-to-b from-transparent via-ink/8 to-transparent" />
         <div className="absolute top-0 bottom-0 right-[10%] w-px bg-gradient-to-b from-transparent via-ink/10 to-transparent" />
-      </div>
-
-      {/* Editorial fashion model — background element, right-aligned, desktop only */}
-      <div
-        className="pointer-events-none hidden lg:block absolute inset-y-0 right-0 z-[2] w-[42%] xl:w-[38%] max-w-[640px]"
-        aria-hidden
-      >
-        <img
-          src={heroModel}
-          alt=""
-          width={768}
-          height={1280}
-          className="h-full w-full object-cover object-right opacity-90"
-          style={{
-            WebkitMaskImage:
-              "linear-gradient(to left, black 40%, transparent 95%)",
-            maskImage:
-              "linear-gradient(to left, black 40%, transparent 95%)",
-          }}
-        />
       </div>
 
       <svg
