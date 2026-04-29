@@ -38,7 +38,7 @@ function Sculpture({ scrollRef }: { scrollRef: React.MutableRefObject<number> })
   const wire = useRef<THREE.LineSegments>(null);
 
   // Build a refined faceted form: bevel-stretched octahedron-like polyhedron.
-  const geom = useRef<THREE.BufferGeometry>();
+  const geom = useRef<THREE.BufferGeometry | null>(null);
   if (!geom.current) {
     const g = new THREE.IcosahedronGeometry(1.15, 0);
     // Slightly stretch for a more sculptural silhouette
@@ -48,7 +48,7 @@ function Sculpture({ scrollRef }: { scrollRef: React.MutableRefObject<number> })
   }
 
   // Wireframe support: edges of a larger, lower-poly polyhedron
-  const wireGeom = useRef<THREE.BufferGeometry>();
+  const wireGeom = useRef<THREE.BufferGeometry | null>(null);
   if (!wireGeom.current) {
     const base = new THREE.OctahedronGeometry(1.85, 1);
     base.scale(1.05, 1.3, 1.05);
@@ -121,7 +121,7 @@ function Sculpture({ scrollRef }: { scrollRef: React.MutableRefObject<number> })
 
 function Points() {
   const ref = useRef<THREE.Points>(null);
-  const geom = useRef<THREE.BufferGeometry>();
+  const geom = useRef<THREE.BufferGeometry | null>(null);
   if (!geom.current) {
     const positions: number[] = [];
     const n = 14;
