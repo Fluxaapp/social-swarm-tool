@@ -1,6 +1,6 @@
-import { createFileRoute, ClientOnly } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight, Plus, Star, Instagram, Facebook, Search, ChevronLeft, ChevronRight } from "lucide-react";
-import { useState, useEffect, useRef, lazy, Suspense } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import workBranding from "@/assets/work-branding.jpg";
 import workEditorial from "@/assets/work-editorial.jpg";
@@ -10,7 +10,6 @@ import { useParallax, useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { useCountUp } from "@/hooks/use-count-up";
 import { CONTACT, whatsappLink, mailtoLink } from "@/lib/contact";
 import { ProposalModal } from "@/components/ProposalModal";
-const HeroSculpture = lazy(() => import("@/components/HeroSculpture"));
 
 
 export const Route = createFileRoute("/")({
@@ -229,16 +228,8 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
           </div>
         </div>
 
-        {/* RIGHT — premium 3D sculpture + social icons rail */}
+        {/* RIGHT — social icons rail (showcase lives behind, full-bleed) */}
         <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 min-h-[60px] sm:min-h-[100px] lg:min-h-[620px]">
-          {/* 3D sculpture — desktop only, behind icons */}
-          <div className="hidden lg:block absolute inset-0 z-0">
-            <ClientOnly fallback={null}>
-              <Suspense fallback={null}>
-                <HeroSculpture />
-              </Suspense>
-            </ClientOnly>
-          </div>
           {/* Social icons — horizontal e centralizados no mobile, vertical no desktop */}
           <div className="lg:absolute lg:right-4 lg:top-1/2 lg:-translate-y-1/2 lg:flex-col lg:justify-start z-20 flex flex-row items-center justify-center gap-5 sm:gap-6 lg:gap-8">
             {SOCIALS.map((s) => {
