@@ -1,6 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, ClientOnly } from "@tanstack/react-router";
 import { ArrowUpRight, Plus, Star, Instagram, Facebook, Search, ChevronLeft, ChevronRight } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, lazy, Suspense } from "react";
 
 import workBranding from "@/assets/work-branding.jpg";
 import workEditorial from "@/assets/work-editorial.jpg";
@@ -10,14 +10,7 @@ import { useParallax, useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { useCountUp } from "@/hooks/use-count-up";
 import { CONTACT, whatsappLink, mailtoLink } from "@/lib/contact";
 import { ProposalModal } from "@/components/ProposalModal";
-import { lazy, Suspense } from "react";
 const HeroSculpture = lazy(() => import("@/components/HeroSculpture"));
-
-function ClientOnly({ children }: { children: React.ReactNode }) {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-  return mounted ? <>{children}</> : null;
-}
 
 
 export const Route = createFileRoute("/")({
@@ -240,7 +233,7 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
         <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 min-h-[60px] sm:min-h-[100px] lg:min-h-[620px]">
           {/* 3D sculpture — desktop only, behind icons */}
           <div className="hidden lg:block absolute inset-0 z-0">
-            <ClientOnly>
+            <ClientOnly fallback={null}>
               <Suspense fallback={null}>
                 <HeroSculpture />
               </Suspense>
