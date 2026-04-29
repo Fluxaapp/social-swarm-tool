@@ -6,6 +6,7 @@ import workBranding from "@/assets/work-branding.jpg";
 import workEditorial from "@/assets/work-editorial.jpg";
 import workPackaging from "@/assets/work-packaging.jpg";
 import workCampaign from "@/assets/work-campaign.jpg";
+import heroReflectionModel from "@/assets/hero-reflection-model.png";
 import { useParallax, useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { useCountUp } from "@/hooks/use-count-up";
 import { CONTACT, whatsappLink, mailtoLink } from "@/lib/contact";
@@ -152,6 +153,40 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
           className="text-ink/15 dash-flow"
         />
       </svg>
+
+      {/* Subtle glass reflection — fashion model (desktop only) */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-y-0 right-0 hidden lg:block z-[2] w-[42%] overflow-hidden"
+      >
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url(${heroReflectionModel})`,
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "right center",
+            backgroundSize: "auto 95%",
+            opacity: 0.11,
+            filter: "grayscale(100%) blur(1.4px) contrast(1.05)",
+            transform: "scaleX(-1)",
+            mixBlendMode: "multiply",
+            maskImage:
+              "linear-gradient(to right, transparent 0%, black 35%, black 80%, transparent 100%)",
+            WebkitMaskImage:
+              "linear-gradient(to right, transparent 0%, black 35%, black 80%, transparent 100%)",
+          }}
+        />
+        {/* faint vertical glass streaks */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "repeating-linear-gradient(90deg, transparent 0 60px, rgba(0,0,0,0.025) 60px 61px)",
+            mixBlendMode: "multiply",
+          }}
+        />
+      </div>
+
 
       <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10 pt-12 sm:pt-18 md:pt-22 pb-6 sm:pb-10 md:pb-16 grid grid-cols-12 gap-5 md:gap-12 items-center min-h-[auto] lg:min-h-[calc(100vh-5rem)] relative z-10">
         {/* LEFT — text */}
