@@ -231,16 +231,11 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
 
         {/* RIGHT — ideas loop + social icons rail */}
         <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 min-h-[60px] sm:min-h-[100px] lg:min-h-[620px]">
-          {/* Ideas loop — ocupa o espaço central da coluna */}
-          <div className="hidden sm:block lg:absolute lg:inset-0 lg:flex lg:items-center lg:justify-center lg:pr-20 mt-10 lg:mt-0">
+          {/* Ideas loop — visível em tablet/desktop, oculto no mobile */}
+          <div className="hidden md:block lg:absolute lg:inset-0 lg:flex lg:items-center lg:justify-center lg:pr-20 mt-10 lg:mt-0">
             <div className="w-full max-w-[460px] mx-auto">
               <HeroIdeasLoop />
             </div>
-          </div>
-
-          {/* Mobile compacto: 1 frase em fade */}
-          <div className="sm:hidden mt-8 px-2">
-            <HeroIdeasLoop />
           </div>
 
           {/* Social icons — horizontal e centralizados no mobile, vertical no desktop */}
