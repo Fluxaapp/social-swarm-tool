@@ -155,7 +155,7 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(to left, transparent 0%, hsl(var(--soft) / 0.15) 50%, hsl(var(--soft)) 100%)",
+                "linear-gradient(to left, transparent 0%, color-mix(in oklab, var(--soft) 40%, transparent) 55%, var(--soft) 100%)",
             }}
           />
         </div>
