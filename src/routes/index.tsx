@@ -10,6 +10,7 @@ import { useParallax, useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { useCountUp } from "@/hooks/use-count-up";
 import { CONTACT, whatsappLink, mailtoLink } from "@/lib/contact";
 import { ProposalModal } from "@/components/ProposalModal";
+import { HeroIdeasLoop } from "@/components/HeroIdeasLoop";
 
 
 export const Route = createFileRoute("/")({
@@ -228,10 +229,22 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
           </div>
         </div>
 
-        {/* RIGHT — social icons rail (showcase lives behind, full-bleed) */}
+        {/* RIGHT — ideas loop + social icons rail */}
         <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 min-h-[60px] sm:min-h-[100px] lg:min-h-[620px]">
+          {/* Ideas loop — ocupa o espaço central da coluna */}
+          <div className="hidden sm:block lg:absolute lg:inset-0 lg:flex lg:items-center lg:justify-center lg:pr-20 mt-10 lg:mt-0">
+            <div className="w-full max-w-[460px] mx-auto">
+              <HeroIdeasLoop />
+            </div>
+          </div>
+
+          {/* Mobile compacto: 1 frase em fade */}
+          <div className="sm:hidden mt-8 px-2">
+            <HeroIdeasLoop />
+          </div>
+
           {/* Social icons — horizontal e centralizados no mobile, vertical no desktop */}
-          <div className="lg:absolute lg:right-4 lg:top-1/2 lg:-translate-y-1/2 lg:flex-col lg:justify-start z-20 flex flex-row items-center justify-center gap-5 sm:gap-6 lg:gap-8">
+          <div className="mt-8 sm:mt-10 lg:mt-0 lg:absolute lg:right-4 lg:top-1/2 lg:-translate-y-1/2 lg:flex-col lg:justify-start z-20 flex flex-row items-center justify-center gap-5 sm:gap-6 lg:gap-8">
             {SOCIALS.map((s) => {
               const Icon = s.Icon;
               return (
