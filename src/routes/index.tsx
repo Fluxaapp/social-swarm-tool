@@ -130,6 +130,37 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
   return (
     <section id="top" className="relative bg-soft overflow-hidden">
 
+      {/* Editorial model — luxury fashion magazine accent (right side) */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-y-0 right-0 z-[1] hidden md:block"
+        style={{ width: "min(46%, 720px)" }}
+      >
+        <div className="relative w-full h-full">
+          <img
+            src={heroModel}
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover object-center grayscale"
+            style={{
+              opacity: 0.18,
+              filter: "grayscale(100%) blur(1.5px) contrast(1.05)",
+              maskImage:
+                "linear-gradient(to left, rgba(0,0,0,1) 30%, rgba(0,0,0,0.6) 65%, rgba(0,0,0,0) 100%)",
+              WebkitMaskImage:
+                "linear-gradient(to left, rgba(0,0,0,1) 30%, rgba(0,0,0,0.6) 65%, rgba(0,0,0,0) 100%)",
+            }}
+          />
+          {/* Soft fade-out gradient overlay reinforcing right-to-left blend */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(to left, transparent 0%, hsl(var(--soft) / 0.15) 50%, hsl(var(--soft)) 100%)",
+            }}
+          />
+        </div>
+      </div>
+
       <div
         data-parallax="0.08"
         className="pointer-events-none absolute inset-0 opacity-[0.5] z-[1]"
