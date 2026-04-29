@@ -237,7 +237,7 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
               <div className="text-[10px] uppercase tracking-[0.25em] text-dim mb-2.5">
                 Resultados
               </div>
-              <div className="text-2xl font-medium text-ink tracking-tight">47.2%</div>
+              <div className="text-2xl font-medium text-ink tracking-tight">86.7%</div>
             </div>
           </div>
         </div>
