@@ -1107,26 +1107,7 @@ function Footer() {
           </div>
         </div>
 
-        {/* Brand signature — right-aligned mark of authority */}
-        <div className="mt-16 pt-10 border-t border-paper/10 grid grid-cols-12 gap-8 items-end">
-          <div className="hidden md:block md:col-span-6" aria-hidden />
-          <div className="col-span-12 md:col-span-6 flex flex-col items-center md:items-end text-center md:text-right">
-            <div className="flex items-center gap-3 text-paper/40">
-              <span className="h-px w-10 bg-paper/30" />
-              <span className="text-[10px] uppercase tracking-[0.35em]">Assinatura</span>
-            </div>
-            <p className="mt-5 font-medium tracking-[-0.03em] leading-[1.05] text-[clamp(1.5rem,2.6vw,2.25rem)] text-paper max-w-md">
-              Marca não se inventa, se revela.
-            </p>
-            <div className="mt-6 flex items-center gap-3 md:flex-row-reverse">
-              <span className="inline-block h-1.5 w-1.5 rotate-45 border border-paper/50" />
-              <span className="h-px w-16 bg-paper/20" />
-              <span className="text-[10px] uppercase tracking-[0.3em] text-paper/40">Glass Maind · Est. 2024</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-12 pt-6 border-t border-paper/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-[11px] uppercase tracking-[0.25em] text-paper/40">
+        <div className="mt-14 pt-6 border-t border-paper/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-[11px] uppercase tracking-[0.25em] text-paper/40">
           <span suppressHydrationWarning>© {new Date().getFullYear()} Agência Glass Maind</span>
           <span>Todos os direitos reservados</span>
         </div>
