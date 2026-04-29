@@ -963,3 +963,28 @@
 }
 
 #lovable-badge {display: none !important;}
+
+/* === Hero Ideas Loop === */
+@keyframes ideaProgress {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+.idea-progress {
+  animation: ideaProgress 2.4s linear forwards;
+}
+
+@keyframes ideaArrowPulse {
+  0%, 100% { transform: translateX(0); opacity: 1; }
+  50% { transform: translateX(3px); opacity: 0.7; }
+}
+.idea-arrow {
+  animation: ideaArrowPulse 1.6s ease-in-out infinite;
+}
+
+.idea-glow {
+  text-shadow: 0 0 24px color-mix(in oklab, var(--ink, #0a0a0a) 12%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .idea-progress, .idea-arrow { animation: none !important; }
+}
