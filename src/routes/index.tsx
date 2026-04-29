@@ -649,7 +649,7 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
                 onClick={goPrev}
                 aria-label="Card anterior"
                 disabled={isAnimating}
-                className="absolute left-2 sm:left-3 md:left-4 lg:left-6 top-1/2 -translate-y-1/2 z-30 hidden md:inline-flex h-10 w-10 md:h-11 md:w-11 items-center justify-center rounded-full bg-paper/15 hover:bg-paper/25 border border-paper/20 backdrop-blur-md text-paper transition-all duration-300 hover:scale-105 disabled:pointer-events-none disabled:opacity-40"
+                className="absolute left-2 sm:left-3 md:-left-2 lg:-left-6 xl:-left-10 top-1/2 -translate-y-1/2 z-30 hidden md:inline-flex h-10 w-10 md:h-11 md:w-11 items-center justify-center rounded-full bg-paper/15 hover:bg-paper/25 border border-paper/20 backdrop-blur-md text-paper transition-all duration-300 hover:scale-105 disabled:pointer-events-none disabled:opacity-40"
               >
                 <ChevronLeft className="h-5 w-5" />
               </button>
@@ -700,7 +700,7 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
                 onClick={goNext}
                 aria-label="Próximo card"
                 disabled={isAnimating}
-                className="absolute right-2 sm:right-3 md:right-4 lg:right-6 top-1/2 -translate-y-1/2 z-30 inline-flex h-10 w-10 md:h-11 md:w-11 items-center justify-center rounded-full bg-paper/15 hover:bg-paper/25 border border-paper/20 backdrop-blur-md text-paper transition-all duration-300 hover:scale-105 disabled:pointer-events-none disabled:opacity-40"
+                className="absolute right-2 sm:right-3 md:-right-2 lg:-right-6 xl:-right-10 top-1/2 -translate-y-1/2 z-30 inline-flex h-10 w-10 md:h-11 md:w-11 items-center justify-center rounded-full bg-paper/15 hover:bg-paper/25 border border-paper/20 backdrop-blur-md text-paper transition-all duration-300 hover:scale-105 disabled:pointer-events-none disabled:opacity-40"
               >
                 <ChevronRight className="h-5 w-5" />
               </button>
