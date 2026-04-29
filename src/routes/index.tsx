@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight, Plus, Star, Instagram, Facebook, Search, ChevronLeft, ChevronRight } from "lucide-react";
-import { useState, useEffect, useRef, lazy, Suspense } from "react";
+import { useState, useEffect, useRef } from "react";
+
 import workBranding from "@/assets/work-branding.jpg";
 import workEditorial from "@/assets/work-editorial.jpg";
 import workPackaging from "@/assets/work-packaging.jpg";
@@ -9,14 +10,6 @@ import { useParallax, useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { useCountUp } from "@/hooks/use-count-up";
 import { CONTACT, whatsappLink, mailtoLink } from "@/lib/contact";
 import { ProposalModal } from "@/components/ProposalModal";
-
-const HeroSculpture = lazy(() => import("@/components/HeroSculpture"));
-
-function ClientOnly({ children }: { children: React.ReactNode }) {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-  return mounted ? <>{children}</> : null;
-}
 
 
 export const Route = createFileRoute("/")({
@@ -235,17 +228,8 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
           </div>
         </div>
 
-        {/* RIGHT — 3D sculpture + social icons rail */}
-        <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 min-h-[260px] sm:min-h-[360px] lg:min-h-[620px]">
-          {/* Premium 3D sculpture (client-only) */}
-          <ClientOnly>
-            <Suspense fallback={null}>
-              <div className="absolute inset-0 lg:-inset-x-6 lg:-inset-y-10 z-0">
-                <HeroSculpture />
-              </div>
-            </Suspense>
-          </ClientOnly>
-
+        {/* RIGHT — social icons rail (showcase lives behind, full-bleed) */}
+        <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 min-h-[60px] sm:min-h-[100px] lg:min-h-[620px]">
           {/* Social icons — horizontal e centralizados no mobile, vertical no desktop */}
           <div className="lg:absolute lg:right-4 lg:top-1/2 lg:-translate-y-1/2 lg:flex-col lg:justify-start z-20 flex flex-row items-center justify-center gap-5 sm:gap-6 lg:gap-8">
             {SOCIALS.map((s) => {
