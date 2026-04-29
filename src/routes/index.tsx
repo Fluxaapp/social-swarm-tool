@@ -13,6 +13,12 @@ import { ProposalModal } from "@/components/ProposalModal";
 import { lazy, Suspense } from "react";
 const HeroSculpture = lazy(() => import("@/components/HeroSculpture"));
 
+function ClientOnly({ children }: { children: React.ReactNode }) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  return mounted ? <>{children}</> : null;
+}
+
 
 export const Route = createFileRoute("/")({
   component: Index,
