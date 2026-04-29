@@ -4,6 +4,12 @@ import { useState, useEffect, useRef, lazy, Suspense } from "react";
 
 const HeroSculpture = lazy(() => import("@/components/HeroSculpture"));
 
+function ClientOnly({ children }: { children: React.ReactNode }) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  return mounted ? <>{children}</> : null;
+}
+
 import workBranding from "@/assets/work-branding.jpg";
 import workEditorial from "@/assets/work-editorial.jpg";
 import workPackaging from "@/assets/work-packaging.jpg";
