@@ -140,6 +140,26 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
         <div className="absolute top-0 bottom-0 right-[10%] w-px bg-gradient-to-b from-transparent via-ink/10 to-transparent" />
       </div>
 
+      {/* Editorial fashion model — background element, right-aligned, desktop only */}
+      <div
+        className="pointer-events-none hidden lg:block absolute inset-y-0 right-0 z-[2] w-[42%] xl:w-[38%] max-w-[640px]"
+        aria-hidden
+      >
+        <img
+          src={heroModel}
+          alt=""
+          width={768}
+          height={1280}
+          className="h-full w-full object-cover object-right opacity-90"
+          style={{
+            WebkitMaskImage:
+              "linear-gradient(to left, black 40%, transparent 95%)",
+            maskImage:
+              "linear-gradient(to left, black 40%, transparent 95%)",
+          }}
+        />
+      </div>
+
       <svg
         className="pointer-events-none absolute inset-0 w-full h-full"
         viewBox="0 0 1440 900"
