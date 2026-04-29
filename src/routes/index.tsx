@@ -228,72 +228,8 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
           </div>
         </div>
 
-        {/* RIGHT — editorial info composition + social icons rail */}
+        {/* RIGHT — social icons rail (showcase lives behind, full-bleed) */}
         <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 min-h-[60px] sm:min-h-[100px] lg:min-h-[620px]">
-          {/* Soft background shapes — very subtle */}
-          <div aria-hidden className="pointer-events-none absolute inset-0 hidden lg:block">
-            <div className="absolute top-[8%] right-[18%] h-[320px] w-[320px] rounded-full bg-gradient-to-br from-ink/[0.04] to-transparent blur-3xl" />
-            <div className="absolute bottom-[10%] right-[28%] h-[220px] w-[220px] rounded-full bg-gradient-to-tr from-ink/[0.03] to-transparent blur-2xl" />
-          </div>
-
-          {/* Editorial composition — desktop only, right-aligned, large spacing */}
-          <div className="hidden lg:flex absolute inset-0 right-20 flex-col items-end justify-center gap-10 pr-4 z-10">
-            {/* Index marker */}
-            <div className="flex items-center gap-3 text-[10px] tracking-[0.35em] uppercase text-dim/80">
-              <span className="h-px w-10 bg-ink/20" />
-              <span>Índice</span>
-              <span className="text-ink/40">— 2026</span>
-            </div>
-
-            {/* Vertical phrases stack */}
-            <div className="flex flex-col items-end gap-5 text-right">
-              {[
-                { n: "I", word: "Autoridade" },
-                { n: "II", word: "Posicionamento" },
-                { n: "III", word: "Percepção" },
-                { n: "IV", word: "Crescimento" },
-              ].map((item) => (
-                <div key={item.n} className="flex items-baseline gap-4 group">
-                  <span className="text-[10px] tracking-[0.3em] text-ink/30 font-light">
-                    {item.n}
-                  </span>
-                  <span
-                    className="font-light text-ink/85 tracking-tight transition-colors duration-500 group-hover:text-ink"
-                    style={{ fontSize: "clamp(1.1rem, 1.4vw, 1.5rem)", lineHeight: 1.1 }}
-                  >
-                    {item.word}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            {/* Thin divider */}
-            <div className="h-px w-32 bg-gradient-to-l from-transparent via-ink/25 to-ink/10" />
-
-            {/* Metric highlight */}
-            <div className="flex flex-col items-end gap-2">
-              <div className="flex items-baseline gap-2">
-                <span
-                  className="font-medium text-ink tracking-tight tabular-nums"
-                  style={{ fontSize: "clamp(2rem, 3vw, 2.75rem)", lineHeight: 1 }}
-                >
-                  +312
-                </span>
-                <span className="text-xl font-light text-ink/60">%</span>
-              </div>
-              <div className="text-[10px] tracking-[0.3em] uppercase text-dim/80">
-                Performance média
-              </div>
-            </div>
-
-            {/* Footer marker */}
-            <div className="flex items-center gap-3 text-[10px] tracking-[0.35em] uppercase text-dim/60 mt-2">
-              <span>Estúdio</span>
-              <span className="h-px w-6 bg-ink/20" />
-              <span className="text-ink/40">Glass Maind</span>
-            </div>
-          </div>
-
           {/* Social icons — horizontal e centralizados no mobile, vertical no desktop */}
           <div className="lg:absolute lg:right-4 lg:top-1/2 lg:-translate-y-1/2 lg:flex-col lg:justify-start z-20 flex flex-row items-center justify-center gap-5 sm:gap-6 lg:gap-8">
             {SOCIALS.map((s) => {
