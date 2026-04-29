@@ -6,6 +6,10 @@ import workBranding from "@/assets/work-branding.jpg";
 import workEditorial from "@/assets/work-editorial.jpg";
 import workPackaging from "@/assets/work-packaging.jpg";
 import workCampaign from "@/assets/work-campaign.jpg";
+import clientLogo1 from "@/assets/client-logo-1.png";
+import clientLogo2 from "@/assets/client-logo-2.png";
+import clientLogo3 from "@/assets/client-logo-3.png";
+import clientLogo4 from "@/assets/client-logo-4.png";
 import { useParallax, useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { useCountUp } from "@/hooks/use-count-up";
 import { CONTACT, whatsappLink, mailtoLink } from "@/lib/contact";
@@ -209,14 +213,23 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
               </div>
               <div className="flex items-center gap-3">
                 <div className="flex -space-x-2">
-                  {[0, 1, 2, 3].map((i) => (
+                  {[clientLogo1, clientLogo2, clientLogo3, clientLogo4].map((logo, i) => (
                     <div
                       key={i}
-                      className="h-8 w-8 rounded-full border-2 border-soft bg-gradient-to-br from-ink/80 to-ink"
-                    />
+                      className="h-8 w-8 rounded-full border-2 border-soft bg-paper overflow-hidden flex items-center justify-center shadow-sm"
+                    >
+                      <img
+                        src={logo}
+                        alt={`Cliente ${i + 1}`}
+                        width={32}
+                        height={32}
+                        loading="lazy"
+                        className="h-5 w-5 object-contain"
+                      />
+                    </div>
                   ))}
                 </div>
-                <span className="text-2xl font-medium text-ink tracking-tight">20+</span>
+                <span className="text-2xl font-medium text-ink tracking-tight">356+</span>
               </div>
             </div>
             <div className="h-12 w-px bg-line" />
