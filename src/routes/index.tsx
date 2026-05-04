@@ -340,14 +340,16 @@ function StatCard({
   label,
   desc,
   delay,
+  decimals = 0,
 }: {
   end: number;
   suffix?: string;
   label: string;
   desc: string;
   delay: number;
+  decimals?: number;
 }) {
-  const [ref, value] = useCountUp(end, { duration: 1800 });
+  const [ref, value] = useCountUp(end, { duration: 1800, decimals });
   return (
     <div
       ref={ref as React.RefObject<HTMLDivElement>}
@@ -407,9 +409,9 @@ function About() {
         </div>
 
         <div className="mt-16 sm:mt-20 md:mt-24 grid grid-cols-1 md:grid-cols-3 gap-4">
-          <StatCard end={20} suffix="+" label="Marcas atendidas" desc="Clientes ativos no Brasil e exterior" delay={1} />
-          <StatCard end={47} suffix="%" label="Crescimento médio" desc="Aumento de presença em 90 dias" delay={2} />
-          <StatCard end={3} suffix="" label="Pilares de atuação" desc="Design · Marketing · Gestão" delay={3} />
+          <StatCard end={356} suffix="+" label="Marcas atendidas" desc="Clientes ativos no Brasil e exterior" delay={1} />
+          <StatCard end={86.7} decimals={1} suffix="%" label="Crescimento médio" desc="Aumento de presença em 90 dias" delay={2} />
+          <StatCard end={24} suffix="+" label="Pilares de atuação" desc="Design · Marketing · Gestão" delay={3} />
         </div>
 
         {/* Institutional content — diferenciais */}
