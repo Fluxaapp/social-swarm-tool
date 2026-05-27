@@ -1,8 +1,6 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowUpRight, Plus, Star, Instagram, Facebook, Search, ChevronLeft, ChevronRight, Plane } from "lucide-react";
+import { createFileRoute } from "@tanstack/react-router";
+import { ArrowUpRight, Plus, Star, Instagram, Facebook, Search, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
-
-import droneHero from "@/assets/aerial-drone-hero.jpg";
 
 import workBranding from "@/assets/work-branding.jpg";
 import workEditorial from "@/assets/work-editorial.jpg";
@@ -21,43 +19,7 @@ import { HeroIdeasLoop } from "@/components/HeroIdeasLoop";
 
 export const Route = createFileRoute("/")({
   component: Index,
-  head: () => ({
-    meta: [
-      { title: "Agência Glass Maind — Estratégia, Design e Marketing Digital" },
-      { name: "description", content: "Agência de marketing e design em Fortaleza. Identidade visual, estratégia de marca, conteúdo e performance para marcas que querem crescer com autoridade." },
-      { property: "og:title", content: "Agência Glass Maind — Estratégia e Marketing Digital" },
-      { property: "og:description", content: "Identidade visual, estratégia de marca e marketing para marcas que querem parecer maiores, vender melhor e serem lembradas." },
-      { property: "og:url", content: "https://glassmainnd.lovable.app/" },
-      { property: "twitter:title", content: "Agência Glass Maind — Estratégia e Marketing Digital" },
-      { property: "twitter:description", content: "Identidade visual, estratégia de marca e marketing para marcas que querem parecer maiores, vender melhor e serem lembradas." },
-    ],
-    links: [
-      { rel: "canonical", href: "https://glassmainnd.lovable.app/" },
-    ],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "ProfessionalService",
-          name: "Agência Glass Maind",
-          description: "Agência de marketing e design estratégico — identidade visual, branding, conteúdo e performance.",
-          url: "https://glassmainnd.lovable.app/",
-          telephone: "+55 85 98606-7012",
-          address: {
-            "@type": "PostalAddress",
-            streetAddress: "Av. Des. Moreira, 1300",
-            addressLocality: "Fortaleza",
-            addressRegion: "CE",
-            addressCountry: "BR",
-          },
-          areaServed: "BR",
-        }),
-      },
-    ],
-  }),
 });
-
 
 
 /* =================== NAV =================== */
@@ -213,12 +175,10 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
               letterSpacing: "-0.045em",
             }}
           >
-            <span className="sr-only">Agência Glass Maind — Marketing e Design Estratégico</span>
-            <span aria-hidden="true" className="block reveal reveal-d2">NOVA</span>
-            <span aria-hidden="true" className="block reveal reveal-d3">EXPERIÊNCIA</span>
-            <span aria-hidden="true" className="block reveal reveal-d4">DIGITAL</span>
+            <span className="block reveal reveal-d2">NOVA</span>
+            <span className="block reveal reveal-d3">EXPERIÊNCIA</span>
+            <span className="block reveal reveal-d4">DIGITAL</span>
           </h1>
-
 
           <p className="mt-8 max-w-[480px] text-[15px] leading-relaxed text-dim reveal reveal-d4">
             Criamos presença, posicionamento e percepção para marcas que querem
@@ -364,7 +324,7 @@ function InfoStrip() {
             <Star className="h-3.5 w-3.5 fill-paper text-paper" />
             <span className="text-[12px] tracking-wide ml-2">3.000+ clientes</span>
           </div>
-          <span className="text-[11px] uppercase tracking-[0.25em] text-paper/70 hidden md:inline">
+          <span className="text-[11px] uppercase tracking-[0.25em] text-paper/40 hidden md:inline">
             · Role para baixo
           </span>
         </div>
@@ -787,7 +747,7 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
                 <span className={`${infoMotionClass} tech-inline-copy`}>{dynamicView.highlight}</span>
               </div>
 
-              <div className="tech-info-meta mx-auto mt-8 flex w-full max-w-full items-center justify-center gap-3 break-words text-center text-[10px] uppercase tracking-[0.22em] text-paper/70 sm:tracking-[0.3em] lg:mx-0 lg:max-w-none lg:justify-start lg:text-left">
+              <div className="tech-info-meta mx-auto mt-8 flex w-full max-w-full items-center justify-center gap-3 break-words text-center text-[10px] uppercase tracking-[0.22em] text-paper/40 sm:tracking-[0.3em] lg:mx-0 lg:max-w-none lg:justify-start lg:text-left">
                 <span className="hidden lg:inline-block h-px w-6 shrink-0 bg-paper/30" />
                 <span className={`${infoMotionClass} tech-inline-copy`}>{dynamicView.tech}</span>
               </div>
@@ -911,11 +871,10 @@ function Services() {
               <span className="h-px w-8 bg-ink/40" />
               Serviços
             </div>
-            <h2 className="mt-6 font-medium text-[clamp(1.75rem,4vw,3.25rem)] leading-[1.1] tracking-[-0.03em] text-ink">
+            <h3 className="mt-6 font-medium text-[clamp(1.75rem,4vw,3.25rem)] leading-[1.1] tracking-[-0.03em] text-ink">
               Seis disciplinas.<br />
               Um único ecossistema.
-            </h2>
-
+            </h3>
           </div>
           <p className="col-span-12 md:col-span-5 md:col-start-8 text-base text-dim self-end max-w-md mx-auto md:mx-0 text-center md:text-left sr sr-d2">
             Cada serviço opera como módulo dentro de uma engrenagem visual única
@@ -945,10 +904,9 @@ function Services() {
                   </span>
                 </div>
                 <div className="text-center md:text-left">
-                  <h3 className="font-medium text-2xl md:text-[1.75rem] tracking-[-0.02em] leading-tight">
+                  <h4 className="font-medium text-2xl md:text-[1.75rem] tracking-[-0.02em] leading-tight">
                     {s.t}
-                  </h3>
-
+                  </h4>
                   <p className={`mt-3 text-sm leading-relaxed max-w-xs ${isDark ? "text-paper/70" : "text-dim"}`}>
                     {s.d}
                   </p>
@@ -1062,7 +1020,7 @@ function CTA({ onOpenProposal }: { onOpenProposal: () => void }) {
             rel="noopener noreferrer"
             className="group bg-ink p-6 hover:bg-paper/5 transition-colors"
           >
-            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/70">WhatsApp</div>
+            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/40">WhatsApp</div>
             <div className="mt-2 text-paper text-[15px] font-medium">{CONTACT.phoneDisplay}</div>
             <div className="mt-1 text-[12px] text-paper/50 group-hover:text-paper/70 transition-colors">Resposta rápida →</div>
           </a>
@@ -1070,7 +1028,7 @@ function CTA({ onOpenProposal }: { onOpenProposal: () => void }) {
             href={mailtoLink("Contato pelo site Glass Maind")}
             className="group bg-ink p-6 hover:bg-paper/5 transition-colors"
           >
-            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/70">E-mail</div>
+            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/40">E-mail</div>
             <div className="mt-2 text-paper text-[15px] font-medium break-all">{CONTACT.email}</div>
             <div className="mt-1 text-[12px] text-paper/50 group-hover:text-paper/70 transition-colors">Enviar mensagem →</div>
           </a>
@@ -1080,13 +1038,13 @@ function CTA({ onOpenProposal }: { onOpenProposal: () => void }) {
             rel="noopener noreferrer"
             className="group bg-ink p-6 hover:bg-paper/5 transition-colors"
           >
-            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/70">Endereço</div>
+            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/40">Endereço</div>
             <div className="mt-2 text-paper text-[14px] font-medium leading-snug">{CONTACT.address}</div>
             <div className="mt-1 text-[12px] text-paper/50 group-hover:text-paper/70 transition-colors">Ver no mapa →</div>
           </a>
         </div>
 
-        <p className="mt-10 text-[11px] uppercase tracking-[0.25em] text-paper/70 sr sr-d3">
+        <p className="mt-10 text-[11px] uppercase tracking-[0.25em] text-paper/40 sr sr-d3">
           Resposta em até 24 horas úteis
         </p>
       </div>
@@ -1115,7 +1073,7 @@ function Footer() {
           </div>
 
           <div className="col-span-6 md:col-span-2">
-            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/70 mb-4">Contato</div>
+            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/40 mb-4">Contato</div>
             <ul className="space-y-2.5 text-sm text-paper/80">
               <li>
                 <a
@@ -1156,7 +1114,7 @@ function Footer() {
           </div>
 
           <div className="col-span-6 md:col-span-2">
-            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/70 mb-4">Navegar</div>
+            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/40 mb-4">Navegar</div>
             <ul className="space-y-2.5 text-sm text-paper/80">
               <li><a href="#about" className="hover:text-paper">Sobre</a></li>
               <li><a href="#services" className="hover:text-paper">Serviços</a></li>
@@ -1165,14 +1123,14 @@ function Footer() {
           </div>
 
           <div className="col-span-12 md:col-span-2">
-            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/70 mb-4">Estúdio</div>
+            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/40 mb-4">Estúdio</div>
             <p className="text-sm text-paper/80">Fortaleza / CE</p>
             <p className="mt-1 text-sm text-paper/60">Seg — Sex · 09 → 18</p>
             <p className="mt-3 text-sm text-paper/80">{CONTACT.phoneDisplay}</p>
           </div>
         </div>
 
-        <div className="mt-14 pt-6 border-t border-paper/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-[11px] uppercase tracking-[0.25em] text-paper/70">
+        <div className="mt-14 pt-6 border-t border-paper/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-[11px] uppercase tracking-[0.25em] text-paper/40">
           <span suppressHydrationWarning>© {new Date().getFullYear()} Agência Glass Maind</span>
           <span>Todos os direitos reservados</span>
         </div>
@@ -1196,108 +1154,9 @@ function Index() {
       <About />
       <Services />
       <Portfolio />
-      <AerialPromo />
       <CTA onOpenProposal={() => setProposalOpen(true)} />
       <Footer />
       <ProposalModal open={proposalOpen} onClose={() => setProposalOpen(false)} />
     </main>
-  );
-}
-
-/* =================== AERIAL PROMO =================== */
-function AerialPromo() {
-  return (
-    <section className="relative overflow-hidden text-paper" style={{ backgroundColor: "#05070d" }}>
-      <div className="absolute inset-0">
-        <img
-          src={droneHero}
-          alt=""
-          aria-hidden
-          className="w-full h-full object-cover opacity-45 breathe"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#05070d] via-[#05070d]/75 to-[#05070d]/20" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#05070d]" />
-      </div>
-
-      {/* HUD lines */}
-      <svg className="pointer-events-none absolute inset-0 w-full h-full opacity-50" viewBox="0 0 1440 600" preserveAspectRatio="none" aria-hidden>
-        <line x1="0" y1="90" x2="1440" y2="90" stroke="rgba(180,210,255,0.25)" strokeWidth="0.5" />
-        <line x1="0" y1="510" x2="1440" y2="510" stroke="rgba(180,210,255,0.25)" strokeWidth="0.5" />
-        <circle cx="1100" cy="300" r="140" fill="none" stroke="rgba(180,210,255,0.18)" strokeWidth="0.6" strokeDasharray="3 6" />
-      </svg>
-
-      <div className="relative z-10 mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10 py-20 md:py-28 grid grid-cols-12 gap-10 items-center">
-        <div className="col-span-12 lg:col-span-7">
-          <div className="flex items-center gap-3 text-[11px] tracking-[0.3em] uppercase text-paper/55 sr">
-            <span className="text-paper/40">NOVO</span>
-            <span className="h-px w-6 bg-paper/30" />
-            Captação Aérea · Drone Cinematográfico
-          </div>
-
-          <h2
-            className="mt-6 font-medium max-w-[18ch] sr sr-d1"
-            style={{ fontSize: "clamp(2rem, 5vw, 4.25rem)", lineHeight: 1.02, letterSpacing: "-0.035em" }}
-          >
-            Sua marca também pode ser vista do céu.
-          </h2>
-
-          <p className="mt-6 max-w-[560px] text-[15px] leading-relaxed text-paper/70 sr sr-d2">
-            Imagens aéreas cinematográficas capazes de transformar apresentações
-            comuns em experiências visuais de alto impacto.
-          </p>
-
-          <div className="mt-8 flex flex-wrap items-center gap-4 sr sr-d3">
-            <Link
-              to="/captacao-aerea"
-              className="group btn-shine inline-flex items-center gap-3 bg-paper text-ink rounded-full pl-6 pr-2 py-2 transition-transform duration-500 hover:scale-[1.02]"
-            >
-              <span className="text-[13px] font-medium">Solicitar Orçamento</span>
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-ink text-paper transition-transform duration-500 group-hover:rotate-45">
-                <ArrowUpRight className="h-4 w-4" />
-              </span>
-            </Link>
-            <Link
-              to="/captacao-aerea"
-              hash="portfolio"
-              className="inline-flex items-center gap-2 rounded-full border border-paper/30 px-5 py-2.5 text-[13px] text-paper/85 hover:bg-paper/5 hover:border-paper/60 transition-colors"
-            >
-              Ver Portfólio
-            </Link>
-          </div>
-        </div>
-
-        <div className="col-span-12 lg:col-span-5 sr sr-d2">
-          <div className="relative rounded-2xl border border-paper/15 bg-white/[0.03] backdrop-blur-md p-6 md:p-8">
-            <div className="flex items-center justify-between text-[10px] font-mono tracking-[0.2em] text-paper/55 uppercase">
-              <span className="inline-flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                Drone Online
-              </span>
-              <span>4K · 60fps</span>
-            </div>
-            <div className="mt-6 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-paper/15 bg-paper/5">
-              <Plane className="h-5 w-5 text-paper" />
-            </div>
-            <h3 className="mt-5 text-[18px] font-medium tracking-tight">Produção audiovisual cinematográfica</h3>
-            <p className="mt-2 text-[13.5px] leading-relaxed text-paper/65">
-              Empresas · Empreendimentos · Imóveis · Eventos · Campanhas
-            </p>
-
-            <div className="mt-6 grid grid-cols-3 gap-3 text-center">
-              {[
-                { k: "120m", v: "Altitude" },
-                { k: "RAW", v: "Foto" },
-                { k: "ANAC", v: "Certificado" },
-              ].map((m) => (
-                <div key={m.v} className="rounded-lg border border-paper/10 bg-paper/[0.02] py-3">
-                  <div className="text-[15px] font-medium tabular-nums">{m.k}</div>
-                  <div className="mt-0.5 text-[9px] uppercase tracking-[0.2em] text-paper/55">{m.v}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
   );
 }

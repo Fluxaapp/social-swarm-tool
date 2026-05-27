@@ -209,8 +209,6 @@ export function ProposalModal({ open, onClose }: ProposalModalProps) {
                   type="button"
                   onClick={() => i < step && setStep(i)}
                   disabled={i > step}
-                  aria-label={`Etapa ${i + 1}: ${s.label}${done ? " (concluída)" : current ? " (atual)" : ""}`}
-                  aria-current={current ? "step" : undefined}
                   className={`group flex-1 flex items-center gap-2 transition-all ${
                     i > step ? "cursor-not-allowed" : "cursor-pointer"
                   }`}
@@ -224,7 +222,7 @@ export function ProposalModal({ open, onClose }: ProposalModalProps) {
                         : "bg-soft text-ink/40 border border-line"
                     }`}
                   >
-                    {done ? <Check className="h-3 w-3" aria-hidden="true" /> : i + 1}
+                    {done ? <Check className="h-3 w-3" /> : i + 1}
                   </span>
                   <span
                     className={`hidden md:block h-px flex-1 transition-all ${
@@ -232,7 +230,6 @@ export function ProposalModal({ open, onClose }: ProposalModalProps) {
                     }`}
                   />
                 </button>
-
               );
             })}
           </div>
