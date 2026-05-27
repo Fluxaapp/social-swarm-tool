@@ -877,7 +877,7 @@ function Services() {
               Serviços
             </div>
             <h3 className="mt-6 font-medium text-[clamp(1.75rem,4vw,3.25rem)] leading-[1.1] tracking-[-0.03em] text-ink">
-              Seis disciplinas.<br />
+              Sete disciplinas.<br />
               Um único ecossistema.
             </h3>
           </div>
