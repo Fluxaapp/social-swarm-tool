@@ -2,22 +2,16 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import {
   ArrowUpRight,
-  Plane,
+  Plus,
+  ChevronLeft,
+  Film,
   Camera,
-  Award,
-  Share2,
-  ShieldCheck,
-  Sparkles,
-  Clapperboard,
-  MapPin,
   Building2,
   Home as HomeIcon,
   CalendarDays,
+  Share2,
   Megaphone,
-  Film,
-  Image as ImageIcon,
   Video,
-  ChevronLeft,
 } from "lucide-react";
 
 import aerialHero from "@/assets/aerial-hero.jpg";
@@ -26,7 +20,6 @@ import aerial2 from "@/assets/aerial-portfolio-2.jpg";
 import aerial3 from "@/assets/aerial-portfolio-3.jpg";
 import aerial4 from "@/assets/aerial-portfolio-4.jpg";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
-import { whatsappLink } from "@/lib/contact";
 import { ProposalModal } from "@/components/ProposalModal";
 
 export const Route = createFileRoute("/captacao-aerea")({
@@ -36,309 +29,209 @@ export const Route = createFileRoute("/captacao-aerea")({
       {
         name: "description",
         content:
-          "Filmagens e fotografias aéreas cinematográficas para empresas, empreendimentos e eventos. Produção audiovisual premium com drones profissionais.",
+          "Filmagens e fotografias aéreas cinematográficas para empresas, empreendimentos, eventos e campanhas publicitárias.",
       },
-      {
-        property: "og:title",
-        content: "Captação Aérea Cinematográfica — Glass Maind",
-      },
+      { property: "og:title", content: "Captação Aérea Cinematográfica — Glass Maind" },
       {
         property: "og:description",
         content:
-          "Imagens aéreas cinematográficas que transformam apresentações comuns em experiências visuais de alto impacto.",
+          "Captação aérea premium com drones profissionais. Produção cinematográfica para marcas, empreendimentos e eventos.",
       },
     ],
   }),
   component: CaptacaoAereaPage,
 });
 
-const WhatsAppMessage =
-  "Olá! Tenho interesse no serviço de Captação Aérea Cinematográfica da Glass Maind.";
-
-function Benefit({
-  Icon,
-  title,
-  desc,
-  delay,
-}: {
-  Icon: typeof Plane;
-  title: string;
-  desc: string;
-  delay: number;
-}) {
-  return (
-    <div
-      className={`group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-7 backdrop-blur-md transition-all duration-500 hover:border-white/25 hover:bg-white/[0.06] sr sr-d${delay}`}
-    >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -top-20 -right-20 h-48 w-48 rounded-full bg-sky-500/10 blur-3xl transition-opacity duration-500 group-hover:opacity-100 opacity-60"
-      />
-      <span className="relative inline-flex h-11 w-11 items-center justify-center rounded-xl border border-white/15 bg-white/[0.04] text-paper">
-        <Icon className="h-5 w-5" />
-      </span>
-      <h3 className="relative mt-6 text-lg font-medium tracking-[-0.01em] text-paper">
-        {title}
-      </h3>
-      <p className="relative mt-3 text-sm leading-relaxed text-paper/60">{desc}</p>
-    </div>
-  );
-}
-
 function CaptacaoAereaPage() {
   useScrollReveal();
   const [proposalOpen, setProposalOpen] = useState(false);
 
-  const benefits = [
-    {
-      Icon: Plane,
-      title: "Visão Aérea Exclusiva",
-      desc: "Mostre seu negócio por ângulos impossíveis de serem capturados do solo.",
-    },
-    {
-      Icon: Clapperboard,
-      title: "Produção Cinematográfica",
-      desc: "Movimentos suaves, enquadramentos profissionais e acabamento premium.",
-    },
-    {
-      Icon: Award,
-      title: "Mais Autoridade",
-      desc: "Empresas que utilizam imagens aéreas transmitem mais profissionalismo e valor.",
-    },
-    {
-      Icon: Share2,
-      title: "Conteúdo para Redes Sociais",
-      desc: "Material ideal para Instagram, Facebook, YouTube, sites e campanhas.",
-    },
-  ];
-
   const services = [
-    { Icon: Film, t: "Filmagem aérea institucional" },
-    { Icon: Camera, t: "Fotografias aéreas profissionais" },
-    { Icon: Building2, t: "Captação para empreendimentos" },
-    { Icon: HomeIcon, t: "Conteúdo para imobiliárias" },
-    { Icon: CalendarDays, t: "Cobertura de eventos" },
-    { Icon: Share2, t: "Conteúdo para redes sociais" },
-    { Icon: Megaphone, t: "Produção para campanhas" },
-    { Icon: Video, t: "Vídeos promocionais" },
+    { n: "01", t: "Filmagem Institucional", d: "Vídeos aéreos cinematográficos para apresentação de empresas e marcas.", Icon: Film },
+    { n: "02", t: "Fotografia Aérea", d: "Imagens em alta resolução com enquadramentos profissionais.", Icon: Camera },
+    { n: "03", t: "Empreendimentos", d: "Captação para construtoras, incorporadoras e lançamentos imobiliários.", Icon: Building2 },
+    { n: "04", t: "Imobiliárias", d: "Conteúdo de alto padrão para anúncios, sites e portfólios.", Icon: HomeIcon },
+    { n: "05", t: "Eventos", d: "Cobertura aérea de eventos corporativos, shows e celebrações.", Icon: CalendarDays },
+    { n: "06", t: "Conteúdo Social", d: "Material otimizado para Instagram, YouTube e campanhas digitais.", Icon: Share2 },
+    { n: "07", t: "Publicidade", d: "Produção aérea para campanhas, comerciais e anúncios premium.", Icon: Megaphone },
+    { n: "08", t: "Vídeos Promocionais", d: "Edição cinematográfica com correção de cor e trilha sonora.", Icon: Video },
   ];
 
   const differentials = [
-    "Equipamentos profissionais",
-    "Captação em alta resolução",
-    "Planejamento de voo",
-    "Segurança operacional",
-    "Entrega otimizada para marketing",
-    "Edição profissional",
-    "Correção de cor cinematográfica",
+    { k: "Equipamentos", v: "Drones profissionais com captação em 4K e 60fps." },
+    { k: "Planejamento", v: "Estudo de voo, locação e roteiro visual antes da captação." },
+    { k: "Operação", v: "Pilotos homologados, seguindo normas ANAC vigentes." },
+    { k: "Pós-produção", v: "Edição cinematográfica com color grading premium." },
   ];
 
   const portfolio = [
-    { src: aerial1, t: "Drone profissional · Empresarial", k: "Institucional" },
-    { src: aerial2, t: "Litoral · Captação cinematográfica", k: "Paisagem" },
-    { src: aerial3, t: "Cobertura de evento ao vivo", k: "Evento" },
-    { src: aerial4, t: "Empreendimento residencial premium", k: "Imobiliário" },
+    { src: aerial1, n: "01 / Institucional", t: "Empresarial · Identidade Aérea", span: "md:col-span-7", aspect: "aspect-[5/4]" },
+    { src: aerial2, n: "02 / Paisagem", t: "Litoral · Captação Cinematográfica", span: "md:col-span-5", aspect: "aspect-[4/5]" },
+    { src: aerial3, n: "03 / Evento", t: "Cobertura ao Vivo", span: "md:col-span-5", aspect: "aspect-[4/5]" },
+    { src: aerial4, n: "04 / Imobiliário", t: "Empreendimento Residencial Premium", span: "md:col-span-7", aspect: "aspect-[5/4]" },
   ];
 
   return (
-    <main className="bg-ink text-paper min-h-screen overflow-x-hidden">
-      {/* ===== TOP BAR ===== */}
-      <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-ink/70 backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-[1480px] items-center justify-between px-5 sm:px-6 md:px-10">
-          <Link to="/" className="inline-flex items-center gap-2 text-paper/90 hover:text-paper transition">
+    <main className="bg-paper text-ink min-h-screen overflow-x-hidden pt-16 md:pt-20">
+      {/* ===== NAV (mesmo padrão do site) ===== */}
+      <header className="fixed top-0 left-0 right-0 z-[999] bg-soft border-b border-line">
+        <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10 h-16 md:h-20 flex items-center justify-between gap-4 md:gap-6">
+          <Link to="/" className="flex items-center gap-2 leading-none text-ink/80 hover:text-ink transition-colors">
             <ChevronLeft className="h-4 w-4" />
-            <span className="text-[13px] tracking-tight">
+            <span className="text-[17px] tracking-tight text-ink">
               <span className="font-light">Agencia</span>
-              <span className="mx-2 text-paper/30 font-light">|</span>
+              <span className="mx-2 text-ink/30 font-light">|</span>
               <span className="font-semibold">Glass Maind</span>
             </span>
           </Link>
-          <span className="hidden md:inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-paper/50">
-            <span className="h-1.5 w-1.5 rounded-full bg-sky-400 animate-pulse" />
-            Captação Aérea
-          </span>
-          <a
-            href={whatsappLink(WhatsAppMessage)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex h-9 items-center gap-2 rounded-full bg-paper px-4 text-[12px] font-medium text-ink hover:scale-[1.02] transition"
+
+          <nav className="hidden md:flex items-center gap-9 text-[14px] text-ink/60">
+            <Link to="/" className="hover:text-ink transition-colors">Início</Link>
+            <Link to="/" hash="about" className="hover:text-ink transition-colors">Sobre</Link>
+            <Link to="/" hash="services" className="hover:text-ink transition-colors">Serviços</Link>
+            <span className="text-ink">Captação Aérea</span>
+            <Link to="/" hash="contact" className="hover:text-ink transition-colors">Contato</Link>
+          </nav>
+
+          <button
+            type="button"
+            onClick={() => setProposalOpen(true)}
+            className="hidden md:inline-flex h-9 items-center gap-2 rounded-full bg-ink px-4 text-[12px] font-medium text-paper hover:scale-[1.02] transition"
           >
-            Falar agora
+            Solicitar proposta
             <ArrowUpRight className="h-3.5 w-3.5" />
-          </a>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setProposalOpen(true)}
+            className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-full bg-ink text-paper"
+            aria-label="Solicitar proposta"
+          >
+            <ArrowUpRight className="h-4 w-4" />
+          </button>
         </div>
       </header>
 
       {/* ===== HERO ===== */}
-      <section className="relative overflow-hidden pt-16">
+      <section className="relative overflow-hidden bg-ink text-paper">
         <div className="absolute inset-0 z-0">
           <img
             src={aerialHero}
-            alt="Captação aérea cinematográfica de cidade ao anoitecer"
+            alt="Captação aérea cinematográfica"
             width={1920}
             height={1080}
-            className="h-full w-full object-cover opacity-60"
+            className="h-full w-full object-cover opacity-55"
           />
           <div
             aria-hidden
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.35) 35%, rgba(0,0,0,0.85) 75%, #000 100%), radial-gradient(60% 50% at 50% 40%, rgba(56,189,248,0.10), transparent 70%)",
+                "linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.92) 100%)",
             }}
           />
         </div>
 
-        {/* HUD lines */}
-        <svg
-          className="pointer-events-none absolute inset-0 z-[1] h-full w-full opacity-50"
-          viewBox="0 0 1440 900"
-          preserveAspectRatio="none"
-          aria-hidden
-        >
-          <line x1="0" y1="120" x2="1440" y2="120" stroke="currentColor" strokeWidth="0.6" className="text-paper/15 dash-flow" />
-          <line x1="0" y1="780" x2="1440" y2="780" stroke="currentColor" strokeWidth="0.6" className="text-paper/15 dash-flow" />
-          <line x1="120" y1="0" x2="120" y2="900" stroke="currentColor" strokeWidth="0.6" className="text-paper/10" />
-          <line x1="1320" y1="0" x2="1320" y2="900" stroke="currentColor" strokeWidth="0.6" className="text-paper/10" />
-        </svg>
-
-        <div className="relative z-10 mx-auto flex min-h-[88vh] max-w-[1480px] flex-col justify-center px-5 sm:px-6 md:px-10 py-24 md:py-32">
-          <div className="reveal reveal-d1 inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.3em] text-paper/70">
-            <span className="inline-flex h-1.5 w-1.5 rounded-full bg-sky-400 shadow-[0_0_12px_2px_rgba(56,189,248,0.7)]" />
-            Drone · Cinematic · 4K
-            <span className="hidden md:inline h-px w-10 bg-paper/30" />
-            <span className="hidden md:inline">REC · 24.000 fps capable</span>
-          </div>
-
-          <h1
-            className="reveal reveal-d2 mt-7 max-w-[18ch] font-medium tracking-[-0.045em] text-paper"
-            style={{ fontSize: "clamp(2.5rem, 6.5vw, 6rem)", lineHeight: 0.98 }}
-          >
-            Agora sua marca pode ser vista de outro nível.
-          </h1>
-
-          <p className="reveal reveal-d3 mt-7 max-w-2xl text-[15px] sm:text-base leading-relaxed text-paper/70">
-            Produções aéreas cinematográficas para empresas, empreendimentos,
-            eventos e projetos que desejam transmitir autoridade, modernidade e
-            impacto visual.
-          </p>
-
-          <div className="reveal reveal-d4 mt-9 flex flex-wrap items-center gap-4">
-            <button
-              type="button"
-              onClick={() => setProposalOpen(true)}
-              className="group btn-shine inline-flex items-center gap-3 rounded-full bg-paper pl-6 pr-2 py-2 text-ink transition-transform duration-500 hover:scale-[1.02]"
-            >
-              <span className="text-[13px] font-medium">Solicitar Orçamento</span>
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-ink text-paper transition-transform duration-500 group-hover:rotate-45">
-                <ArrowUpRight className="h-4 w-4" />
-              </span>
-            </button>
-            <a
-              href={whatsappLink(WhatsAppMessage)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-paper/25 bg-white/5 px-5 py-2.5 text-[13px] text-paper/90 backdrop-blur-md transition hover:bg-white/10"
-            >
-              Falar no WhatsApp
-              <ArrowUpRight className="h-4 w-4" />
-            </a>
-          </div>
-
-          {/* HUD telemetry */}
-          <div className="reveal reveal-d5 mt-14 grid max-w-3xl grid-cols-2 gap-4 sm:grid-cols-4">
-            {[
-              { k: "ALT", v: "120m" },
-              { k: "RES", v: "4K · 60" },
-              { k: "GPS", v: "LOCK" },
-              { k: "MODE", v: "CINEMATIC" },
-            ].map((t) => (
-              <div
-                key={t.k}
-                className="rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 backdrop-blur-md"
+        <div className="relative z-10 mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10 py-28 sm:py-36 md:py-44">
+          <div className="grid grid-cols-12 gap-8">
+            <div className="col-span-12 lg:col-span-9">
+              <div className="inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.3em] text-paper/60 sr">
+                <span className="h-px w-8 bg-paper/40" />
+                Captação Aérea Cinematográfica
+              </div>
+              <h1
+                className="mt-7 max-w-[18ch] font-medium tracking-[-0.04em] text-paper sr sr-d1"
+                style={{ fontSize: "clamp(2.25rem, 6vw, 5.5rem)", lineHeight: 1 }}
               >
-                <div className="text-[10px] uppercase tracking-[0.3em] text-paper/40">{t.k}</div>
-                <div className="mt-1 font-mono text-sm text-paper">{t.v}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+                Imagens aéreas com padrão de produtora.
+              </h1>
+              <p className="mt-7 max-w-2xl text-[15px] sm:text-base leading-relaxed text-paper/70 sr sr-d2">
+                Filmagens e fotografias aéreas cinematográficas para empresas,
+                empreendimentos, eventos e campanhas publicitárias — com
+                planejamento técnico e direção criativa premium.
+              </p>
 
-      {/* ===== BENEFITS ===== */}
-      <section className="relative bg-ink py-24 md:py-32">
-        <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10">
-          <div className="max-w-3xl sr">
-            <div className="inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.3em] text-paper/50">
-              <span className="h-px w-8 bg-paper/30" />
-              Por que captação aérea
+              <div className="mt-10 flex flex-wrap items-center gap-4 sr sr-d3">
+                <button
+                  type="button"
+                  onClick={() => setProposalOpen(true)}
+                  className="group btn-shine inline-flex items-center gap-3 rounded-full bg-paper pl-6 pr-2 py-2 text-ink transition-transform duration-500 hover:scale-[1.02]"
+                >
+                  <span className="text-[13px] font-medium">Solicitar Orçamento</span>
+                  <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-ink text-paper transition-transform duration-500 group-hover:rotate-45">
+                    <ArrowUpRight className="h-4 w-4" />
+                  </span>
+                </button>
+                <Link
+                  to="/"
+                  className="inline-flex items-center gap-2 rounded-full border border-paper/25 px-5 py-2.5 text-[13px] text-paper/85 hover:bg-paper/5 transition"
+                >
+                  Voltar ao site
+                </Link>
+              </div>
             </div>
-            <h2 className="mt-6 font-medium leading-[1.05] tracking-[-0.035em] text-paper text-[clamp(2rem,4.5vw,3.75rem)]">
-              Imagens que mudam como sua marca é percebida.
-            </h2>
-          </div>
-
-          <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {benefits.map((b, i) => (
-              <Benefit
-                key={b.title}
-                Icon={b.Icon}
-                title={b.title}
-                desc={b.desc}
-                delay={Math.min(i + 1, 5)}
-              />
-            ))}
           </div>
         </div>
       </section>
 
-      {/* ===== SERVICES ===== */}
-      <section className="relative bg-[#04060a] py-24 md:py-32">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-60"
-          style={{
-            background:
-              "radial-gradient(50% 40% at 20% 20%, rgba(30,64,175,0.18), transparent 60%), radial-gradient(40% 30% at 80% 80%, rgba(56,189,248,0.10), transparent 60%)",
-          }}
-        />
-        <div className="relative mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10">
-          <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between sr">
-            <div className="max-w-2xl">
-              <div className="inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.3em] text-paper/50">
-                <span className="h-px w-8 bg-paper/30" />
-                Serviços oferecidos
+      {/* ===== INTRO / ABOUT THE SERVICE ===== */}
+      <section className="bg-paper py-20 sm:py-28 md:py-36">
+        <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10">
+          <div className="grid grid-cols-12 gap-6 md:gap-10">
+            <div className="col-span-12 md:col-span-6 sr text-center md:text-left">
+              <div className="mx-auto md:mx-0 text-[11px] uppercase tracking-[0.3em] text-dim inline-flex items-center gap-3 justify-center md:justify-start">
+                <span className="h-px w-8 bg-ink/40" />
+                Sobre o serviço
               </div>
-              <h2 className="mt-6 font-medium leading-[1.05] tracking-[-0.035em] text-paper text-[clamp(2rem,4.5vw,3.75rem)]">
-                Um único drone. Inúmeras possibilidades.
+              <h2 className="mt-6 font-medium text-[clamp(1.75rem,4vw,3.25rem)] leading-[1.1] tracking-[-0.03em] text-ink">
+                Outro ângulo.<br />
+                Outra percepção de marca.
               </h2>
             </div>
-            <p className="max-w-md text-[15px] leading-relaxed text-paper/60">
-              Captação adaptada à narrativa de cada projeto — institucional,
-              imobiliário, eventos ou campanhas publicitárias.
+            <p className="col-span-12 md:col-span-5 md:col-start-8 text-base text-dim self-end max-w-md mx-auto md:mx-0 text-center md:text-left sr sr-d2">
+              Captação aérea integrada ao ecossistema visual da Glass Maind —
+              da direção criativa à pós-produção, tudo executado com o mesmo
+              padrão dos demais serviços da agência.
             </p>
           </div>
+        </div>
+      </section>
 
-          <div className="mt-14 grid grid-cols-1 gap-px border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
+      {/* ===== SERVICES GRID (mesmo padrão do site) ===== */}
+      <section className="bg-paper pb-20 sm:pb-28 md:pb-36">
+        <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-line border border-line">
             {services.map((s, i) => {
+              const isDark = i % 2 === 1;
               const Icon = s.Icon;
               return (
-                <div
-                  key={s.t}
-                  className={`group flex h-[180px] flex-col justify-between bg-[#04060a] p-6 transition-colors duration-500 hover:bg-white/[0.04] sr sr-d${Math.min((i % 4) + 1, 5)}`}
+                <article
+                  key={s.n}
+                  className={[
+                    "group relative p-7 sm:p-9 md:p-10 min-h-[240px] flex flex-col justify-between transition-all duration-500 lift sr",
+                    `sr-d${Math.min((i % 4) + 1, 5)}`,
+                    isDark ? "bg-ink text-paper" : "bg-paper text-ink",
+                    "hover:shadow-[0_20px_50px_-20px_rgba(0,0,0,0.35)]",
+                  ].join(" ")}
                 >
-                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-paper/90 transition group-hover:border-sky-400/40 group-hover:text-sky-300">
-                    <Icon className="h-4.5 w-4.5" />
-                  </span>
-                  <div>
-                    <div className="text-[10px] uppercase tracking-[0.3em] text-paper/40">
-                      0{i + 1}
-                    </div>
-                    <div className="mt-1 text-[15px] font-medium leading-snug text-paper">
-                      {s.t}
-                    </div>
+                  <div className="flex items-start justify-between">
+                    <span className={`text-[11px] uppercase tracking-[0.3em] ${isDark ? "text-paper/60" : "text-dim"}`}>
+                      {s.n}
+                    </span>
+                    <span className={`inline-flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-500 ${isDark ? "border-paper/30 group-hover:border-paper/60" : "border-line group-hover:border-ink/40"}`}>
+                      <Icon className="h-3.5 w-3.5" />
+                    </span>
                   </div>
-                </div>
+                  <div className="text-left">
+                    <h4 className="font-medium text-xl md:text-[1.4rem] tracking-[-0.02em] leading-tight">
+                      {s.t}
+                    </h4>
+                    <p className={`mt-3 text-sm leading-relaxed max-w-xs ${isDark ? "text-paper/70" : "text-dim"}`}>
+                      {s.d}
+                    </p>
+                  </div>
+                </article>
               );
             })}
           </div>
@@ -346,184 +239,128 @@ function CaptacaoAereaPage() {
       </section>
 
       {/* ===== DIFFERENTIALS ===== */}
-      <section className="relative bg-ink py-24 md:py-32">
+      <section className="bg-soft py-20 sm:py-28 md:py-36">
         <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10">
-          <div className="grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-16">
-            <div className="lg:col-span-5 sr">
-              <div className="inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.3em] text-paper/50">
-                <span className="h-px w-8 bg-paper/30" />
+          <div className="grid grid-cols-12 gap-6 md:gap-10 mb-14">
+            <div className="col-span-12 md:col-span-6 sr">
+              <div className="text-[11px] uppercase tracking-[0.3em] text-dim inline-flex items-center gap-3">
+                <span className="h-px w-8 bg-ink/40" />
                 Diferenciais
               </div>
-              <h2 className="mt-6 font-medium leading-[1.05] tracking-[-0.035em] text-paper text-[clamp(2rem,4.2vw,3.5rem)]">
-                Padrão de produtora. Entregue como agência.
+              <h2 className="mt-6 font-medium text-[clamp(1.75rem,4vw,3.25rem)] leading-[1.1] tracking-[-0.03em] text-ink">
+                Padrão técnico.<br />
+                Acabamento de produtora.
               </h2>
-              <p className="mt-6 max-w-md text-[15px] leading-relaxed text-paper/60">
-                Da decolagem ao master final, cada etapa é executada com
-                planejamento técnico e direção criativa premium.
-              </p>
-              <div className="mt-8 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[11px] tracking-[0.2em] uppercase text-paper/70">
-                <ShieldCheck className="h-3.5 w-3.5 text-sky-300" />
-                Operação ANAC homologada
-              </div>
             </div>
+            <p className="col-span-12 md:col-span-5 md:col-start-8 text-base text-dim self-end max-w-md sr sr-d2">
+              Cada etapa — do briefing à entrega — é executada com o mesmo rigor
+              que aplicamos em branding e direção criativa.
+            </p>
+          </div>
 
-            <div className="lg:col-span-7 sr sr-d2">
-              <ul className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-2">
-                {differentials.map((d, i) => (
-                  <li
-                    key={d}
-                    className="flex items-center gap-4 bg-ink px-6 py-5 text-[14px] text-paper/85"
-                  >
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] font-mono text-[10px] tracking-widest text-paper/60">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <Sparkles className="h-3.5 w-3.5 text-sky-300/80" />
-                    {d}
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-line border border-line">
+            {differentials.map((d, i) => (
+              <div
+                key={d.k}
+                className={`bg-paper p-8 sm:p-10 sr sr-d${Math.min(i + 1, 5)}`}
+              >
+                <div className="text-[11px] uppercase tracking-[0.3em] text-dim">
+                  {String(i + 1).padStart(2, "0")} · {d.k}
+                </div>
+                <p className="mt-4 text-[15px] leading-relaxed text-ink/80">
+                  {d.v}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* ===== PORTFOLIO ===== */}
-      <section className="relative bg-[#04060a] py-24 md:py-32">
+      <section className="bg-paper py-20 sm:py-28 md:py-40">
         <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10">
-          <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between sr">
-            <div>
-              <div className="inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.3em] text-paper/50">
-                <span className="h-px w-8 bg-paper/30" />
-                Portfólio
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-8">
+            <div className="mx-auto flex max-w-md flex-col items-center text-center md:mx-0 md:max-w-none md:items-start md:text-left">
+              <div className="text-[11px] uppercase tracking-[0.3em] text-dim inline-flex items-center gap-3">
+                <span className="h-px w-8 bg-ink/40" />
+                Trabalhos Aéreos
               </div>
-              <h2 className="mt-6 font-medium leading-[1.05] tracking-[-0.035em] text-paper text-[clamp(2rem,4.5vw,3.75rem)]">
+              <h2 className="mt-6 font-medium text-[clamp(2rem,5vw,4.25rem)] leading-[1.05] tracking-[-0.03em] text-ink">
                 Histórias capturadas do alto.
               </h2>
             </div>
-            <p className="max-w-sm text-[14px] text-paper/55">
-              Galeria em preparação para vídeos, reels e fotos aéreas. Em breve
-              integrações com YouTube e Vimeo.
-            </p>
           </div>
 
-          <div className="mt-14 grid grid-cols-12 gap-4 md:gap-6">
-            {portfolio.map((p, i) => {
-              const big = i === 0 || i === 3;
-              return (
-                <figure
-                  key={p.t}
-                  className={`group relative col-span-12 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] sr sr-d${Math.min(i + 1, 5)} ${
-                    big ? "md:col-span-7" : "md:col-span-5"
-                  }`}
-                >
-                  <div className="relative aspect-[4/3] overflow-hidden">
-                    <img
-                      src={p.src}
-                      alt={p.t}
-                      width={1280}
-                      height={896}
-                      loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
-                    />
-                    <div
-                      aria-hidden
-                      className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"
-                    />
-                    <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-5 sm:p-6">
-                      <div>
-                        <div className="text-[10px] uppercase tracking-[0.3em] text-paper/60">
-                          {p.k}
-                        </div>
-                        <div className="mt-1 text-[15px] font-medium text-paper">
-                          {p.t}
-                        </div>
-                      </div>
-                      <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/25 bg-white/10 text-paper backdrop-blur-md transition group-hover:bg-paper group-hover:text-ink">
-                        <ImageIcon className="h-4 w-4" />
-                      </span>
-                    </div>
+          <div className="grid grid-cols-12 gap-6 md:gap-8">
+            {portfolio.map((p, i) => (
+              <figure key={p.n} className={`col-span-12 ${p.span} group sr ${i > 0 ? `sr-d${Math.min(i + 1, 5)}` : ""}`}>
+                <div className={`overflow-hidden rounded-[2px] bg-card ${p.aspect} light-sweep`}>
+                  <img
+                    src={p.src}
+                    alt={p.t}
+                    width={1280}
+                    height={1024}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
+                  />
+                </div>
+                <figcaption className="mt-5 flex flex-col items-center text-center gap-2 md:flex-row md:items-end md:justify-between md:text-left md:gap-0">
+                  <div>
+                    <div className="text-[11px] uppercase tracking-[0.25em] text-dim">{p.n}</div>
+                    <div className="mt-1 text-xl text-ink font-medium">{p.t}</div>
                   </div>
-                </figure>
-              );
-            })}
+                  <ArrowUpRight className="hidden md:inline-block h-5 w-5 text-ink/60 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                </figcaption>
+              </figure>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ===== CTA FINAL ===== */}
-      <section className="relative overflow-hidden bg-ink py-28 md:py-40">
-        <div className="absolute inset-0 z-0 opacity-40">
-          <img
-            src={aerialHero}
-            alt=""
-            aria-hidden
-            className="h-full w-full object-cover"
-            loading="lazy"
-            width={1920}
-            height={1080}
-          />
-          <div
-            aria-hidden
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(180deg, #000 0%, rgba(0,0,0,0.6) 50%, #000 100%)",
-            }}
-          />
-        </div>
+      {/* ===== CTA FINAL (mesmo padrão do CTA do site) ===== */}
+      <section className="bg-ink text-paper relative overflow-hidden">
         <div className="ambient-glow" aria-hidden />
-
-        <div className="relative z-10 mx-auto max-w-4xl px-5 sm:px-6 md:px-10 text-center">
-          <div className="inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.3em] text-paper/50 sr">
+        <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10 py-24 sm:py-32 md:py-40 text-center relative">
+          <div className="text-[11px] uppercase tracking-[0.3em] text-paper/50 inline-flex items-center gap-3 sr">
             <span className="h-px w-8 bg-paper/40" />
-            <MapPin className="h-3 w-3" />
-            Captação · Brasil
+            Vamos voar
             <span className="h-px w-8 bg-paper/40" />
           </div>
-          <h2 className="mt-10 font-medium leading-[0.98] tracking-[-0.04em] text-paper text-[clamp(2.25rem,6vw,5.25rem)] text-balance sr sr-d1">
-            Algumas histórias não foram feitas para serem vistas do chão.
+          <h2 className="mt-12 font-medium leading-[0.98] tracking-[-0.04em] text-[clamp(2.25rem,6vw,5.5rem)] max-w-4xl mx-auto text-balance sr sr-d1">
+            Algumas marcas não foram feitas para serem vistas do chão.
           </h2>
-          <p className="mx-auto mt-8 max-w-2xl text-[15px] leading-relaxed text-paper/65 sr sr-d2">
-            Eleve a apresentação da sua empresa com imagens aéreas
-            cinematográficas produzidas para impressionar.
+          <p className="mt-8 max-w-xl mx-auto text-[15px] leading-relaxed text-paper/65 sr sr-d2">
+            Solicite um orçamento de captação aérea cinematográfica e receba
+            uma proposta personalizada para o seu projeto.
           </p>
 
-          <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row sr sr-d3">
+          <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4 sr sr-d3">
             <button
               type="button"
               onClick={() => setProposalOpen(true)}
-              className="group btn-shine inline-flex items-center gap-3 rounded-full bg-paper pl-7 pr-2 py-2 text-ink transition-transform duration-500 hover:scale-[1.02]"
+              className="group btn-shine inline-flex items-center gap-3 bg-paper text-ink rounded-full pl-7 pr-2 py-2 transition-transform duration-500 hover:scale-[1.02]"
             >
-              <span className="text-[13px] font-medium">Solicitar Captação Aérea</span>
+              <span className="text-[13px] font-medium">Solicitar proposta</span>
               <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-ink text-paper transition-transform duration-500 group-hover:rotate-45">
                 <ArrowUpRight className="h-4 w-4" />
               </span>
             </button>
-            <a
-              href={whatsappLink(WhatsAppMessage)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[13px] text-paper/80 hover:text-paper underline-offset-4 hover:underline transition-colors"
+            <Link
+              to="/"
+              className="inline-flex items-center gap-2 rounded-full border border-paper/25 px-5 py-2.5 text-[13px] text-paper/85 hover:bg-paper/5 transition"
             >
-              Falar no WhatsApp →
-            </a>
+              <ChevronLeft className="h-4 w-4" />
+              Voltar para o site
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* ===== FOOTER LINK ===== */}
-      <footer className="border-t border-white/10 bg-ink">
-        <div className="mx-auto flex max-w-[1480px] flex-col items-start justify-between gap-4 px-5 sm:px-6 md:px-10 py-10 md:flex-row md:items-center">
-          <div className="text-[11px] uppercase tracking-[0.25em] text-paper/40">
-            © {new Date().getFullYear()} Glass Maind · Captação Aérea
-          </div>
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 text-[13px] text-paper/80 transition hover:text-paper"
-          >
-            <ChevronLeft className="h-4 w-4" />
-            Voltar ao site principal
-          </Link>
+      {/* ===== FOOTER simples ===== */}
+      <footer className="bg-ink text-paper/60 border-t border-paper/10">
+        <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10 py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-[11px] uppercase tracking-[0.25em] text-paper/40">
+          <span suppressHydrationWarning>© {new Date().getFullYear()} Agência Glass Maind</span>
+          <span>Captação Aérea Cinematográfica</span>
         </div>
       </footer>
 
