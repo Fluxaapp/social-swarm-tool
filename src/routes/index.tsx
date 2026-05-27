@@ -1,6 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { ArrowUpRight, Plus, Star, Instagram, Facebook, Search, ChevronLeft, ChevronRight } from "lucide-react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowUpRight, Plus, Star, Instagram, Facebook, Search, ChevronLeft, ChevronRight, Plane } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
+
+import aerialHero from "@/assets/aerial-hero.jpg";
 
 import workBranding from "@/assets/work-branding.jpg";
 import workEditorial from "@/assets/work-editorial.jpg";
@@ -75,8 +77,12 @@ function Nav({ onOpenProposal }: { onOpenProposal: () => void }) {
           <a href="#top" className="text-ink">Início</a>
           <a href="#about" className="hover:text-ink transition-colors">Sobre</a>
           <a href="#services" className="hover:text-ink transition-colors">Serviços</a>
+          <Link to="/captacao-aerea" className="hover:text-ink transition-colors inline-flex items-center gap-1.5">
+            <Plane className="h-3.5 w-3.5" /> Captação Aérea
+          </Link>
           <a href="#contact" className="hover:text-ink transition-colors">Contato</a>
         </nav>
+
 
         {/* Right side — search + micro-info */}
         <div className="hidden md:flex items-center gap-5">
@@ -973,8 +979,110 @@ function Portfolio() {
   );
 }
 
+/* =================== AERIAL TEASER (Captação Aérea) =================== */
+function AerialTeaser({ onOpenProposal }: { onOpenProposal: () => void }) {
+  return (
+    <section id="aerial" className="relative overflow-hidden bg-ink text-paper">
+      <div className="absolute inset-0 z-0">
+        <img
+          src={aerialHero}
+          alt=""
+          aria-hidden
+          loading="lazy"
+          width={1920}
+          height={1080}
+          className="h-full w-full object-cover opacity-55"
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(180deg, #000 0%, rgba(0,0,0,0.45) 35%, rgba(0,0,0,0.85) 100%), radial-gradient(50% 40% at 30% 40%, rgba(56,189,248,0.10), transparent 70%)",
+          }}
+        />
+      </div>
+
+      {/* HUD frame */}
+      <svg
+        className="pointer-events-none absolute inset-0 z-[1] h-full w-full opacity-50"
+        viewBox="0 0 1440 900"
+        preserveAspectRatio="none"
+        aria-hidden
+      >
+        <line x1="0" y1="100" x2="1440" y2="100" stroke="currentColor" strokeWidth="0.6" className="text-paper/15 dash-flow" />
+        <line x1="0" y1="800" x2="1440" y2="800" stroke="currentColor" strokeWidth="0.6" className="text-paper/15 dash-flow" />
+      </svg>
+
+      <div className="relative z-10 mx-auto grid max-w-[1480px] grid-cols-12 gap-8 px-5 sm:px-6 md:px-10 py-24 md:py-36">
+        <div className="col-span-12 lg:col-span-8">
+          <div className="inline-flex items-center gap-3 text-[11px] uppercase tracking-[0.3em] text-paper/70 sr">
+            <span className="inline-flex h-1.5 w-1.5 rounded-full bg-sky-400 shadow-[0_0_10px_2px_rgba(56,189,248,0.7)]" />
+            Novo serviço · Drone cinematográfico
+            <span className="hidden md:inline h-px w-10 bg-paper/30" />
+            <span className="hidden md:inline">REC · 4K 60</span>
+          </div>
+
+          <h2
+            className="mt-7 max-w-[18ch] font-medium tracking-[-0.04em] text-paper sr sr-d1"
+            style={{ fontSize: "clamp(2rem, 5.5vw, 5rem)", lineHeight: 1 }}
+          >
+            Sua marca também pode ser vista do céu.
+          </h2>
+
+          <p className="mt-7 max-w-2xl text-[15px] leading-relaxed text-paper/70 sr sr-d2">
+            Imagens aéreas cinematográficas capazes de transformar apresentações
+            comuns em experiências visuais de alto impacto.
+          </p>
+
+          <div className="mt-9 flex flex-wrap items-center gap-4 sr sr-d3">
+            <button
+              type="button"
+              onClick={onOpenProposal}
+              className="group btn-shine inline-flex items-center gap-3 rounded-full bg-paper pl-6 pr-2 py-2 text-ink transition-transform duration-500 hover:scale-[1.02]"
+            >
+              <span className="text-[13px] font-medium">Solicitar Orçamento</span>
+              <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-ink text-paper transition-transform duration-500 group-hover:rotate-45">
+                <ArrowUpRight className="h-4 w-4" />
+              </span>
+            </button>
+            <Link
+              to="/captacao-aerea"
+              className="inline-flex items-center gap-2 rounded-full border border-paper/25 bg-white/5 px-5 py-2.5 text-[13px] text-paper/90 backdrop-blur-md transition hover:bg-white/10"
+            >
+              Ver Portfólio
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </div>
+
+        <div className="col-span-12 lg:col-span-4 lg:self-end sr sr-d4">
+          <div className="grid grid-cols-2 gap-3">
+            {[
+              { k: "ALT", v: "120m" },
+              { k: "RES", v: "4K · 60" },
+              { k: "GPS", v: "LOCK" },
+              { k: "MODE", v: "CINEMA" },
+            ].map((t) => (
+              <div
+                key={t.k}
+                className="rounded-lg border border-white/10 bg-white/[0.04] px-4 py-3 backdrop-blur-md"
+              >
+                <div className="text-[10px] uppercase tracking-[0.3em] text-paper/40">{t.k}</div>
+                <div className="mt-1 font-mono text-sm text-paper">{t.v}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
 /* =================== CTA =================== */
 function CTA({ onOpenProposal }: { onOpenProposal: () => void }) {
+
   return (
     <section id="contact" className="bg-ink text-paper relative overflow-hidden">
       <div className="ambient-glow" aria-hidden />
@@ -1154,6 +1262,7 @@ function Index() {
       <About />
       <Services />
       <Portfolio />
+      <AerialTeaser onOpenProposal={() => setProposalOpen(true)} />
       <CTA onOpenProposal={() => setProposalOpen(true)} />
       <Footer />
       <ProposalModal open={proposalOpen} onClose={() => setProposalOpen(false)} />
