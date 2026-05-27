@@ -1196,9 +1196,108 @@ function Index() {
       <About />
       <Services />
       <Portfolio />
+      <AerialPromo />
       <CTA onOpenProposal={() => setProposalOpen(true)} />
       <Footer />
       <ProposalModal open={proposalOpen} onClose={() => setProposalOpen(false)} />
     </main>
+  );
+}
+
+/* =================== AERIAL PROMO =================== */
+function AerialPromo() {
+  return (
+    <section className="relative overflow-hidden text-paper" style={{ backgroundColor: "#05070d" }}>
+      <div className="absolute inset-0">
+        <img
+          src={droneHero}
+          alt=""
+          aria-hidden
+          className="w-full h-full object-cover opacity-45 breathe"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#05070d] via-[#05070d]/75 to-[#05070d]/20" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#05070d]" />
+      </div>
+
+      {/* HUD lines */}
+      <svg className="pointer-events-none absolute inset-0 w-full h-full opacity-50" viewBox="0 0 1440 600" preserveAspectRatio="none" aria-hidden>
+        <line x1="0" y1="90" x2="1440" y2="90" stroke="rgba(180,210,255,0.25)" strokeWidth="0.5" />
+        <line x1="0" y1="510" x2="1440" y2="510" stroke="rgba(180,210,255,0.25)" strokeWidth="0.5" />
+        <circle cx="1100" cy="300" r="140" fill="none" stroke="rgba(180,210,255,0.18)" strokeWidth="0.6" strokeDasharray="3 6" />
+      </svg>
+
+      <div className="relative z-10 mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10 py-20 md:py-28 grid grid-cols-12 gap-10 items-center">
+        <div className="col-span-12 lg:col-span-7">
+          <div className="flex items-center gap-3 text-[11px] tracking-[0.3em] uppercase text-paper/55 sr">
+            <span className="text-paper/40">NOVO</span>
+            <span className="h-px w-6 bg-paper/30" />
+            Captação Aérea · Drone Cinematográfico
+          </div>
+
+          <h2
+            className="mt-6 font-medium max-w-[18ch] sr sr-d1"
+            style={{ fontSize: "clamp(2rem, 5vw, 4.25rem)", lineHeight: 1.02, letterSpacing: "-0.035em" }}
+          >
+            Sua marca também pode ser vista do céu.
+          </h2>
+
+          <p className="mt-6 max-w-[560px] text-[15px] leading-relaxed text-paper/70 sr sr-d2">
+            Imagens aéreas cinematográficas capazes de transformar apresentações
+            comuns em experiências visuais de alto impacto.
+          </p>
+
+          <div className="mt-8 flex flex-wrap items-center gap-4 sr sr-d3">
+            <Link
+              to="/captacao-aerea"
+              className="group btn-shine inline-flex items-center gap-3 bg-paper text-ink rounded-full pl-6 pr-2 py-2 transition-transform duration-500 hover:scale-[1.02]"
+            >
+              <span className="text-[13px] font-medium">Solicitar Orçamento</span>
+              <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-ink text-paper transition-transform duration-500 group-hover:rotate-45">
+                <ArrowUpRight className="h-4 w-4" />
+              </span>
+            </Link>
+            <Link
+              to="/captacao-aerea"
+              hash="portfolio"
+              className="inline-flex items-center gap-2 rounded-full border border-paper/30 px-5 py-2.5 text-[13px] text-paper/85 hover:bg-paper/5 hover:border-paper/60 transition-colors"
+            >
+              Ver Portfólio
+            </Link>
+          </div>
+        </div>
+
+        <div className="col-span-12 lg:col-span-5 sr sr-d2">
+          <div className="relative rounded-2xl border border-paper/15 bg-white/[0.03] backdrop-blur-md p-6 md:p-8">
+            <div className="flex items-center justify-between text-[10px] font-mono tracking-[0.2em] text-paper/55 uppercase">
+              <span className="inline-flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                Drone Online
+              </span>
+              <span>4K · 60fps</span>
+            </div>
+            <div className="mt-6 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-paper/15 bg-paper/5">
+              <Plane className="h-5 w-5 text-paper" />
+            </div>
+            <h3 className="mt-5 text-[18px] font-medium tracking-tight">Produção audiovisual cinematográfica</h3>
+            <p className="mt-2 text-[13.5px] leading-relaxed text-paper/65">
+              Empresas · Empreendimentos · Imóveis · Eventos · Campanhas
+            </p>
+
+            <div className="mt-6 grid grid-cols-3 gap-3 text-center">
+              {[
+                { k: "120m", v: "Altitude" },
+                { k: "RAW", v: "Foto" },
+                { k: "ANAC", v: "Certificado" },
+              ].map((m) => (
+                <div key={m.v} className="rounded-lg border border-paper/10 bg-paper/[0.02] py-3">
+                  <div className="text-[15px] font-medium tabular-nums">{m.k}</div>
+                  <div className="mt-0.5 text-[9px] uppercase tracking-[0.2em] text-paper/55">{m.v}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
