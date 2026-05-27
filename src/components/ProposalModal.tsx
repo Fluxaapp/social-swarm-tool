@@ -15,6 +15,7 @@ const SERVICES = [
   "Materiais Gráficos",
   "Direção Criativa",
   "Site / Landing Page",
+  "Captação Aérea Cinematográfica",
 ];
 
 const BUDGETS = [
