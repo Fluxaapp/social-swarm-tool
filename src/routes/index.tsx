@@ -864,6 +864,7 @@ function Services() {
     { n: "04", t: "Gestão de Marca", d: "Acompanhamento mensal de presença e narrativa visual." },
     { n: "05", t: "Materiais Gráficos", d: "Impressos, apresentações e papelaria com acabamento premium." },
     { n: "06", t: "Direção Criativa", d: "Curadoria visual e estratégica para campanhas e lançamentos." },
+    { n: "07", t: "Captação Aérea", d: "Filmagens e fotografias aéreas cinematográficas para empresas, empreendimentos, eventos e campanhas publicitárias." },
   ];
 
   return (
