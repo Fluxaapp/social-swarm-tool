@@ -77,9 +77,7 @@ function Nav({ onOpenProposal }: { onOpenProposal: () => void }) {
           <a href="#top" className="text-ink">Início</a>
           <a href="#about" className="hover:text-ink transition-colors">Sobre</a>
           <a href="#services" className="hover:text-ink transition-colors">Serviços</a>
-          <Link to="/captacao-aerea" className="hover:text-ink transition-colors inline-flex items-center gap-1.5">
-            <Plane className="h-3.5 w-3.5" /> Captação Aérea
-          </Link>
+          <Link to="/captacao-aerea" className="hover:text-ink transition-colors">Captação Aérea</Link>
           <a href="#contact" className="hover:text-ink transition-colors">Contato</a>
         </nav>
 
