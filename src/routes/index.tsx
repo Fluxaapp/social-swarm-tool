@@ -19,7 +19,43 @@ import { HeroIdeasLoop } from "@/components/HeroIdeasLoop";
 
 export const Route = createFileRoute("/")({
   component: Index,
+  head: () => ({
+    meta: [
+      { title: "Agência Glass Maind — Estratégia, Design e Marketing Digital" },
+      { name: "description", content: "Agência de marketing e design em Fortaleza. Identidade visual, estratégia de marca, conteúdo e performance para marcas que querem crescer com autoridade." },
+      { property: "og:title", content: "Agência Glass Maind — Estratégia e Marketing Digital" },
+      { property: "og:description", content: "Identidade visual, estratégia de marca e marketing para marcas que querem parecer maiores, vender melhor e serem lembradas." },
+      { property: "og:url", content: "https://glassmainnd.lovable.app/" },
+      { property: "twitter:title", content: "Agência Glass Maind — Estratégia e Marketing Digital" },
+      { property: "twitter:description", content: "Identidade visual, estratégia de marca e marketing para marcas que querem parecer maiores, vender melhor e serem lembradas." },
+    ],
+    links: [
+      { rel: "canonical", href: "https://glassmainnd.lovable.app/" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ProfessionalService",
+          name: "Agência Glass Maind",
+          description: "Agência de marketing e design estratégico — identidade visual, branding, conteúdo e performance.",
+          url: "https://glassmainnd.lovable.app/",
+          telephone: "+55 85 98606-7012",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "Av. Des. Moreira, 1300",
+            addressLocality: "Fortaleza",
+            addressRegion: "CE",
+            addressCountry: "BR",
+          },
+          areaServed: "BR",
+        }),
+      },
+    ],
+  }),
 });
+
 
 
 /* =================== NAV =================== */
@@ -175,10 +211,12 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
               letterSpacing: "-0.045em",
             }}
           >
-            <span className="block reveal reveal-d2">NOVA</span>
-            <span className="block reveal reveal-d3">EXPERIÊNCIA</span>
-            <span className="block reveal reveal-d4">DIGITAL</span>
+            <span className="sr-only">Agência Glass Maind — Marketing e Design Estratégico</span>
+            <span aria-hidden="true" className="block reveal reveal-d2">NOVA</span>
+            <span aria-hidden="true" className="block reveal reveal-d3">EXPERIÊNCIA</span>
+            <span aria-hidden="true" className="block reveal reveal-d4">DIGITAL</span>
           </h1>
+
 
           <p className="mt-8 max-w-[480px] text-[15px] leading-relaxed text-dim reveal reveal-d4">
             Criamos presença, posicionamento e percepção para marcas que querem
@@ -324,7 +362,7 @@ function InfoStrip() {
             <Star className="h-3.5 w-3.5 fill-paper text-paper" />
             <span className="text-[12px] tracking-wide ml-2">3.000+ clientes</span>
           </div>
-          <span className="text-[11px] uppercase tracking-[0.25em] text-paper/40 hidden md:inline">
+          <span className="text-[11px] uppercase tracking-[0.25em] text-paper/70 hidden md:inline">
             · Role para baixo
           </span>
         </div>
@@ -747,7 +785,7 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
                 <span className={`${infoMotionClass} tech-inline-copy`}>{dynamicView.highlight}</span>
               </div>
 
-              <div className="tech-info-meta mx-auto mt-8 flex w-full max-w-full items-center justify-center gap-3 break-words text-center text-[10px] uppercase tracking-[0.22em] text-paper/40 sm:tracking-[0.3em] lg:mx-0 lg:max-w-none lg:justify-start lg:text-left">
+              <div className="tech-info-meta mx-auto mt-8 flex w-full max-w-full items-center justify-center gap-3 break-words text-center text-[10px] uppercase tracking-[0.22em] text-paper/70 sm:tracking-[0.3em] lg:mx-0 lg:max-w-none lg:justify-start lg:text-left">
                 <span className="hidden lg:inline-block h-px w-6 shrink-0 bg-paper/30" />
                 <span className={`${infoMotionClass} tech-inline-copy`}>{dynamicView.tech}</span>
               </div>
@@ -871,10 +909,11 @@ function Services() {
               <span className="h-px w-8 bg-ink/40" />
               Serviços
             </div>
-            <h3 className="mt-6 font-medium text-[clamp(1.75rem,4vw,3.25rem)] leading-[1.1] tracking-[-0.03em] text-ink">
+            <h2 className="mt-6 font-medium text-[clamp(1.75rem,4vw,3.25rem)] leading-[1.1] tracking-[-0.03em] text-ink">
               Seis disciplinas.<br />
               Um único ecossistema.
-            </h3>
+            </h2>
+
           </div>
           <p className="col-span-12 md:col-span-5 md:col-start-8 text-base text-dim self-end max-w-md mx-auto md:mx-0 text-center md:text-left sr sr-d2">
             Cada serviço opera como módulo dentro de uma engrenagem visual única
@@ -904,9 +943,10 @@ function Services() {
                   </span>
                 </div>
                 <div className="text-center md:text-left">
-                  <h4 className="font-medium text-2xl md:text-[1.75rem] tracking-[-0.02em] leading-tight">
+                  <h3 className="font-medium text-2xl md:text-[1.75rem] tracking-[-0.02em] leading-tight">
                     {s.t}
-                  </h4>
+                  </h3>
+
                   <p className={`mt-3 text-sm leading-relaxed max-w-xs ${isDark ? "text-paper/70" : "text-dim"}`}>
                     {s.d}
                   </p>
@@ -1020,7 +1060,7 @@ function CTA({ onOpenProposal }: { onOpenProposal: () => void }) {
             rel="noopener noreferrer"
             className="group bg-ink p-6 hover:bg-paper/5 transition-colors"
           >
-            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/40">WhatsApp</div>
+            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/70">WhatsApp</div>
             <div className="mt-2 text-paper text-[15px] font-medium">{CONTACT.phoneDisplay}</div>
             <div className="mt-1 text-[12px] text-paper/50 group-hover:text-paper/70 transition-colors">Resposta rápida →</div>
           </a>
@@ -1028,7 +1068,7 @@ function CTA({ onOpenProposal }: { onOpenProposal: () => void }) {
             href={mailtoLink("Contato pelo site Glass Maind")}
             className="group bg-ink p-6 hover:bg-paper/5 transition-colors"
           >
-            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/40">E-mail</div>
+            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/70">E-mail</div>
             <div className="mt-2 text-paper text-[15px] font-medium break-all">{CONTACT.email}</div>
             <div className="mt-1 text-[12px] text-paper/50 group-hover:text-paper/70 transition-colors">Enviar mensagem →</div>
           </a>
@@ -1038,13 +1078,13 @@ function CTA({ onOpenProposal }: { onOpenProposal: () => void }) {
             rel="noopener noreferrer"
             className="group bg-ink p-6 hover:bg-paper/5 transition-colors"
           >
-            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/40">Endereço</div>
+            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/70">Endereço</div>
             <div className="mt-2 text-paper text-[14px] font-medium leading-snug">{CONTACT.address}</div>
             <div className="mt-1 text-[12px] text-paper/50 group-hover:text-paper/70 transition-colors">Ver no mapa →</div>
           </a>
         </div>
 
-        <p className="mt-10 text-[11px] uppercase tracking-[0.25em] text-paper/40 sr sr-d3">
+        <p className="mt-10 text-[11px] uppercase tracking-[0.25em] text-paper/70 sr sr-d3">
           Resposta em até 24 horas úteis
         </p>
       </div>
@@ -1073,7 +1113,7 @@ function Footer() {
           </div>
 
           <div className="col-span-6 md:col-span-2">
-            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/40 mb-4">Contato</div>
+            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/70 mb-4">Contato</div>
             <ul className="space-y-2.5 text-sm text-paper/80">
               <li>
                 <a
@@ -1114,7 +1154,7 @@ function Footer() {
           </div>
 
           <div className="col-span-6 md:col-span-2">
-            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/40 mb-4">Navegar</div>
+            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/70 mb-4">Navegar</div>
             <ul className="space-y-2.5 text-sm text-paper/80">
               <li><a href="#about" className="hover:text-paper">Sobre</a></li>
               <li><a href="#services" className="hover:text-paper">Serviços</a></li>
@@ -1123,14 +1163,14 @@ function Footer() {
           </div>
 
           <div className="col-span-12 md:col-span-2">
-            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/40 mb-4">Estúdio</div>
+            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/70 mb-4">Estúdio</div>
             <p className="text-sm text-paper/80">Fortaleza / CE</p>
             <p className="mt-1 text-sm text-paper/60">Seg — Sex · 09 → 18</p>
             <p className="mt-3 text-sm text-paper/80">{CONTACT.phoneDisplay}</p>
           </div>
         </div>
 
-        <div className="mt-14 pt-6 border-t border-paper/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-[11px] uppercase tracking-[0.25em] text-paper/40">
+        <div className="mt-14 pt-6 border-t border-paper/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-[11px] uppercase tracking-[0.25em] text-paper/70">
           <span suppressHydrationWarning>© {new Date().getFullYear()} Agência Glass Maind</span>
           <span>Todos os direitos reservados</span>
         </div>

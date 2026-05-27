@@ -29,18 +29,16 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Agencia Glass Maind" },
+      { title: "Agência Glass Maind — Estratégia, Design e Marketing Digital" },
       { name: "description", content: "Agência Glass Maind. Estratégia, identidade visual e marketing para marcas que querem parecer maiores, vender melhor e serem lembradas." },
       { name: "author", content: "Agência Glass Maind" },
-      { property: "og:title", content: "Agencia Glass Maind" },
-      { property: "og:description", content: "Agência Glass Maind. Estratégia, identidade visual e marketing para marcas que querem parecer maiores, vender melhor e serem lembradas." },
+      { property: "og:site_name", content: "Agência Glass Maind" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Agencia Glass Maind" },
-      { name: "twitter:description", content: "Agência Glass Maind. Estratégia, identidade visual e marketing para marcas que querem parecer maiores, vender melhor e serem lembradas." },
       { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/3c4e8bdc-71c8-42df-bb57-19f508ece5f7/id-preview-af8229f3--55331a3a-67ae-4504-a639-3d1d14d9eaba.lovable.app-1777233683195.png" },
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/3c4e8bdc-71c8-42df-bb57-19f508ece5f7/id-preview-af8229f3--55331a3a-67ae-4504-a639-3d1d14d9eaba.lovable.app-1777233683195.png" },
     ],
+
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
