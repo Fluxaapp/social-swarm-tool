@@ -1262,6 +1262,7 @@ function Index() {
       <About />
       <Services />
       <Portfolio />
+      <AerialTeaser onOpenProposal={() => setProposalOpen(true)} />
       <CTA onOpenProposal={() => setProposalOpen(true)} />
       <Footer />
       <ProposalModal open={proposalOpen} onClose={() => setProposalOpen(false)} />
