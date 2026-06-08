@@ -1166,7 +1166,10 @@ function Index() {
   return (
     <main className="bg-paper text-ink min-h-screen pt-16 md:pt-20 overflow-x-hidden">
       <Nav onOpenProposal={() => setProposalOpen(true)} />
-      <Hero onOpenProposal={() => setProposalOpen(true)} />
+      <Hero 
+        onOpenProposal={() => setProposalOpen(true)} 
+        onOpenCareer={() => setCareerOpen(true)}
+      />
       <Technology 
         onOpenProposal={() => setProposalOpen(true)} 
         onOpenCareer={() => setCareerOpen(true)}
