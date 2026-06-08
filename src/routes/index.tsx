@@ -16,6 +16,7 @@ import { useParallax, useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { useCountUp } from "@/hooks/use-count-up";
 import { CONTACT, whatsappLink, mailtoLink } from "@/lib/contact";
 import { ProposalModal } from "@/components/ProposalModal";
+import { CareerModal } from "@/components/CareerModal";
 import { HeroIdeasLoop } from "@/components/HeroIdeasLoop";
 
 
