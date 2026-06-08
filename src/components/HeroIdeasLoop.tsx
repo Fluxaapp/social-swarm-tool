@@ -16,7 +16,7 @@ const IDEAS = [
 const VISIBLE = 5; // itens visíveis simultaneamente
 const INTERVAL = 2400;
 
-export function HeroIdeasLoop() {
+export function HeroIdeasLoop({ onOpenCareer }: { onOpenCareer?: () => void }) {
   const [active, setActive] = useState(0);
 
   useEffect(() => {
