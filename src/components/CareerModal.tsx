@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { X, ArrowRight, ArrowLeft, Check, Upload, FileText } from "lucide-react";
-import { mailtoLink } from "@/lib/contact";
+import { mailtoLink, CONTACT } from "@/lib/contact";
 
 interface CareerModalProps {
   open: boolean;
@@ -104,8 +104,10 @@ export function CareerModal({ open, onClose }: CareerModalProps) {
     setIsSubmitting(true);
 
     try {
-      const subject = `Nova candidatura — ${data.jobTitle} — ${data.name}`;
-      const body = [
+      const subject = `Confirmação de Candidatura — ${data.jobTitle} — Glass Maind`;
+      const agencySubject = `Nova candidatura — ${data.jobTitle} — ${data.name}`;
+      
+      const details = [
         `Nome completo: ${data.name}`,
         `WhatsApp: ${data.whatsapp}`,
         `E-mail: ${data.email}`,
@@ -118,12 +120,35 @@ export function CareerModal({ open, onClose }: CareerModalProps) {
         `Mensagem adicional: ${data.message}`,
         "",
         `[Currículo anexado: ${data.file?.name}]`,
+      ].join("\n");
+
+      const agencyBody = [
+        `Olá, Glass Maind. Uma nova candidatura foi recebida pelo site:`,
+        "",
+        details,
+        "",
         "Nota: O arquivo não pode ser enviado diretamente via mailto, mas o candidato informou que o anexou.",
       ].join("\n");
 
-      // Open email client
-      const url = mailtoLink(subject, body);
-      window.location.href = url;
+      const candidateBody = [
+        `Olá, ${data.name.split(" ")[0]}!`,
+        "",
+        `Recebemos sua candidatura para a vaga de ${data.jobTitle}.`,
+        "Este é um e-mail de confirmação de que seus dados foram enviados com sucesso para a nossa equipe.",
+        "",
+        "Resumo dos dados enviados:",
+        details,
+        "",
+        "Aguarde o retorno da nossa equipe pelo WhatsApp em até 3 dias úteis.",
+        "",
+        "Atenciosamente,",
+        "Equipe Glass Maind",
+      ].join("\n");
+
+      // We use BCC to send a copy to the agency and TO for the candidate
+      // This way both get the email if they click 'send'
+      const mailtoUrl = `mailto:${data.email}?cc=${CONTACT.email}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(candidateBody)}`;
+      window.location.href = mailtoUrl;
       
       // Move to success step
       setStep(2);
