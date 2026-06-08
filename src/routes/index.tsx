@@ -773,13 +773,6 @@ function Technology({ onOpenProposal, onOpenCareer }: { onOpenProposal: () => vo
                   <span className="text-[10px] uppercase tracking-[0.2em] text-paper/40">
                     {active + 1} / {total}
                   </span>
-                  <button
-                    type="button"
-                    onClick={onOpenCareer}
-                    className="text-[12px] text-paper/60 hover:text-paper transition-colors underline underline-offset-4"
-                  >
-                    Trabalhe conosco
-                  </button>
                 </div>
               </div>
             </div>
