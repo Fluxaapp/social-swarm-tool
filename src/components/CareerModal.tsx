@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { X, ArrowRight, ArrowLeft, Check, Upload, FileText } from "lucide-react";
-import { mailtoLink } from "@/lib/contact";
+import { mailtoLink, CONTACT } from "@/lib/contact";
 
 interface CareerModalProps {
   open: boolean;
@@ -32,7 +32,7 @@ interface CareerFormData {
 }
 
 export function CareerModal({ open, onClose }: CareerModalProps) {
-  const [step, setStep] = useState(0); // 0: Jobs list, 1: Form
+  const [step, setStep] = useState(0); // 0: Jobs list, 1: Form, 2: Success
   const [data, setData] = useState<CareerFormData>({
     jobId: "",
     jobTitle: "",
@@ -104,8 +104,10 @@ export function CareerModal({ open, onClose }: CareerModalProps) {
     setIsSubmitting(true);
 
     try {
-      const subject = `Nova candidatura — ${data.jobTitle} — ${data.name}`;
-      const body = [
+      const subject = `Confirmação de Candidatura — ${data.jobTitle} — Glass Maind`;
+      const agencySubject = `Nova candidatura — ${data.jobTitle} — ${data.name}`;
+      
+      const details = [
         `Nome completo: ${data.name}`,
         `WhatsApp: ${data.whatsapp}`,
         `E-mail: ${data.email}`,
@@ -118,14 +120,38 @@ export function CareerModal({ open, onClose }: CareerModalProps) {
         `Mensagem adicional: ${data.message}`,
         "",
         `[Currículo anexado: ${data.file?.name}]`,
+      ].join("\n");
+
+      const agencyBody = [
+        `Olá, Glass Maind. Uma nova candidatura foi recebida pelo site:`,
+        "",
+        details,
+        "",
         "Nota: O arquivo não pode ser enviado diretamente via mailto, mas o candidato informou que o anexou.",
       ].join("\n");
 
-      const url = mailtoLink(subject, body);
-      window.location.href = url;
+      const candidateBody = [
+        `Olá, ${data.name.split(" ")[0]}!`,
+        "",
+        `Recebemos sua candidatura para a vaga de ${data.jobTitle}.`,
+        "Este é um e-mail de confirmação de que seus dados foram enviados com sucesso para a nossa equipe.",
+        "",
+        "Resumo dos dados enviados:",
+        details,
+        "",
+        "Aguarde o retorno da nossa equipe pelo WhatsApp em até 3 dias úteis.",
+        "",
+        "Atenciosamente,",
+        "Equipe Glass Maind",
+      ].join("\n");
+
+      // We use BCC to send a copy to the agency and TO for the candidate
+      // This way both get the email if they click 'send'
+      const mailtoUrl = `mailto:${data.email}?cc=${CONTACT.email}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(candidateBody)}`;
+      window.location.href = mailtoUrl;
       
-      alert("Candidatura enviada com sucesso. Em breve entraremos em contato.");
-      onClose();
+      // Move to success step
+      setStep(2);
     } catch (error) {
       alert("Não foi possível enviar sua candidatura. Tente novamente.");
     } finally {
@@ -147,12 +173,14 @@ export function CareerModal({ open, onClose }: CareerModalProps) {
                 Trabalhe conosco
               </div>
               <h2 className="mt-3 font-medium text-[clamp(1.5rem,3vw,2rem)] leading-tight tracking-[-0.025em]">
-                {step === 0 ? "Vagas disponíveis" : data.jobTitle}
+                {step === 0 ? "Vagas disponíveis" : step === 1 ? data.jobTitle : "Candidatura enviada"}
               </h2>
               <p className="mt-2 text-sm text-dim">
                 {step === 0 
                   ? "Escolha uma vaga disponível e envie suas informações." 
-                  : "Preencha seus dados para completar sua candidatura."}
+                  : step === 1
+                  ? "Preencha seus dados para completar sua candidatura."
+                  : "Recebemos suas informações com sucesso."}
               </p>
             </div>
             <button
@@ -182,7 +210,7 @@ export function CareerModal({ open, onClose }: CareerModalProps) {
                 </button>
               ))}
             </div>
-          ) : (
+          ) : step === 1 ? (
             <div className="space-y-6 max-w-2xl mx-auto">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <Field label="Nome completo *">
@@ -305,6 +333,19 @@ export function CareerModal({ open, onClose }: CareerModalProps) {
                 />
               </Field>
             </div>
+          ) : (
+            <div className="py-12 flex flex-col items-center text-center max-w-sm mx-auto animate-in fade-in zoom-in duration-500">
+              <div className="h-16 w-16 bg-ink text-paper rounded-full flex items-center justify-center mb-6 shadow-xl shadow-ink/10">
+                <Check className="h-8 w-8" />
+              </div>
+              <h3 className="text-xl font-medium mb-3">Tudo pronto!</h3>
+              <p className="text-sm text-dim leading-relaxed mb-6">
+                Sua candidatura foi enviada. Aguarde o retorno da nossa equipe pelo WhatsApp em até <strong>3 dias úteis</strong>.
+              </p>
+              <p className="text-[12px] text-dim/60 italic">
+                Verifique se o seu e-mail de confirmação chegou em sua caixa de entrada (ou spam).
+              </p>
+            </div>
           )}
         </div>
 
@@ -316,7 +357,7 @@ export function CareerModal({ open, onClose }: CareerModalProps) {
             className="inline-flex items-center gap-2 text-[13px] font-medium text-ink/70 hover:text-ink transition-all"
           >
             <ArrowLeft className="h-4 w-4" />
-            {step === 1 ? "Voltar" : "Fechar"}
+            {step === 2 ? "Fechar" : step === 1 ? "Voltar" : "Fechar"}
           </button>
 
           {step === 1 && (
@@ -336,6 +377,16 @@ export function CareerModal({ open, onClose }: CareerModalProps) {
               }`}>
                 <ArrowRight className="h-4 w-4" />
               </span>
+            </button>
+          )}
+
+          {step === 2 && (
+            <button
+              type="button"
+              onClick={onClose}
+              className="bg-ink text-paper px-8 py-2.5 rounded-full text-[13px] font-medium hover:scale-[1.02] transition-all"
+            >
+              Entendido
             </button>
           )}
         </div>
