@@ -252,7 +252,7 @@ function Hero({ onOpenProposal, onOpenCareer }: { onOpenProposal: () => void; on
           {/* Ideas loop — visível em tablet/desktop, oculto no mobile */}
           <div className="hidden md:block lg:absolute lg:inset-0 lg:flex lg:items-center lg:justify-center lg:pr-20 mt-10 lg:mt-0">
             <div className="w-full max-w-[460px] mx-auto">
-              <HeroIdeasLoop />
+              <HeroIdeasLoop onOpenCareer={onOpenCareer} />
             </div>
           </div>
 
