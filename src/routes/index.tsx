@@ -135,7 +135,7 @@ const SOCIALS = [
 ];
 
 
-function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
+function Hero({ onOpenProposal, onOpenCareer }: { onOpenProposal: () => void; onOpenCareer?: () => void }) {
   return (
     <section id="top" className="relative bg-soft overflow-hidden">
 
