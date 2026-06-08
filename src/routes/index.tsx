@@ -757,7 +757,7 @@ function Technology({ onOpenProposal, onOpenCareer }: { onOpenProposal: () => vo
                 <span className={`${infoMotionClass} tech-inline-copy`}>{dynamicView.tech}</span>
               </div>
 
-              <div className="tech-info-cta mt-8 flex w-full justify-center lg:justify-start">
+              <div className="tech-info-cta mt-8 flex flex-col items-center lg:items-start gap-5 w-full">
                 <button
                   type="button"
                   onClick={onOpenProposal}
@@ -768,6 +768,19 @@ function Technology({ onOpenProposal, onOpenCareer }: { onOpenProposal: () => vo
                     <ArrowUpRight className="h-4 w-4" />
                   </span>
                 </button>
+
+                <div className="flex items-center gap-3">
+                  <span className="text-[10px] uppercase tracking-[0.2em] text-paper/40">
+                    {active + 1} / {total}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={onOpenCareer}
+                    className="text-[12px] text-paper/60 hover:text-paper transition-colors underline underline-offset-4"
+                  >
+                    Trabalhe conosco
+                  </button>
+                </div>
               </div>
             </div>
           </div>
