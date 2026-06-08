@@ -26,7 +26,7 @@ export const Route = createFileRoute("/")({
 
 
 /* =================== NAV =================== */
-function Nav({ onOpenProposal }: { onOpenProposal: () => void }) {
+function Nav({ onOpenProposal, onOpenCareer }: { onOpenProposal: () => void; onOpenCareer?: () => void }) {
   const [hidden, setHidden] = useState(false);
   const lastY = useRef(0);
 
@@ -94,7 +94,13 @@ function Nav({ onOpenProposal }: { onOpenProposal: () => void }) {
               className="h-9 w-[180px] rounded-full bg-paper border border-line pl-9 pr-3 text-[13px] text-ink placeholder:text-ink/40 outline-none focus:border-ink/40 transition-colors"
             />
           </div>
-          <span className="text-[11px] tracking-[0.18em] uppercase text-ink/55">Digital Studio</span>
+          <button 
+            type="button"
+            onClick={onOpenCareer}
+            className="text-[11px] tracking-[0.18em] uppercase text-ink/55 hover:text-ink transition-colors"
+          >
+            Trabalhe conosco
+          </button>
         </div>
 
         <button
@@ -1165,7 +1171,10 @@ function Index() {
 
   return (
     <main className="bg-paper text-ink min-h-screen pt-16 md:pt-20 overflow-x-hidden">
-      <Nav onOpenProposal={() => setProposalOpen(true)} />
+      <Nav 
+        onOpenProposal={() => setProposalOpen(true)} 
+        onOpenCareer={() => setCareerOpen(true)}
+      />
       <Hero 
         onOpenProposal={() => setProposalOpen(true)} 
         onOpenCareer={() => setCareerOpen(true)}
