@@ -135,7 +135,7 @@ const SOCIALS = [
 ];
 
 
-function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
+function Hero({ onOpenProposal, onOpenCareer }: { onOpenProposal: () => void; onOpenCareer?: () => void }) {
   return (
     <section id="top" className="relative bg-soft overflow-hidden">
 
@@ -252,7 +252,7 @@ function Hero({ onOpenProposal }: { onOpenProposal: () => void }) {
           {/* Ideas loop — visível em tablet/desktop, oculto no mobile */}
           <div className="hidden md:block lg:absolute lg:inset-0 lg:flex lg:items-center lg:justify-center lg:pr-20 mt-10 lg:mt-0">
             <div className="w-full max-w-[460px] mx-auto">
-              <HeroIdeasLoop />
+              <HeroIdeasLoop onOpenCareer={onOpenCareer} />
             </div>
           </div>
 
@@ -773,13 +773,6 @@ function Technology({ onOpenProposal, onOpenCareer }: { onOpenProposal: () => vo
                   <span className="text-[10px] uppercase tracking-[0.2em] text-paper/40">
                     {active + 1} / {total}
                   </span>
-                  <button
-                    type="button"
-                    onClick={onOpenCareer}
-                    className="text-[12px] text-paper/60 hover:text-paper transition-colors underline underline-offset-4"
-                  >
-                    Trabalhe conosco
-                  </button>
                 </div>
               </div>
             </div>
@@ -1173,7 +1166,10 @@ function Index() {
   return (
     <main className="bg-paper text-ink min-h-screen pt-16 md:pt-20 overflow-x-hidden">
       <Nav onOpenProposal={() => setProposalOpen(true)} />
-      <Hero onOpenProposal={() => setProposalOpen(true)} />
+      <Hero 
+        onOpenProposal={() => setProposalOpen(true)} 
+        onOpenCareer={() => setCareerOpen(true)}
+      />
       <Technology 
         onOpenProposal={() => setProposalOpen(true)} 
         onOpenCareer={() => setCareerOpen(true)}

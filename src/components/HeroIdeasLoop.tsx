@@ -16,7 +16,7 @@ const IDEAS = [
 const VISIBLE = 5; // itens visíveis simultaneamente
 const INTERVAL = 2400;
 
-export function HeroIdeasLoop() {
+export function HeroIdeasLoop({ onOpenCareer }: { onOpenCareer?: () => void }) {
   const [active, setActive] = useState(0);
 
   useEffect(() => {
@@ -113,6 +113,18 @@ export function HeroIdeasLoop() {
         <span className="text-[10px] tracking-[0.25em] uppercase text-dim tabular-nums">
           {String(active + 1).padStart(2, "0")} / {String(IDEAS.length).padStart(2, "0")}
         </span>
+        {onOpenCareer && (
+          <>
+            <span className="h-px w-3 bg-ink/10" />
+            <button
+              type="button"
+              onClick={onOpenCareer}
+              className="text-[11px] text-ink/60 hover:text-ink transition-colors underline underline-offset-4"
+            >
+              Trabalhe conosco
+            </button>
+          </>
+        )}
       </div>
     </div>
   );
