@@ -145,9 +145,9 @@ export function CareerModal({ open, onClose }: CareerModalProps) {
         "Equipe Glass Maind",
       ].join("\n");
 
-      // We use BCC to send a copy to the agency and TO for the candidate
+      // We use TO for both candidate and agency (comma separated)
       // This way both get the email if they click 'send'
-      const mailtoUrl = `mailto:${data.email}?cc=${CONTACT.email}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(candidateBody)}`;
+      const mailtoUrl = `mailto:${data.email},${CONTACT.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(candidateBody)}`;
       window.location.href = mailtoUrl;
       
       // Move to success step
