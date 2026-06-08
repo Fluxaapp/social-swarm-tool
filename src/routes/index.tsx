@@ -554,7 +554,7 @@ const TECH_VIEWS = [
   },
 ] as const;
 
-function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
+function Technology({ onOpenProposal, onOpenCareer }: { onOpenProposal: () => void; onOpenCareer?: () => void }) {
   const [active, setActive] = useState(0);
   const [incoming, setIncoming] = useState<number | null>(null);
   const [direction, setDirection] = useState<CarouselDirection>(1);
@@ -984,7 +984,7 @@ function Portfolio() {
 
 
 /* =================== CTA =================== */
-function CTA({ onOpenProposal }: { onOpenProposal: () => void }) {
+function CTA({ onOpenProposal, onOpenCareer }: { onOpenProposal: () => void; onOpenCareer?: () => void }) {
 
   return (
     <section id="contact" className="bg-ink text-paper relative overflow-hidden">
@@ -1155,20 +1155,28 @@ function Index() {
   useScrollReveal();
   useParallax();
   const [proposalOpen, setProposalOpen] = useState(false);
+  const [careerOpen, setCareerOpen] = useState(false);
 
   return (
     <main className="bg-paper text-ink min-h-screen pt-16 md:pt-20 overflow-x-hidden">
       <Nav onOpenProposal={() => setProposalOpen(true)} />
       <Hero onOpenProposal={() => setProposalOpen(true)} />
-      <Technology onOpenProposal={() => setProposalOpen(true)} />
+      <Technology 
+        onOpenProposal={() => setProposalOpen(true)} 
+        onOpenCareer={() => setCareerOpen(true)}
+      />
       <InfoStrip />
       <About />
       <Services />
       <Portfolio />
       
-      <CTA onOpenProposal={() => setProposalOpen(true)} />
+      <CTA 
+        onOpenProposal={() => setProposalOpen(true)} 
+        onOpenCareer={() => setCareerOpen(true)}
+      />
       <Footer />
       <ProposalModal open={proposalOpen} onClose={() => setProposalOpen(false)} />
+      <CareerModal open={careerOpen} onClose={() => setCareerOpen(false)} />
     </main>
   );
 }
