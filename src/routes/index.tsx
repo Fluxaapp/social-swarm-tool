@@ -16,6 +16,7 @@ import { useParallax, useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { useCountUp } from "@/hooks/use-count-up";
 import { CONTACT, whatsappLink, mailtoLink } from "@/lib/contact";
 import { ProposalModal } from "@/components/ProposalModal";
+import { CareerModal } from "@/components/CareerModal";
 import { HeroIdeasLoop } from "@/components/HeroIdeasLoop";
 
 
@@ -553,7 +554,7 @@ const TECH_VIEWS = [
   },
 ] as const;
 
-function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
+function Technology({ onOpenProposal, onOpenCareer }: { onOpenProposal: () => void; onOpenCareer?: () => void }) {
   const [active, setActive] = useState(0);
   const [incoming, setIncoming] = useState<number | null>(null);
   const [direction, setDirection] = useState<CarouselDirection>(1);
@@ -756,7 +757,7 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
                 <span className={`${infoMotionClass} tech-inline-copy`}>{dynamicView.tech}</span>
               </div>
 
-              <div className="tech-info-cta mt-8 flex w-full justify-center lg:justify-start">
+              <div className="tech-info-cta mt-8 flex flex-col items-center lg:items-start gap-5 w-full">
                 <button
                   type="button"
                   onClick={onOpenProposal}
@@ -767,6 +768,19 @@ function Technology({ onOpenProposal }: { onOpenProposal: () => void }) {
                     <ArrowUpRight className="h-4 w-4" />
                   </span>
                 </button>
+
+                <div className="flex items-center gap-3">
+                  <span className="text-[10px] uppercase tracking-[0.2em] text-paper/40">
+                    {active + 1} / {total}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={onOpenCareer}
+                    className="text-[12px] text-paper/60 hover:text-paper transition-colors underline underline-offset-4"
+                  >
+                    Trabalhe conosco
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -983,7 +997,7 @@ function Portfolio() {
 
 
 /* =================== CTA =================== */
-function CTA({ onOpenProposal }: { onOpenProposal: () => void }) {
+function CTA({ onOpenProposal, onOpenCareer }: { onOpenProposal: () => void; onOpenCareer?: () => void }) {
 
   return (
     <section id="contact" className="bg-ink text-paper relative overflow-hidden">
@@ -1154,20 +1168,28 @@ function Index() {
   useScrollReveal();
   useParallax();
   const [proposalOpen, setProposalOpen] = useState(false);
+  const [careerOpen, setCareerOpen] = useState(false);
 
   return (
     <main className="bg-paper text-ink min-h-screen pt-16 md:pt-20 overflow-x-hidden">
       <Nav onOpenProposal={() => setProposalOpen(true)} />
       <Hero onOpenProposal={() => setProposalOpen(true)} />
-      <Technology onOpenProposal={() => setProposalOpen(true)} />
+      <Technology 
+        onOpenProposal={() => setProposalOpen(true)} 
+        onOpenCareer={() => setCareerOpen(true)}
+      />
       <InfoStrip />
       <About />
       <Services />
       <Portfolio />
       
-      <CTA onOpenProposal={() => setProposalOpen(true)} />
+      <CTA 
+        onOpenProposal={() => setProposalOpen(true)} 
+        onOpenCareer={() => setCareerOpen(true)}
+      />
       <Footer />
       <ProposalModal open={proposalOpen} onClose={() => setProposalOpen(false)} />
+      <CareerModal open={careerOpen} onClose={() => setCareerOpen(false)} />
     </main>
   );
 }
