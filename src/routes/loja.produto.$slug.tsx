@@ -74,7 +74,7 @@ function ProductPage() {
           </div>
           {product.gallery && product.gallery.length > 0 && (
             <div className="mt-4 grid grid-cols-4 gap-3">
-              {product.gallery.map((src) => (
+              {product.gallery.map((src: string) => (
                 <div key={src} className="aspect-square bg-soft rounded-lg overflow-hidden border border-line">
                   <img src={src} alt="" className="h-full w-full object-cover" />
                 </div>
@@ -106,7 +106,7 @@ function ProductPage() {
             )}
             {product.deliveryTime && <Detail label="Prazo de entrega" value={product.deliveryTime} />}
             {product.files && product.files.length > 0 && (
-              <Detail label="Arquivos" value={product.files.map((f) => f.name).join(", ")} />
+              <Detail label="Arquivos" value={product.files.map((f: { name: string }) => f.name).join(", ")} />
             )}
           </div>
 
