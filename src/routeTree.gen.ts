@@ -9,9 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as LojaRouteImport } from './routes/loja'
 import { Route as CaptacaoAereaRouteImport } from './routes/captacao-aerea'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LojaIndexRouteImport } from './routes/loja.index'
+import { Route as LojaCarrinhoRouteImport } from './routes/loja.carrinho'
+import { Route as LojaProdutoSlugRouteImport } from './routes/loja.produto.$slug'
 
+const LojaRoute = LojaRouteImport.update({
+  id: '/loja',
+  path: '/loja',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CaptacaoAereaRoute = CaptacaoAereaRouteImport.update({
   id: '/captacao-aerea',
   path: '/captacao-aerea',
@@ -22,35 +31,87 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LojaIndexRoute = LojaIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LojaRoute,
+} as any)
+const LojaCarrinhoRoute = LojaCarrinhoRouteImport.update({
+  id: '/carrinho',
+  path: '/carrinho',
+  getParentRoute: () => LojaRoute,
+} as any)
+const LojaProdutoSlugRoute = LojaProdutoSlugRouteImport.update({
+  id: '/produto/$slug',
+  path: '/produto/$slug',
+  getParentRoute: () => LojaRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/captacao-aerea': typeof CaptacaoAereaRoute
+  '/loja': typeof LojaRouteWithChildren
+  '/loja/carrinho': typeof LojaCarrinhoRoute
+  '/loja/': typeof LojaIndexRoute
+  '/loja/produto/$slug': typeof LojaProdutoSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/captacao-aerea': typeof CaptacaoAereaRoute
+  '/loja/carrinho': typeof LojaCarrinhoRoute
+  '/loja': typeof LojaIndexRoute
+  '/loja/produto/$slug': typeof LojaProdutoSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/captacao-aerea': typeof CaptacaoAereaRoute
+  '/loja': typeof LojaRouteWithChildren
+  '/loja/carrinho': typeof LojaCarrinhoRoute
+  '/loja/': typeof LojaIndexRoute
+  '/loja/produto/$slug': typeof LojaProdutoSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/captacao-aerea'
+  fullPaths:
+    | '/'
+    | '/captacao-aerea'
+    | '/loja'
+    | '/loja/carrinho'
+    | '/loja/'
+    | '/loja/produto/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/captacao-aerea'
-  id: '__root__' | '/' | '/captacao-aerea'
+  to:
+    | '/'
+    | '/captacao-aerea'
+    | '/loja/carrinho'
+    | '/loja'
+    | '/loja/produto/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/captacao-aerea'
+    | '/loja'
+    | '/loja/carrinho'
+    | '/loja/'
+    | '/loja/produto/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CaptacaoAereaRoute: typeof CaptacaoAereaRoute
+  LojaRoute: typeof LojaRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/loja': {
+      id: '/loja'
+      path: '/loja'
+      fullPath: '/loja'
+      preLoaderRoute: typeof LojaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/captacao-aerea': {
       id: '/captacao-aerea'
       path: '/captacao-aerea'
@@ -65,22 +126,49 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/loja/': {
+      id: '/loja/'
+      path: '/'
+      fullPath: '/loja/'
+      preLoaderRoute: typeof LojaIndexRouteImport
+      parentRoute: typeof LojaRoute
+    }
+    '/loja/carrinho': {
+      id: '/loja/carrinho'
+      path: '/carrinho'
+      fullPath: '/loja/carrinho'
+      preLoaderRoute: typeof LojaCarrinhoRouteImport
+      parentRoute: typeof LojaRoute
+    }
+    '/loja/produto/$slug': {
+      id: '/loja/produto/$slug'
+      path: '/produto/$slug'
+      fullPath: '/loja/produto/$slug'
+      preLoaderRoute: typeof LojaProdutoSlugRouteImport
+      parentRoute: typeof LojaRoute
+    }
   }
 }
+
+interface LojaRouteChildren {
+  LojaCarrinhoRoute: typeof LojaCarrinhoRoute
+  LojaIndexRoute: typeof LojaIndexRoute
+  LojaProdutoSlugRoute: typeof LojaProdutoSlugRoute
+}
+
+const LojaRouteChildren: LojaRouteChildren = {
+  LojaCarrinhoRoute: LojaCarrinhoRoute,
+  LojaIndexRoute: LojaIndexRoute,
+  LojaProdutoSlugRoute: LojaProdutoSlugRoute,
+}
+
+const LojaRouteWithChildren = LojaRoute._addFileChildren(LojaRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CaptacaoAereaRoute: CaptacaoAereaRoute,
+  LojaRoute: LojaRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}

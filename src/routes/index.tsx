@@ -79,6 +79,7 @@ function Nav({ onOpenProposal, onOpenCareer }: { onOpenProposal: () => void; onO
           <a href="#about" className="hover:text-ink transition-colors">Sobre</a>
           <a href="#services" className="hover:text-ink transition-colors">Serviços</a>
           <Link to="/captacao-aerea" className="hover:text-ink transition-colors">Captação Aérea</Link>
+          <Link to="/loja" className="hover:text-ink transition-colors">Loja</Link>
           <a href="#contact" className="hover:text-ink transition-colors">Contato</a>
         </nav>
 
