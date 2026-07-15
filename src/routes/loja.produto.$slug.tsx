@@ -1,19 +1,25 @@
 import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
-import { ArrowLeft, Check, ShoppingBag } from "lucide-react";
+import { ArrowLeft, Check, ShoppingBag, ArrowUpRight } from "lucide-react";
 import { useState } from "react";
 import {
   findCategory,
-  findProduct,
   formatBRL,
   typeLabel,
+  getProducts,
 } from "@/lib/shop/products";
 import { useCart } from "@/lib/shop/cart";
 
 export const Route = createFileRoute("/loja/produto/$slug")({
-  loader: ({ params }) => {
-    const product = findProduct(params.slug);
-    if (!product) throw notFound();
-    return { product };
+  loader: async ({ params }) => {
+    try {
+      const products = await getProducts();
+      const product = products.find((p) => p.slug === params.slug && p.status === "publicado");
+      if (!product) throw notFound();
+      return { product };
+    } catch (error) {
+      console.error("Error loading product in detail loader", error);
+      throw notFound();
+    }
   },
   head: ({ loaderData }) => {
     if (!loaderData) {
@@ -22,10 +28,10 @@ export const Route = createFileRoute("/loja/produto/$slug")({
     const p = loaderData.product;
     return {
       meta: [
-        { title: `${p.name} — Loja Glass Maind` },
-        { name: "description", content: p.shortDescription },
-        { property: "og:title", content: `${p.name} — Loja Glass Maind` },
-        { property: "og:description", content: p.shortDescription },
+        { title: `${p.seoTitle || p.name} — Loja Glass Maind` },
+        { name: "description", content: p.seoDescription || p.shortDescription },
+        { property: "og:title", content: `${p.seoTitle || p.name} — Loja Glass Maind` },
+        { property: "og:description", content: p.seoDescription || p.shortDescription },
         { property: "og:image", content: p.image },
       ],
     };
@@ -56,9 +62,15 @@ function ProductPage() {
   };
 
   const handleBuyNow = () => {
-    add(product.slug, 1);
-    navigate({ to: "/loja/carrinho" });
+    if (product.purchaseUrl) {
+      window.open(product.purchaseUrl, "_blank", "noopener,noreferrer");
+    } else {
+      add(product.slug, 1);
+      navigate({ to: "/loja/carrinho" });
+    }
   };
+
+  const hasPromo = product.promoPrice && product.promoPrice > 0;
 
   return (
     <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10 py-10 md:py-16">
@@ -69,8 +81,13 @@ function ProductPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16">
         {/* Imagens */}
         <div>
-          <div className="aspect-[4/3] bg-soft rounded-2xl overflow-hidden border border-line">
+          <div className="aspect-[4/3] bg-soft rounded-2xl overflow-hidden border border-line relative">
             <img src={product.image} alt={product.name} className="h-full w-full object-cover" />
+            {product.badge && (
+              <span className="absolute top-3 left-3 text-[10px] tracking-[0.2em] uppercase bg-ink text-paper px-2.5 py-1 rounded-full font-medium shadow-sm">
+                {product.badge}
+              </span>
+            )}
           </div>
           {product.gallery && product.gallery.length > 0 && (
             <div className="mt-4 grid grid-cols-4 gap-3">
@@ -92,7 +109,7 @@ function ProductPage() {
           <h1 className="text-3xl md:text-5xl font-light text-ink leading-[1.05] tracking-tight">
             {product.name}
           </h1>
-          <p className="mt-5 text-[15px] text-ink/70 leading-relaxed">
+          <p className="mt-5 text-[15px] text-ink/70 leading-relaxed white-space-pre-line">
             {product.description}
           </p>
 
@@ -112,7 +129,16 @@ function ProductPage() {
 
           <div className="mt-10 pt-8 border-t border-line">
             <div className="text-[10px] tracking-[0.2em] uppercase text-ink/50">Preço</div>
-            <div className="mt-1 text-4xl font-semibold text-ink">{formatBRL(product.price)}</div>
+            <div className="mt-1 flex items-baseline gap-3">
+              {hasPromo ? (
+                <>
+                  <div className="text-4xl font-semibold text-ink">{formatBRL(product.promoPrice!)}</div>
+                  <div className="text-lg text-ink/40 line-through">{formatBRL(product.price)}</div>
+                </>
+              ) : (
+                <div className="text-4xl font-semibold text-ink">{formatBRL(product.price)}</div>
+              )}
+            </div>
 
             <div className="mt-6 flex flex-wrap items-center gap-3">
               <button
@@ -120,19 +146,33 @@ function ProductPage() {
                 onClick={handleBuyNow}
                 className="inline-flex items-center gap-2 h-12 px-6 rounded-full bg-ink text-paper text-[12px] tracking-[0.16em] uppercase hover:bg-ink/90 transition-colors"
               >
-                <ShoppingBag className="h-4 w-4" /> Comprar agora
+                <ShoppingBag className="h-4 w-4" /> {product.purchaseUrl ? "Comprar Externo" : "Comprar agora"}
               </button>
-              <button
-                type="button"
-                onClick={handleAdd}
-                className="inline-flex items-center gap-2 h-12 px-6 rounded-full border border-line text-ink text-[12px] tracking-[0.16em] uppercase hover:border-ink/40 transition-colors"
-              >
-                {added ? (
-                  <><Check className="h-4 w-4" /> Adicionado</>
-                ) : (
-                  <>Adicionar ao carrinho</>
-                )}
-              </button>
+
+              {!product.purchaseUrl && (
+                <button
+                  type="button"
+                  onClick={handleAdd}
+                  className="inline-flex items-center gap-2 h-12 px-6 rounded-full border border-line text-ink text-[12px] tracking-[0.16em] uppercase hover:border-ink/40 transition-colors"
+                >
+                  {added ? (
+                    <><Check className="h-4 w-4" /> Adicionado</>
+                  ) : (
+                    <>Adicionar ao carrinho</>
+                  )}
+                </button>
+              )}
+
+              {product.demoUrl && (
+                <a
+                  href={product.demoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-1.5 h-12 px-6 rounded-full border border-line text-ink text-[12px] tracking-[0.16em] uppercase hover:border-ink/40 transition-colors"
+                >
+                  Ver Demo <ArrowUpRight className="h-3.5 w-3.5" />
+                </a>
+              )}
             </div>
             <p className="mt-4 text-[12px] text-ink/50">
               Pagamento seguro • Entrega imediata após confirmação (produtos digitais)

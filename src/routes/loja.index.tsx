@@ -2,12 +2,13 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import {
   CATEGORIES,
-  bestSellers,
-  featuredProducts,
+  bestSellersSync,
+  featuredProductsSync,
   formatBRL,
-  listProducts,
-  recentProducts,
+  listProductsSync,
+  recentProductsSync,
   typeLabel,
+  getProducts,
   type Product,
 } from "@/lib/shop/products";
 
@@ -20,10 +21,21 @@ export const Route = createFileRoute("/loja/")({
       { property: "og:description", content: "Templates, licenças e serviços premium da Glass Maind." },
     ],
   }),
+  loader: async () => {
+    try {
+      const products = await getProducts();
+      return { products: products || [] };
+    } catch (error) {
+      console.error("Error loading products in shop loader", error);
+      return { products: [] };
+    }
+  },
   component: LojaHome,
 });
 
 function ProductCard({ product }: { product: Product }) {
+  const hasPromo = product.promoPrice && product.promoPrice > 0;
+  
   return (
     <Link
       to="/loja/produto/$slug"
@@ -37,15 +49,31 @@ function ProductCard({ product }: { product: Product }) {
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
           loading="lazy"
         />
-        <span className="absolute top-3 left-3 text-[10px] tracking-[0.2em] uppercase bg-ink text-paper px-2.5 py-1 rounded-full">
-          {typeLabel(product.type)}
-        </span>
+        <div className="absolute top-3 left-3 flex flex-col gap-1.5 items-start">
+          <span className="text-[10px] tracking-[0.2em] uppercase bg-ink text-paper px-2.5 py-1 rounded-full">
+            {typeLabel(product.type)}
+          </span>
+          {product.badge && (
+            <span className="text-[10px] tracking-[0.15em] uppercase bg-paper border border-line text-ink px-2.5 py-1 rounded-full font-medium shadow-sm">
+              {product.badge}
+            </span>
+          )}
+        </div>
       </div>
       <div className="flex flex-col gap-2 p-5 flex-1">
         <h3 className="text-[15px] font-medium text-ink leading-snug">{product.name}</h3>
         <p className="text-[13px] text-ink/60 line-clamp-2">{product.shortDescription}</p>
         <div className="mt-auto pt-4 flex items-center justify-between">
-          <span className="text-[15px] font-semibold text-ink">{formatBRL(product.price)}</span>
+          <div className="flex items-baseline gap-2">
+            {hasPromo ? (
+              <>
+                <span className="text-[15px] font-semibold text-ink">{formatBRL(product.promoPrice!)}</span>
+                <span className="text-[12px] text-ink/40 line-through">{formatBRL(product.price)}</span>
+              </>
+            ) : (
+              <span className="text-[15px] font-semibold text-ink">{formatBRL(product.price)}</span>
+            )}
+          </div>
           <span className="inline-flex items-center gap-1 text-[11px] tracking-[0.18em] uppercase text-ink/60 group-hover:text-ink transition-colors">
             Ver <ArrowUpRight className="h-3.5 w-3.5" />
           </span>
@@ -66,9 +94,11 @@ function SectionLabel({ index, title }: { index: string; title: string }) {
 }
 
 function LojaHome() {
-  const featured = featuredProducts();
-  const best = bestSellers();
-  const recent = recentProducts();
+  const { products } = Route.useLoaderData();
+  
+  const featured = featuredProductsSync(products);
+  const best = bestSellersSync(products);
+  const recent = recentProductsSync(products);
 
   return (
     <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10">
@@ -120,7 +150,7 @@ function LojaHome() {
         <SectionLabel index="03" title="Categorias" />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {CATEGORIES.map((c) => {
-            const count = listProducts({ categoryId: c.id }).length;
+            const count = listProductsSync(products, { categoryId: c.id }).length;
             return (
               <a
                 key={c.id}
@@ -164,7 +194,7 @@ function LojaHome() {
         </div>
 
         {CATEGORIES.map((c) => {
-          const items = listProducts({ categoryId: c.id });
+          const items = listProductsSync(products, { categoryId: c.id });
           if (items.length === 0) return null;
           return (
             <div key={c.id} id={`cat-${c.id}`} className="mt-16 pt-12 border-t border-line">

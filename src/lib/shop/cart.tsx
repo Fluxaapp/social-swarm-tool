@@ -7,7 +7,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { PRODUCTS, type Product } from "./products";
+import { getProducts, type Product } from "./products";
 
 export interface CartLine {
   slug: string;
@@ -30,9 +30,17 @@ const STORAGE_KEY = "glassmaind_cart_v1";
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [lines, setLines] = useState<CartLine[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
+    // Load products list from database
+    getProducts()
+      .then((res) => {
+        if (res) setProducts(res);
+      })
+      .catch((err) => console.error("Error loading products for cart", err));
+
     try {
       const raw = typeof window !== "undefined" ? window.localStorage.getItem(STORAGE_KEY) : null;
       if (raw) setLines(JSON.parse(raw));
@@ -78,15 +86,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const value = useMemo<CartContextValue>(() => {
     const detailed = lines
       .map((l) => {
-        const product = PRODUCTS.find((p) => p.slug === l.slug);
+        const product = products.find((p) => p.slug === l.slug);
         if (!product) return null;
-        return { product, quantity: l.quantity, lineTotal: product.price * l.quantity };
+        // Use promotional price if available
+        const price = product.promoPrice && product.promoPrice > 0 ? product.promoPrice : product.price;
+        return { product, quantity: l.quantity, lineTotal: price * l.quantity };
       })
       .filter(Boolean) as { product: Product; quantity: number; lineTotal: number }[];
     const subtotal = detailed.reduce((sum, d) => sum + d.lineTotal, 0);
     const itemCount = detailed.reduce((sum, d) => sum + d.quantity, 0);
     return { lines, itemCount, subtotal, add, remove, setQuantity, clear, detailed };
-  }, [lines, add, remove, setQuantity, clear]);
+  }, [lines, products, add, remove, setQuantity, clear]);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
