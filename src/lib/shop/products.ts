@@ -129,8 +129,10 @@ export const bestSellersSync = (products: Product[]) =>
 export const recentProductsSync = (products: Product[]) =>
   [...listProductsSync(products)].sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1)).slice(0, 6);
 
-export const formatBRL = (value: number) =>
-  value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+export const formatBRL = (value: any) => {
+  const num = typeof value === "number" ? value : parseFloat(value) || 0;
+  return num.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+};
 
 export const typeLabel = (t: ProductType) =>
   t === "digital" ? "Produto Digital" : t === "licenca" ? "Licença" : "Serviço";

@@ -5,7 +5,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { 
-  getProducts, saveProduct, deleteProduct, getLayout, saveLayout, formatBRL, CATEGORIES, typeLabel, type Product, type ProductType, type ProductStatus, type ShopLayout
+  getProducts, saveProduct, deleteProduct, getLayout, saveLayout, formatBRL, CATEGORIES, typeLabel, listProductsSync, type Product, type ProductType, type ProductStatus, type ShopLayout
 } from "@/lib/shop/products";
 
 export const Route = createFileRoute("/admin/products")({
