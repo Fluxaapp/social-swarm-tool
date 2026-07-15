@@ -78,7 +78,6 @@ function Nav({ onOpenProposal, onOpenCareer }: { onOpenProposal: () => void; onO
           <a href="#top" className="text-ink">Início</a>
           <a href="#about" className="hover:text-ink transition-colors">Sobre</a>
           <a href="#services" className="hover:text-ink transition-colors">Serviços</a>
-          <Link to="/captacao-aerea" className="hover:text-ink transition-colors">Captação Aérea</Link>
           <Link to="/loja" className="hover:text-ink transition-colors">Loja</Link>
           <a href="#contact" className="hover:text-ink transition-colors">Contato</a>
         </nav>
@@ -878,7 +877,6 @@ function Services() {
     { n: "04", t: "Gestão de Marca", d: "Acompanhamento mensal de presença e narrativa visual." },
     { n: "05", t: "Materiais Gráficos", d: "Impressos, apresentações e papelaria com acabamento premium." },
     { n: "06", t: "Direção Criativa", d: "Curadoria visual e estratégica para campanhas e lançamentos." },
-    { n: "07", t: "Captação Aérea", d: "Filmagens e fotografias aéreas cinematográficas para empresas, empreendimentos, eventos e campanhas publicitárias." },
   ];
 
   return (
@@ -891,7 +889,7 @@ function Services() {
               Serviços
             </div>
             <h3 className="mt-6 font-medium text-[clamp(1.75rem,4vw,3.25rem)] leading-[1.1] tracking-[-0.03em] text-ink">
-              Sete disciplinas.<br />
+              Seis disciplinas.<br />
               Um único ecossistema.
             </h3>
           </div>

@@ -10,7 +10,6 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LojaRouteImport } from './routes/loja'
-import { Route as CaptacaoAereaRouteImport } from './routes/captacao-aerea'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LojaIndexRouteImport } from './routes/loja.index'
 import { Route as LojaCarrinhoRouteImport } from './routes/loja.carrinho'
@@ -19,11 +18,6 @@ import { Route as LojaProdutoSlugRouteImport } from './routes/loja.produto.$slug
 const LojaRoute = LojaRouteImport.update({
   id: '/loja',
   path: '/loja',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CaptacaoAereaRoute = CaptacaoAereaRouteImport.update({
-  id: '/captacao-aerea',
-  path: '/captacao-aerea',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -49,7 +43,6 @@ const LojaProdutoSlugRoute = LojaProdutoSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/captacao-aerea': typeof CaptacaoAereaRoute
   '/loja': typeof LojaRouteWithChildren
   '/loja/carrinho': typeof LojaCarrinhoRoute
   '/loja/': typeof LojaIndexRoute
@@ -57,7 +50,6 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/captacao-aerea': typeof CaptacaoAereaRoute
   '/loja/carrinho': typeof LojaCarrinhoRoute
   '/loja': typeof LojaIndexRoute
   '/loja/produto/$slug': typeof LojaProdutoSlugRoute
@@ -65,7 +57,6 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/captacao-aerea': typeof CaptacaoAereaRoute
   '/loja': typeof LojaRouteWithChildren
   '/loja/carrinho': typeof LojaCarrinhoRoute
   '/loja/': typeof LojaIndexRoute
@@ -73,24 +64,12 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/captacao-aerea'
-    | '/loja'
-    | '/loja/carrinho'
-    | '/loja/'
-    | '/loja/produto/$slug'
+  fullPaths: '/' | '/loja' | '/loja/carrinho' | '/loja/' | '/loja/produto/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/captacao-aerea'
-    | '/loja/carrinho'
-    | '/loja'
-    | '/loja/produto/$slug'
+  to: '/' | '/loja/carrinho' | '/loja' | '/loja/produto/$slug'
   id:
     | '__root__'
     | '/'
-    | '/captacao-aerea'
     | '/loja'
     | '/loja/carrinho'
     | '/loja/'
@@ -99,7 +78,6 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  CaptacaoAereaRoute: typeof CaptacaoAereaRoute
   LojaRoute: typeof LojaRouteWithChildren
 }
 
@@ -110,13 +88,6 @@ declare module '@tanstack/react-router' {
       path: '/loja'
       fullPath: '/loja'
       preLoaderRoute: typeof LojaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/captacao-aerea': {
-      id: '/captacao-aerea'
-      path: '/captacao-aerea'
-      fullPath: '/captacao-aerea'
-      preLoaderRoute: typeof CaptacaoAereaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -166,9 +137,17 @@ const LojaRouteWithChildren = LojaRoute._addFileChildren(LojaRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  CaptacaoAereaRoute: CaptacaoAereaRoute,
   LojaRoute: LojaRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
