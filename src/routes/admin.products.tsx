@@ -351,7 +351,7 @@ function AdminProducts() {
   const activeProducts = products.filter(p => p.status === "publicado");
   const featured = activeProducts.filter((p) => p.featured);
   const best = activeProducts.filter((p) => p.bestSeller || p.badge === "Mais Vendido");
-  const recent = [...activeProducts].sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, 6);
+  const recent = [...activeProducts].sort((a, b) => (b.createdAt || "").localeCompare(a.createdAt || "")).slice(0, 6);
 
   return (
     <div className="space-y-6 max-w-full font-sans text-ink">

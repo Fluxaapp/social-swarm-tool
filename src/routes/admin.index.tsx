@@ -29,8 +29,9 @@ function AdminDashboard() {
       ? products.reduce((sum, p) => sum + p.price, 0) / totalProducts
       : 0;
 
+  // Safe sorting to prevent crashes if createdAt is missing
   const recentProducts = [...products]
-    .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+    .sort((a, b) => (b.createdAt || "").localeCompare(a.createdAt || ""))
     .slice(0, 5);
 
   const stats = [
@@ -39,43 +40,43 @@ function AdminDashboard() {
       value: totalProducts,
       desc: `${featuredCount} em destaque`,
       icon: ShoppingBag,
-      color: "text-blue-400 bg-blue-950/30 border-blue-900/50",
+      color: "text-blue-600 bg-blue-50/50 border-blue-100",
     },
     {
       label: "Produtos Ativos",
       value: activeProducts,
       desc: "Visíveis na loja",
       icon: CheckCircle,
-      color: "text-emerald-400 bg-emerald-950/30 border-emerald-900/50",
+      color: "text-emerald-600 bg-emerald-50/50 border-emerald-100",
     },
     {
       label: "Produtos Inativos",
       value: inactiveProducts,
       desc: "Rascunho ou ocultados",
       icon: XCircle,
-      color: "text-amber-400 bg-amber-950/30 border-amber-900/50",
+      color: "text-amber-600 bg-amber-50/50 border-amber-100",
     },
     {
       label: "Preço Médio",
       value: formatBRL(avgPrice),
       desc: "Média do catálogo",
       icon: DollarSign,
-      color: "text-indigo-400 bg-indigo-950/30 border-indigo-900/50",
+      color: "text-indigo-600 bg-indigo-50/50 border-indigo-100",
     },
   ];
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-10 font-sans text-ink">
       {/* Title block */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-semibold text-neutral-100 tracking-tight">Dashboard</h1>
-          <p className="text-xs text-neutral-500 mt-1">Visão geral do catálogo da loja e estatísticas gerais.</p>
+          <h1 className="text-2xl font-semibold text-ink tracking-tight">Dashboard</h1>
+          <p className="text-xs text-dim mt-1">Visão geral do catálogo da loja e estatísticas gerais.</p>
         </div>
         <div>
           <Link
             to="/admin/products"
-            className="inline-flex items-center gap-2 h-10 px-4 rounded-lg bg-neutral-100 text-neutral-950 font-medium text-[13px] hover:bg-neutral-200 transition-all"
+            className="inline-flex items-center gap-2 h-10 px-4 rounded-full bg-ink text-paper font-semibold text-[12px] uppercase hover:bg-ink/90 active:scale-[0.99] transition-all shadow-md"
           >
             <Plus className="h-4 w-4" /> Novo Produto
           </Link>
@@ -89,20 +90,20 @@ function AdminDashboard() {
           return (
             <div
               key={i}
-              className={`p-6 rounded-xl border ${s.color.split(" ")[2]} ${s.color.split(" ")[1]} flex items-start justify-between`}
+              className={`p-6 rounded-2xl border ${s.color.split(" ")[2]} ${s.color.split(" ")[1]} flex items-start justify-between bg-paper`}
             >
               <div className="space-y-2">
-                <span className="block text-[11px] uppercase tracking-wider text-neutral-400 font-medium">
+                <span className="block text-[10px] uppercase tracking-wider text-dim font-bold">
                   {s.label}
                 </span>
-                <span className="block text-2xl font-semibold text-neutral-100 tracking-tight">
+                <span className="block text-2xl font-semibold text-ink tracking-tight font-mono">
                   {s.value}
                 </span>
-                <span className="block text-xs text-neutral-500">
+                <span className="block text-xs text-dim">
                   {s.desc}
                 </span>
               </div>
-              <div className={`h-10 w-10 rounded-lg flex items-center justify-center border ${s.color.split(" ")[2]} bg-neutral-950/40 ${s.color.split(" ")[0]}`}>
+              <div className={`h-10 w-10 rounded-full flex items-center justify-center border ${s.color.split(" ")[2]} bg-soft/50 ${s.color.split(" ")[0]}`}>
                 <Icon className="h-5 w-5" />
               </div>
             </div>
@@ -113,15 +114,15 @@ function AdminDashboard() {
       {/* Grid panels */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Recent products list */}
-        <div className="lg:col-span-8 bg-neutral-900/40 border border-neutral-800/80 rounded-xl p-6 space-y-6">
+        <div className="lg:col-span-8 bg-soft/30 border border-line rounded-2xl p-6 space-y-6">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-[15px] font-medium text-neutral-100">Adicionados Recentemente</h2>
-              <p className="text-xs text-neutral-500 mt-0.5">Últimos produtos inseridos no catálogo.</p>
+              <h2 className="text-[15px] font-semibold text-ink">Adicionados Recentemente</h2>
+              <p className="text-xs text-dim mt-0.5">Últimos produtos inseridos no catálogo.</p>
             </div>
             <Link
               to="/admin/products"
-              className="inline-flex items-center gap-1 text-[11px] uppercase tracking-wider text-neutral-400 hover:text-neutral-200 transition-colors"
+              className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-wider text-dim hover:text-ink font-semibold transition-colors"
             >
               Ver todos <ArrowRight className="h-3.5 w-3.5" />
             </Link>
@@ -130,34 +131,34 @@ function AdminDashboard() {
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="border-b border-neutral-800 text-[10px] uppercase tracking-wider text-neutral-500 font-semibold">
+                <tr className="border-b border-line text-[10px] uppercase tracking-wider text-dim font-bold">
                   <th className="py-3 pr-4">Produto</th>
                   <th className="py-3 px-4">Tipo</th>
                   <th className="py-3 px-4 text-right">Preço</th>
                   <th className="py-3 pl-4 text-right">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-neutral-800/50">
+              <tbody className="divide-y divide-line">
                 {recentProducts.length > 0 ? (
                   recentProducts.map((p) => (
-                    <tr key={p.slug} className="hover:bg-neutral-800/20 transition-colors">
+                    <tr key={p.slug} className="hover:bg-soft/20 transition-colors">
                       <td className="py-3.5 pr-4 flex items-center gap-3">
-                        <div className="h-10 w-10 rounded bg-neutral-800 border border-neutral-700/30 overflow-hidden shrink-0">
+                        <div className="h-10 w-10 rounded bg-soft border border-line overflow-hidden shrink-0">
                           <img src={p.image} alt={p.name} className="h-full w-full object-cover" />
                         </div>
                         <div className="min-w-0">
-                          <span className="block font-medium text-neutral-200 truncate max-w-[200px]">{p.name}</span>
-                          <span className="block text-[10px] text-neutral-500 mt-0.5 truncate max-w-[200px]">{p.shortDescription}</span>
+                          <span className="block font-semibold text-ink truncate max-w-[200px]">{p.name}</span>
+                          <span className="block text-[10px] text-dim mt-0.5 truncate max-w-[200px]">{p.shortDescription}</span>
                         </div>
                       </td>
-                      <td className="py-3.5 px-4 text-neutral-400 font-medium">
+                      <td className="py-3.5 px-4 text-ink/75 font-medium">
                         {typeLabel(p.type)}
                       </td>
-                      <td className="py-3.5 px-4 text-right font-medium text-neutral-200">
+                      <td className="py-3.5 px-4 text-right font-semibold text-ink font-mono">
                         {p.promoPrice && p.promoPrice > 0 ? (
                           <div className="space-y-0.5">
                             <span className="block">{formatBRL(p.promoPrice)}</span>
-                            <span className="block text-[10px] text-neutral-500 line-through">{formatBRL(p.price)}</span>
+                            <span className="block text-[10px] text-dim line-through">{formatBRL(p.price)}</span>
                           </div>
                         ) : (
                           <span>{formatBRL(p.price)}</span>
@@ -166,10 +167,10 @@ function AdminDashboard() {
                       <td className="py-3.5 pl-4 text-right">
                         <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium border ${
                           p.status === "publicado"
-                            ? "bg-emerald-950/20 border-emerald-900/40 text-emerald-400"
+                            ? "bg-emerald-50 border-emerald-200 text-emerald-700"
                             : p.status === "rascunho"
-                            ? "bg-amber-950/20 border-amber-900/40 text-amber-400"
-                            : "bg-neutral-800 border-neutral-700/60 text-neutral-400"
+                            ? "bg-amber-50 border-amber-200 text-amber-700"
+                            : "bg-soft border-line text-dim"
                         }`}>
                           {p.status === "publicado" ? "Ativo" : p.status === "rascunho" ? "Rascunho" : "Oculto"}
                         </span>
@@ -178,7 +179,7 @@ function AdminDashboard() {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={4} className="py-8 text-center text-neutral-500">
+                    <td colSpan={4} className="py-8 text-center text-dim">
                       Nenhum produto cadastrado.
                     </td>
                   </tr>
@@ -189,10 +190,10 @@ function AdminDashboard() {
         </div>
 
         {/* Quick info / guide */}
-        <div className="lg:col-span-4 bg-neutral-900/40 border border-neutral-800/80 rounded-xl p-6 space-y-6 flex flex-col justify-between">
+        <div className="lg:col-span-4 bg-soft/30 border border-line rounded-2xl p-6 space-y-6 flex flex-col justify-between">
           <div className="space-y-4">
-            <h2 className="text-[15px] font-medium text-neutral-100">Guia Rápido</h2>
-            <div className="space-y-3.5 text-xs text-neutral-400 leading-relaxed">
+            <h2 className="text-[15px] font-semibold text-ink">Guia Rápido</h2>
+            <div className="space-y-3.5 text-xs text-dim leading-relaxed">
               <p>
                 <strong>Preços Promocionais:</strong> Se configurado, o preço promocional substitui o preço normal no checkout e risca o preço antigo na loja.
               </p>
@@ -205,11 +206,11 @@ function AdminDashboard() {
             </div>
           </div>
 
-          <div className="pt-6 border-t border-neutral-800/80">
+          <div className="pt-6 border-t border-line">
             <Link
               to="/loja"
               target="_blank"
-              className="inline-flex items-center justify-center w-full h-10 border border-neutral-800 hover:border-neutral-700 bg-neutral-950/30 rounded-lg text-xs font-medium text-neutral-300 hover:text-neutral-100 transition-all"
+              className="inline-flex items-center justify-center w-full h-10 border border-line bg-paper rounded-full text-xs font-semibold uppercase tracking-wider text-ink hover:bg-soft transition-all"
             >
               Visualizar Loja ao Vivo
             </Link>
