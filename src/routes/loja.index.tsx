@@ -9,6 +9,7 @@ import {
   recentProductsSync,
   typeLabel,
   getProducts,
+  getLayout,
   type Product,
 } from "@/lib/shop/products";
 
@@ -24,10 +25,11 @@ export const Route = createFileRoute("/loja/")({
   loader: async () => {
     try {
       const products = await getProducts();
-      return { products: products || [] };
+      const layout = await getLayout();
+      return { products: products || [], layout };
     } catch (error) {
-      console.error("Error loading products in shop loader", error);
-      return { products: [] };
+      console.error("Error loading products or layout in shop loader", error);
+      return { products: [], layout: { heroTitle: "Produtos digitais e serviços.", heroDescription: "Templates e licenças." } };
     }
   },
   component: LojaHome,
@@ -94,7 +96,7 @@ function SectionLabel({ index, title }: { index: string; title: string }) {
 }
 
 function LojaHome() {
-  const { products } = Route.useLoaderData();
+  const { products, layout } = Route.useLoaderData();
   
   const featured = featuredProductsSync(products);
   const best = bestSellersSync(products);
@@ -109,13 +111,11 @@ function LojaHome() {
           <span className="h-px w-6 bg-ink/30" />
           Loja Glass Maind
         </div>
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-light text-ink leading-[1.05] tracking-tight max-w-4xl">
-          Produtos digitais e serviços<br />
-          <span className="font-semibold">com identidade editorial.</span>
+        <h1 className="text-4xl md:text-6xl lg:text-7xl font-light text-ink leading-[1.05] tracking-tight max-w-4xl whitespace-pre-line">
+          {layout.heroTitle}
         </h1>
         <p className="mt-6 max-w-xl text-[15px] text-ink/60 leading-relaxed">
-          Templates, licenças e projetos sob medida criados pelo mesmo cuidado
-          que aplicamos às marcas que atendemos.
+          {layout.heroDescription}
         </p>
         <div className="mt-8 flex flex-wrap items-center gap-3">
           <a
@@ -132,6 +132,20 @@ function LojaHome() {
           </a>
         </div>
       </section>
+
+      {/* DYNAMIC PROMO BANNER */}
+      {layout.bannerUrl && (
+        <section className="my-12 relative aspect-[3/1] md:aspect-[4/1] rounded-2xl overflow-hidden border border-line bg-soft select-none">
+          <img src={layout.bannerUrl} alt="Banner Promocional" className="h-full w-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-neutral-950 via-neutral-900/60 to-transparent flex flex-col justify-center px-8 sm:px-12 md:px-16 text-paper">
+            {layout.bannerText && (
+              <h2 className="text-xl sm:text-2xl md:text-[clamp(1.5rem,3vw,2.5rem)] font-light leading-snug tracking-tight max-w-2xl text-balance">
+                {layout.bannerText}
+              </h2>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* DESTAQUES */}
       {featured.length > 0 && (
