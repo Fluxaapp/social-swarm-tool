@@ -69,12 +69,13 @@ function Nav({ onOpenProposal, onOpenCareer }: { onOpenProposal: () => void; onO
     >
       <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10 h-16 md:h-20 flex items-center justify-between gap-4 md:gap-6">
         <a href="#top" className="flex items-center leading-none">
-          <span className="text-[17px] tracking-tight text-ink">
-            <span className="font-light">Agencia</span>
-            <span className="mx-2 text-ink/30 font-light">|</span>
-            <span className="font-semibold">Elevath</span>
-          </span>
+          <img
+            src={logoAsset.url}
+            alt="Agência Elevath"
+            className="h-6 md:h-7 w-auto invert"
+          />
         </a>
+
 
         <nav className="hidden md:flex items-center gap-9 text-[14px] text-ink/60">
           <a href="#top" className="text-ink">Início</a>

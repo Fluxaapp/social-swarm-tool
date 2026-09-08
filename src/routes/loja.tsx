@@ -20,12 +20,13 @@ function LojaHeader() {
           </Link>
           <span className="hidden md:inline h-4 w-px bg-line" />
           <Link to="/loja" className="flex items-center leading-none">
-            <span className="text-[17px] tracking-tight text-ink">
-              <span className="font-light">Loja</span>
-              <span className="mx-2 text-ink/30 font-light">|</span>
-              <span className="font-semibold">Elevath</span>
-            </span>
+            <img
+              src={logoAsset.url}
+              alt="Loja Elevath"
+              className="h-6 md:h-7 w-auto invert"
+            />
           </Link>
+
         </div>
 
         <nav className="hidden md:flex items-center gap-9 text-[14px] text-ink/60">
