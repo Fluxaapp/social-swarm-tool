@@ -12,6 +12,8 @@ import clientLogo1 from "@/assets/client-logo-1.png";
 import clientLogo2 from "@/assets/client-logo-2.png";
 import clientLogo3 from "@/assets/client-logo-3.png";
 import clientLogo4 from "@/assets/client-logo-4.png";
+import logoAsset from "@/assets/logo-elevath.png.asset.json";
+
 import { useParallax, useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { useCountUp } from "@/hooks/use-count-up";
 import { CONTACT, whatsappLink, mailtoLink } from "@/lib/contact";
@@ -67,12 +69,16 @@ function Nav({ onOpenProposal, onOpenCareer }: { onOpenProposal: () => void; onO
     >
       <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10 h-16 md:h-20 flex items-center justify-between gap-4 md:gap-6">
         <a href="#top" className="flex items-center leading-none">
-          <span className="text-[17px] tracking-tight text-ink">
-            <span className="font-light">Agencia</span>
-            <span className="mx-2 text-ink/30 font-light">|</span>
-            <span className="font-semibold">Elevath</span>
-          </span>
+          <img
+            src={logoAsset.url}
+            alt="Agência Elevath"
+            className="h-10 md:h-12 w-auto"
+          />
         </a>
+
+
+
+
 
         <nav className="hidden md:flex items-center gap-9 text-[14px] text-ink/60">
           <a href="#top" className="text-ink">Início</a>
