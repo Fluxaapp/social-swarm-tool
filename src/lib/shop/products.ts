@@ -1,4 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
+import { z } from "zod";
+
 
 // ============================================================================
 // Elevath — Catálogo da Loja (Dinâmico via JSON DB)
