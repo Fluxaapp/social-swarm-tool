@@ -106,13 +106,12 @@ function AdminProducts() {
     setIsSavingLayout(true);
     try {
       await saveLayout({
-        data: {
-          heroTitle,
-          heroDescription,
-          bannerUrl: bannerUrl || undefined,
-          bannerText: bannerText || undefined
-        }
+        heroTitle,
+        heroDescription,
+        bannerUrl: bannerUrl || undefined,
+        bannerText: bannerText || undefined
       });
+
       toast.success("Design e banners da loja atualizados!");
       setIsLayoutSettingsOpen(false);
       router.invalidate();
