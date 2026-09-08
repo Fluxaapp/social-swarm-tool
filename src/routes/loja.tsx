@@ -2,6 +2,8 @@ import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
 import { ShoppingBag, ArrowLeft } from "lucide-react";
 import { useCart } from "@/lib/shop/cart";
 import { CONTACT } from "@/lib/contact";
+import logoAsset from "@/assets/logo-elevath.png.asset.json";
+
 
 export const Route = createFileRoute("/loja")({
   component: LojaLayout,

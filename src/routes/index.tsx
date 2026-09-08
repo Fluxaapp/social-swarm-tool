@@ -12,6 +12,8 @@ import clientLogo1 from "@/assets/client-logo-1.png";
 import clientLogo2 from "@/assets/client-logo-2.png";
 import clientLogo3 from "@/assets/client-logo-3.png";
 import clientLogo4 from "@/assets/client-logo-4.png";
+import logoAsset from "@/assets/logo-elevath.png.asset.json";
+
 import { useParallax, useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { useCountUp } from "@/hooks/use-count-up";
 import { CONTACT, whatsappLink, mailtoLink } from "@/lib/contact";
