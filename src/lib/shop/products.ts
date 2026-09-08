@@ -92,8 +92,10 @@ export const saveProduct = createServerFn({ method: "POST" })
   });
 
 export const deleteProduct = createServerFn({ method: "POST" })
-  .handler(async ({ data: slug }: { data: string }) => {
+  .inputValidator((data) => z.string().parse(data))
+  .handler(async ({ data: slug }) => {
     const { readDb, writeDb } = await import("./products.server");
+
     const products = readDb();
     const filtered = products.filter((p) => p.slug !== slug);
     writeDb(filtered);
