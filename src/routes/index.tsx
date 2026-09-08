@@ -72,9 +72,10 @@ function Nav({ onOpenProposal, onOpenCareer }: { onOpenProposal: () => void; onO
           <img
             src={logoAsset.url}
             alt="Agência Elevath"
-            className="h-6 md:h-7 w-auto invert"
+            className="h-8 md:h-10 w-auto invert"
           />
         </a>
+
 
 
         <nav className="hidden md:flex items-center gap-9 text-[14px] text-ink/60">

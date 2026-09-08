@@ -23,9 +23,10 @@ function LojaHeader() {
             <img
               src={logoAsset.url}
               alt="Loja Elevath"
-              className="h-6 md:h-7 w-auto invert"
+              className="h-8 md:h-10 w-auto invert"
             />
           </Link>
+
 
         </div>
 
