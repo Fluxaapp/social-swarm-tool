@@ -107,7 +107,7 @@ export function ProposalModal({ open, onClose }: ProposalModalProps) {
 
   const buildMessage = () => {
     const lines = [
-      "*Nova solicitação de proposta — Glass Maind*",
+      "*Nova solicitação de proposta — Elevath*",
       "",
       `*Nome:* ${data.name}`,
       `*E-mail:* ${data.email}`,
@@ -132,7 +132,7 @@ export function ProposalModal({ open, onClose }: ProposalModalProps) {
 
   const buildEmailBody = () => {
     const lines = [
-      "Nova solicitação de proposta — Glass Maind",
+      "Nova solicitação de proposta — Elevath",
       "",
       `Nome: ${data.name}`,
       `E-mail: ${data.email}`,

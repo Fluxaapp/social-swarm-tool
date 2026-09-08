@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 
 // ============================================================================
-// Glass Maind — Catálogo da Loja (Dinâmico via JSON DB)
+// Elevath — Catálogo da Loja (Dinâmico via JSON DB)
 // ============================================================================
 
 export type ProductType = "digital" | "licenca" | "servico";

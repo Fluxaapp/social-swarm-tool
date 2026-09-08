@@ -23,7 +23,7 @@ export function AdminLayout() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (username === "Agencia Glass Maind" && password === "GlassMinnds1!") {
+    if (username === "Agencia Elevath" && password === "GlassMinnds1!") {
       localStorage.setItem(AUTH_KEY, "authenticated");
       setIsAuthenticated(true);
       setError("");
@@ -83,7 +83,7 @@ export function AdminLayout() {
                 required
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="Ex: Agencia Glass Maind"
+                placeholder="Ex: Agencia Elevath"
                 className="w-full h-11 bg-soft border border-line rounded-xl px-3.5 text-[14px] text-ink placeholder:text-ink/30 focus:border-ink/50 focus:outline-none transition-colors"
               />
             </div>
@@ -178,7 +178,7 @@ export function AdminLayout() {
       <div className="flex-1 flex flex-col min-w-0">
         <header className="h-16 md:h-20 border-b border-line px-8 flex items-center justify-between shrink-0 bg-paper sticky top-0 z-50">
           <div className="text-[12px] text-dim font-medium uppercase tracking-wider">
-            Painel de Controle • Glass Maind
+            Painel de Controle • Elevath
           </div>
           <div className="flex items-center gap-3">
             <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
