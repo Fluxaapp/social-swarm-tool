@@ -23,14 +23,14 @@ export const Route = createFileRoute("/loja/produto/$slug")({
   },
   head: ({ loaderData }) => {
     if (!loaderData) {
-      return { meta: [{ title: "Produto não encontrado — Loja Glass Maind" }, { name: "robots", content: "noindex" }] };
+      return { meta: [{ title: "Produto não encontrado — Loja Elevath" }, { name: "robots", content: "noindex" }] };
     }
     const p = loaderData.product;
     return {
       meta: [
-        { title: `${p.seoTitle || p.name} — Loja Glass Maind` },
+        { title: `${p.seoTitle || p.name} — Loja Elevath` },
         { name: "description", content: p.seoDescription || p.shortDescription },
-        { property: "og:title", content: `${p.seoTitle || p.name} — Loja Glass Maind` },
+        { property: "og:title", content: `${p.seoTitle || p.name} — Loja Elevath` },
         { property: "og:description", content: p.seoDescription || p.shortDescription },
         { property: "og:image", content: p.image },
       ],

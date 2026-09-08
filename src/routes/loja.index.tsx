@@ -16,10 +16,10 @@ import {
 export const Route = createFileRoute("/loja/")({
   head: () => ({
     meta: [
-      { title: "Loja — Glass Maind" },
-      { name: "description", content: "Templates, licenças e serviços premium da Glass Maind. Estética editorial, entrega direta." },
-      { property: "og:title", content: "Loja — Glass Maind" },
-      { property: "og:description", content: "Templates, licenças e serviços premium da Glass Maind." },
+      { title: "Loja — Elevath" },
+      { name: "description", content: "Templates, licenças e serviços premium da Elevath. Estética editorial, entrega direta." },
+      { property: "og:title", content: "Loja — Elevath" },
+      { property: "og:description", content: "Templates, licenças e serviços premium da Elevath." },
     ],
   }),
   loader: async () => {
@@ -109,7 +109,7 @@ function LojaHome() {
         <div className="flex items-center gap-3 text-[11px] tracking-[0.3em] uppercase text-ink/55 mb-6">
           <span>01</span>
           <span className="h-px w-6 bg-ink/30" />
-          Loja Glass Maind
+          Loja Elevath
         </div>
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-light text-ink leading-[1.05] tracking-tight max-w-4xl whitespace-pre-line">
           {layout.heroTitle}

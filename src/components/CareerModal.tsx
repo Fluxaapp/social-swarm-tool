@@ -104,7 +104,7 @@ export function CareerModal({ open, onClose }: CareerModalProps) {
     setIsSubmitting(true);
 
     try {
-      const subject = `Confirmação de Candidatura — ${data.jobTitle} — Glass Maind`;
+      const subject = `Confirmação de Candidatura — ${data.jobTitle} — Elevath`;
       const agencySubject = `Nova candidatura — ${data.jobTitle} — ${data.name}`;
       
       const details = [
@@ -123,7 +123,7 @@ export function CareerModal({ open, onClose }: CareerModalProps) {
       ].join("\n");
 
       const agencyBody = [
-        `Olá, Glass Maind. Uma nova candidatura foi recebida pelo site:`,
+        `Olá, Elevath. Uma nova candidatura foi recebida pelo site:`,
         "",
         details,
         "",
@@ -142,7 +142,7 @@ export function CareerModal({ open, onClose }: CareerModalProps) {
         "Aguarde o retorno da nossa equipe pelo WhatsApp em até 3 dias úteis.",
         "",
         "Atenciosamente,",
-        "Equipe Glass Maind",
+        "Equipe Elevath",
       ].join("\n");
 
       // We use TO for both candidate and agency (comma separated)

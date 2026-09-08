@@ -1,7 +1,9 @@
 import { createServerFn } from "@tanstack/react-start";
+import { z } from "zod";
+
 
 // ============================================================================
-// Glass Maind — Catálogo da Loja (Dinâmico via JSON DB)
+// Elevath — Catálogo da Loja (Dinâmico via JSON DB)
 // ============================================================================
 
 export type ProductType = "digital" | "licenca" | "servico";
@@ -65,8 +67,10 @@ export const getProducts = createServerFn({ method: "GET" })
   });
 
 export const saveProduct = createServerFn({ method: "POST" })
-  .handler(async ({ data }: { data: Product }) => {
+  .inputValidator((data) => z.any().parse(data) as Product)
+  .handler(async ({ data }) => {
     const { readDb, writeDb } = await import("./products.server");
+
     const products = readDb();
     const idx = products.findIndex((p) => p.slug === data.slug);
     
@@ -88,8 +92,10 @@ export const saveProduct = createServerFn({ method: "POST" })
   });
 
 export const deleteProduct = createServerFn({ method: "POST" })
-  .handler(async ({ data: slug }: { data: string }) => {
+  .inputValidator((data) => z.string().parse(data))
+  .handler(async ({ data: slug }) => {
     const { readDb, writeDb } = await import("./products.server");
+
     const products = readDb();
     const filtered = products.filter((p) => p.slug !== slug);
     writeDb(filtered);
@@ -103,8 +109,10 @@ export const getLayout = createServerFn({ method: "GET" })
   });
 
 export const saveLayout = createServerFn({ method: "POST" })
-  .handler(async ({ data }: { data: ShopLayout }) => {
+  .inputValidator((data) => z.any().parse(data) as ShopLayout)
+  .handler(async ({ data }) => {
     const { writeLayout } = await import("./products.server");
+
     writeLayout(data);
     return { success: true };
   });

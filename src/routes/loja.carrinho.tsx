@@ -7,7 +7,7 @@ import { CONTACT, whatsappLink } from "@/lib/contact";
 export const Route = createFileRoute("/loja/carrinho")({
   head: () => ({
     meta: [
-      { title: "Carrinho — Loja Glass Maind" },
+      { title: "Carrinho — Loja Elevath" },
       { name: "description", content: "Revise seus itens e finalize a compra." },
       { name: "robots", content: "noindex" },
     ],
@@ -133,7 +133,7 @@ function CartPage() {
           </a>
           <a
             href={`mailto:${CONTACT.email}?subject=${encodeURIComponent(
-              "Pedido — Loja Glass Maind",
+              "Pedido — Loja Elevath",
             )}&body=${encodeURIComponent(message)}`}
             className="mt-3 inline-flex w-full items-center justify-center h-11 rounded-full border border-line text-ink text-[12px] tracking-[0.16em] uppercase hover:border-ink/40 transition-colors"
           >

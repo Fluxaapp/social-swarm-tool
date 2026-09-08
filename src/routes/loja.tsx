@@ -21,7 +21,7 @@ function LojaHeader() {
             <span className="text-[17px] tracking-tight text-ink">
               <span className="font-light">Loja</span>
               <span className="mx-2 text-ink/30 font-light">|</span>
-              <span className="font-semibold">Glass Maind</span>
+              <span className="font-semibold">Elevath</span>
             </span>
           </Link>
         </div>
@@ -54,7 +54,7 @@ function LojaFooter() {
     <footer className="border-t border-line bg-soft mt-24">
       <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10 py-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-[12px] text-ink/55">
         <div>
-          © {new Date().getFullYear()} Glass Maind — Loja Digital.
+          © {new Date().getFullYear()} Elevath — Loja Digital.
         </div>
         <div className="flex items-center gap-6">
           <a href={`mailto:${CONTACT.email}`} className="hover:text-ink transition-colors">

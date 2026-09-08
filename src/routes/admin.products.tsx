@@ -113,6 +113,8 @@ function AdminProducts() {
           bannerText: bannerText || undefined
         }
       });
+
+
       toast.success("Design e banners da loja atualizados!");
       setIsLayoutSettingsOpen(false);
       router.invalidate();
@@ -413,7 +415,7 @@ function AdminProducts() {
                 rows={2}
                 value={heroDescription}
                 onChange={(e) => setHeroDescription(e.target.value)}
-                placeholder="Templates e licenças da Glass Maind..."
+                placeholder="Templates e licenças da Elevath..."
                 className="w-full bg-paper border border-line rounded-xl p-2.5 text-xs text-ink focus:border-ink/50 focus:outline-none"
               />
             </div>

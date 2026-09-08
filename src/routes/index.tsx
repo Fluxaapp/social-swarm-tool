@@ -70,7 +70,7 @@ function Nav({ onOpenProposal, onOpenCareer }: { onOpenProposal: () => void; onO
           <span className="text-[17px] tracking-tight text-ink">
             <span className="font-light">Agencia</span>
             <span className="mx-2 text-ink/30 font-light">|</span>
-            <span className="font-semibold">Glass Maind</span>
+            <span className="font-semibold">Elevath</span>
           </span>
         </a>
 
@@ -135,7 +135,7 @@ function WhatsAppIcon({ className = "" }: { className?: string }) {
 
 const SOCIALS = [
   { name: "Instagram", href: CONTACT.instagram.url, Icon: Instagram },
-  { name: "WhatsApp", href: whatsappLink("Olá! Vim pelo site da Glass Maind."), Icon: WhatsAppIcon },
+  { name: "WhatsApp", href: whatsappLink("Olá! Vim pelo site da Elevath."), Icon: WhatsAppIcon },
   { name: "Facebook", href: CONTACT.facebook.url, Icon: Facebook },
   { name: "Google", href: CONTACT.google.url, Icon: GoogleIcon },
 ];
@@ -198,7 +198,7 @@ function Hero({ onOpenProposal, onOpenCareer }: { onOpenProposal: () => void; on
 
           <div className="mt-8 flex flex-wrap items-center gap-5 reveal reveal-d5">
             <a
-              href={whatsappLink("Olá! Quero entrar em contato com a Glass Maind.")}
+              href={whatsappLink("Olá! Quero entrar em contato com a Elevath.")}
               target="_blank"
               rel="noopener noreferrer"
               className="group btn-shine inline-flex items-center gap-3 bg-ink text-paper rounded-full pl-6 pr-2 py-2 transition-transform duration-500 hover:scale-[1.02]"
@@ -413,7 +413,7 @@ function About() {
             Construindo presença de marca para a próxima geração de empresas.
           </h2>
           <p className="mt-8 text-base text-dim leading-relaxed max-w-2xl mx-auto sr sr-d2">
-            A Glass Maind une design estratégico, comunicação visual e marketing
+            A Elevath une design estratégico, comunicação visual e marketing
             para transformar empresas comuns em marcas com presença, consistência
             e desejo.
           </p>
@@ -1025,7 +1025,7 @@ function CTA({ onOpenProposal, onOpenCareer }: { onOpenProposal: () => void; onO
             </span>
           </button>
           <a
-            href={whatsappLink("Olá! Quero conversar com a Glass Maind.")}
+            href={whatsappLink("Olá! Quero conversar com a Elevath.")}
             target="_blank"
             rel="noopener noreferrer"
             className="text-[13px] text-paper/80 hover:text-paper underline-offset-4 hover:underline transition-colors"
@@ -1047,7 +1047,7 @@ function CTA({ onOpenProposal, onOpenCareer }: { onOpenProposal: () => void; onO
             <div className="mt-1 text-[12px] text-paper/50 group-hover:text-paper/70 transition-colors">Resposta rápida →</div>
           </a>
           <a
-            href={mailtoLink("Contato pelo site Glass Maind")}
+            href={mailtoLink("Contato pelo site Elevath")}
             className="group bg-ink p-6 hover:bg-paper/5 transition-colors"
           >
             <div className="text-[10px] uppercase tracking-[0.3em] text-paper/40">E-mail</div>
@@ -1086,7 +1086,7 @@ function Footer() {
               <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-paper text-ink">
                 <span className="block h-3.5 w-3.5 border border-ink/90 rotate-45" />
               </span>
-              <span className="text-[15px] font-medium">Glass Maind</span>
+              <span className="text-[15px] font-medium">Elevath</span>
             </div>
             <p className="mt-6 text-sm text-paper/60 max-w-sm">
               Marketing, Design e Gestão Visual. Fortaleza / Brasil.
@@ -1153,7 +1153,7 @@ function Footer() {
         </div>
 
         <div className="mt-14 pt-6 border-t border-paper/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-[11px] uppercase tracking-[0.25em] text-paper/40">
-          <span suppressHydrationWarning>© {new Date().getFullYear()} Agência Glass Maind</span>
+          <span suppressHydrationWarning>© {new Date().getFullYear()} Agência Elevath</span>
           <span>Todos os direitos reservados</span>
         </div>
       </div>
