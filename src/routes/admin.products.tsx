@@ -134,11 +134,11 @@ function AdminProducts() {
       const targetItem = products.find(x => x.displayOrder === nextOrder);
       
       // Save current item with new order
-      await saveProduct({ data: { ...p, displayOrder: nextOrder } });
+      await saveProduct({ ...p, displayOrder: nextOrder });
       
       // Swapping target item order if exists
       if (targetItem) {
-        await saveProduct({ data: { ...targetItem, displayOrder: currentOrder } });
+        await saveProduct({ ...targetItem, displayOrder: currentOrder });
       }
       
       toast.success("Ordem reordenada com sucesso!");
@@ -267,7 +267,7 @@ function AdminProducts() {
     };
 
     try {
-      await saveProduct({ data: payload });
+      await saveProduct(payload);
       toast.success(editingProduct ? "Produto atualizado com sucesso!" : "Produto criado com sucesso!");
       setIsFormOpen(false);
       router.invalidate();
@@ -284,7 +284,7 @@ function AdminProducts() {
     if (!productToDelete) return;
     setIsSubmitting(true);
     try {
-      await deleteProduct({ data: productToDelete.slug });
+      await deleteProduct(productToDelete.slug);
       toast.success(`Produto "${productToDelete.name}" excluído.`);
       setProductToDelete(null);
       router.invalidate();
