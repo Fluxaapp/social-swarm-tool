@@ -106,11 +106,14 @@ function AdminProducts() {
     setIsSavingLayout(true);
     try {
       await saveLayout({
-        heroTitle,
-        heroDescription,
-        bannerUrl: bannerUrl || undefined,
-        bannerText: bannerText || undefined
+        data: {
+          heroTitle,
+          heroDescription,
+          bannerUrl: bannerUrl || undefined,
+          bannerText: bannerText || undefined
+        }
       });
+
 
       toast.success("Design e banners da loja atualizados!");
       setIsLayoutSettingsOpen(false);
@@ -134,11 +137,11 @@ function AdminProducts() {
       const targetItem = products.find(x => x.displayOrder === nextOrder);
       
       // Save current item with new order
-      await saveProduct({ ...p, displayOrder: nextOrder });
+      await saveProduct({ data: { ...p, displayOrder: nextOrder } });
       
       // Swapping target item order if exists
       if (targetItem) {
-        await saveProduct({ ...targetItem, displayOrder: currentOrder });
+        await saveProduct({ data: { ...targetItem, displayOrder: currentOrder } });
       }
       
       toast.success("Ordem reordenada com sucesso!");
@@ -267,7 +270,7 @@ function AdminProducts() {
     };
 
     try {
-      await saveProduct(payload);
+      await saveProduct({ data: payload });
       toast.success(editingProduct ? "Produto atualizado com sucesso!" : "Produto criado com sucesso!");
       setIsFormOpen(false);
       router.invalidate();
@@ -284,7 +287,7 @@ function AdminProducts() {
     if (!productToDelete) return;
     setIsSubmitting(true);
     try {
-      await deleteProduct(productToDelete.slug);
+      await deleteProduct({ data: productToDelete.slug });
       toast.success(`Produto "${productToDelete.name}" excluído.`);
       setProductToDelete(null);
       router.invalidate();
