@@ -67,8 +67,10 @@ export const getProducts = createServerFn({ method: "GET" })
   });
 
 export const saveProduct = createServerFn({ method: "POST" })
-  .handler(async ({ data }: { data: Product }) => {
+  .inputValidator((data) => z.any().parse(data) as Product)
+  .handler(async ({ data }) => {
     const { readDb, writeDb } = await import("./products.server");
+
     const products = readDb();
     const idx = products.findIndex((p) => p.slug === data.slug);
     
