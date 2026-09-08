@@ -109,8 +109,10 @@ export const getLayout = createServerFn({ method: "GET" })
   });
 
 export const saveLayout = createServerFn({ method: "POST" })
-  .handler(async ({ data }: { data: ShopLayout }) => {
+  .inputValidator((data) => z.any().parse(data) as ShopLayout)
+  .handler(async ({ data }) => {
     const { writeLayout } = await import("./products.server");
+
     writeLayout(data);
     return { success: true };
   });
