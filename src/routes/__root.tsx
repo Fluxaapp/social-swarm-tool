@@ -61,8 +61,9 @@ function RootShell({ children }: { children: React.ReactNode }) {
           data-project-key="fluxa_pub_14671d3e72cc5168027af39875ac831ca9ef3c47703712d5b2091ac2ef47c830"
           data-brand="Suporte Glass Maind"
           data-label="Reportar problema"
-          data-areas="Página inicial,Serviços,Portfólio,Contato,Orçamento,Outro"
+          data-areas="Outro"
         />
+        <script src="/fluxa-support-simple-ui.js" />
       </body>
     </html>
   );
