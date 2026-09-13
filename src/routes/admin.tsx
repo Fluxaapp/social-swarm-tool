@@ -1,6 +1,6 @@
 import { createFileRoute, Outlet, Link, useNavigate, useRouter } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
-import { ShieldAlert, LayoutDashboard, ShoppingBag, LogOut, ArrowLeft, Key } from "lucide-react";
+import { ShieldAlert, LayoutDashboard, ShoppingBag, LogOut, ArrowLeft, Key, Inbox } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
   component: AdminLayout,
@@ -47,11 +47,9 @@ export function AdminLayout() {
     );
   }
 
-  // Light Mode Login Portal (Matches Store aesthetics)
   if (!isAuthenticated) {
     return (
       <main className="min-h-screen bg-paper flex items-center justify-center p-4 relative overflow-hidden font-sans">
-        {/* Editorial visual background grid lines */}
         <div className="pointer-events-none absolute inset-0 opacity-[0.4] z-[1]" aria-hidden>
           <div className="absolute top-0 bottom-0 left-[16%] w-px bg-gradient-to-b from-transparent via-ink/10 to-transparent" />
           <div className="absolute top-0 bottom-0 left-[50%] w-px bg-gradient-to-b from-transparent via-ink/8 to-transparent" />
@@ -119,10 +117,8 @@ export function AdminLayout() {
     );
   }
 
-  // Light Mode Layout matching Store/Site style
   return (
     <div className="min-h-screen bg-paper text-ink flex font-sans antialiased">
-      {/* SIDEBAR */}
       <aside className="w-[260px] bg-soft border-r border-line flex flex-col shrink-0">
         <div className="h-16 md:h-20 border-b border-line px-6 flex items-center">
           <Link to="/" className="flex items-center leading-none">
@@ -143,6 +139,15 @@ export function AdminLayout() {
           >
             <LayoutDashboard className="h-4 w-4" />
             <span className="font-medium">Dashboard</span>
+          </Link>
+
+          <Link
+            to="/admin/reports"
+            activeProps={{ className: "bg-paper text-ink border border-line" }}
+            className="flex items-center gap-3 h-11 px-4 rounded-xl text-[13px] text-ink/65 hover:bg-paper/40 hover:text-ink transition-all border border-transparent"
+          >
+            <Inbox className="h-4 w-4" />
+            <span className="font-medium">Reports</span>
           </Link>
 
           <Link
@@ -174,11 +179,10 @@ export function AdminLayout() {
         </div>
       </aside>
 
-      {/* MAIN CONTAINER */}
       <div className="flex-1 flex flex-col min-w-0">
         <header className="h-16 md:h-20 border-b border-line px-8 flex items-center justify-between shrink-0 bg-paper sticky top-0 z-50">
           <div className="text-[12px] text-dim font-medium uppercase tracking-wider">
-            Painel de Controle • Elevath
+            Painel de Controle • Glass Maind
           </div>
           <div className="flex items-center gap-3">
             <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
@@ -188,7 +192,6 @@ export function AdminLayout() {
           </div>
         </header>
 
-        {/* CONTENT ROUTE */}
         <main className="flex-1 overflow-y-auto p-8 lg:p-10 bg-paper">
           <Outlet />
         </main>
