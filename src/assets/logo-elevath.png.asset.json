@@ -1,11 +1,11 @@
 {
-  "version": 1,
-  "asset_id": "glass-maind-brand-wordmark",
+  "version": 2,
+  "asset_id": "glass-maind-brand-wordmark-v2",
   "project_id": "55331a3a-67ae-4504-a639-3d1d14d9eaba",
-  "url": "/logo-glass-maind-preta.svg",
-  "r2_key": "local/public/logo-glass-maind-preta.svg",
-  "original_filename": "logo-glass-maind-preta.svg",
+  "url": "/logo-glass-maind-preta-v2.svg?v=20260913-2",
+  "r2_key": "local/public/logo-glass-maind-preta-v2.svg",
+  "original_filename": "logo-glass-maind-preta-v2.svg",
   "size": 0,
   "content_type": "image/svg+xml",
-  "created_at": "2026-09-13T04:42:08Z"
+  "created_at": "2026-09-13T04:51:00Z"
 }
