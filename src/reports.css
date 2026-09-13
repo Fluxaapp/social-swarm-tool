@@ -1,0 +1,35 @@
+.input-base {
+  width: 100%;
+  min-width: 0;
+  height: 2.5rem;
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  background: var(--paper);
+  color: var(--ink);
+  padding: 0 0.75rem;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  line-height: 1.25rem;
+  outline: none;
+  transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+
+textarea.input-base {
+  height: auto;
+  min-height: 2.5rem;
+}
+
+.input-base::placeholder {
+  color: color-mix(in oklab, var(--ink) 32%, transparent);
+}
+
+.input-base:focus {
+  border-color: color-mix(in oklab, var(--ink) 42%, var(--line));
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--ink) 7%, transparent);
+}
+
+.input-base:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  background: var(--soft);
+}
