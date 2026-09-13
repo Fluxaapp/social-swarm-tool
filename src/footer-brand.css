@@ -1,0 +1,38 @@
+footer.bg-ink.text-paper .grid.grid-cols-12 > .col-span-12.md\:col-span-6 > .flex.items-center.gap-2\.5 {
+  gap: 0.6rem;
+  min-height: 32px;
+}
+
+footer.bg-ink.text-paper .grid.grid-cols-12 > .col-span-12.md\:col-span-6 > .flex.items-center.gap-2\.5 > span {
+  display: none !important;
+}
+
+footer.bg-ink.text-paper .grid.grid-cols-12 > .col-span-12.md\:col-span-6 > .flex.items-center.gap-2\.5::before {
+  content: "";
+  display: block;
+  width: 26px;
+  height: 30px;
+  flex: 0 0 auto;
+  background: url('/logo-glass-maind-simbolo-branco.svg?v=1') center / contain no-repeat;
+}
+
+footer.bg-ink.text-paper .grid.grid-cols-12 > .col-span-12.md\:col-span-6 > .flex.items-center.gap-2\.5::after {
+  content: "";
+  display: block;
+  width: 118px;
+  height: 18px;
+  flex: 0 0 auto;
+  background: url('/logo-glass-maind-branca.svg?v=2') center / contain no-repeat;
+}
+
+@media (max-width: 640px) {
+  footer.bg-ink.text-paper .grid.grid-cols-12 > .col-span-12.md\:col-span-6 > .flex.items-center.gap-2\.5::before {
+    width: 22px;
+    height: 26px;
+  }
+
+  footer.bg-ink.text-paper .grid.grid-cols-12 > .col-span-12.md\:col-span-6 > .flex.items-center.gap-2\.5::after {
+    width: 104px;
+    height: 16px;
+  }
+}
