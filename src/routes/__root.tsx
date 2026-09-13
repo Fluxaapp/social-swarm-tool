@@ -2,6 +2,7 @@ import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/r
 import { CartProvider } from "@/lib/shop/cart";
 
 import appCss from "../styles.css?url";
+import footerBrandCss from "../footer-brand.css?url";
 
 function NotFoundComponent() {
   return (
@@ -38,6 +39,7 @@ export const Route = createRootRoute({
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" },
       { rel: "stylesheet", href: appCss },
+      { rel: "stylesheet", href: footerBrandCss },
       { rel: "icon", type: "image/svg+xml", href: "/favicon-glass-maind.svg?v=3" },
       { rel: "shortcut icon", type: "image/svg+xml", href: "/favicon-glass-maind.svg?v=3" },
     ],
