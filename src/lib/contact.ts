@@ -1,4 +1,4 @@
-// Centralized contact info for Elevath
+// Centralized contact info for Glass Maind
 export const CONTACT = {
   phone: "5585986067012", // E.164 format for wa.me
   phoneDisplay: "+55 85 98606-7012",
@@ -9,11 +9,11 @@ export const CONTACT = {
     url: "https://www.instagram.com/glassmainnd?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
   },
   facebook: {
-    name: "Agência Elevath",
+    name: "Glass Maind",
     url: "https://www.facebook.com/share/1DmDotJ1Cg/?mibextid=wwXIfr",
   },
   google: {
-    name: "Agência Elevath",
+    name: "Glass Maind",
     url: "https://share.google/ix4SAr225LHEKESAS",
   },
 } as const;
