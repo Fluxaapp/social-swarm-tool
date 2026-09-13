@@ -1,0 +1,89 @@
+name: Format Fluxa Reports
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: format-fluxa-main
+  cancel-in-progress: true
+
+jobs:
+  format:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Remove unsafe any from auth payload
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('src/lib/fluxa.ts')
+          text = path.read_text()
+          old = '''function normalizeSession(payload: any, fallback?: FluxaSession): FluxaSession {
+            const expiresIn = Number(payload.expires_in ?? fallback?.expires_in ?? 3600);
+            return {
+              access_token: payload.access_token,
+              refresh_token: payload.refresh_token ?? fallback?.refresh_token,
+              expires_in: expiresIn,
+              expires_at: Math.floor(Date.now() / 1000) + expiresIn,
+              token_type: payload.token_type ?? "bearer",
+              user: payload.user ?? fallback?.user,
+              staff: fallback?.staff,
+            };
+          }'''.replace('          ', '')
+          new = '''function normalizeSession(payload: unknown, fallback?: FluxaSession): FluxaSession {
+            const authPayload = payload as Partial<FluxaSession>;
+            const user = authPayload.user ?? fallback?.user;
+            if (!authPayload.access_token || !user) {
+              throw new Error("Resposta de autenticação inválida.");
+            }
+            const expiresIn = Number(authPayload.expires_in ?? fallback?.expires_in ?? 3600);
+            return {
+              access_token: authPayload.access_token,
+              refresh_token: authPayload.refresh_token ?? fallback?.refresh_token ?? "",
+              expires_in: expiresIn,
+              expires_at: Math.floor(Date.now() / 1000) + expiresIn,
+              token_type: authPayload.token_type ?? "bearer",
+              user,
+              staff: fallback?.staff,
+            };
+          }'''.replace('          ', '')
+          if old not in text:
+              raise SystemExit('normalizeSession block did not match expected source')
+          path.write_text(text.replace(old, new))
+          PY
+
+      - name: Format Fluxa files
+        run: npx prettier --write public/fluxa-support.js src/lib/fluxa.ts src/routes/admin.tsx src/routes/admin.reports.tsx src/router.tsx src/reports.css docs/fluxa-support-integration.md
+
+      - name: Commit formatting
+        shell: bash
+        run: |
+          if git diff --quiet; then
+            echo "No formatting changes required."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/fluxa-support.js src/lib/fluxa.ts src/routes/admin.tsx src/routes/admin.reports.tsx src/router.tsx src/reports.css docs/fluxa-support-integration.md
+          git commit -m "style: format Fluxa reports implementation"
+          git push
