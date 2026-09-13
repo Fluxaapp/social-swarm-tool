@@ -12,7 +12,10 @@
   font-size: 0.8125rem;
   line-height: 1.25rem;
   outline: none;
-  transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease;
 }
 
 textarea.input-base {

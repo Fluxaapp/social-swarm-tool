@@ -1,7 +1,24 @@
 import { createFileRoute, Outlet, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ShieldAlert, LayoutDashboard, ShoppingBag, LogOut, ArrowLeft, Key, Inbox, UserRoundPlus, Loader2 } from "lucide-react";
-import { bootstrapAdmin, getBootstrapStatus, restoreAdminSession, signInAdmin, signOutAdmin, type FluxaSession } from "../lib/fluxa";
+import {
+  ShieldAlert,
+  LayoutDashboard,
+  ShoppingBag,
+  LogOut,
+  ArrowLeft,
+  Key,
+  Inbox,
+  UserRoundPlus,
+  Loader2,
+} from "lucide-react";
+import {
+  bootstrapAdmin,
+  getBootstrapStatus,
+  restoreAdminSession,
+  signInAdmin,
+  signOutAdmin,
+  type FluxaSession,
+} from "../lib/fluxa";
 
 export const Route = createFileRoute("/admin")({
   component: AdminLayout,
@@ -52,7 +69,9 @@ export function AdminLayout() {
       setSession(next);
       setIsConfigured(true);
     } catch (loginError) {
-      setError(loginError instanceof Error ? loginError.message : "Não foi possível entrar no painel.");
+      setError(
+        loginError instanceof Error ? loginError.message : "Não foi possível entrar no painel.",
+      );
     } finally {
       setSubmitting(false);
     }
@@ -69,7 +88,11 @@ export function AdminLayout() {
       setIsConfigured(true);
       setBootstrapCode("");
     } catch (bootstrapError) {
-      setError(bootstrapError instanceof Error ? bootstrapError.message : "Não foi possível ativar o acesso administrativo.");
+      setError(
+        bootstrapError instanceof Error
+          ? bootstrapError.message
+          : "Não foi possível ativar o acesso administrativo.",
+      );
     } finally {
       setSubmitting(false);
     }
@@ -104,7 +127,9 @@ export function AdminLayout() {
             <div className="h-12 w-12 rounded-full bg-soft border border-line flex items-center justify-center mb-4 text-ink/75">
               {firstAccess ? <UserRoundPlus className="h-5 w-5" /> : <Key className="h-5 w-5" />}
             </div>
-            <h1 className="text-xl font-medium text-ink tracking-tight">{firstAccess ? "Ativar painel Fluxa" : "Área Administrativa"}</h1>
+            <h1 className="text-xl font-medium text-ink tracking-tight">
+              {firstAccess ? "Ativar painel Fluxa" : "Área Administrativa"}
+            </h1>
             <p className="text-xs text-dim mt-1 max-w-[320px] leading-5">
               {firstAccess
                 ? "Crie o primeiro acesso administrativo protegido pelo Supabase Auth. Esta etapa só pode ser concluída uma vez."
@@ -121,7 +146,12 @@ export function AdminLayout() {
 
           <form onSubmit={firstAccess ? handleBootstrap : handleLogin} className="space-y-4">
             <div>
-              <label htmlFor="admin-email" className="block text-[10px] uppercase tracking-[0.2em] text-dim mb-1.5 font-semibold">E-mail</label>
+              <label
+                htmlFor="admin-email"
+                className="block text-[10px] uppercase tracking-[0.2em] text-dim mb-1.5 font-semibold"
+              >
+                E-mail
+              </label>
               <input
                 id="admin-email"
                 type="email"
@@ -135,7 +165,12 @@ export function AdminLayout() {
             </div>
 
             <div>
-              <label htmlFor="admin-password" className="block text-[10px] uppercase tracking-[0.2em] text-dim mb-1.5 font-semibold">Senha</label>
+              <label
+                htmlFor="admin-password"
+                className="block text-[10px] uppercase tracking-[0.2em] text-dim mb-1.5 font-semibold"
+              >
+                Senha
+              </label>
               <input
                 id="admin-password"
                 type="password"
@@ -147,12 +182,19 @@ export function AdminLayout() {
                 placeholder="••••••••••••"
                 className="w-full h-11 bg-soft border border-line rounded-xl px-3.5 text-[14px] text-ink placeholder:text-ink/30 focus:border-ink/50 focus:outline-none transition-colors"
               />
-              {firstAccess && <p className="mt-1.5 text-[10px] text-dim">Use pelo menos 12 caracteres.</p>}
+              {firstAccess && (
+                <p className="mt-1.5 text-[10px] text-dim">Use pelo menos 12 caracteres.</p>
+              )}
             </div>
 
             {firstAccess && (
               <div>
-                <label htmlFor="bootstrap-code" className="block text-[10px] uppercase tracking-[0.2em] text-dim mb-1.5 font-semibold">Código de ativação</label>
+                <label
+                  htmlFor="bootstrap-code"
+                  className="block text-[10px] uppercase tracking-[0.2em] text-dim mb-1.5 font-semibold"
+                >
+                  Código de ativação
+                </label>
                 <input
                   id="bootstrap-code"
                   type="password"
@@ -177,7 +219,10 @@ export function AdminLayout() {
           </form>
 
           <div className="mt-8 pt-6 border-t border-line text-center">
-            <Link to="/" className="inline-flex items-center gap-1.5 text-xs text-dim hover:text-ink transition-colors">
+            <Link
+              to="/"
+              className="inline-flex items-center gap-1.5 text-xs text-dim hover:text-ink transition-colors"
+            >
               <ArrowLeft className="h-3 w-3" /> Voltar para o site
             </Link>
           </div>
@@ -194,7 +239,9 @@ export function AdminLayout() {
             <span className="text-[15px] tracking-tight text-ink">
               <span className="font-light">Glass Maind</span>
               <span className="mx-1 text-ink/30 font-light">|</span>
-              <span className="font-semibold text-xs tracking-wider uppercase bg-ink text-paper px-2 py-0.5 rounded ml-1">Fluxa</span>
+              <span className="font-semibold text-xs tracking-wider uppercase bg-ink text-paper px-2 py-0.5 rounded ml-1">
+                Fluxa
+              </span>
             </span>
           </Link>
         </div>
@@ -251,7 +298,9 @@ export function AdminLayout() {
 
       <div className="flex-1 flex flex-col min-w-0">
         <header className="h-16 md:h-20 border-b border-line px-8 flex items-center justify-between shrink-0 bg-paper sticky top-0 z-50">
-          <div className="text-[12px] text-dim font-medium uppercase tracking-wider">Painel de Controle • Glass Maind</div>
+          <div className="text-[12px] text-dim font-medium uppercase tracking-wider">
+            Painel de Controle • Glass Maind
+          </div>
           <div className="flex items-center gap-3">
             <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
             <span className="text-[10px] tracking-[0.14em] uppercase text-dim bg-soft border border-line px-3 py-1 rounded-full font-medium">

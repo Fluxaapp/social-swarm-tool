@@ -265,10 +265,15 @@
     }
 
     mineView.innerHTML = `<div class="spinner"></div>`;
-    const results = await Promise.all(ids.map(async (id) => {
-      try { return await api(`report?report_id=${encodeURIComponent(id)}`); }
-      catch { return null; }
-    }));
+    const results = await Promise.all(
+      ids.map(async (id) => {
+        try {
+          return await api(`report?report_id=${encodeURIComponent(id)}`);
+        } catch {
+          return null;
+        }
+      }),
+    );
     const valid = results.filter(Boolean);
     const validIds = valid.map((item) => item.report.id);
     if (validIds.length !== ids.length) setReportIds(validIds);
@@ -387,7 +392,10 @@
       if (!body) return;
       send.disabled = true;
       try {
-        await api(`messages?report_id=${encodeURIComponent(report.id)}`, { method: "POST", body: JSON.stringify({ body }) });
+        await api(`messages?report_id=${encodeURIComponent(report.id)}`, {
+          method: "POST",
+          body: JSON.stringify({ body }),
+        });
         await refreshDetail(report.id);
       } catch (error) {
         alert(friendlyError(error));
@@ -409,7 +417,16 @@
     qTitle.textContent = `Orçamento v${quote.version} • ${quote.title}`;
     const qStatus = document.createElement("span");
     qStatus.className = "status";
-    qStatus.textContent = quote.status === "sent" ? "Aguardando sua aprovação" : quote.status === "approved" ? "Aprovado" : quote.status === "rejected" ? "Recusado" : quote.status === "expired" ? "Expirado" : quote.status;
+    qStatus.textContent =
+      quote.status === "sent"
+        ? "Aguardando sua aprovação"
+        : quote.status === "approved"
+          ? "Aprovado"
+          : quote.status === "rejected"
+            ? "Recusado"
+            : quote.status === "expired"
+              ? "Expirado"
+              : quote.status;
     row.append(qTitle, qStatus);
     card.appendChild(row);
 
@@ -429,11 +446,13 @@
     if (quote.report_quote_items && quote.report_quote_items.length) {
       const list = document.createElement("ul");
       list.className = "scope";
-      [...quote.report_quote_items].sort((a, b) => a.position - b.position).forEach((item) => {
-        const li = document.createElement("li");
-        li.textContent = item.description;
-        list.appendChild(li);
-      });
+      [...quote.report_quote_items]
+        .sort((a, b) => a.position - b.position)
+        .forEach((item) => {
+          const li = document.createElement("li");
+          li.textContent = item.description;
+          list.appendChild(li);
+        });
       card.appendChild(list);
     }
 
@@ -473,7 +492,11 @@
         try {
           await api(`approve-quote?report_id=${encodeURIComponent(report.id)}`, {
             method: "POST",
-            body: JSON.stringify({ quote_id: quote.id, name: profile.name || null, email: profile.email || null }),
+            body: JSON.stringify({
+              quote_id: quote.id,
+              name: profile.name || null,
+              email: profile.email || null,
+            }),
           });
           await refreshDetail(report.id);
         } catch (error) {
@@ -487,7 +510,10 @@
         approve.disabled = true;
         reject.disabled = true;
         try {
-          await api(`reject-quote?report_id=${encodeURIComponent(report.id)}`, { method: "POST", body: JSON.stringify({ quote_id: quote.id }) });
+          await api(`reject-quote?report_id=${encodeURIComponent(report.id)}`, {
+            method: "POST",
+            body: JSON.stringify({ quote_id: quote.id }),
+          });
           await refreshDetail(report.id);
         } catch (error) {
           alert(friendlyError(error));
@@ -537,7 +563,11 @@
     if (init.body) headers.set("Content-Type", "application/json");
     const response = await fetch(`${API}/${path}`, { ...init, headers });
     let payload = {};
-    try { payload = await response.json(); } catch { /* no-op */ }
+    try {
+      payload = await response.json();
+    } catch {
+      /* no-op */
+    }
     if (!response.ok) {
       const error = new Error(payload.error || `Falha na comunicação (${response.status})`);
       error.status = response.status;
@@ -555,49 +585,84 @@
     try {
       const value = JSON.parse(localStorage.getItem(idsKey) || "[]");
       return Array.isArray(value) ? value.filter((id) => typeof id === "string") : [];
-    } catch { return []; }
+    } catch {
+      return [];
+    }
   }
 
   function setReportIds(ids) {
-    try { localStorage.setItem(idsKey, JSON.stringify(ids)); } catch { /* private mode/storage disabled */ }
+    try {
+      localStorage.setItem(idsKey, JSON.stringify(ids));
+    } catch {
+      /* private mode/storage disabled */
+    }
   }
 
   function getProfile() {
     try {
       const value = JSON.parse(localStorage.getItem(profileKey) || "{}");
-      return { name: typeof value.name === "string" ? value.name : "", email: typeof value.email === "string" ? value.email : "" };
-    } catch { return { name: "", email: "" }; }
+      return {
+        name: typeof value.name === "string" ? value.name : "",
+        email: typeof value.email === "string" ? value.email : "",
+      };
+    } catch {
+      return { name: "", email: "" };
+    }
   }
 
   function saveProfile(profile) {
-    try { localStorage.setItem(profileKey, JSON.stringify(profile)); } catch { /* no-op */ }
+    try {
+      localStorage.setItem(profileKey, JSON.stringify(profile));
+    } catch {
+      /* no-op */
+    }
   }
 
   function friendlyError(error) {
-    const message = error && error.message ? String(error.message) : "Não foi possível concluir a solicitação.";
-    if (message.includes("Origin not allowed")) return "Este domínio ainda não foi autorizado no Fluxa. Entre em contato com o suporte.";
-    if (message.includes("Invalid or revoked project key")) return "A integração deste sistema precisa ser reconectada ao Fluxa.";
-    if (message.includes("rate limit")) return "Muitas solicitações foram enviadas em pouco tempo. Tente novamente em alguns minutos.";
-    if (message.includes("expired")) return "Este orçamento expirou. Envie uma mensagem para solicitar uma atualização.";
+    const message =
+      error && error.message ? String(error.message) : "Não foi possível concluir a solicitação.";
+    if (message.includes("Origin not allowed"))
+      return "Este domínio ainda não foi autorizado no Fluxa. Entre em contato com o suporte.";
+    if (message.includes("Invalid or revoked project key"))
+      return "A integração deste sistema precisa ser reconectada ao Fluxa.";
+    if (message.includes("rate limit"))
+      return "Muitas solicitações foram enviadas em pouco tempo. Tente novamente em alguns minutos.";
+    if (message.includes("expired"))
+      return "Este orçamento expirou. Envie uma mensagem para solicitar uma atualização.";
     return message;
   }
 
   function formatMoney(cents) {
-    return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format((Number(cents) || 0) / 100);
+    return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(
+      (Number(cents) || 0) / 100,
+    );
   }
 
   function formatDate(value) {
-    try { return new Intl.DateTimeFormat("pt-BR", { dateStyle: "short", timeStyle: "short" }).format(new Date(value)); }
-    catch { return ""; }
+    try {
+      return new Intl.DateTimeFormat("pt-BR", { dateStyle: "short", timeStyle: "short" }).format(
+        new Date(value),
+      );
+    } catch {
+      return "";
+    }
   }
 
   function formatDateOnly(value) {
-    try { return new Intl.DateTimeFormat("pt-BR", { dateStyle: "short", timeZone: "UTC" }).format(new Date(`${value}T00:00:00Z`)); }
-    catch { return value; }
+    try {
+      return new Intl.DateTimeFormat("pt-BR", { dateStyle: "short", timeZone: "UTC" }).format(
+        new Date(`${value}T00:00:00Z`),
+      );
+    } catch {
+      return value;
+    }
   }
 
   function escapeHtml(value) {
-    return String(value).replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]);
+    return String(value).replace(
+      /[&<>"']/g,
+      (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char],
+    );
   }
 
   function escapeAttr(value) {

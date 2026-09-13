@@ -55,7 +55,13 @@ export type ReportStatus =
   | "resolved"
   | "archived";
 
-export type ReportCategory = "bug" | "simple_adjustment" | "improvement" | "new_feature" | "question" | "other";
+export type ReportCategory =
+  | "bug"
+  | "simple_adjustment"
+  | "improvement"
+  | "new_feature"
+  | "question"
+  | "other";
 export type ReportPriority = "low" | "normal" | "high" | "urgent";
 export type BillingTreatment = "included" | "quote_required" | null;
 
@@ -82,7 +88,9 @@ export type Report = {
   updated_at: string;
   resolved_at: string | null;
   projects?: Pick<Project, "name" | "client_name"> | null;
-  report_quotes?: Array<Pick<ReportQuote, "id" | "status" | "amount_cents" | "version" | "sent_at" | "approved_at">>;
+  report_quotes?: Array<
+    Pick<ReportQuote, "id" | "status" | "amount_cents" | "version" | "sent_at" | "approved_at">
+  >;
 };
 
 export type ReportMessage = {
@@ -167,21 +175,32 @@ function writeSession(session: FluxaSession | null) {
 async function readError(response: Response) {
   try {
     const body = await response.json();
-    return body?.msg || body?.message || body?.error_description || body?.error || `Erro ${response.status}`;
+    return (
+      body?.msg ||
+      body?.message ||
+      body?.error_description ||
+      body?.error ||
+      `Erro ${response.status}`
+    );
   } catch {
     return `Erro ${response.status}`;
   }
 }
 
-function normalizeSession(payload: any, fallback?: FluxaSession): FluxaSession {
-  const expiresIn = Number(payload.expires_in ?? fallback?.expires_in ?? 3600);
+function normalizeSession(payload: unknown, fallback?: FluxaSession): FluxaSession {
+  const authPayload = payload as Partial<FluxaSession>;
+  const user = authPayload.user ?? fallback?.user;
+  if (!authPayload.access_token || !user) {
+    throw new Error("Resposta de autenticação inválida.");
+  }
+  const expiresIn = Number(authPayload.expires_in ?? fallback?.expires_in ?? 3600);
   return {
-    access_token: payload.access_token,
-    refresh_token: payload.refresh_token ?? fallback?.refresh_token,
+    access_token: authPayload.access_token,
+    refresh_token: authPayload.refresh_token ?? fallback?.refresh_token ?? "",
     expires_in: expiresIn,
     expires_at: Math.floor(Date.now() / 1000) + expiresIn,
-    token_type: payload.token_type ?? "bearer",
-    user: payload.user ?? fallback?.user,
+    token_type: authPayload.token_type ?? "bearer",
+    user,
     staff: fallback?.staff,
   };
 }
@@ -283,7 +302,10 @@ export async function signOutAdmin() {
   try {
     await fetch(`${SUPABASE_URL}/auth/v1/logout`, {
       method: "POST",
-      headers: { apikey: SUPABASE_PUBLISHABLE_KEY, Authorization: `Bearer ${session.access_token}` },
+      headers: {
+        apikey: SUPABASE_PUBLISHABLE_KEY,
+        Authorization: `Bearer ${session.access_token}`,
+      },
     });
   } catch {
     // Local session is already removed.
@@ -323,7 +345,11 @@ export async function listProjects() {
   return rest<Project[]>("projects?select=*&order=name.asc");
 }
 
-export async function createProject(input: { name: string; slug: string; client_name?: string | null }) {
+export async function createProject(input: {
+  name: string;
+  slug: string;
+  client_name?: string | null;
+}) {
   const rows = await rest<Project[]>("projects", {
     method: "POST",
     headers: { Prefer: "return=representation" },
@@ -360,7 +386,15 @@ export async function createReport(input: {
   return rows[0];
 }
 
-export async function updateReport(reportId: string, patch: Partial<Pick<Report, "status" | "priority" | "category" | "billing_treatment" | "assigned_to" | "resolved_at">>) {
+export async function updateReport(
+  reportId: string,
+  patch: Partial<
+    Pick<
+      Report,
+      "status" | "priority" | "category" | "billing_treatment" | "assigned_to" | "resolved_at"
+    >
+  >,
+) {
   const rows = await rest<Report[]>(`reports?id=eq.${encodeURIComponent(reportId)}`, {
     method: "PATCH",
     headers: { Prefer: "return=representation" },
@@ -375,13 +409,19 @@ export async function getReportDetail(reportId: string): Promise<ReportDetail> {
     rest<Report[]>(`reports?select=*,projects(name,client_name)&id=eq.${id}&limit=1`),
     rest<ReportMessage[]>(`report_messages?select=*&report_id=eq.${id}&order=created_at.asc`),
     rest<ReportEvent[]>(`report_events?select=*&report_id=eq.${id}&order=created_at.desc`),
-    rest<ReportQuote[]>(`report_quotes?select=*,report_quote_items(*)&report_id=eq.${id}&order=version.desc`),
+    rest<ReportQuote[]>(
+      `report_quotes?select=*,report_quote_items(*)&report_id=eq.${id}&order=version.desc`,
+    ),
   ]);
   if (!reports[0]) throw new Error("Report não encontrado.");
   return { report: reports[0], messages, events, quotes };
 }
 
-export async function addReportMessage(reportId: string, body: string, visibility: "internal" | "client") {
+export async function addReportMessage(
+  reportId: string,
+  body: string,
+  visibility: "internal" | "client",
+) {
   const session = await restoreAdminSession();
   if (!session) throw new Error("Sessão expirada.");
   const rows = await rest<ReportMessage[]>("report_messages", {
@@ -395,11 +435,17 @@ export async function addReportMessage(reportId: string, body: string, visibilit
       visibility,
     }),
   });
-  await addReportEvent(reportId, visibility === "client" ? "message_sent" : "internal_note", { message_id: rows[0]?.id });
+  await addReportEvent(reportId, visibility === "client" ? "message_sent" : "internal_note", {
+    message_id: rows[0]?.id,
+  });
   return rows[0];
 }
 
-export async function addReportEvent(reportId: string, eventType: string, payload: Record<string, unknown> = {}) {
+export async function addReportEvent(
+  reportId: string,
+  eventType: string,
+  payload: Record<string, unknown> = {},
+) {
   const session = await restoreAdminSession();
   return rest<ReportEvent[]>("report_events", {
     method: "POST",
@@ -450,7 +496,9 @@ export async function createQuote(input: {
     }),
   });
   const quote = rows[0];
-  const items = input.items.map((description, position) => ({ quote_id: quote.id, position, description })).filter((item) => item.description.trim());
+  const items = input.items
+    .map((description, position) => ({ quote_id: quote.id, position, description }))
+    .filter((item) => item.description.trim());
   if (items.length) {
     await rest<QuoteItem[]>("report_quote_items", {
       method: "POST",
@@ -458,36 +506,68 @@ export async function createQuote(input: {
       body: JSON.stringify(items),
     });
   }
-  await addReportEvent(input.report_id, "quote_created", { quote_id: quote.id, version, amount_cents: input.amount_cents });
+  await addReportEvent(input.report_id, "quote_created", {
+    quote_id: quote.id,
+    version,
+    amount_cents: input.amount_cents,
+  });
   return quote;
 }
 
 export async function sendQuote(reportId: string, quoteId: string) {
   const now = new Date().toISOString();
-  const quotes = await rest<ReportQuote[]>(`report_quotes?id=eq.${encodeURIComponent(quoteId)}&report_id=eq.${encodeURIComponent(reportId)}&status=eq.draft`, {
-    method: "PATCH",
-    headers: { Prefer: "return=representation" },
-    body: JSON.stringify({ status: "sent", sent_at: now }),
-  });
+  const quotes = await rest<ReportQuote[]>(
+    `report_quotes?id=eq.${encodeURIComponent(quoteId)}&report_id=eq.${encodeURIComponent(reportId)}&status=eq.draft`,
+    {
+      method: "PATCH",
+      headers: { Prefer: "return=representation" },
+      body: JSON.stringify({ status: "sent", sent_at: now }),
+    },
+  );
   if (!quotes[0]) throw new Error("Este orçamento não está mais em rascunho.");
   await updateReport(reportId, { status: "waiting_approval", billing_treatment: "quote_required" });
-  await addReportEvent(reportId, "quote_sent", { quote_id: quoteId, version: quotes[0].version, amount_cents: quotes[0].amount_cents });
+  await addReportEvent(reportId, "quote_sent", {
+    quote_id: quoteId,
+    version: quotes[0].version,
+    amount_cents: quotes[0].amount_cents,
+  });
   return quotes[0];
 }
 
-export async function setQuoteDecision(reportId: string, quoteId: string, decision: "approved" | "rejected", approver?: { name?: string; email?: string }) {
+export async function setQuoteDecision(
+  reportId: string,
+  quoteId: string,
+  decision: "approved" | "rejected",
+  approver?: { name?: string; email?: string },
+) {
   const now = new Date().toISOString();
-  const patch = decision === "approved"
-    ? { status: "approved", approved_at: now, immutable_at: now, approved_by_name: approver?.name ?? "Aprovação manual", approved_by_email: approver?.email ?? null }
-    : { status: "rejected", rejected_at: now };
-  const rows = await rest<ReportQuote[]>(`report_quotes?id=eq.${encodeURIComponent(quoteId)}&report_id=eq.${encodeURIComponent(reportId)}&status=eq.sent`, {
-    method: "PATCH",
-    headers: { Prefer: "return=representation" },
-    body: JSON.stringify(patch),
-  });
+  const patch =
+    decision === "approved"
+      ? {
+          status: "approved",
+          approved_at: now,
+          immutable_at: now,
+          approved_by_name: approver?.name ?? "Aprovação manual",
+          approved_by_email: approver?.email ?? null,
+        }
+      : { status: "rejected", rejected_at: now };
+  const rows = await rest<ReportQuote[]>(
+    `report_quotes?id=eq.${encodeURIComponent(quoteId)}&report_id=eq.${encodeURIComponent(reportId)}&status=eq.sent`,
+    {
+      method: "PATCH",
+      headers: { Prefer: "return=representation" },
+      body: JSON.stringify(patch),
+    },
+  );
   if (!rows[0]) throw new Error("O orçamento não está aguardando uma decisão.");
-  await updateReport(reportId, { status: decision === "approved" ? "quote_approved" : "waiting_client" });
-  await addReportEvent(reportId, decision === "approved" ? "quote_approved_manual" : "quote_rejected_manual", { quote_id: quoteId });
+  await updateReport(reportId, {
+    status: decision === "approved" ? "quote_approved" : "waiting_client",
+  });
+  await addReportEvent(
+    reportId,
+    decision === "approved" ? "quote_approved_manual" : "quote_rejected_manual",
+    { quote_id: quoteId },
+  );
   return rows[0];
 }
 
@@ -497,7 +577,9 @@ export async function listIntegrations(projectId?: string) {
 }
 
 export async function createProjectIntegration(projectId: string, allowedDomains: string[]) {
-  const rows = await rest<Array<{ integration_id: string; project_key: string; key_prefix: string }>>("rpc/create_project_integration", {
+  const rows = await rest<
+    Array<{ integration_id: string; project_key: string; key_prefix: string }>
+  >("rpc/create_project_integration", {
     method: "POST",
     headers: { Prefer: "return=representation" },
     body: JSON.stringify({ p_project_id: projectId, p_allowed_domains: allowedDomains }),
@@ -524,5 +606,7 @@ export function slugify(value: string) {
 }
 
 export function formatCurrency(cents: number) {
-  return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format((cents || 0) / 100);
+  return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(
+    (cents || 0) / 100,
+  );
 }
