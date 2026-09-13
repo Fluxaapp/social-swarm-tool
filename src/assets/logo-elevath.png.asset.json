@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "asset_id": "8e63ec25-4b33-4618-9074-a821ae39bcb6",
+  "asset_id": "glass-maind-brand-wordmark",
   "project_id": "55331a3a-67ae-4504-a639-3d1d14d9eaba",
-  "url": "/__l5e/assets-v1/8e63ec25-4b33-4618-9074-a821ae39bcb6/logo-elevath.png",
-  "r2_key": "a/v1/55331a3a-67ae-4504-a639-3d1d14d9eaba/8e63ec25-4b33-4618-9074-a821ae39bcb6/logo-elevath.png",
-  "original_filename": "logo-elevath.png",
-  "size": 138671,
-  "content_type": "image/png",
-  "created_at": "2026-09-08T03:23:31Z"
+  "url": "/logo-glass-maind-preta.svg",
+  "r2_key": "local/public/logo-glass-maind-preta.svg",
+  "original_filename": "logo-glass-maind-preta.svg",
+  "size": 0,
+  "content_type": "image/svg+xml",
+  "created_at": "2026-09-13T04:42:08Z"
 }
