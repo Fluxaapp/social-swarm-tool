@@ -1,1203 +1,401 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowUpRight, Plus, Star, Instagram, Facebook, Search, ChevronLeft, ChevronRight } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
-
-
+import { ArrowDownRight, ArrowUpRight, Menu, X } from "lucide-react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 
 import workBranding from "@/assets/work-branding.jpg";
 import workEditorial from "@/assets/work-editorial.jpg";
 import workPackaging from "@/assets/work-packaging.jpg";
 import workCampaign from "@/assets/work-campaign.jpg";
-import clientLogo1 from "@/assets/client-logo-1.png";
-import clientLogo2 from "@/assets/client-logo-2.png";
-import clientLogo3 from "@/assets/client-logo-3.png";
-import clientLogo4 from "@/assets/client-logo-4.png";
-import logoAsset from "@/assets/logo-elevath.png.asset.json";
-
-import { useParallax, useScrollReveal } from "@/hooks/use-scroll-reveal";
-import { useCountUp } from "@/hooks/use-count-up";
-import { CONTACT, whatsappLink, mailtoLink } from "@/lib/contact";
+import { CONTACT, whatsappLink } from "@/lib/contact";
 import { ProposalModal } from "@/components/ProposalModal";
 import { CareerModal } from "@/components/CareerModal";
-import { HeroIdeasLoop } from "@/components/HeroIdeasLoop";
-
+import "../glass-home.css";
 
 export const Route = createFileRoute("/")({
   component: Index,
+  head: () => ({
+    meta: [
+      { title: "Glass Maind — Branding, Design & Experiências Digitais" },
+      {
+        name: "description",
+        content:
+          "Glass Maind é uma agência criativa especializada em branding, identidade visual, marketing e experiências digitais.",
+      },
+      { property: "og:title", content: "Glass Maind — Creative Agency" },
+      {
+        property: "og:description",
+        content: "Estratégia, identidade e experiências digitais para marcas com presença.",
+      },
+    ],
+  }),
 });
 
+const EASE = "cubic-bezier(.22,1,.36,1)";
 
-/* =================== NAV =================== */
-function Nav({ onOpenProposal, onOpenCareer }: { onOpenProposal: () => void; onOpenCareer?: () => void }) {
-  const [hidden, setHidden] = useState(false);
-  const lastY = useRef(0);
-
-  useEffect(() => {
-    lastY.current = window.scrollY;
-    let ticking = false;
-
-    const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      window.requestAnimationFrame(() => {
-        const y = window.scrollY;
-        const delta = y - lastY.current;
-        // Ignore tiny jitters
-        if (Math.abs(delta) > 6) {
-          if (delta > 0 && y > 80) {
-            setHidden(true); // scrolling down
-          } else if (delta < 0) {
-            setHidden(false); // scrolling up
-          }
-          lastY.current = y;
-        }
-        ticking = false;
-      });
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  return (
-    <header
-      className="fixed top-0 left-0 right-0 z-[999] bg-soft border-b border-line will-change-transform"
-      style={{
-        transform: hidden ? "translateY(-100%)" : "translateY(0)",
-        transition: "transform 0.35s ease",
-      }}
-    >
-      <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10 h-16 md:h-20 flex items-center justify-between gap-4 md:gap-6">
-        <a href="#top" className="flex items-center leading-none">
-          <img
-            src={logoAsset.url}
-            alt="Agência Elevath"
-            className="h-10 md:h-12 w-auto"
-          />
-        </a>
-
-
-
-
-
-        <nav className="hidden md:flex items-center gap-9 text-[14px] text-ink/60">
-          <a href="#top" className="text-ink">Início</a>
-          <a href="#about" className="hover:text-ink transition-colors">Sobre</a>
-          <a href="#services" className="hover:text-ink transition-colors">Serviços</a>
-          <Link to="/loja" className="hover:text-ink transition-colors">Loja</Link>
-          <a href="#contact" className="hover:text-ink transition-colors">Contato</a>
-        </nav>
-
-
-        {/* Right side — search + micro-info */}
-        <div className="hidden md:flex items-center gap-5">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-ink/40 pointer-events-none" />
-            <input
-              type="search"
-              placeholder="Buscar"
-              aria-label="Buscar"
-              className="h-9 w-[180px] rounded-full bg-paper border border-line pl-9 pr-3 text-[13px] text-ink placeholder:text-ink/40 outline-none focus:border-ink/40 transition-colors"
-            />
-          </div>
-          <button 
-            type="button"
-            onClick={onOpenCareer}
-            className="text-[11px] tracking-[0.18em] uppercase text-ink/55 hover:text-ink transition-colors"
-          >
-            Trabalhe conosco
-          </button>
-        </div>
-
-        <button
-          type="button"
-          onClick={onOpenProposal}
-          className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-full bg-ink text-paper"
-          aria-label="Solicitar proposta"
-        >
-          <ArrowUpRight className="h-4 w-4" />
-        </button>
-      </div>
-    </header>
-  );
-}
-
-/* =================== HERO =================== */
-function GoogleIcon({ className = "" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden>
-      <path d="M21.35 11.1h-9.17v2.96h5.27c-.23 1.4-1.66 4.11-5.27 4.11a5.78 5.78 0 1 1 0-11.56c1.81 0 3.02.77 3.71 1.43l2.53-2.44C16.82 4.13 14.74 3.2 12.18 3.2 6.95 3.2 2.74 7.41 2.74 12.6s4.21 9.4 9.44 9.4c5.45 0 9.06-3.83 9.06-9.22 0-.62-.07-1.1-.16-1.68z"/>
-    </svg>
-  );
-}
-
-function WhatsAppIcon({ className = "" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden>
-      <path d="M19.05 4.91A10 10 0 0 0 12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.27-1.38a9.9 9.9 0 0 0 4.72 1.2h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.91-7Zm-7.01 15.24h-.01a8.23 8.23 0 0 1-4.2-1.15l-.3-.18-3.13.82.83-3.05-.2-.31a8.23 8.23 0 0 1-1.26-4.37c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.2 8.2 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.22 8.23Zm4.51-6.16c-.25-.13-1.46-.72-1.69-.8-.23-.08-.39-.13-.56.13-.16.25-.64.8-.78.96-.14.16-.29.18-.54.06-.25-.13-1.04-.38-1.99-1.22-.73-.65-1.23-1.46-1.37-1.71-.14-.25-.02-.39.11-.51.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.16.04-.31-.02-.43-.06-.13-.56-1.34-.76-1.84-.2-.49-.4-.42-.56-.43h-.48c-.16 0-.43.06-.66.31-.23.25-.86.84-.86 2.05 0 1.21.88 2.38 1 2.55.13.16 1.74 2.66 4.21 3.73.59.25 1.05.41 1.41.52.59.19 1.13.16 1.55.1.47-.07 1.46-.6 1.66-1.17.21-.58.21-1.07.14-1.18-.06-.1-.23-.16-.48-.29Z"/>
-    </svg>
-  );
-}
-
-const SOCIALS = [
-  { name: "Instagram", href: CONTACT.instagram.url, Icon: Instagram },
-  { name: "WhatsApp", href: whatsappLink("Olá! Vim pelo site da Elevath."), Icon: WhatsAppIcon },
-  { name: "Facebook", href: CONTACT.facebook.url, Icon: Facebook },
-  { name: "Google", href: CONTACT.google.url, Icon: GoogleIcon },
-];
-
-
-function Hero({ onOpenProposal, onOpenCareer }: { onOpenProposal: () => void; onOpenCareer?: () => void }) {
-  return (
-    <section id="top" className="relative bg-soft overflow-hidden">
-
-      <div
-        data-parallax="0.08"
-        className="pointer-events-none absolute inset-0 opacity-[0.5] z-[1]"
-        aria-hidden
-      >
-        <div className="absolute top-0 bottom-0 left-[16%] w-px bg-gradient-to-b from-transparent via-ink/10 to-transparent" />
-        <div className="absolute top-0 bottom-0 left-[58%] w-px bg-gradient-to-b from-transparent via-ink/8 to-transparent" />
-        <div className="absolute top-0 bottom-0 right-[10%] w-px bg-gradient-to-b from-transparent via-ink/10 to-transparent" />
-      </div>
-
-      <svg
-        className="pointer-events-none absolute inset-0 w-full h-full"
-        viewBox="0 0 1440 900"
-        preserveAspectRatio="none"
-        aria-hidden
-      >
-        <line
-          x1="-50" y1="780" x2="1500" y2="120"
-          stroke="currentColor"
-          strokeWidth="1"
-          className="text-ink/15 dash-flow"
-        />
-      </svg>
-
-      <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10 pt-12 sm:pt-18 md:pt-22 pb-6 sm:pb-10 md:pb-16 grid grid-cols-12 gap-5 md:gap-12 items-center min-h-[auto] lg:min-h-[calc(100vh-5rem)] relative z-10">
-        {/* LEFT — text */}
-        <div className="col-span-12 lg:col-span-7 relative z-10 flex flex-col items-start justify-center self-center">
-          <div className="flex items-center gap-3 text-[11px] tracking-[0.3em] uppercase text-dim reveal reveal-d1">
-            <span className="text-dim/70">05</span>
-            <span className="h-px w-6 bg-ink/30" />
-            Marketing Estratégico
-          </div>
-
-          <h1
-            className="mt-6 font-medium text-ink max-w-[11ch] reveal reveal-d2"
-            style={{
-              fontSize: "clamp(2.75rem, 7.5vw, 7rem)",
-              lineHeight: 0.95,
-              letterSpacing: "-0.045em",
-            }}
-          >
-            <span className="block reveal reveal-d2">NOVA</span>
-            <span className="block reveal reveal-d3">EXPERIÊNCIA</span>
-            <span className="block reveal reveal-d4">DIGITAL</span>
-          </h1>
-
-          <p className="mt-8 max-w-[480px] text-[15px] leading-relaxed text-dim reveal reveal-d4">
-            Criamos presença, posicionamento e percepção para marcas que querem
-            crescer com autoridade.
-          </p>
-
-          <div className="mt-8 flex flex-wrap items-center gap-5 reveal reveal-d5">
-            <a
-              href={whatsappLink("Olá! Quero entrar em contato com a Elevath.")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group btn-shine inline-flex items-center gap-3 bg-ink text-paper rounded-full pl-6 pr-2 py-2 transition-transform duration-500 hover:scale-[1.02]"
-            >
-              <span className="text-[13px] font-medium">Entrar em contato</span>
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-paper text-ink transition-transform duration-500 group-hover:rotate-45">
-                <ArrowUpRight className="h-4 w-4" />
-              </span>
-            </a>
-            <button
-              type="button"
-              onClick={onOpenProposal}
-              className="text-[13px] text-ink/80 hover:text-ink underline-offset-4 hover:underline transition-colors"
-            >
-              Solicitar proposta
-            </button>
-          </div>
-
-          <div className="mt-14 flex items-center gap-8 md:gap-10 reveal reveal-d5">
-            <div>
-              <div className="text-[10px] uppercase tracking-[0.25em] text-dim mb-2.5">
-                Clientes atendidos
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="flex -space-x-2">
-                  {[clientLogo1, clientLogo2, clientLogo3, clientLogo4].map((logo, i) => (
-                    <div
-                      key={i}
-                      className="h-8 w-8 rounded-full border-2 border-soft bg-paper overflow-hidden flex items-center justify-center shadow-sm"
-                    >
-                      <img
-                        src={logo}
-                        alt={`Cliente ${i + 1}`}
-                        width={32}
-                        height={32}
-                        loading="lazy"
-                        className="h-5 w-5 object-contain"
-                      />
-                    </div>
-                  ))}
-                </div>
-                <span className="text-2xl font-medium text-ink tracking-tight">356+</span>
-              </div>
-            </div>
-            <div className="h-12 w-px bg-line" />
-            <div>
-              <div className="text-[10px] uppercase tracking-[0.25em] text-dim mb-2.5">
-                Resultados
-              </div>
-              <div className="text-2xl font-medium text-ink tracking-tight">86.7%</div>
-            </div>
-          </div>
-        </div>
-
-        {/* RIGHT — ideas loop + social icons rail */}
-        <div className="col-span-12 lg:col-span-5 relative reveal reveal-d3 min-h-[60px] sm:min-h-[100px] lg:min-h-[620px]">
-          {/* Ideas loop — visível em tablet/desktop, oculto no mobile */}
-          <div className="hidden md:block lg:absolute lg:inset-0 lg:flex lg:items-center lg:justify-center lg:pr-20 mt-10 lg:mt-0">
-            <div className="w-full max-w-[460px] mx-auto">
-              <HeroIdeasLoop onOpenCareer={onOpenCareer} />
-            </div>
-          </div>
-
-          {/* Social icons — horizontal e centralizados no mobile, vertical no desktop */}
-          <div className="mt-8 sm:mt-10 lg:mt-0 lg:absolute lg:right-4 lg:top-1/2 lg:-translate-y-1/2 lg:flex-col lg:justify-start z-20 flex flex-row items-center justify-center gap-5 sm:gap-6 lg:gap-8">
-            {SOCIALS.map((s) => {
-              const Icon = s.Icon;
-              return (
-                <a
-                  key={s.name}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={s.name}
-                  className="social-tech group relative z-10 inline-flex h-10 w-10 lg:h-9 lg:w-9 items-center justify-center rounded-full bg-soft text-ink/70 transition-all duration-500 hover:text-ink hover:scale-110"
-                >
-                  <Icon className="relative z-10 h-[18px] w-[18px] transition-transform duration-500" />
-
-                  {/* Drawing circle outline */}
-                  <svg
-                    className="pointer-events-none absolute inset-0 h-full w-full -rotate-90"
-                    viewBox="0 0 36 36"
-                    aria-hidden
-                  >
-                    <circle
-                      cx="18"
-                      cy="18"
-                      r="16"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="0.6"
-                      className="text-ink/60 social-ring"
-                    />
-                  </svg>
-
-                  {/* Social name on hover (apenas desktop) */}
-                  <span className="pointer-events-none hidden lg:block absolute right-full mr-3 top-1/2 -translate-y-1/2 whitespace-nowrap text-[11px] tracking-[0.08em] text-ink/70 opacity-0 -translate-x-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">
-                    {s.name}
-                  </span>
-                </a>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-
-      {/* Straight divider into the next dark section */}
-      <div aria-hidden className="h-px w-full bg-ink/25" />
-    </section>
-  );
-}
-
-
-/* =================== INFO STRIP =================== */
-function InfoStrip() {
-  return (
-    <section className="bg-ink text-paper">
-      <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10 py-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <div className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-paper/20 shrink-0">
-            <span className="block h-3 w-3 border border-paper/80 rotate-45" />
-          </div>
-          <p className="text-sm text-paper/80 max-w-md">
-            Em um cenário futurista, marcas exploram ambientes visuais
-            hiper-realistas conectados a sistemas inteligentes.
-          </p>
-        </div>
-        <div className="flex items-center gap-8">
-          <div className="flex items-center gap-2 text-paper/70">
-            <Star className="h-3.5 w-3.5 fill-paper text-paper" />
-            <Star className="h-3.5 w-3.5 fill-paper text-paper" />
-            <Star className="h-3.5 w-3.5 fill-paper text-paper" />
-            <Star className="h-3.5 w-3.5 fill-paper text-paper" />
-            <Star className="h-3.5 w-3.5 fill-paper text-paper" />
-            <span className="text-[12px] tracking-wide ml-2">3.000+ clientes</span>
-          </div>
-          <span className="text-[11px] uppercase tracking-[0.25em] text-paper/40 hidden md:inline">
-            · Role para baixo
-          </span>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* =================== ABOUT =================== */
-function StatCard({
-  end,
-  suffix = "",
-  label,
-  desc,
-  delay,
-  decimals = 0,
-}: {
-  end: number;
-  suffix?: string;
-  label: string;
-  desc: string;
-  delay: number;
-  decimals?: number;
-}) {
-  const [ref, value] = useCountUp(end, { duration: 1800, decimals });
-  return (
-    <div
-      ref={ref as React.RefObject<HTMLDivElement>}
-      style={{ backgroundColor: "oklch(0.13 0 0)" }}
-      className={`py-10 sm:py-14 md:py-20 px-6 sm:px-8 md:px-10 rounded-[2px] sr lift text-paper sr-d${delay}`}
-    >
-      <div className="font-medium text-[clamp(2.75rem,7vw,6rem)] leading-none tracking-[-0.05em] tabular-nums">
-        {value}
-        {suffix}
-      </div>
-      <div className="mt-5 flex items-center gap-3 text-[11px] uppercase tracking-[0.25em] text-paper/70">
-        <span className="h-px w-6 bg-paper/60" />
-        {label}
-      </div>
-      <p className="mt-3 text-sm max-w-xs text-paper/60">{desc}</p>
-    </div>
-  );
-}
-
-function About() {
-  const pillars = [
-    {
-      t: "Estratégia visual",
-      d: "Cada projeto começa com diagnóstico de marca e plano de posicionamento — não com decoração.",
-    },
-    {
-      t: "Direção criativa unificada",
-      d: "Branding, conteúdo e mídia conduzidos pelo mesmo eixo estético. Coerência total em todos os pontos de contato.",
-    },
-    {
-      t: "Execução premium",
-      d: "Acabamento editorial em cada peça entregue. Tipografia, espaço e cor tratados como ativos de marca.",
-    },
-    {
-      t: "Performance com narrativa",
-      d: "Conversão sustentada por uma história — não por gatilhos avulsos. Resultados que se acumulam.",
-    },
-  ];
-
-  return (
-    <section id="about" className="bg-paper py-20 sm:py-28 md:py-40">
-      <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10">
-        <div className="text-center max-w-4xl mx-auto">
-          <div className="text-[11px] uppercase tracking-[0.35em] text-dim inline-flex items-center gap-3 sr">
-            <span className="h-px w-10 bg-ink/40" />
-            Sobre nós
-            <span className="h-px w-10 bg-ink/40" />
-          </div>
-          <h2 className="mt-10 font-medium text-ink leading-[1] tracking-[-0.035em] text-[clamp(2.25rem,5vw,4.5rem)] text-balance sr sr-d1">
-            Construindo presença de marca para a próxima geração de empresas.
-          </h2>
-          <p className="mt-8 text-base text-dim leading-relaxed max-w-2xl mx-auto sr sr-d2">
-            A Elevath une design estratégico, comunicação visual e marketing
-            para transformar empresas comuns em marcas com presença, consistência
-            e desejo.
-          </p>
-        </div>
-
-        <div className="mt-16 sm:mt-20 md:mt-24 grid grid-cols-1 md:grid-cols-3 gap-4">
-          <StatCard end={356} suffix="+" label="Marcas atendidas" desc="Clientes ativos no Brasil e exterior" delay={1} />
-          <StatCard end={86.7} decimals={1} suffix="%" label="Crescimento médio" desc="Aumento de presença em 90 dias" delay={2} />
-          <StatCard end={24} suffix="+" label="Pilares de atuação" desc="Design · Marketing · Gestão" delay={3} />
-        </div>
-
-        {/* Institutional content — diferenciais */}
-        <div className="mt-28 md:mt-36 flex w-full max-w-full flex-col items-center md:grid md:grid-cols-12 md:items-start md:gap-16">
-          <div className="flex w-full max-w-full justify-center md:col-span-5 md:block sr">
-            <div className="mx-auto box-border flex w-full max-w-[360px] flex-col items-center px-4 text-center md:mx-0 md:max-w-none md:items-start md:px-0 md:text-left">
-              <div className="mx-auto inline-flex w-full max-w-full items-center justify-center gap-3 break-words text-[11px] uppercase tracking-[0.3em] text-dim md:mx-0 md:justify-start">
-                <span className="hidden md:inline-block h-px w-8 bg-ink/40" />
-                Como pensamos
-              </div>
-              <h3 className="mx-auto mt-6 w-full max-w-[320px] break-words text-center font-medium leading-tight tracking-[-0.03em] text-ink text-[clamp(1.5rem,3.2vw,2.75rem)] md:max-w-none md:leading-[1.1] md:text-left">
-                Marca não é estética.<br />
-                É decisão estratégica.
-              </h3>
-              <p className="mx-auto mt-6 w-full max-w-[320px] break-words text-center text-[15px] leading-relaxed text-dim md:max-w-md md:mx-0 md:text-left">
-                Acreditamos que percepção é precificação. Toda decisão visual
-                influencia diretamente quanto sua marca pode cobrar e o tipo de
-                cliente que ela atrai. Por isso operamos no cruzamento de design,
-                negócio e tecnologia.
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-10 flex w-full max-w-full justify-center md:col-span-7 md:mt-0 md:block">
-            <div className="mx-auto box-border w-full max-w-[360px] px-4 md:max-w-none md:px-0">
-              <div className="grid w-full grid-cols-1 sm:grid-cols-2 gap-px bg-line border border-line">
-                {pillars.map((p, i) => {
-                  const isDark = i % 2 === 0;
-                  return (
-                    <div
-                      key={p.t}
-                      className={`p-8 text-center md:text-left sr sr-d${Math.min(i + 1, 5)} ${isDark ? "bg-ink text-paper" : "bg-paper text-ink"}`}
-                    >
-                      <div className={`text-[11px] uppercase tracking-[0.25em] ${isDark ? "text-paper/60" : "text-dim"}`}>
-                        {String(i + 1).padStart(2, "0")}
-                      </div>
-                      <h4 className={`mt-3 font-medium text-[1.1rem] tracking-[-0.015em] ${isDark ? "text-paper" : "text-ink"}`}>
-                        {p.t}
-                      </h4>
-                      <p className={`mt-2 text-sm leading-relaxed ${isDark ? "text-paper/70" : "text-dim"}`}>
-                        {p.d}
-                      </p>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Authority strip */}
-        <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-px bg-line border border-line sr">
-          {[
-            { k: "Fundada em", v: "Fortaleza · Brasil" },
-            { k: "Atuação", v: "Brasil · LATAM · Europa" },
-            { k: "Foco", v: "Marcas premium e em escala" },
-          ].map((it) => (
-            <div key={it.k} className="bg-paper px-8 py-7 text-center md:text-left">
-              <div className="text-[10px] uppercase tracking-[0.3em] text-dim">
-                {it.k}
-              </div>
-              <div className="mt-2 text-[15px] font-medium text-ink">
-                {it.v}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-
-
-/* =================== DARK / TECHNOLOGY =================== */
-type CarouselDirection = -1 | 1;
-type InfoPhase = "idle" | "out" | "in";
-
-const CARD_CAROUSEL_MS = 1400;
-const INFO_FADE_OUT_DELAY_MS = 400;
-const INFO_SWAP_DELAY_MS = 680;
-
-const wrapTechIndex = (index: number, total: number) => (index + total) % total;
-
-const TECH_VIEWS = [
+const SERVICES = [
   {
     n: "01",
-    label: "Branding",
-    subtitle: "Identidade visual estratégica",
-    title: "Presença que permanece,\nessência que se revela.",
-    desc: "Sistemas visuais coerentes, do logotipo ao território de marca, construídos para durar e escalar.",
-    highlight: "Sistema modular · 12 ativos",
-    tech: "ENGINE V4.1 · 12 MÓDULOS",
-    infos: ["Positioning", "Identity", "Authority"],
+    title: "Identidade Visual",
+    eyebrow: "Brand systems",
+    description:
+      "Sistemas de marca construídos para sustentar posicionamento, reconhecimento e consistência em cada ponto de contato.",
+    image: workBranding,
+    message: "Olá! Quero conversar sobre um projeto de Identidade Visual com a Glass Maind.",
   },
   {
     n: "02",
-    label: "Marketing",
-    subtitle: "Performance com narrativa",
-    title: "Performance com narrativa.",
-    desc: "Campanhas pensadas para converter sem perder identidade. Estratégia, criativo e mídia integrados.",
-    highlight: "ROI médio · 3.4x",
-    tech: "PROTOCOL V2.3 · ROI 3.4x",
-    infos: ["Strategy", "Funnel", "Conversion"],
+    title: "Social Media Design",
+    eyebrow: "Content direction",
+    description:
+      "Direção visual recorrente para transformar presença digital em uma linguagem reconhecível e coerente.",
+    image: workEditorial,
+    message: "Olá! Quero conversar sobre Social Media Design com a Glass Maind.",
   },
   {
     n: "03",
-    label: "Design",
-    subtitle: "Direção de arte premium",
-    title: "Forma a serviço da marca.",
-    desc: "Direção de arte premium para campanhas, materiais e produtos — do conceito ao acabamento.",
-    highlight: "Direção · Editorial",
-    tech: "GRID ALIGNED · 128 NODES",
-    infos: ["Composition", "Typography", "Color"],
+    title: "Marketing Digital",
+    eyebrow: "Strategy & performance",
+    description:
+      "Estratégia, conteúdo e performance conectados para ampliar alcance sem diluir a identidade da marca.",
+    image: workCampaign,
+    message: "Olá! Quero conversar sobre Marketing Digital com a Glass Maind.",
   },
   {
     n: "04",
-    label: "Conteúdo",
-    subtitle: "Narrativa editorial multiformato",
-    title: "Narrativa que sustenta a marca.",
-    desc: "Roteiros, copy e direção editorial para campanhas, social e materiais institucionais.",
-    highlight: "Editorial · Multiformato",
-    tech: "STREAM V1.8 · CHANNEL 04",
-    infos: ["Voice", "Story", "Engagement"],
+    title: "Sites & UX/UI",
+    eyebrow: "Digital experience",
+    description:
+      "Interfaces e experiências digitais desenhadas para unir clareza, conversão, estética e personalidade.",
+    image: workPackaging,
+    message: "Olá! Quero conversar sobre Sites e UX/UI com a Glass Maind.",
   },
   {
     n: "05",
-    label: "Estratégia",
-    subtitle: "Decisões guiadas por dados",
-    title: "Decisões guiadas por dados.",
-    desc: "Diagnóstico, posicionamento e roadmap de marca baseados em pesquisa e métricas reais.",
-    highlight: "Insights · Roadmap",
-    tech: "ENGINE V4.1 · 24 NODES",
-    infos: ["Research", "Insight", "Roadmap"],
+    title: "Direção Criativa",
+    eyebrow: "Creative direction",
+    description:
+      "Conceito, linguagem e direção para campanhas, lançamentos e marcas que precisam ocupar um espaço próprio.",
+    image: workEditorial,
+    message: "Olá! Quero conversar sobre Direção Criativa com a Glass Maind.",
   },
-] as const;
+];
 
-function Technology({ onOpenProposal, onOpenCareer }: { onOpenProposal: () => void; onOpenCareer?: () => void }) {
-  const [active, setActive] = useState(0);
-  const [incoming, setIncoming] = useState<number | null>(null);
-  const [direction, setDirection] = useState<CarouselDirection>(1);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [infoIndex, setInfoIndex] = useState(0);
-  const [infoPhase, setInfoPhase] = useState<InfoPhase>("idle");
-  const timersRef = useRef<number[]>([]);
-  const total = TECH_VIEWS.length;
-  const view = TECH_VIEWS[active];
-  const dynamicView = TECH_VIEWS[infoIndex];
-  const previewIdx = wrapTechIndex(active + 1, total);
-  const visibleSecondary = TECH_VIEWS[incoming ?? previewIdx];
-  // Card que será o próximo preview após a transição terminar
-  // (já renderizado em background para evitar slot vazio)
-  const upcomingPreviewIdx =
-    incoming !== null ? wrapTechIndex(incoming + direction, total) : previewIdx;
-  const upcomingPreviewView = TECH_VIEWS[upcomingPreviewIdx];
-  const infoMotionClass =
-    infoPhase === "out"
-      ? "tech-copy-out"
-      : infoPhase === "in"
-        ? "tech-copy-in"
-        : "tech-copy-idle";
-
-  const clearTimers = () => {
-    if (typeof window === "undefined") return;
-    timersRef.current.forEach((timer) => window.clearTimeout(timer));
-    timersRef.current = [];
-  };
-
-  useEffect(() => clearTimers, []);
-
-  const startTransition = (targetIndex: number, nextDirection: CarouselDirection) => {
-    if (isAnimating || targetIndex === active || typeof window === "undefined") return;
-
-    clearTimers();
-    setIncoming(targetIndex);
-    setDirection(nextDirection);
-    setIsAnimating(true);
-    setInfoPhase("idle");
-
-    timersRef.current.push(
-      window.setTimeout(() => {
-        setInfoPhase("out");
-      }, INFO_FADE_OUT_DELAY_MS),
-    );
-
-    timersRef.current.push(
-      window.setTimeout(() => {
-        setInfoIndex(targetIndex);
-        setInfoPhase("in");
-      }, INFO_SWAP_DELAY_MS),
-    );
-
-    timersRef.current.push(
-      window.setTimeout(() => {
-        setActive(targetIndex);
-        setIncoming(null);
-        setIsAnimating(false);
-        setInfoPhase("idle");
-      }, CARD_CAROUSEL_MS),
-    );
-  };
-
-  const goPrev = () => startTransition(wrapTechIndex(active - 1, total), -1);
-  const goNext = () => startTransition(wrapTechIndex(active + 1, total), 1);
-
+function Brand({ compact = false, light = false }: { compact?: boolean; light?: boolean }) {
   return (
-    <section className="bg-ink text-paper relative overflow-hidden">
-      <div className="ambient-glow" aria-hidden />
-
-      <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10 py-20 sm:py-24 md:py-36 relative">
-        <div className="flex justify-center sr">
-          <span className="inline-flex items-center gap-2 bg-paper text-ink rounded-full px-5 py-2 text-[12px] font-medium">
-            <span className="h-1.5 w-1.5 rounded-full bg-ink" />
-            Inteligência de Marca
-          </span>
-        </div>
-
-        <h2 className="mt-10 text-center font-medium leading-[0.95] tracking-[-0.035em] text-[clamp(2.25rem,5.5vw,5.25rem)] sr sr-d1 max-w-4xl mx-auto">
-          Tecnologia em Cada Camada
-        </h2>
-        <p className="mt-6 max-w-xl mx-auto text-center text-paper/60 text-[15px] leading-relaxed sr sr-d2">
-          Cinco núcleos. Um único ecossistema de marca. Estratégia, design e
-          performance girando em torno do mesmo eixo criativo.
-        </p>
-
-        {/* LEFT: cards · RIGHT: technical info */}
-        <div className="mt-16 md:mt-24 flex w-full max-w-full flex-col items-center lg:grid lg:grid-cols-12 lg:items-center lg:gap-16">
-          {/* LEFT — Cards */}
-          <div className="flex w-full max-w-full justify-center overflow-hidden lg:col-span-7 lg:block sr sr-d3">
-            <div className="tech-carousel-shell">
-              <div
-                className="tech-carousel-viewport relative flex min-h-[360px] w-full max-w-full items-center justify-center overflow-hidden px-3 sm:min-h-[400px] sm:px-0 md:min-h-[500px]"
-                style={{ perspective: "1400px" }}
-              >
-              <button
-                type="button"
-                onClick={goPrev}
-                aria-label="Card anterior"
-                disabled={isAnimating}
-                className="absolute left-1 sm:left-2 md:left-16 lg:left-24 top-1/2 -translate-y-1/2 z-30 hidden md:inline-flex h-10 w-10 md:h-11 md:w-11 items-center justify-center rounded-full bg-paper/15 hover:bg-paper/25 border border-paper/20 backdrop-blur-md text-paper transition-all duration-300 hover:scale-105 disabled:pointer-events-none disabled:opacity-40"
-              >
-                <ChevronLeft className="h-5 w-5" />
-              </button>
-
-                <div
-                  className="tech-card-clip relative mx-auto h-[360px] w-full max-w-[280px] sm:h-[420px] sm:max-w-[360px] md:h-[500px] md:max-w-[480px]"
-                >
-                {isAnimating && (
-                  <TechCard
-                    view={upcomingPreviewView}
-                    variant="preview"
-                    motionClass={
-                      direction === 1
-                        ? "tech-card-motion-upcoming"
-                        : "tech-card-motion-upcoming-prev"
-                    }
-                  />
-                )}
-
-                <TechCard
-                  view={visibleSecondary}
-                  variant="preview"
-                  motionClass={
-                    isAnimating
-                      ? direction === 1
-                        ? "tech-card-motion-enter-next"
-                        : "tech-card-motion-enter-prev"
-                      : "tech-card-motion-preview"
-                  }
-                  onClick={!isAnimating ? goNext : undefined}
-                />
-
-                <TechCard
-                  view={view}
-                  variant="active"
-                  motionClass={
-                    isAnimating
-                      ? direction === 1
-                        ? "tech-card-motion-exit-next"
-                        : "tech-card-motion-exit-prev"
-                      : "tech-card-motion-active"
-                  }
-                />
-              </div>
-
-              <button
-                type="button"
-                onClick={goNext}
-                aria-label="Próximo card"
-                disabled={isAnimating}
-                className="absolute right-1 sm:right-2 md:right-16 lg:right-24 top-1/2 -translate-y-1/2 z-30 inline-flex h-10 w-10 md:h-11 md:w-11 items-center justify-center rounded-full bg-paper/15 hover:bg-paper/25 border border-paper/20 backdrop-blur-md text-paper transition-all duration-300 hover:scale-105 disabled:pointer-events-none disabled:opacity-40"
-              >
-                <ChevronRight className="h-5 w-5" />
-              </button>
-            </div>
-
-              <div className="tech-dots-wrapper mt-10">
-                <div className="flex w-full items-center justify-center gap-2">
-                  {TECH_VIEWS.map((v, i) => {
-                    const isActive = active === i;
-                    return (
-                      <span
-                        key={v.n}
-                        aria-hidden
-                        className={`h-1.5 rounded-full transition-all duration-500 md:w-1.5 ${
-                          isActive
-                            ? "w-1.5 md:w-8 bg-paper md:bg-paper scale-110 md:scale-100"
-                            : "w-1.5 bg-paper/30 hover:bg-paper/60"
-                        }`}
-                      />
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-10 flex w-full max-w-full justify-center lg:col-span-5 lg:mt-0 lg:block sr sr-d4">
-            <div className="tech-info-stack relative mx-auto box-border flex w-full max-w-[340px] min-w-0 flex-col items-center px-4 text-center lg:mx-0 lg:max-w-none lg:items-start lg:px-0 lg:text-left" style={{ transform: "none" }}>
-              <div className="tech-info-row mx-auto flex w-full max-w-full items-center justify-center gap-3 break-words text-center text-[11px] uppercase tracking-[0.22em] text-paper/50 sm:tracking-[0.3em] lg:mx-0 lg:max-w-none lg:justify-start lg:text-left">
-                <span className="hidden lg:inline-block h-px w-8 shrink-0 bg-paper/40" />
-                <span className={`${infoMotionClass} tech-inline-copy`}>{dynamicView.n} · {dynamicView.label}</span>
-              </div>
-
-              <h3 className="tech-info-title mx-auto mt-6 w-full max-w-[320px] break-words text-center font-medium leading-tight tracking-[-0.03em] text-paper text-[clamp(1.5rem,3vw,2.5rem)] lg:mx-0 lg:max-w-none lg:leading-[1.1] lg:text-left">
-                <span className={`${infoMotionClass} tech-copy-title`}>{dynamicView.title}</span>
-              </h3>
-              <p className="tech-info-body mx-auto mt-5 w-full max-w-[320px] break-words text-center text-[15px] leading-relaxed text-paper/60 lg:mx-0 lg:max-w-md lg:text-left">
-                <span className={`${infoMotionClass} tech-copy-body`}>{dynamicView.desc}</span>
-              </p>
-              <div className="tech-info-chip mx-auto mt-8 inline-flex w-auto max-w-full items-center justify-center gap-2 break-words rounded-full border border-paper/10 bg-paper/5 px-3 py-1.5 text-center text-[11px] text-paper/80 lg:mx-0">
-                <span className="h-1 w-1 shrink-0 rounded-full bg-paper" />
-                <span className={`${infoMotionClass} tech-inline-copy`}>{dynamicView.highlight}</span>
-              </div>
-
-              <div className="tech-info-meta mx-auto mt-8 flex w-full max-w-full items-center justify-center gap-3 break-words text-center text-[10px] uppercase tracking-[0.22em] text-paper/40 sm:tracking-[0.3em] lg:mx-0 lg:max-w-none lg:justify-start lg:text-left">
-                <span className="hidden lg:inline-block h-px w-6 shrink-0 bg-paper/30" />
-                <span className={`${infoMotionClass} tech-inline-copy`}>{dynamicView.tech}</span>
-              </div>
-
-              <div className="tech-info-cta mt-8 flex flex-col items-center lg:items-start gap-5 w-full">
-                <button
-                  type="button"
-                  onClick={onOpenProposal}
-                  className="group btn-shine inline-flex items-center gap-3 bg-paper text-ink rounded-full pl-6 pr-2 py-2 transition-transform duration-500 hover:scale-[1.02]"
-                >
-                  <span className="text-[13px] font-medium">Solicitar proposta</span>
-                  <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-ink text-paper transition-transform duration-500 group-hover:rotate-45">
-                    <ArrowUpRight className="h-4 w-4" />
-                  </span>
-                </button>
-
-                <div className="flex items-center gap-3">
-                  <span className="text-[10px] uppercase tracking-[0.2em] text-paper/40">
-                    {active + 1} / {total}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <span className={`gm-brand ${compact ? "gm-brand--compact" : ""} ${light ? "gm-brand--light" : ""}`}>
+      <img className="gm-brand__symbol" src="/brand-symbol.svg" alt="" aria-hidden="true" />
+      <img className="gm-brand__wordmark" src="/brand-wordmark.svg" alt="Glass Maind" />
+    </span>
   );
 }
 
-/* Single tech card — active or preview variant */
-function TechCard({
-  view,
-  variant,
-  motionClass,
-  onClick,
-}: {
-  view: (typeof TECH_VIEWS)[number];
-  variant: "active" | "preview";
-  motionClass: string;
-  onClick?: () => void;
-}) {
-  const isActive = variant === "active";
-  return (
-    <div
-      onClick={onClick}
-      className={[
-        "tech-card-shell absolute left-1/2 top-1/2 w-[230px] h-[330px] sm:w-[300px] sm:h-[400px] md:w-[360px] md:h-auto md:aspect-[3/4] rounded-2xl overflow-hidden",
-        motionClass,
-        isActive ? "shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)]" : "cursor-pointer",
-      ].join(" ")}
-      style={{
-        background:
-          "radial-gradient(circle at 28% 18%, rgba(255,255,255,0.06), transparent 42%), linear-gradient(135deg, #0a0a0a 0%, #050505 55%, #000000 100%)",
-        border: "1px solid rgba(255,255,255,0.08)",
-        boxShadow: isActive
-          ? "0 36px 90px rgba(0,0,0,0.65), inset 0 1px 0 rgba(255,255,255,0.05)"
-          : "0 24px 70px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.04)",
-      }}
-    >
-      {/* Specular sheen */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(115deg, transparent 35%, rgba(255,255,255,0.10) 50%, transparent 65%)",
-          mixBlendMode: "screen",
-        }}
-      />
-      {/* Inner halo removido — causava clarão no topo do card ativo */}
+function useMotionSystem(
+  heroRef: React.RefObject<HTMLElement | null>,
+  servicesRef: React.RefObject<HTMLElement | null>,
+  trackRef: React.RefObject<HTMLDivElement | null>,
+  progressRef: React.RefObject<HTMLDivElement | null>,
+) {
+  useEffect(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-      <div className="relative h-full w-full p-7 md:p-9 flex flex-col justify-between">
-        <div className="flex items-start justify-between">
-          <div className="flex flex-col">
-            <span className="text-[10px] uppercase tracking-[0.4em] text-paper/55">
-              {view.n}
-            </span>
-            <span
-              aria-hidden
-              className="mt-1 font-medium text-paper/10 leading-none tracking-[-0.05em] select-none"
-              style={{ fontSize: "clamp(2.5rem,5vw,3.75rem)" }}
-            >
-              {view.n}
-            </span>
-          </div>
-          <span className="block h-2 w-2 rotate-45 bg-paper/70" />
-        </div>
-        <div>
-          <div
-            className="font-medium tracking-[-0.04em] text-paper"
-            style={{ fontSize: "clamp(1.75rem,3.2vw,2.75rem)", lineHeight: 0.95 }}
-          >
-            {view.label}
-          </div>
-          <p className={`mt-3 text-[12px] leading-relaxed max-w-[22ch] ${isActive ? "text-paper/55" : "text-paper/38"}`}>
-            {view.subtitle}
-          </p>
-          <div className="mt-5 h-px w-12 bg-paper/40" />
-          <div className="mt-3 text-[10px] tracking-[0.25em] uppercase text-paper/45">
-            {view.tech}
-          </div>
-        </div>
-      </div>
+    const revealTargets = Array.from(document.querySelectorAll<HTMLElement>("[data-gm-reveal]"));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            (entry.target as HTMLElement).classList.add("gm-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.14, rootMargin: "0px 0px -6% 0px" },
+    );
+    revealTargets.forEach((el) => observer.observe(el));
+
+    if (reduced) return () => observer.disconnect();
+
+    let raf = 0;
+    const clamp = (v: number) => Math.min(1, Math.max(0, v));
+
+    const update = () => {
+      raf = 0;
+      const hero = heroRef.current;
+      if (hero) {
+        const rect = hero.getBoundingClientRect();
+        const p = clamp(-rect.top / Math.max(window.innerHeight, rect.height * 0.72));
+        const media = hero.querySelector<HTMLElement>(".gm-hero__media");
+        const content = hero.querySelector<HTMLElement>(".gm-hero__content");
+        const orbit = hero.querySelector<HTMLElement>(".gm-hero__orbit");
+        if (media) media.style.transform = `translate3d(0, ${p * 78}px, 0) scale(${1.045 + p * 0.08})`;
+        if (content) {
+          content.style.transform = `translate3d(0, ${p * -64}px, 0)`;
+          content.style.opacity = String(1 - p * 0.78);
+        }
+        if (orbit) orbit.style.transform = `translate3d(0, ${p * -35}px, 0) rotate(${p * 18}deg)`;
+      }
+
+      const section = servicesRef.current;
+      const track = trackRef.current;
+      if (section && track && window.innerWidth > 900) {
+        const rect = section.getBoundingClientRect();
+        const travel = Math.max(1, section.offsetHeight - window.innerHeight);
+        const p = clamp(-rect.top / travel);
+        const maxX = Math.max(0, track.scrollWidth - window.innerWidth + 120);
+        track.style.transform = `translate3d(${-p * maxX}px, 0, 0)`;
+        if (progressRef.current) progressRef.current.style.transform = `scaleX(${p})`;
+      }
+    };
+
+    const requestUpdate = () => {
+      if (!raf) raf = window.requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", requestUpdate);
+      window.removeEventListener("resize", requestUpdate);
+      if (raf) window.cancelAnimationFrame(raf);
+    };
+  }, [heroRef, servicesRef, trackRef, progressRef]);
+}
+
+function Intro() {
+  const [show, setShow] = useState(true);
+  useEffect(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const timer = window.setTimeout(() => setShow(false), reduced ? 120 : 1050);
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  if (!show) return null;
+  return (
+    <div className="gm-intro">
+      <div className="gm-intro__brand"><Brand /></div>
+      <div className="gm-intro__line" />
+      <span>Creative office · Fortaleza, Brasil</span>
     </div>
   );
 }
 
+function Header({ onProposal, onCareer }: { onProposal: () => void; onCareer: () => void }) {
+  const [open, setOpen] = useState(false);
 
-/* =================== SERVICES =================== */
-function Services() {
-  const services = [
-    { n: "01", t: "Identidade Visual", d: "Sistemas completos: logo, tipografia, paleta e diretrizes." },
-    { n: "02", t: "Social Media Design", d: "Conteúdo recorrente com direção de arte coerente." },
-    { n: "03", t: "Marketing Digital", d: "Estratégia, performance e conteúdo para conversão real." },
-    { n: "04", t: "Gestão de Marca", d: "Acompanhamento mensal de presença e narrativa visual." },
-    { n: "05", t: "Materiais Gráficos", d: "Impressos, apresentações e papelaria com acabamento premium." },
-    { n: "06", t: "Direção Criativa", d: "Curadoria visual e estratégica para campanhas e lançamentos." },
-  ];
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
+  const close = () => setOpen(false);
 
   return (
-    <section id="services" className="bg-paper py-20 sm:py-28 md:py-36">
-      <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10">
-        <div className="grid grid-cols-12 gap-6 mb-16">
-          <div className="col-span-12 md:col-span-6 sr text-center md:text-left">
-            <div className="mx-auto md:mx-0 text-[11px] uppercase tracking-[0.3em] text-dim inline-flex items-center gap-3 justify-center md:justify-start">
-              <span className="h-px w-8 bg-ink/40" />
-              Serviços
-            </div>
-            <h3 className="mt-6 font-medium text-[clamp(1.75rem,4vw,3.25rem)] leading-[1.1] tracking-[-0.03em] text-ink">
-              Seis disciplinas.<br />
-              Um único ecossistema.
-            </h3>
-          </div>
-          <p className="col-span-12 md:col-span-5 md:col-start-8 text-base text-dim self-end max-w-md mx-auto md:mx-0 text-center md:text-left sr sr-d2">
-            Cada serviço opera como módulo dentro de uma engrenagem visual única
-            — coerência total entre estratégia, design e execução.
-          </p>
+    <>
+      <header className="gm-header">
+        <a href="#inicio" className="gm-header__brand" aria-label="Glass Maind — início">
+          <Brand compact light />
+        </a>
+        <div className="gm-header__actions">
+          <button className="gm-header__project" type="button" onClick={onProposal}>
+            iniciar projeto <ArrowUpRight size={14} />
+          </button>
+          <button className="gm-menu-button" type="button" onClick={() => setOpen(true)} aria-label="Abrir menu">
+            <Menu size={19} />
+          </button>
         </div>
+      </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-line border border-line">
-          {services.map((s, i) => {
-            const isDark = i % 2 === 1;
-            return (
-              <article
-                key={s.n}
-                className={[
-                  "group relative p-7 sm:p-10 md:p-12 min-h-[240px] sm:min-h-[290px] flex flex-col justify-between transition-all duration-500 lift sr",
-                  `sr-d${Math.min((i % 3) + 1, 5)}`,
-                  isDark ? "bg-ink text-paper" : "bg-paper text-ink",
-                  "hover:shadow-[0_20px_50px_-20px_rgba(0,0,0,0.35)]",
-                ].join(" ")}
-              >
-                <div className="flex items-start justify-between">
-                  <span className={`text-[11px] uppercase tracking-[0.3em] ${isDark ? "text-paper/60" : "text-dim"}`}>
-                    {s.n}
-                  </span>
-                  <span className={`inline-flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-500 ${isDark ? "border-paper/30 group-hover:border-paper/60" : "border-line group-hover:border-ink/40"}`}>
-                    <Plus className="h-3.5 w-3.5 transition-transform duration-500 group-hover:rotate-90" />
-                  </span>
-                </div>
-                <div className="text-center md:text-left">
-                  <h4 className="font-medium text-2xl md:text-[1.75rem] tracking-[-0.02em] leading-tight">
-                    {s.t}
-                  </h4>
-                  <p className={`mt-3 text-sm leading-relaxed max-w-xs ${isDark ? "text-paper/70" : "text-dim"}`}>
-                    {s.d}
-                  </p>
-                </div>
-              </article>
-            );
-          })}
+      <div className={`gm-menu ${open ? "gm-menu--open" : ""}`} aria-hidden={!open}>
+        <div className="gm-menu__top">
+          <Brand compact />
+          <button type="button" onClick={close} aria-label="Fechar menu"><X size={22} /></button>
         </div>
+        <nav className="gm-menu__nav" aria-label="Navegação principal">
+          <a href="#inicio" onClick={close}><span>01</span>Início<ArrowDownRight /></a>
+          <a href="#sobre" onClick={close}><span>02</span>Sobre<ArrowDownRight /></a>
+          <a href="#servicos" onClick={close}><span>03</span>Serviços<ArrowDownRight /></a>
+          <a href="#metodo" onClick={close}><span>04</span>Método<ArrowDownRight /></a>
+          <Link to="/loja" onClick={close}><span>05</span>Loja<ArrowDownRight /></Link>
+          <a href="#contato" onClick={close}><span>06</span>Contato<ArrowDownRight /></a>
+        </nav>
+        <div className="gm-menu__footer">
+          <button type="button" onClick={() => { close(); onCareer(); }}>Trabalhe conosco</button>
+          <a href={CONTACT.instagram.url} target="_blank" rel="noreferrer">Instagram ↗</a>
+        </div>
+      </div>
+    </>
+  );
+}
+
+function Hero({ heroRef }: { heroRef: React.RefObject<HTMLElement | null> }) {
+  return (
+    <section ref={heroRef} id="inicio" className="gm-hero">
+      <div className="gm-hero__media">
+        <img src={workBranding} alt="Projeto de identidade visual da Glass Maind" />
+        <div className="gm-hero__veil" />
+      </div>
+      <div className="gm-hero__grid" aria-hidden="true" />
+      <div className="gm-hero__content">
+        <div className="gm-hero__eyebrow">
+          <span>Creative agency</span>
+          <span>Brand · Digital · Experience</span>
+        </div>
+        <div className="gm-hero__line gm-hero__line--one"><h1>GLASS</h1></div>
+        <div className="gm-hero__line gm-hero__line--two"><h1>MAIND</h1></div>
+        <div className="gm-hero__bottom">
+          <p>Criamos identidades e experiências digitais para marcas que querem ser reconhecidas antes mesmo de serem explicadas.</p>
+          <a href="#sobre">explore <ArrowDownRight size={17} /></a>
+        </div>
+      </div>
+      <div className="gm-hero__orbit"><img src="/brand-symbol.svg" alt="" aria-hidden="true" /></div>
+    </section>
+  );
+}
+
+function Manifesto() {
+  return (
+    <section id="sobre" className="gm-light gm-manifesto">
+      <div className="gm-kicker"><span>01</span><span>Sobre a Glass Maind</span></div>
+      <div className="gm-manifesto__headline" data-gm-reveal>
+        <div>ESTRATÉGIA</div>
+        <div className="gm-outline">COM FORMA</div>
+      </div>
+      <div className="gm-manifesto__copy">
+        <img src="/brand-symbol.svg" alt="" aria-hidden="true" data-gm-reveal />
+        <p data-gm-reveal>Design não é decoração. É percepção, posicionamento e direção. A Glass Maind conecta estratégia, identidade e experiência para construir marcas com presença real.</p>
       </div>
     </section>
   );
 }
 
-
-/* =================== PORTFOLIO =================== */
-function Portfolio() {
-  const works = [
-    { src: workBranding, n: "01 / Branding", t: "Studio Noir — Identidade", span: "md:col-span-7", aspect: "aspect-[5/4]" },
-    { src: workEditorial, n: "02 / Editorial", t: "Maison — Brand Book", span: "md:col-span-5", aspect: "aspect-[4/5]" },
-    { src: workPackaging, n: "03 / Packaging", t: "Lumière — Linha Premium", span: "md:col-span-5", aspect: "aspect-[4/5]" },
-    { src: workCampaign, n: "04 / Campanha", t: "Aurora — Marketing Digital", span: "md:col-span-7", aspect: "aspect-[5/4]" },
-  ];
-
+function Services({
+  sectionRef,
+  trackRef,
+  progressRef,
+}: {
+  sectionRef: React.RefObject<HTMLElement | null>;
+  trackRef: React.RefObject<HTMLDivElement | null>;
+  progressRef: React.RefObject<HTMLDivElement | null>;
+}) {
   return (
-    <section id="portfolio" className="bg-soft py-20 sm:py-28 md:py-40">
-      <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-8">
-          <div className="mx-auto flex max-w-md flex-col items-center text-center md:mx-0 md:max-w-none md:items-start md:text-left">
-            <div className="mx-auto md:mx-0 text-[11px] uppercase tracking-[0.3em] text-dim inline-flex items-center gap-3 justify-center md:justify-start">
-              <span className="h-px w-8 bg-ink/40" />
-              Trabalhos Selecionados
-            </div>
-            <h2 className="mt-6 font-medium text-[clamp(2rem,5vw,4.25rem)] leading-[1.05] tracking-[-0.03em] text-ink">
-              Trabalhos que vendem.
-            </h2>
-          </div>
+    <section
+      ref={sectionRef}
+      id="servicos"
+      className="gm-services"
+      style={{ "--gm-service-count": SERVICES.length } as CSSProperties}
+    >
+      <div className="gm-services__sticky">
+        <div className="gm-services__head">
+          <div className="gm-kicker gm-kicker--dark"><span>02</span><span>O que fazemos</span></div>
+          <p>Uma estrutura criativa completa para transformar posicionamento em imagem, interface e presença.</p>
         </div>
-
-        <div className="grid grid-cols-12 gap-6 md:gap-8">
-          {works.map((w, i) => (
-            <figure key={w.n} className={`col-span-12 ${w.span} group sr ${i > 0 ? `sr-d${Math.min(i + 1, 5)}` : ""}`}>
-              <div className={`overflow-hidden rounded-[2px] bg-card ${w.aspect} light-sweep`}>
-                <img
-                  src={w.src}
-                  alt={w.t}
-                  width={1024}
-                  height={1280}
-                  loading="lazy"
-                  className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
-                />
+        <div ref={trackRef} className="gm-services__track">
+          {SERVICES.map((service, index) => (
+            <article key={service.title} className="gm-service-card">
+              <div className="gm-service-card__media">
+                <img src={service.image} alt="" loading={index > 1 ? "lazy" : "eager"} />
+                <div />
               </div>
-              <figcaption className="mt-5 flex flex-col items-center text-center gap-2 md:flex-row md:items-end md:justify-between md:text-left md:gap-0">
-                <div>
-                  <div className="text-[11px] uppercase tracking-[0.25em] text-dim">{w.n}</div>
-                  <div className="mt-1 text-xl text-ink font-medium">{w.t}</div>
-                </div>
-                <ArrowUpRight className="hidden md:inline-block h-5 w-5 text-ink/60 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
-              </figcaption>
-            </figure>
+              <span className="gm-service-card__number">{service.n}</span>
+              <div className="gm-service-card__content">
+                <span>{service.eyebrow}</span>
+                <h2>{service.title}</h2>
+                <p>{service.description}</p>
+                <a href={whatsappLink(service.message)} target="_blank" rel="noreferrer">
+                  conversar sobre este serviço <ArrowUpRight size={15} />
+                </a>
+              </div>
+            </article>
           ))}
         </div>
+        <div className="gm-services__progress"><div ref={progressRef} /></div>
       </div>
     </section>
   );
 }
 
-
-
-
-
-/* =================== CTA =================== */
-function CTA({ onOpenProposal, onOpenCareer }: { onOpenProposal: () => void; onOpenCareer?: () => void }) {
+function Method() {
+  const steps = [
+    ["01", "Entender", "Contexto, objetivo, público e o espaço que a marca precisa ocupar."],
+    ["02", "Direcionar", "Transformamos diagnóstico em conceito, linguagem e sistema visual."],
+    ["03", "Construir", "Design, interfaces e peças ganham forma com consistência e intenção."],
+    ["04", "Ativar", "A identidade encontra o mundo em pontos de contato digitais e físicos."],
+  ];
 
   return (
-    <section id="contact" className="bg-ink text-paper relative overflow-hidden">
-      <div className="ambient-glow" aria-hidden />
-      <span className="light-dot" style={{ top: "30%", left: "15%" }} aria-hidden />
-      <span className="light-dot" style={{ top: "70%", right: "18%", animationDelay: "4s" }} aria-hidden />
-
-      <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10 py-24 sm:py-32 md:py-44 text-center relative">
-        <div className="text-[11px] uppercase tracking-[0.3em] text-paper/50 inline-flex items-center gap-3 sr">
-          <span className="h-px w-8 bg-paper/40" />
-          Vamos conversar
-          <span className="h-px w-8 bg-paper/40" />
-        </div>
-        <h2 className="mt-12 font-medium leading-[0.95] tracking-[-0.04em] text-[clamp(2.25rem,6.5vw,6rem)] max-w-5xl mx-auto text-balance sr sr-d1">
-          Sua marca merece crescer, mas primeiro, ela precisa parecer que merece.
-        </h2>
-
-        <div className="mt-14 flex flex-col sm:flex-row items-center justify-center gap-4 sr sr-d2">
-          <button
-            type="button"
-            onClick={onOpenProposal}
-            className="group btn-shine inline-flex items-center gap-3 bg-paper text-ink rounded-full pl-7 pr-2 py-2 transition-transform duration-500 hover:scale-[1.02]"
-          >
-            <span className="text-[13px] font-medium">Solicitar proposta</span>
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-ink text-paper transition-transform duration-500 group-hover:rotate-45">
-              <ArrowUpRight className="h-4 w-4" />
-            </span>
-          </button>
-          <a
-            href={whatsappLink("Olá! Quero conversar com a Elevath.")}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[13px] text-paper/80 hover:text-paper underline-offset-4 hover:underline transition-colors"
-          >
-            Falar no WhatsApp →
-          </a>
-        </div>
-
-        {/* Contact grid */}
-        <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-px bg-paper/10 border border-paper/10 sr sr-d3 max-w-4xl mx-auto text-left">
-          <a
-            href={whatsappLink("Olá!")}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group bg-ink p-6 hover:bg-paper/5 transition-colors"
-          >
-            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/40">WhatsApp</div>
-            <div className="mt-2 text-paper text-[15px] font-medium">{CONTACT.phoneDisplay}</div>
-            <div className="mt-1 text-[12px] text-paper/50 group-hover:text-paper/70 transition-colors">Resposta rápida →</div>
-          </a>
-          <a
-            href={mailtoLink("Contato pelo site Elevath")}
-            className="group bg-ink p-6 hover:bg-paper/5 transition-colors"
-          >
-            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/40">E-mail</div>
-            <div className="mt-2 text-paper text-[15px] font-medium break-all">{CONTACT.email}</div>
-            <div className="mt-1 text-[12px] text-paper/50 group-hover:text-paper/70 transition-colors">Enviar mensagem →</div>
-          </a>
-          <a
-            href="https://maps.google.com/?q=Av.+Des.+Moreira,+1300+-+Aldeota,+Fortaleza+-+CE"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group bg-ink p-6 hover:bg-paper/5 transition-colors"
-          >
-            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/40">Endereço</div>
-            <div className="mt-2 text-paper text-[14px] font-medium leading-snug">{CONTACT.address}</div>
-            <div className="mt-1 text-[12px] text-paper/50 group-hover:text-paper/70 transition-colors">Ver no mapa →</div>
-          </a>
-        </div>
-
-        <p className="mt-10 text-[11px] uppercase tracking-[0.25em] text-paper/40 sr sr-d3">
-          Resposta em até 24 horas úteis
-        </p>
+    <section id="metodo" className="gm-light gm-method">
+      <div className="gm-kicker"><span>03</span><span>Nosso método</span></div>
+      <div className="gm-method__title" data-gm-reveal><h2>CLAREZA ANTES<br />DO IMPACTO.</h2></div>
+      <div className="gm-method__list">
+        {steps.map(([n, title, text]) => (
+          <article key={n} data-gm-reveal>
+            <span>{n}</span><h3>{title}</h3><p>{text}</p><ArrowDownRight />
+          </article>
+        ))}
       </div>
     </section>
   );
 }
 
-
-/* =================== FOOTER =================== */
-function Footer() {
+function Statement() {
   return (
-    <footer className="bg-ink text-paper border-t border-paper/10">
-      <div className="mx-auto max-w-[1480px] px-5 sm:px-6 md:px-10 py-14">
-        <div className="grid grid-cols-12 gap-8">
-          <div className="col-span-12 md:col-span-6">
-            <div className="flex items-center gap-2.5">
-              <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-paper text-ink">
-                <span className="block h-3.5 w-3.5 border border-ink/90 rotate-45" />
-              </span>
-              <span className="text-[15px] font-medium">Elevath</span>
-            </div>
-            <p className="mt-6 text-sm text-paper/60 max-w-sm">
-              Marketing, Design e Gestão Visual. Fortaleza / Brasil.
-            </p>
-            <p className="mt-3 text-sm text-paper/50 max-w-sm">{CONTACT.address}</p>
-          </div>
-
-          <div className="col-span-6 md:col-span-2">
-            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/40 mb-4">Contato</div>
-            <ul className="space-y-2.5 text-sm text-paper/80">
-              <li>
-                <a
-                  href={whatsappLink("Olá!")}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-paper"
-                >
-                  WhatsApp
-                </a>
-              </li>
-              <li>
-                <a href={mailtoLink()} className="hover:text-paper">
-                  E-mail
-                </a>
-              </li>
-              <li>
-                <a
-                  href={CONTACT.instagram.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-paper"
-                >
-                  Instagram
-                </a>
-              </li>
-              <li>
-                <a
-                  href={CONTACT.facebook.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-paper"
-                >
-                  Facebook
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div className="col-span-6 md:col-span-2">
-            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/40 mb-4">Navegar</div>
-            <ul className="space-y-2.5 text-sm text-paper/80">
-              <li><a href="#about" className="hover:text-paper">Sobre</a></li>
-              <li><a href="#services" className="hover:text-paper">Serviços</a></li>
-              <li><a href="#portfolio" className="hover:text-paper">Trabalhos</a></li>
-            </ul>
-          </div>
-
-          <div className="col-span-12 md:col-span-2">
-            <div className="text-[10px] uppercase tracking-[0.3em] text-paper/40 mb-4">Estúdio</div>
-            <p className="text-sm text-paper/80">Fortaleza / CE</p>
-            <p className="mt-1 text-sm text-paper/60">Seg — Sex · 09 → 18</p>
-            <p className="mt-3 text-sm text-paper/80">{CONTACT.phoneDisplay}</p>
-          </div>
-        </div>
-
-        <div className="mt-14 pt-6 border-t border-paper/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-[11px] uppercase tracking-[0.25em] text-paper/40">
-          <span suppressHydrationWarning>© {new Date().getFullYear()} Agência Elevath</span>
-          <span>Todos os direitos reservados</span>
-        </div>
-      </div>
-    </footer>
+    <section className="gm-statement">
+      <img className="gm-statement__symbol" src="/brand-symbol.svg" alt="" aria-hidden="true" />
+      <p data-gm-reveal>Marcas memoráveis não pedem atenção.</p>
+      <h2 data-gm-reveal>ELAS CRIAM<br />GRAVIDADE.</h2>
+      <div className="gm-statement__meta"><span>Branding</span><span>Digital</span><span>Experience</span><span>Strategy</span></div>
+    </section>
   );
 }
 
-/* =================== PAGE =================== */
+function Contact({ onProposal, onCareer }: { onProposal: () => void; onCareer: () => void }) {
+  return (
+    <section id="contato" className="gm-light gm-contact">
+      <div className="gm-kicker"><span>04</span><span>Próximo projeto</span></div>
+      <div className="gm-contact__main">
+        <p data-gm-reveal>Se a sua marca mudou, cresceu ou precisa finalmente parecer do tamanho que é, a conversa começa aqui.</p>
+        <button type="button" className="gm-contact__cta" onClick={onProposal} data-gm-reveal>
+          <span>VAMOS CRIAR</span><ArrowUpRight />
+        </button>
+      </div>
+      <footer className="gm-footer">
+        <div className="gm-footer__brand"><Brand /></div>
+        <div className="gm-footer__info">
+          <span>{CONTACT.address}</span>
+          <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+          <a href={whatsappLink()} target="_blank" rel="noreferrer">WhatsApp ↗</a>
+          <a href={CONTACT.instagram.url} target="_blank" rel="noreferrer">Instagram ↗</a>
+          <Link to="/loja">Loja ↗</Link>
+          <button type="button" onClick={onCareer}>Trabalhe conosco ↗</button>
+        </div>
+      </footer>
+    </section>
+  );
+}
+
 function Index() {
-  useScrollReveal();
-  useParallax();
   const [proposalOpen, setProposalOpen] = useState(false);
   const [careerOpen, setCareerOpen] = useState(false);
+  const heroRef = useRef<HTMLElement>(null);
+  const servicesRef = useRef<HTMLElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
+
+  useMotionSystem(heroRef, servicesRef, trackRef, progressRef);
 
   return (
-    <main className="bg-paper text-ink min-h-screen pt-16 md:pt-20 overflow-x-hidden">
-      <Nav 
-        onOpenProposal={() => setProposalOpen(true)} 
-        onOpenCareer={() => setCareerOpen(true)}
-      />
-      <Hero 
-        onOpenProposal={() => setProposalOpen(true)} 
-        onOpenCareer={() => setCareerOpen(true)}
-      />
-      <Technology 
-        onOpenProposal={() => setProposalOpen(true)} 
-        onOpenCareer={() => setCareerOpen(true)}
-      />
-      <InfoStrip />
-      <About />
-      <Services />
-      <Portfolio />
-      
-      <CTA 
-        onOpenProposal={() => setProposalOpen(true)} 
-        onOpenCareer={() => setCareerOpen(true)}
-      />
-      <Footer />
+    <main className="gm-site">
+      <Intro />
+      <Header onProposal={() => setProposalOpen(true)} onCareer={() => setCareerOpen(true)} />
+      <Hero heroRef={heroRef} />
+      <Manifesto />
+      <Services sectionRef={servicesRef} trackRef={trackRef} progressRef={progressRef} />
+      <Method />
+      <Statement />
+      <Contact onProposal={() => setProposalOpen(true)} onCareer={() => setCareerOpen(true)} />
       <ProposalModal open={proposalOpen} onClose={() => setProposalOpen(false)} />
       <CareerModal open={careerOpen} onClose={() => setCareerOpen(false)} />
     </main>
