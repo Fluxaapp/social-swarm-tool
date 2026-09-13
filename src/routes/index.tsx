@@ -10,6 +10,7 @@ import { CONTACT, whatsappLink } from "@/lib/contact";
 import { ProposalModal } from "@/components/ProposalModal";
 import { CareerModal } from "@/components/CareerModal";
 import "../glass-home.css";
+import "../glass-hero-conventional.css";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -128,10 +129,10 @@ function useMotionSystem(
         const orbit = hero.querySelector<HTMLElement>(".gm-hero__orbit");
         if (media) media.style.transform = `translate3d(0, ${p * 78}px, 0) scale(${1.045 + p * 0.08})`;
         if (content) {
-          content.style.transform = `translate3d(0, ${p * -64}px, 0)`;
-          content.style.opacity = String(1 - p * 0.78);
+          content.style.transform = `translate3d(0, ${p * -46}px, 0)`;
+          content.style.opacity = String(1 - p * 0.7);
         }
-        if (orbit) orbit.style.transform = `translate3d(0, ${p * -35}px, 0) rotate(${p * 18}deg)`;
+        if (orbit) orbit.style.transform = `translate3d(0, ${p * -26}px, 0) rotate(${p * 13}deg)`;
       }
 
       const section = servicesRef.current;
@@ -230,27 +231,65 @@ function Header({ onProposal, onCareer }: { onProposal: () => void; onCareer: ()
   );
 }
 
-function Hero({ heroRef }: { heroRef: React.RefObject<HTMLElement | null> }) {
+function Hero({
+  heroRef,
+  onProposal,
+}: {
+  heroRef: React.RefObject<HTMLElement | null>;
+  onProposal: () => void;
+}) {
   return (
-    <section ref={heroRef} id="inicio" className="gm-hero">
-      <div className="gm-hero__media">
-        <img src={workBranding} alt="Projeto de identidade visual da Glass Maind" />
-        <div className="gm-hero__veil" />
-      </div>
+    <section ref={heroRef} id="inicio" className="gm-hero gm-hero--conventional">
       <div className="gm-hero__grid" aria-hidden="true" />
-      <div className="gm-hero__content">
-        <div className="gm-hero__eyebrow">
-          <span>Creative agency</span>
-          <span>Brand · Digital · Experience</span>
+      <div className="gm-hero__ambient gm-hero__ambient--one" aria-hidden="true" />
+      <div className="gm-hero__ambient gm-hero__ambient--two" aria-hidden="true" />
+
+      <div className="gm-hero__content gm-hero-conventional__content">
+        <div className="gm-hero-conventional__eyebrow">
+          <span className="gm-hero-conventional__index">01</span>
+          <span className="gm-hero-conventional__line" />
+          <span>Estratégia · Branding · Digital</span>
         </div>
-        <div className="gm-hero__line gm-hero__line--one"><h1>GLASS</h1></div>
-        <div className="gm-hero__line gm-hero__line--two"><h1>MAIND</h1></div>
-        <div className="gm-hero__bottom">
-          <p>Criamos identidades e experiências digitais para marcas que querem ser reconhecidas antes mesmo de serem explicadas.</p>
-          <a href="#sobre">explore <ArrowDownRight size={17} /></a>
+
+        <div className="gm-hero-conventional__copy">
+          <h1>
+            <span>CRIAMOS MARCAS</span>
+            <span>QUE MOVEM</span>
+            <span>NEGÓCIOS.</span>
+          </h1>
+
+          <p>
+            Estratégia, identidade e experiências digitais para marcas que querem crescer com clareza, consistência e autoridade.
+          </p>
+
+          <div className="gm-hero-conventional__actions">
+            <button type="button" className="gm-hero-conventional__primary" onClick={onProposal}>
+              <span>Iniciar um projeto</span>
+              <span className="gm-hero-conventional__primary-icon"><ArrowUpRight size={18} /></span>
+            </button>
+            <a className="gm-hero-conventional__secondary" href="#servicos">
+              Conhecer serviços <ArrowDownRight size={15} />
+            </a>
+          </div>
+        </div>
+
+        <div className="gm-hero-conventional__footer">
+          <div>
+            <span className="gm-hero-conventional__meta-label">ESPECIALIDADES</span>
+            <strong>Branding · Digital · Experience</strong>
+          </div>
+          <div>
+            <span className="gm-hero-conventional__meta-label">ATENDIMENTO</span>
+            <strong>Projetos sob medida</strong>
+          </div>
+          <a href="#sobre">Explore o site <ArrowDownRight size={14} /></a>
         </div>
       </div>
-      <div className="gm-hero__orbit"><img src="/brand-symbol.svg" alt="" aria-hidden="true" /></div>
+
+      <div className="gm-hero__orbit gm-hero-conventional__symbol" aria-hidden="true">
+        <img src="/brand-symbol.svg" alt="" />
+        <span className="gm-hero-conventional__ring" />
+      </div>
     </section>
   );
 }
@@ -390,7 +429,7 @@ function Index() {
     <main className="gm-site">
       <Intro />
       <Header onProposal={() => setProposalOpen(true)} onCareer={() => setCareerOpen(true)} />
-      <Hero heroRef={heroRef} />
+      <Hero heroRef={heroRef} onProposal={() => setProposalOpen(true)} />
       <Manifesto />
       <Services sectionRef={servicesRef} trackRef={trackRef} progressRef={progressRef} />
       <Method />
